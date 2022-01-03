@@ -1,12 +1,26 @@
+// Default CSS 
+import './index.css';
+// Dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  BrowserRouter,
+  Routes, 
+  Route
+} from 'react-router-dom';
+
+// Pages
+import Home from './components/pages/Home/index.js'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<h1>Login page</h1>} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
