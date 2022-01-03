@@ -14,7 +14,7 @@ This is the reason to create `passager`. To bring to everybody a password manage
 * Secure by design.
 * Usable by teams.
 
-## Disclaimer
+## Disclaimer
 
 This is a personal project. I'm not responsible for the usage given to this software.
 Please understand that I can't be responsible for any damage this software may cause due to any security issue. I've developed this with all my 💛, but you know, there are more experimented people outside in the network.
