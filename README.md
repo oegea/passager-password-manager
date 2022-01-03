@@ -1,6 +1,39 @@
-# Getting Started with Create React App
+# Passager Password Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Passager Password Manager is an open-source and easy-to-use password manager.
+
+## Why?
+
+You could be wondering why the world needs another password manager.
+
+The answer is that I don't know if the world needs another password manager, but I used to need an open source one that could be easily installed and maintained, and I have never found one.
+
+This is the reason to create `passager`. To bring to everybody a password manager:
+
+* Simple to use and maintain, both for users and sys admins.
+* Secure by design.
+* Usable by teams.
+
+## Disclaimer
+
+This is a personal project. I'm not responsible for the usage given to this software.
+Please understand that I can't be responsible for any damage this software may cause due to any security issue. I've developed this with all my 💛, but you know, there are more experimented people outside in the network.
+
+If you find any security issue or possible improvement, feel free to submit a PR and I would try to do my best to handle it.
+
+## Technical decisions
+
+To achieve simplicity, security and usability for teams, the following technical decisions have been made:
+
+* Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
+* Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
+* Handle encryption of data on the client, using secure and trusted dependencies to implement the encryption algorithms.
+* Ensure that sharing features do not reduce software security.
+
+## Dependencies
+
+* `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
+* `styled-components`, is used to style components.
 
 ## Available Scripts
 
@@ -28,43 +61,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
