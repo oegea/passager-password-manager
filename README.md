@@ -8,7 +8,7 @@ You could be wondering why the world needs another password manager.
 
 The answer is that I don't know if the world needs another password manager, but I used to need an open source one that could be easily installed and maintained, and I have never found one.
 
-This is the reason to create `passager`. To bring to everybody a password manager:
+This is the reason to create `passager`. To bring to the world a password manager that is:
 
 * Simple to use and maintain, both for users and sys admins.
 * Secure by design.
@@ -17,20 +17,21 @@ This is the reason to create `passager`. To bring to everybody a password manage
 ## Disclaimer
 
 This is a personal project. I'm not responsible for the usage given to this software.
-Please understand that I can't be responsible for any damage this software may cause due to any security issue. I've developed this with all my 💛, but you know, there are more experimented people outside in the network.
+Please understand that I can't be responsible for any damage this software may cause due to any security issue. I've developed this with all my 💛, but you know, there are evil people outside, that are more experimented than me in security topics.
 
 If you find any security issue or possible improvement, feel free to submit a PR and I would try to do my best to handle it.
 
 ## Technical decisions
 
-To achieve simplicity, security and usability for teams, the following technical decisions have been made:
+To achieve simplicity, security and usability for teams, the following technical decisions have been adopted:
 
 * Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
 * Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
-* Handle encryption of data on the client, using secure and trusted dependencies to implement the encryption algorithms.
-* Ensure that sharing features do not reduce software security.
+* Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed.
+* Handle encryption of data on the client's browser, using secure and trusted dependencies to implement the encryption algorithms.
+* Ensure that team sharing features do not reduce software security.
 
-## Dependencies
+## Most relevant dependencies
 
 * `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
 * `styled-components`, is used to style components.
