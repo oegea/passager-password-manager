@@ -8,6 +8,7 @@ const AtomToolbar = ({ children }) => {
         display: flex;
         height: 60px;
         justify-content: space-between;
+        margin-bottom: 35px;
         padding-left: 15%;
         padding-right: 15%;
         width: 70%;

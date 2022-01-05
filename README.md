@@ -35,6 +35,7 @@ To achieve simplicity, security and usability for teams, the following technical
 
 * `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
 * `styled-components`, is used to style components.
+* `@mdi/js`, to require and render material design icons.
 
 ## Available Scripts
 
