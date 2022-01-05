@@ -1,3 +1,5 @@
+// Third party dependencies
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const AtomToolbar = ({ children }) => {
@@ -15,6 +17,11 @@ const AtomToolbar = ({ children }) => {
     `;
 
     return <Toolbar>{children}</Toolbar>
+}
+
+AtomToolbar.displayName  ='AtomToolbar';
+AtomToolbar.propTypes = {
+    children: PropTypes.node,
 }
 
 export default AtomToolbar;

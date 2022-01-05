@@ -1,3 +1,4 @@
+// Third party dependencies
 import styled from 'styled-components';
 
 const AtomInput = (props) => {
@@ -17,5 +18,7 @@ const AtomInput = (props) => {
 
     return <Input {...props} />
 }
+
+AtomInput.displayName = 'AtomInput';
 
 export default AtomInput

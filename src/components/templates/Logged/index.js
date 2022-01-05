@@ -1,9 +1,10 @@
-// Libraries
+// Third party dependencies
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 // Organisms
 import AppBar from '../../organisms/AppBar/index.js';
 
-export default function LoggedLayout({children}){
+const TemplateLogged = ({children}) => {
 
     const ContentWrapper = styled.div`
         width: 70%;
@@ -19,3 +20,10 @@ export default function LoggedLayout({children}){
     </>
 
 }
+
+TemplateLogged.displayName = 'TemplateLogged';
+TemplateLogged.propTypes = {
+    children: PropTypes.node,
+};
+
+export default TemplateLogged;

@@ -18,5 +18,6 @@ const OrganismAppBar = () => {
 
 }
 
+OrganismAppBar.displayName = 'OrganismAppBar';
 
 export default OrganismAppBar;
