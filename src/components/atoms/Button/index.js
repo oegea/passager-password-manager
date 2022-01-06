@@ -2,17 +2,22 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const AtomButton = ({label, onClick, color, backgroundColor, padding = "10px"}) => {
-    const Button = styled.div`
-        background-color: ${backgroundColor};
-        border: 1px solid ${color};
-        border-radius: 5px;
-        color: ${color};
-        cursor: pointer;
-        padding: ${padding};
-    `;
+const Button = styled.div`
+    background-color: ${props => props.backgroundColor};
+    border: 1px solid ${props => props.color};
+    border-radius: 5px;
+    color: ${props => props.color};
+    cursor: pointer;
+    padding: ${props => props.padding};
+`;
 
-    return <Button onClick={onClick}>{label}</Button>
+const AtomButton = ({label, onClick, color, backgroundColor, padding = "10px"}) => {
+    return <Button 
+        backgroundColor={backgroundColor}
+        color={color}
+        onClick={onClick} 
+        padding={padding}
+    >{label}</Button>
 }
 
 AtomButton.displayName = 'AtomButton';

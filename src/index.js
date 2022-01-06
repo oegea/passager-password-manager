@@ -11,14 +11,15 @@ import {
 } from 'react-router-dom';
 
 // Pages
-import Home from './components/pages/Home/index.js'
+import Home from './components/pages/Home/index.js';
+import Login from './components/pages/Login/index.js';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<h1>Login page</h1>} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

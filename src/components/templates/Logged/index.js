@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 // Organisms
 import AppBar from '../../organisms/AppBar/index.js';
 
+const ContentWrapper = styled.div`
+    width: 70%;
+    margin: 0 auto;
+    max-width: 70%;
+`;
+
 const TemplateLogged = ({children}) => {
-
-    const ContentWrapper = styled.div`
-        width: 70%;
-        margin: 0 auto;
-        max-width: 70%;
-    `;
-
     return <>
         <AppBar />
         <ContentWrapper>

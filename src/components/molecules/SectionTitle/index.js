@@ -5,14 +5,13 @@ import PropTypes from 'prop-types';
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 
+const SectionTitle = styled.div`
+    align-items: auto;
+    display: flex;
+    margin-bottom: 23px;
+    gap: 25px;
+`;
 const MoleculeSectionTitle = ({title, buttonLabel, onClick}) => {
-    const SectionTitle = styled.div`
-        align-items: auto;
-        display: flex;
-        margin-bottom: 23px;
-        gap: 25px;
-    `;
-
     return <SectionTitle>
         <Title>{title}</Title>
         <Button 
