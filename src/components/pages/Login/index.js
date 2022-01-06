@@ -2,8 +2,6 @@
 import React from 'react';
 // Atoms
 import Title from '../../atoms/Title/index.js';
-import Input from '../../atoms/Input/index.js';
-import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 
