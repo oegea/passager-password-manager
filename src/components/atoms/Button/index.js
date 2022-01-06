@@ -7,6 +7,7 @@ const AtomButton = ({label, onClick, color, backgroundColor, padding = "10px"}) 
         background-color: ${backgroundColor};
         border: 1px solid ${color};
         border-radius: 5px;
+        color: ${color};
         cursor: pointer;
         padding: ${padding};
     `;

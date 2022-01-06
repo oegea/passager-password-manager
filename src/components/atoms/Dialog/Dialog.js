@@ -20,12 +20,20 @@ const Dialog = styled.div`
     min-height: 150px;
     max-height: 100vh;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
 `;
 
 const AtomDialog = ({children, onClose}) => {
+
+    const _isDialogBackground = (element) => {
+        const isDialogBackground = element.getAttribute('data-isdialogbackground');
+        return (isDialogBackground === 'true');
+    }
+
     return <>
-        <DialogBackground onClick={onClose}>
+        <DialogBackground data-isdialogbackground="true" onClick={(event) => { 
+            if (_isDialogBackground(event.target)) { onClose(); } 
+        }}>
             <Dialog>{children}</Dialog>
         </DialogBackground>
     </>

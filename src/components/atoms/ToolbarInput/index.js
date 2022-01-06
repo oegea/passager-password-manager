@@ -1,15 +1,15 @@
 // Third party dependencies
 import styled from 'styled-components';
 
-const AtomInput = (props) => {
+const AtomToolbarInput = (props) => {
 
     const Input = styled.input`
-        border: 1px solid black;
+        border: none;
         border-radius: 5px;
         font-size: 16px;
         height: 25px;
         padding: 5px;
-        width: 100%;
+        width: 200px;
 
         &::placeholder {
             font-size: 16px;
@@ -19,6 +19,6 @@ const AtomInput = (props) => {
     return <Input {...props} />
 }
 
-AtomInput.displayName = 'AtomInput';
+AtomToolbarInput.displayName = 'AtomToolbarInput';
 
-export default AtomInput;
+export default AtomToolbarInput;

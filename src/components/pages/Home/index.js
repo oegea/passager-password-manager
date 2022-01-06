@@ -4,14 +4,18 @@ import Icon from '@mdi/react'
 import { mdiFolderAccount, mdiFolder } from '@mdi/js';
 // Atoms
 import TableIconWrapper from '../../atoms/Table/TableIconWrapper.js';
-import Dialog from '../../atoms/Dialog/index.js';
+import Dialog from '../../atoms/Dialog/Dialog.js';
+import Title from '../../atoms/Title/index.js';
+import Input from '../../atoms/Input/index.js';
+import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
+import Button from '../../atoms/Button/index.js';
+import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Organisms
 import Table from '../../organisms/Table/index.js'
 // Templates
 import Logged from '../../templates/Logged/index.js';
-
 
 const PageHome = () => {
 
@@ -40,7 +44,17 @@ const PageHome = () => {
                     _generateFolderRow(mdiFolder, "My Personal Passwords", "Me", "Today"),
                 ]}/>
             {showNewFolderDialog && 
-            <Dialog onClose={() => setShowNewFolderDialog(false)}><h1>Hello!</h1></Dialog>}
+            <Dialog onClose={() => setShowNewFolderDialog(false)}>
+                <Title marginBottom='20px'>New Folder</Title>
+                <InputWrapper>
+                    <Input type="text" placeholder="New folder name" />
+                </InputWrapper>
+                
+                <ButtonWrapper>
+                    <Button label="Cancel" onClick={() => setShowNewFolderDialog(false)} color="black" backgroundColor="white"/>
+                    <Button label="Create" onClick={() => setShowNewFolderDialog(false)} color="black" backgroundColor="white"/>
+                </ButtonWrapper>
+            </Dialog>}
         </Logged>
     </>
 

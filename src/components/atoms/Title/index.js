@@ -2,10 +2,11 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const AtomTitle = ({ children }) => {
+const AtomTitle = ({ children, marginBottom = '0px' }) => {
     const Title = styled.div`
         font-size: 22px;
         font-weight: bold;
+        margin-bottom: ${marginBottom};
     `;
 
     return <Title>{children}</Title>
@@ -14,6 +15,7 @@ const AtomTitle = ({ children }) => {
 AtomTitle.displayName = 'AtomTitle';
 AtomTitle.propTypes = {
     children: PropTypes.node,
+    marginBottom: PropTypes.string,
 };
 
 export default AtomTitle;
