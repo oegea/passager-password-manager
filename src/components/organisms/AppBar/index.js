@@ -1,10 +1,12 @@
+// Third party dependencies
+import PropTypes from 'prop-types';
 // Atoms
 import Toolbar from '../../atoms/Toolbar/index.js';
 import ToolbarInput from '../../atoms/ToolbarInput/index.js';
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 
-const OrganismAppBar = () => {
+const OrganismAppBar = ({signOut}) => {
 
     return <Toolbar>
         <Title>Passager</Title>
@@ -13,11 +15,14 @@ const OrganismAppBar = () => {
             backgroundColor="black"
             color="white"
             label="Logout" 
-            onClick={()=>window.location.href = '/login'} />
+            onClick={signOut} />
     </Toolbar>
 
 }
 
 OrganismAppBar.displayName = 'OrganismAppBar';
+OrganismAppBar.propTypes = {
+    signOut: PropTypes.func,
+}
 
 export default OrganismAppBar;

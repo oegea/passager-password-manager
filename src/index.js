@@ -1,27 +1,23 @@
 // Default CSS 
 import './index.css';
-// Dependencies
+// Third party dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import {
-  BrowserRouter,
-  Routes, 
-  Route
-} from 'react-router-dom';
+// Routes
+import Routes from './routes.js';
+// Providers
+import UserProvider from './providers/UserProvider.js';
+import FoldersProvider from './providers/FoldersProvider.js';
 
-// Pages
-import Home from './components/pages/Home/index.js';
-import Login from './components/pages/Login/index.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <FoldersProvider>
+        <Routes />
+      </FoldersProvider>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

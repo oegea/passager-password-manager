@@ -1,5 +1,6 @@
 // Third party dependencies
 import React from 'react';
+import PropTypes from 'prop-types';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -8,7 +9,7 @@ import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 
-const PageHome = () => {
+const PageLogin = ({onGoogleLogin}) => {
 
     function randomIntFromInterval(min, max) { // min and max included 
         return Math.floor(Math.random() * (max - min + 1) + min)
@@ -23,13 +24,16 @@ const PageHome = () => {
             <Title>Passager</Title>
             <p>{RANDOM_SENTENCES[randomIntFromInterval(0, RANDOM_SENTENCES.length - 1)]}</p>
             <ButtonWrapper justifyContent='center'>
-                <Button label="Log in with Google" onClick={() => window.location.href = '/'}/>
+                <Button label="Log in with Google" onClick={onGoogleLogin}/>
             </ButtonWrapper>
         </NotLogged>
     </>
 
 }
 
-PageHome.displayName = 'PageHome';
+PageLogin.displayName = 'PageLogin';
+PageLogin.propTypes = {
+    onGoogleLogin: PropTypes.func
+}
 
-export default PageHome;
+export default PageLogin;
