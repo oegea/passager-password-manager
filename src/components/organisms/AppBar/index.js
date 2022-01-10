@@ -6,11 +6,11 @@ import ToolbarInput from '../../atoms/ToolbarInput/index.js';
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 
-const OrganismAppBar = ({signOut}) => {
+const OrganismAppBar = ({signOut, marginBottom}) => {
 
-    return <Toolbar>
+    return <Toolbar marginBottom={marginBottom}>
         <Title>Passager</Title>
-        <ToolbarInput type="text" placeholder="Search" />
+        <ToolbarInput type="text" placeholder="Search"  />
         <Button 
             backgroundColor="black"
             color="white"
@@ -23,6 +23,7 @@ const OrganismAppBar = ({signOut}) => {
 OrganismAppBar.displayName = 'OrganismAppBar';
 OrganismAppBar.propTypes = {
     signOut: PropTypes.func,
+    marginBottom: PropTypes.string,
 }
 
 export default OrganismAppBar;

@@ -10,9 +10,9 @@ const ContentWrapper = styled.div`
     max-width: 70%;
 `;
 
-const TemplateLogged = ({signOut, children}) => {
+const TemplateLogged = ({signOut, children, appBarMarginBottom = '35px'}) => {
     return <>
-        <AppBar signOut={signOut} />
+        <AppBar signOut={signOut} marginBottom={appBarMarginBottom} />
         <ContentWrapper>
             {children}
         </ContentWrapper>
@@ -22,6 +22,7 @@ const TemplateLogged = ({signOut, children}) => {
 
 TemplateLogged.displayName = 'TemplateLogged';
 TemplateLogged.propTypes = {
+    appBarMarginBottom: PropTypes.string,
     signOut: PropTypes.func,
     children: PropTypes.node,
 };
