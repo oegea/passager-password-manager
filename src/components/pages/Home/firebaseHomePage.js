@@ -2,7 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getAuth, signOut } from 'firebase/auth';
-import { collection, addDoc } from "firebase/firestore";
+import { 
+    addDoc, 
+    collection, 
+    doc,
+    deleteDoc 
+} from "firebase/firestore";
 // Own libraries
 import { db } from '../../../libs/firebase.js';
 // Pages
@@ -13,12 +18,20 @@ import withFolders from '../../../providers/WithFolders.js';
 const FirebasePageHome = ({folders}) => {
     const auth = getAuth();
     const createFolder = (folder) => {
-
-        // Add a new document with a generated id.
         addDoc(collection(db, "folders"), folder);
     }
+
+    const deleteFolder = (folderId) => {
+        const docRef = doc(db, "folders", folderId);
+        deleteDoc(docRef);
+    }
     return <>
-        <Home signOut={() => signOut(auth)} folders={folders} createFolder={createFolder}/>
+        <Home 
+            createFolder={createFolder}
+            deleteFolder={deleteFolder}
+            folders={folders} 
+            signOut={() => signOut(auth)} 
+        />
     </>
 
 }

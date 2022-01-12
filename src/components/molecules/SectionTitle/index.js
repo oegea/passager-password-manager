@@ -8,7 +8,7 @@ import Button from '../../atoms/Button/index.js';
 const SectionTitle = styled.div`
     align-items: auto;
     display: flex;
-    margin-bottom: 23px;
+    margin-bottom: 30px;
     gap: 25px;
 `;
 const MoleculeSectionTitle = ({title, buttonLabel, onClick}) => {
