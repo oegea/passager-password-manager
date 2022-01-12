@@ -1,5 +1,6 @@
 # Passager Password Manager
 
+
 Passager Password Manager is an open-source and easy-to-use password manager.
 
 ## Why?
