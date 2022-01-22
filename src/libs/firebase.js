@@ -8,13 +8,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Basic configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAsnpeBjPljXIp5TiNaa82U_m2Uy_Nm7kg",
-  authDomain: "password-manager-afafa.firebaseapp.com",
-  projectId: "password-manager-afafa",
-  storageBucket: "password-manager-afafa.appspot.com",
-  messagingSenderId: "181290555788",
-  appId: "1:181290555788:web:5a98e33f72e4140e5d1ea9",
-  measurementId: "G-85KWQX1XYK"
+  apiKey: "AIzaSyBBT8hT33SyyZ8PSwoPHfdazfn86-eN6rs",
+  authDomain: "passager-673da.firebaseapp.com",
+  projectId: "passager-673da",
+  storageBucket: "passager-673da.appspot.com",
+  messagingSenderId: "573045151241",
+  appId: "1:573045151241:web:8d91f688c3ffbf955e8ad8",
+  measurementId: "G-Z4ZZG30YCS"
 };
 
 // Initialize Firebase

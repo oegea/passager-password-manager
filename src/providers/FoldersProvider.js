@@ -13,15 +13,12 @@ class FoldersProvider extends Component {
 
 	unsubscribe = null;
 
-	componentDidMount = async () => {
-		this._subscribe();
-	};
+	componentDidMount = () => {
+		this.subscribe();
+	}
 
 	componentDidUpdate = () => {
-		if (this.unsubscribe !== null)
-			this.unsubscribe();
-
-		this._subscribe();
+		this.subscribe();
 	}
 	
 	componentWillUnmount = () => {
@@ -29,16 +26,16 @@ class FoldersProvider extends Component {
 		    this.unsubscribe();
 	}
 
-	_subscribe = () => {
+	subscribe = () => {
 		const {user} = this.props;
 		
-		if (user === null)
+		if (user === null || this.unsubscribe !== null )
 			return
-		
-		const foldersRef = collection(db, "folders");
-		const queryResult = query(foldersRef, where("owner", "==", user.uid));
-        this.unsubscribe = onSnapshot(queryResult, (snapshot) => {
+
+		const q = query(collection(db, "folders"), where("owner", "==", user.uid));
+        this.unsubscribe = onSnapshot(q, (snapshot) => {
             const folders = snapshot.docs.map(collectIdsAndDocs);
+			console.log('Read ' + folders.length + ' documents')
             this.setState({ folders });
         });
 	}
