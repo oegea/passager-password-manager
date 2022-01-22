@@ -14,11 +14,12 @@ import { db } from '../../../libs/firebase.js';
 import Home from './index.js';
 // Context
 import withFolders from '../../../providers/WithFolders.js';
+import withUser from '../../../providers/WithUser.js';
 
-const FirebasePageHome = ({folders}) => {
+const FirebasePageHome = ({user, folders}) => {
     const auth = getAuth();
     const createFolder = (folder) => {
-        addDoc(collection(db, "folders"), folder);
+        addDoc(collection(db, "folders"), {...folder, owner: user.uid});
     }
 
     const deleteFolder = (folderId) => {
@@ -39,6 +40,7 @@ const FirebasePageHome = ({folders}) => {
 FirebasePageHome.displayName = 'FirebasePageHome';
 FirebasePageHome.propTypes = {
     folders: PropTypes.array,
+    user: PropTypes.object
 }
 
-export default withFolders(FirebasePageHome);
+export default withUser(withFolders(FirebasePageHome));

@@ -1,8 +1,10 @@
 // Third party dependencies
 import React, { Component, createContext } from 'react';
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, where, query } from "firebase/firestore";
 // Own libraries
 import { db, collectIdsAndDocs} from '../libs/firebase.js';
+// Context
+import withUser from '../providers/WithUser.js';
 
 export const FoldersContext = createContext();
 
@@ -12,16 +14,33 @@ class FoldersProvider extends Component {
 	unsubscribe = null;
 
 	componentDidMount = async () => {
-
-        this.unsubscribe = onSnapshot(collection(db, "folders"), (snapshot) => {
-            const folders = snapshot.docs.map(collectIdsAndDocs);
-            this.setState({ folders });
-        });
+		this._subscribe();
 	};
+
+	componentDidUpdate = () => {
+		if (this.unsubscribe !== null)
+			this.unsubscribe();
+
+		this._subscribe();
+	}
 	
 	componentWillUnmount = () => {
         if (this.unsubscribe !== null)
 		    this.unsubscribe();
+	}
+
+	_subscribe = () => {
+		const {user} = this.props;
+		
+		if (user === null)
+			return
+		
+		const foldersRef = collection(db, "folders");
+		const queryResult = query(foldersRef, where("owner", "==", user.uid));
+        this.unsubscribe = onSnapshot(queryResult, (snapshot) => {
+            const folders = snapshot.docs.map(collectIdsAndDocs);
+            this.setState({ folders });
+        });
 	}
 
 	render() {
@@ -35,4 +54,4 @@ class FoldersProvider extends Component {
 
 }
 
-export default FoldersProvider;
+export default withUser(FoldersProvider);
