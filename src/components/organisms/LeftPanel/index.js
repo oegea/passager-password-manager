@@ -11,7 +11,7 @@ const LeftPanel = ({createFolder, deleteFolder, folders, selectedFolder}) => {
     const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
     return (
         <>
-            <SectionTitle title="Folders" buttonLabel="New" onClick={()=>setShowNewFolderDialog(true)}/>
+            <SectionTitle title="Folders" buttons={[{label: 'New', onClick: ()=>setShowNewFolderDialog(true)}]}/>
             {
                 showNewFolderDialog && 
                 <NewFolderDialog 

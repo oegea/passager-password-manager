@@ -11,23 +11,31 @@ const SectionTitle = styled.div`
     margin-bottom: 30px;
     gap: 25px;
 `;
-const MoleculeSectionTitle = ({title, buttonLabel, onClick}) => {
+const MoleculeSectionTitle = ({title, buttons = []}) => {
     return <SectionTitle>
         <Title>{title}</Title>
-        <Button 
-            backgroundColor="white"
-            color="black"
-            label={buttonLabel} 
-            onClick={onClick}
-            padding="5px" />
+        {buttons.map(button => 
+            <Button 
+                key={button.label} 
+                label={button.label} 
+                onClick={button.onClick}
+                padding="5px"
+                color={button.color || 'black'}
+                backgroundColor={button.backgroundColor || 'white'}/>
+        )}
+
     </SectionTitle>
 }
 
 MoleculeSectionTitle.displayName = 'MoleculeSectionTitle';
 MoleculeSectionTitle.propTypes = {
     title: PropTypes.string,
-    buttonLabel: PropTypes.string,
-    onClick: PropTypes.func,
+    buttons: PropTypes.arrayOf(PropTypes.shape({
+        backgroundColor: PropTypes.string,
+        color: PropTypes.string,
+        label: PropTypes.string,
+        onClick: PropTypes.func,
+    })),
 };
 
 export default MoleculeSectionTitle;

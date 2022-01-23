@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 // Organisms
 import LeftPanel from '../../organisms/LeftPanel/index.js';
+import RightPanel from '../../organisms/RightPanel/index.js';
 // Templates
 import LoggedWithLeftPanel from '../../templates/LoggedWithLeftPanel/index.js';
 
@@ -15,7 +16,9 @@ const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}
         <LoggedWithLeftPanel 
             signOut={signOut} 
             leftPanelContent={leftPanel}>
-            <h1>Right</h1>
+            <RightPanel 
+                folders={folders}
+                selectedFolder={selectedFolder} />
         </LoggedWithLeftPanel>
     );
 }
