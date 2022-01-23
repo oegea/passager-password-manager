@@ -7,14 +7,14 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 import Table from '../../organisms/Table/index.js'
 
 const RightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
-    let selectedFolderName;
+    let selectedFolderName = null;
 
     folders.forEach(folder => {
         if (folder.id === selectedFolder)
             selectedFolderName = folder.name;
     })
 
-    if (selectedFolder === undefined)
+    if (selectedFolderName === null )
         return <h1>Please, select a folder to start</h1>
 
     return (
