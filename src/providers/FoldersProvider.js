@@ -35,7 +35,6 @@ class FoldersProvider extends Component {
 		const q = query(collection(db, "folders"), where("owner", "==", user.uid));
         this.unsubscribe = onSnapshot(q, (snapshot) => {
             const folders = snapshot.docs.map(collectIdsAndDocs);
-			console.log('Read ' + folders.length + ' documents')
             this.setState({ folders });
         });
 	}

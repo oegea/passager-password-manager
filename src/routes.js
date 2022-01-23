@@ -17,6 +17,7 @@ const RoutesConfiguration = ({user}) => {
         {user !== null && 
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/:folderId" element={<Home />} />
         </Routes>}
 
         {user === null &&

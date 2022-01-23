@@ -7,11 +7,11 @@ import LeftPanelList from '../../molecules/LeftPanelList/index.js';
 // Organisms
 import NewFolderDialog from '../NewFolderDialog/index.js';
 
-const LeftPanel = ({createFolder, deleteFolder, folders}) => {
+const LeftPanel = ({createFolder, deleteFolder, folders, selectedFolder}) => {
     const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
     return (
         <>
-            <SectionTitle title="Folders" buttonLabel="New Folder" onClick={()=>setShowNewFolderDialog(true)}/>
+            <SectionTitle title="Folders" buttonLabel="New" onClick={()=>setShowNewFolderDialog(true)}/>
             {
                 showNewFolderDialog && 
                 <NewFolderDialog 
@@ -19,7 +19,7 @@ const LeftPanel = ({createFolder, deleteFolder, folders}) => {
                     closeDialog={()=>setShowNewFolderDialog(false)} 
                 /> 
             }
-            <LeftPanelList deleteFolder={deleteFolder} folders={folders} />
+            <LeftPanelList deleteFolder={deleteFolder} folders={folders} selectedFolder={selectedFolder} />
             
         </>
     )
@@ -29,7 +29,8 @@ LeftPanel.displayName = 'LeftPanel';
 LeftPanel.propTypes = {
     createFolder: PropTypes.func,
     deleteFolder: PropTypes.func,
-    folders: PropTypes.array
+    folders: PropTypes.array,
+    selectedFolder: PropTypes.string,
 }
 
 export default LeftPanel;

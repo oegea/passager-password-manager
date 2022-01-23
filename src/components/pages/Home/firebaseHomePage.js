@@ -1,6 +1,7 @@
 // Third party dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from "react-router-dom";
 import { getAuth, signOut } from 'firebase/auth';
 import { 
     addDoc, 
@@ -17,6 +18,8 @@ import withFolders from '../../../providers/WithFolders.js';
 import withUser from '../../../providers/WithUser.js';
 
 const FirebasePageHome = ({user, folders}) => {
+    const {folderId} = useParams();
+
     const auth = getAuth();
     const createFolder = (folder) => {
         addDoc(collection(db, "folders"), {...folder, owner: user.uid});
@@ -31,6 +34,7 @@ const FirebasePageHome = ({user, folders}) => {
             createFolder={createFolder}
             deleteFolder={deleteFolder}
             folders={folders} 
+            selectedFolder={folderId}
             signOut={() => signOut(auth)} 
         />
     </>

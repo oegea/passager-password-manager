@@ -1,6 +1,7 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const DeleteLabel = styled.span`
     color: red;
@@ -18,21 +19,32 @@ const LeftPanelListItem = styled.div`
     display: flex;
     margin-bottom: 20px;
 
-    &:hover{
+    &:hover, &[data-isactive='true']{
         cursor: pointer;
         font-weight: bold;
         span {
             display: inline-block;
         }
     }
+
+    & a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
-const MoleculeLeftPanelList = ({deleteFolder, folders}) => {
+const MoleculeLeftPanelList = ({deleteFolder, folders, selectedFolder}) => {
 
     return <>
         {folders.map((folder, index) => 
-            <LeftPanelListItem key={`folder-${index}`}>
-                {folder.name}
+            <LeftPanelListItem 
+                key={`folder-${index}`} 
+                data-isactive={(selectedFolder === folder.id)}
+            >
+                <Link to={`/${folder.id}`}>
+                    {folder.name}
+                </Link>
+                
                 <DeleteLabel onClick={()=> deleteFolder(folder.id)}> (Delete)</DeleteLabel>
             </LeftPanelListItem>
         )}
@@ -41,8 +53,9 @@ const MoleculeLeftPanelList = ({deleteFolder, folders}) => {
 
 MoleculeLeftPanelList.displayName = 'MoleculeLeftPanelList';
 MoleculeLeftPanelList.propTypes = {
-    children: PropTypes.node,
-    onClose: PropTypes.func,
+    deleteFolder: PropTypes.func,
+    folders: PropTypes.array,
+    selectedFolder: PropTypes.string,
 }
 
 export default MoleculeLeftPanelList;
