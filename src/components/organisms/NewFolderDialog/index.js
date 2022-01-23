@@ -1,5 +1,5 @@
 // Third party dependencies
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 // Atoms
 import Dialog from '../../atoms/Dialog/Dialog.js';
@@ -8,6 +8,8 @@ import Input from '../../atoms/Input/index.js';
 import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
+// Hooks
+import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
 const NewFolderDialog = ({createFolder, closeDialog}) => {
     const [state, setState] = useState({name: '', error: ''});
@@ -31,19 +33,7 @@ const NewFolderDialog = ({createFolder, closeDialog}) => {
         setState({name, error});
     }
 
-    useEffect(() => {
-        const onKeyPress = (e) => {
-            const keyCode = e.code || e.key;
-            if (
-                (keyCode === 'Enter' && createFolderHandler(state.name))
-                || keyCode === 'Escape'
-            ) {
-                closeDialog();
-            }
-        }
-        window.addEventListener('keydown', onKeyPress)
-        return () => window.removeEventListener('keydown', onKeyPress)
-    },[state, createFolderHandler, closeDialog])
+    useDialogConfirmation(closeDialog, createFolderHandler, state.name);
 
     return (
         <Dialog onClose={() => closeDialog()}>
