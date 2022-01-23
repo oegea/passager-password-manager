@@ -9,7 +9,6 @@ import LoggedWithLeftPanel from '../../templates/LoggedWithLeftPanel/index.js';
 const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}) => {
     const leftPanel = <LeftPanel 
         createFolder={createFolder} 
-        deleteFolder={deleteFolder}
         selectedFolder={selectedFolder}
         folders={folders} />;
     return (
@@ -17,6 +16,7 @@ const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}
             signOut={signOut} 
             leftPanelContent={leftPanel}>
             <RightPanel 
+                deleteFolder={deleteFolder}
                 folders={folders}
                 selectedFolder={selectedFolder} />
         </LoggedWithLeftPanel>
