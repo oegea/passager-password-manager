@@ -1,13 +1,13 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 // Organisms
-import LeftPanel from '../../organisms/LeftPanel/index.js';
-import RightPanel from '../../organisms/RightPanel/index.js';
+import FoldersListLeftPanel from '../../organisms/FoldersListLeftPanel/index.js';
+import DocumentsListRightPanel from '../../organisms/DocumentsListRightPanel/index.js';
 // Templates
 import LoggedWithLeftPanel from '../../templates/LoggedWithLeftPanel/index.js';
 
 const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}) => {
-    const leftPanel = <LeftPanel 
+    const leftPanel = <FoldersListLeftPanel 
         createFolder={createFolder} 
         selectedFolder={selectedFolder}
         folders={folders} />;
@@ -15,7 +15,7 @@ const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}
         <LoggedWithLeftPanel 
             signOut={signOut} 
             leftPanelContent={leftPanel}>
-            <RightPanel 
+            <DocumentsListRightPanel 
                 deleteFolder={deleteFolder}
                 folders={folders}
                 selectedFolder={selectedFolder} />

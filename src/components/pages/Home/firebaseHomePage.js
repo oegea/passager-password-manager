@@ -29,13 +29,18 @@ const FirebasePageHome = ({user, folders}) => {
         const docRef = doc(db, "folders", folderId);
         deleteDoc(docRef);
     }
+
+    const logout = () => {
+        signOut(auth);
+        window.location.href = '/';
+    }
     return <>
         <Home 
             createFolder={createFolder}
             deleteFolder={deleteFolder}
             folders={folders} 
             selectedFolder={folderId}
-            signOut={() => signOut(auth)} 
+            signOut={() => logout()} 
         />
     </>
 
