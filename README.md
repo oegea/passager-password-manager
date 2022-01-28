@@ -38,9 +38,10 @@ To achieve simplicity, security and usability for teams, the following technical
 
 ## Most relevant dependencies
 
-* `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
-* `styled-components`, is used to style components.
 * `@mdi/js` and `@mdi/react`, to require and render material design icons.
+* `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
+* `react-i18next` and `i18next`, to translate the app to different languages.
+* `styled-components`, is used to style components.
 
 ## Available Scripts
 
