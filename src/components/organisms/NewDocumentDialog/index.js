@@ -1,5 +1,7 @@
+// Third party dependencies
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 // Atoms
 import SideDialog from '../../atoms/SideDialog/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -15,13 +17,14 @@ const NewDocumentDialog = ({onClose}) => {
     const [state, setState] = useState({
         name: {value: '', error: ''}
     });
+    const { t } = useTranslation();
     useDialogConfirmation(onClose, onClose);
 
     const onChangeHandler = (e, field) => {
         let value = e.target.value;
         let error = '';
         if (value.length === 0) {
-            error = 'Document name is required';
+            error = t('Document name is required');
         }
         setState({...state, name: {value, error}});
     }
@@ -38,6 +41,16 @@ const NewDocumentDialog = ({onClose}) => {
                     onChange={(e) => onChangeHandler(e, 'name')}/>
                 {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
             </InputWrapper>
+
+            <InputWrapper>
+                <Input 
+                    autoFocus
+                    type="text" 
+                    placeholder="Document name" 
+                    onChange={(e) => onChangeHandler(e, 'name')}/>
+                {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
+            </InputWrapper>
+            
             <ButtonWrapper>
                 <Button label="Cancel" onClick={() => onClose()} color="black" backgroundColor="white"/>
                 <Button label="Save" onClick={() => onClose()} color="black" backgroundColor="white"/>

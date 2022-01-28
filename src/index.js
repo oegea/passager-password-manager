@@ -4,12 +4,18 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
+import i18n from 'i18next';
+import {initReactI18next} from 'react-i18next';
 // Routes
 import Routes from './routes.js';
 // Providers
 import UserProvider from './providers/UserProvider.js';
 import FoldersProvider from './providers/FoldersProvider.js';
+// Config
+import {i18nConfig} from './config/i18n.js';
 
+//i18n initialization
+i18n.use(initReactI18next).init(i18nConfig);
 
 ReactDOM.render(
   <React.StrictMode>
