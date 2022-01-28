@@ -2,10 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // Atoms
-import Dialog from '../../atoms/Dialog/Dialog.js';
-import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
+import Dialog from '../../atoms/Dialog/Dialog.js';
+import Title from '../../atoms/Title/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
