@@ -1,3 +1,8 @@
 {
+    "login": {
+        "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
+        "Log in with Google": "Iniciar sesión con Google",
+        "Change to": "Cambiar a:"
+    },
     "Document name is required": "El nombre del documento es obligatorio"
 }

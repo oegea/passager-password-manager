@@ -1,3 +1,8 @@
 {
+    "login": {
+        "A safe place to store your passwords": "A safe place to store your passwords",
+        "Log in with Google": "Log in with Google",
+        "Change to": "Change to:"
+    },
     "Document name is required": "Document name is required"
 }

@@ -7,7 +7,6 @@ export const i18nConfig = {
       en: { translation: enTranslations },
       es: { translation: esTranslations }
     },
-    languages: ['en', 'es'],
     lng: "en", // if you're using a language detector, do not define the lng option
     fallbackLng: "en", // fallback to this language if nothing is detected
     interpolation: {
