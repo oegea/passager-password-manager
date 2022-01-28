@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Organisms
-import Table from '../../organisms/Table/index.js'
+import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
+import NewDocumentDialog from '../NewDocumentDialog/index.js';
 
-const RightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
+const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
     let selectedFolderName = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+    let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
 
     const onDelete = () => {
         deleteFolder(selectedFolder);
@@ -29,7 +31,7 @@ const RightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
             <SectionTitle 
                 title={selectedFolderName}
                 buttons={[
-                    {label: 'Create', onClick: ()=>alert('New password')},
+                    {label: 'Create', onClick: ()=>setShowNewPasswordDialog(true)},
                     {backgroundColor: '#ca0000', color: 'white', label: 'Delete Folder', onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
             <Table
@@ -42,15 +44,20 @@ const RightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
                     closeDialog={()=>setShowConfirmationDialog(false)} 
                 /> 
             }
+            {
+                showNewPasswordDialog &&
+                <NewDocumentDialog onClose={() => setShowNewPasswordDialog(false)} />
+            }
+            
         </div>
     )
 }
 
-RightPanel.displayName = 'RightPanel';
-RightPanel.propTypes = {
+DocumentsListRightPanel.displayName = 'DocumentsListRightPanel';
+DocumentsListRightPanel.propTypes = {
     deleteFolder: PropTypes.func,
     folders: PropTypes.array,
     selectedFolder: PropTypes.string,
 }
 
-export default RightPanel;
+export default DocumentsListRightPanel;
