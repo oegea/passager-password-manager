@@ -3,7 +3,10 @@
         "Cancel": "Cancel",
         "Continue": "Continue",
         "Create": "Create",
-        "Folders": "Folders"
+        "Folders": "Folders",
+        "Save": "Save",
+        "This field is required": "This field is required",
+        "This field must be less than 50 characters": "This field must be less than 50 characters"
     },
     "confirmationDialog": {
         "Are you sure you want to proceed?": "Are you sure you want to proceed?"
@@ -24,6 +27,15 @@
         "Folder name is required": "Folder name is required",
         "New Folder": "New Folder",
         "New folder name": "New folder name"
+    },
+    "newPasswordDialog": {
+        "New password": "New password",
+        "Password name": "Password name",
+        "Password": "Password",
+        "Username": "Username",
+        "usernameExample": "myusername@gmail.com",
+        "Website URL": "Website URL",
+        "Your secret password": "Your secret password"
     },
     "topbar": {
         "Logout": "Logout",

@@ -6,7 +6,7 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Organisms
 import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
-import NewDocumentDialog from '../NewDocumentDialog/index.js';
+import NewPasswordDialog from '../NewPasswordDialog/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 
@@ -52,7 +52,7 @@ const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) =
             }
             {
                 showNewPasswordDialog &&
-                <NewDocumentDialog onClose={() => setShowNewPasswordDialog(false)} />
+                <NewPasswordDialog onClose={() => setShowNewPasswordDialog(false)} />
             }
             
         </div>

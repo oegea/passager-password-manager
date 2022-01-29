@@ -3,7 +3,10 @@
         "Cancel": "Cancelar",
         "Continue": "Continuar",
         "Create": "Añadir",
-        "Folders": "Carpetas"
+        "Folders": "Carpetas",
+        "Save": "Guardar",
+        "This field is required": "Este campo es obligatorio",
+        "This field must be less than 50 characters": "Este campo no puede contener más de 50 caracteres"
     },
     "confirmationDialog": {
         "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"
@@ -24,6 +27,15 @@
         "Folder name is required": "El nombre de la carpeta es obligatorio",
         "New Folder": "Nueva carpeta",
         "New folder name": "Nombre de la carpeta"
+    },
+    "newPasswordDialog": {
+        "New password": "Añadir contraseña",
+        "Password name": "Nombre de la contraseña",
+        "Password": "Contraseña",
+        "Username": "Nombre de usuario",
+        "usernameExample": "miusuario@gmail.com",
+        "Website URL": "Sitio web",
+        "Your secret password": "Tu contraseña secreta"
     },
     "topbar": {
         "Logout": "Cerrar sesión",

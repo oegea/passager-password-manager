@@ -14,7 +14,7 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
-const NewDocumentDialog = ({onClose}) => {
+const NewPasswordDialog = ({onClose}) => {
     const [state, setState] = useState({
         name: {value: '', error: ''},
         url: {value: '', error: ''},
@@ -29,6 +29,8 @@ const NewDocumentDialog = ({onClose}) => {
         let error = '';
         if (value.length === 0) {
             error = t('common.This field is required');
+        } else if (value.length > 50) {
+            error = t('common.This field must be less than 50 characters');
         }
         const newState = {...state};
         newState[field] = {value, error};
@@ -41,21 +43,21 @@ const NewDocumentDialog = ({onClose}) => {
 
     return (
         <SideDialog onClose={()=>onClose()}>
-            <SectionTitle title="New Password" />
+            <SectionTitle title={t('newPasswordDialog.New password')} />
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="name">Password name</InputLabel>
+                <InputLabel for="name">{t('newPasswordDialog.Password name')}</InputLabel>
                 <Input 
                     autoFocus
                     id="name"
                     onChange={(e) => onChangeHandler(e, 'name')}
-                    placeholder="i.e. My E-mail Account" 
+                    placeholder="My E-mail Account" 
                     type="text" />
                 {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="url">Website URL</InputLabel>
+                <InputLabel for="url">{t('newPasswordDialog.Website URL')}</InputLabel>
                 <Input 
                     id="url"
                     type="text" 
@@ -65,36 +67,36 @@ const NewDocumentDialog = ({onClose}) => {
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="username">Username</InputLabel>
+                <InputLabel for="username">{t('newPasswordDialog.Username')}</InputLabel>
                 <Input 
                     id="username"
                     type="text" 
-                    placeholder="myusername@gmail.com"
+                    placeholder={t('newPasswordDialog.usernameExample')}
                     onChange={(e) => onChangeHandler(e, 'username')}/>
                 {state.username.error.length > 0 && <span style={{color: 'red'}}>{state.username.error}</span>}
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="password">Password</InputLabel>
+                <InputLabel for="password">{t('newPasswordDialog.Password')}</InputLabel>
                 <Input 
                     id="password"
                     type="password"
-                    placeholder="Your secret password"
+                    placeholder={t('newPasswordDialog.Your secret password')}
                     onChange={(e) => onChangeHandler(e, 'password')}/>
                 {state.password.error.length > 0 && <span style={{color: 'red'}}>{state.password.error}</span>}
             </InputWrapper>
             
             <ButtonWrapper>
-                <Button label="Cancel" onClick={() => onClose()} color="black" backgroundColor="white"/>
-                <Button label="Save" onClick={() => onClose()} color="black" backgroundColor="white"/>
+                <Button label={t('common.Cancel')} onClick={() => onClose()} color="black" backgroundColor="white"/>
+                <Button label={t('common.Save')} onClick={() => onClose()} color="black" backgroundColor="white"/>
             </ButtonWrapper>
         </SideDialog>
     )
 }
 
-NewDocumentDialog.displayName = 'NewDocumentDialog';
-NewDocumentDialog.propTypes = {
+NewPasswordDialog.displayName = 'NewPasswordDialog';
+NewPasswordDialog.propTypes = {
     onClose: PropTypes.func,
 }
 
-export default NewDocumentDialog;
+export default NewPasswordDialog;
