@@ -21,5 +21,9 @@
         "New Folder": "New Folder",
         "New folder name": "New folder name"
     },
+    "topbar": {
+        "Logout": "Logout",
+        "Search": "Search"
+    },
     "Document name is required": "Document name is required"
 }

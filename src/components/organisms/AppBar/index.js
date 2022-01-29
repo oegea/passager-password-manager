@@ -5,16 +5,20 @@ import Toolbar from '../../atoms/Toolbar/index.js';
 import ToolbarInput from '../../atoms/ToolbarInput/index.js';
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
+// Hooks
+import useTranslation from '../../../hooks/useTranslation/index.js';
 
 const OrganismAppBar = ({signOut, marginBottom}) => {
 
+    const {t} = useTranslation();
+
     return <Toolbar marginBottom={marginBottom}>
         <Title>Passager</Title>
-        <ToolbarInput type="text" placeholder="Search"  />
+        <ToolbarInput type="text" placeholder={t('topbar.Search')}  />
         <Button 
             backgroundColor="black"
             color="white"
-            label="Logout" 
+            label={t('topbar.Logout')}
             onClick={signOut} />
     </Toolbar>
 

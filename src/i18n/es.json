@@ -21,5 +21,9 @@
         "New Folder": "Nueva carpeta",
         "New folder name": "Nombre de la carpeta"
     },
+    "topbar": {
+        "Logout": "Cerrar sesión",
+        "Search": "Buscar"
+    },
     "Document name is required": "El nombre del documento es obligatorio"
 }
