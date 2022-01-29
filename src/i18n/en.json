@@ -1,4 +1,8 @@
 {
+    "common": {
+        "Create": "Create",
+        "Folders": "Folders"
+    },
     "login": {
         "A safe place to store your passwords": "A safe place to store your passwords",
         "Log in with Google": "Log in with Google",

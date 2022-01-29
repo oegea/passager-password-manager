@@ -6,12 +6,15 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 import LeftPanelList from '../../molecules/LeftPanelList/index.js';
 // Organisms
 import NewFolderDialog from '../NewFolderDialog/index.js';
+// Hooks
+import useTranslation from '../../../hooks/useTranslation/index.js';
 
 const FoldersListLeftPanel = ({createFolder, folders, selectedFolder}) => {
+    const { t } = useTranslation();
     const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
     return (
         <>
-            <SectionTitle title="Folders" buttons={[{label: 'Create', onClick: ()=>setShowNewFolderDialog(true)}]}/>
+            <SectionTitle title={t('common.Folders')} buttons={[{label: t('common.Create'), onClick: ()=>setShowNewFolderDialog(true)}]}/>
             {
                 showNewFolderDialog && 
                 <NewFolderDialog 

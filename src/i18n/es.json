@@ -1,4 +1,8 @@
 {
+    "common": {
+        "Create": "Añadir",
+        "Folders": "Carpetas"
+    },
     "login": {
         "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
         "Log in with Google": "Iniciar sesión con Google",
