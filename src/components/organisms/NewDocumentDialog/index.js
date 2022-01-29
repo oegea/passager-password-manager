@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import styled from 'styled-components';
 // Atoms
 import SideDialog from '../../atoms/SideDialog/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -29,24 +30,51 @@ const NewDocumentDialog = ({onClose}) => {
         setState({...state, name: {value, error}});
     }
 
+    const InputLabel = styled.label`
+
+    `;
+
     return (
         <SideDialog onClose={()=>onClose()}>
-            <SectionTitle title="New Document" />
+            <SectionTitle title="New Password" />
 
-            <InputWrapper>
+            <InputWrapper marginBottom='25px'>
+                <InputLabel for="name">Password name</InputLabel>
                 <Input 
                     autoFocus
+                    id="name"
+                    onChange={(e) => onChangeHandler(e, 'name')}
+                    placeholder="i.e. My E-mail Account" 
+                    type="text" />
+                {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
+            </InputWrapper>
+
+            <InputWrapper marginBottom='25px'>
+                <InputLabel for="url">Website URL</InputLabel>
+                <Input 
+                    id="url"
                     type="text" 
-                    placeholder="Document name" 
+                    placeholder="https://gmail.com"
                     onChange={(e) => onChangeHandler(e, 'name')}/>
                 {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
             </InputWrapper>
 
-            <InputWrapper>
+            <InputWrapper marginBottom='25px'>
+                <InputLabel for="username">Username</InputLabel>
                 <Input 
-                    autoFocus
+                    id="username"
                     type="text" 
-                    placeholder="Document name" 
+                    placeholder="myusername@gmail.com"
+                    onChange={(e) => onChangeHandler(e, 'name')}/>
+                {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
+            </InputWrapper>
+
+            <InputWrapper marginBottom='25px'>
+                <InputLabel for="password">Password</InputLabel>
+                <Input 
+                    id="password"
+                    type="password"
+                    placeholder="Your secret password"
                     onChange={(e) => onChangeHandler(e, 'name')}/>
                 {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
             </InputWrapper>
