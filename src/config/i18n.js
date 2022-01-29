@@ -7,7 +7,7 @@ export const i18nConfig = {
       en: { translation: enTranslations },
       es: { translation: esTranslations }
     },
-    lng: "en", // if you're using a language detector, do not define the lng option
+    lng: localStorage.getItem('language') || "en", // if you're using a language detector, do not define the lng option
     fallbackLng: "en", // fallback to this language if nothing is detected
     interpolation: {
       escapeValue: false, // react already safes from xss

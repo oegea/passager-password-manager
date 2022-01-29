@@ -1,7 +1,7 @@
 // Third party dependencies
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import useTranslation from '../../../hooks/useTranslation/index.js';
 // Atoms
 import SideDialog from '../../atoms/SideDialog/index.js';
 import Button from '../../atoms/Button/index.js';

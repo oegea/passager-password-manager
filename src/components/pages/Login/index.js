@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import i18n from 'i18next';
 import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
+import useTranslation from '../../../hooks/useTranslation/index.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -32,6 +32,7 @@ const PageLogin = ({onGoogleLogin}) => {
     const changeLanguage = (e, lng) => {
         e.preventDefault();
         i18n.changeLanguage(lng);
+        localStorage.setItem('language', lng)
     };
 
 
