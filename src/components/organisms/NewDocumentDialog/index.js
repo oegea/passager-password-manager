@@ -16,7 +16,10 @@ import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js
 
 const NewDocumentDialog = ({onClose}) => {
     const [state, setState] = useState({
-        name: {value: '', error: ''}
+        name: {value: '', error: ''},
+        url: {value: '', error: ''},
+        username: {value: '', error: ''},
+        password: {value: '', error: ''},
     });
     const { t } = useTranslation();
     useDialogConfirmation(onClose, onClose);
@@ -25,9 +28,11 @@ const NewDocumentDialog = ({onClose}) => {
         let value = e.target.value;
         let error = '';
         if (value.length === 0) {
-            error = t('Document name is required');
+            error = t('common.This field is required');
         }
-        setState({...state, name: {value, error}});
+        const newState = {...state};
+        newState[field] = {value, error};
+        setState(newState);
     }
 
     const InputLabel = styled.label`
@@ -55,8 +60,8 @@ const NewDocumentDialog = ({onClose}) => {
                     id="url"
                     type="text" 
                     placeholder="https://gmail.com"
-                    onChange={(e) => onChangeHandler(e, 'name')}/>
-                {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
+                    onChange={(e) => onChangeHandler(e, 'url')}/>
+                {state.url.error.length > 0 && <span style={{color: 'red'}}>{state.url.error}</span>}
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
@@ -65,8 +70,8 @@ const NewDocumentDialog = ({onClose}) => {
                     id="username"
                     type="text" 
                     placeholder="myusername@gmail.com"
-                    onChange={(e) => onChangeHandler(e, 'name')}/>
-                {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
+                    onChange={(e) => onChangeHandler(e, 'username')}/>
+                {state.username.error.length > 0 && <span style={{color: 'red'}}>{state.username.error}</span>}
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
@@ -75,8 +80,8 @@ const NewDocumentDialog = ({onClose}) => {
                     id="password"
                     type="password"
                     placeholder="Your secret password"
-                    onChange={(e) => onChangeHandler(e, 'name')}/>
-                {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
+                    onChange={(e) => onChangeHandler(e, 'password')}/>
+                {state.password.error.length > 0 && <span style={{color: 'red'}}>{state.password.error}</span>}
             </InputWrapper>
             
             <ButtonWrapper>
