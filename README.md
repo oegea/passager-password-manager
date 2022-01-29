@@ -43,9 +43,17 @@ To achieve simplicity, security and usability for teams, the following technical
 * `react-i18next` and `i18next`, to translate the app to different languages.
 * `styled-components`, is used to style components.
 
+## Development dependencies
+
+* `husky`, to run tests before commiting changes to the repository.
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm run prepare`
+
+Set up husky git hooks to run before a commit is submited.
 
 ### `npm start`
 
