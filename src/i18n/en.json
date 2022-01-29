@@ -1,8 +1,12 @@
 {
     "common": {
         "Cancel": "Cancel",
+        "Continue": "Continue",
         "Create": "Create",
         "Folders": "Folders"
+    },
+    "confirmationDialog": {
+        "Are you sure you want to proceed?": "Are you sure you want to proceed?"
     },
     "documentsListRighPanel": {
         "Delete folder": "Delete folder",

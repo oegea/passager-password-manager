@@ -1,14 +1,18 @@
 {
     "common": {
         "Cancel": "Cancelar",
+        "Continue": "Continuar",
         "Create": "Añadir",
         "Folders": "Carpetas"
+    },
+    "confirmationDialog": {
+        "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"
     },
     "documentsListRighPanel": {
         "Delete folder": "Eliminar carpeta",
         "Last modification date": "Fecha de última modificación",
         "Owner": "Propietario",
-        "Please, select a folder to start": "Selecciona una carpeta para empezar",
+        "Please, select a folder to start": "Seleccione una carpeta para empezar",
         "Title": "Título"
     },
     "login": {
