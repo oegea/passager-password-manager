@@ -1,12 +1,25 @@
 {
     "common": {
+        "Cancel": "Cancel",
         "Create": "Create",
         "Folders": "Folders"
+    },
+    "documentsListRighPanel": {
+        "Delete folder": "Delete folder",
+        "Last modification date": "Last modification date",
+        "Owner": "Owner",
+        "Please, select a folder to start": "Please, select a folder to start",
+        "Title": "Title"
     },
     "login": {
         "A safe place to store your passwords": "A safe place to store your passwords",
         "Log in with Google": "Log in with Google",
         "Change to": "Change to:"
+    },
+    "newFolderDialog": {
+        "Folder name is required": "Folder name is required",
+        "New Folder": "New Folder",
+        "New folder name": "New folder name"
     },
     "Document name is required": "Document name is required"
 }

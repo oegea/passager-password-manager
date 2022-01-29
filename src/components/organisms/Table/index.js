@@ -10,7 +10,7 @@ import TableHead from '../../molecules/Table/TableHead.js';
 const OrganismTable = ({columns, rows}) => {
 
     return <Table>
-        <TableHead columns={["Name", "Owner", "Last Modificiation Date"]} />
+        <TableHead columns={columns} />
         <tbody>
             {rows.map((row, rowIndex)=> 
                 <TableRow key={rowIndex}>

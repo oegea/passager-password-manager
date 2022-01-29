@@ -10,25 +10,27 @@ import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
+import useTranslation from '../../../hooks/useTranslation/index.js';
 
 const NewFolderDialog = ({createFolder, closeDialog}) => {
+    const { t } = useTranslation();
     const [state, setState] = useState({name: '', error: ''});
 
     const createFolderHandler = useCallback((name) => {
         if (name.length === 0) {
-            setState({...state, error: 'Folder name is required'});
+            setState({...state, error: t('newFolderDialog.Folder name is required')});
             return false;
         }
 
         createFolder({name});
         return true;
-    }, [state, createFolder]);
+    }, [state, createFolder, t]);
 
     const onChangeHandler = (e) => {
         let name = e.target.value;
         let error = '';
         if (name.length === 0) {
-            error = 'Folder name is required';
+            error = t('newFolderDialog.Folder name is required');
         }
         setState({name, error});
     }
@@ -37,19 +39,19 @@ const NewFolderDialog = ({createFolder, closeDialog}) => {
 
     return (
         <Dialog onClose={() => closeDialog()}>
-            <Title marginBottom='20px'>New Folder</Title>
+            <Title marginBottom='20px'>{t('newFolderDialog.New Folder')}</Title>
             <InputWrapper>
                 <Input 
                     autoFocus
                     type="text" 
-                    placeholder="New folder name" 
+                    placeholder={t('newFolderDialog.New folder name')}
                     onChange={onChangeHandler}/>
                 {state.error.length > 0 && <span style={{color: 'red'}}>{state.error}</span>}
             </InputWrapper>
             
             <ButtonWrapper>
-                <Button label="Cancel" onClick={() => closeDialog()} color="black" backgroundColor="white"/>
-                <Button label="Create" onClick={() => {
+                <Button label={t('common.Cancel')} onClick={() => closeDialog()} color="black" backgroundColor="white"/>
+                <Button label={t('common.Create')} onClick={() => {
                     if (createFolderHandler(state.name)) 
                         closeDialog();
                 }} color="black" backgroundColor="white"/>

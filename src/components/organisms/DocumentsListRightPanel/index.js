@@ -7,11 +7,14 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
 import NewDocumentDialog from '../NewDocumentDialog/index.js';
+// Hooks
+import useTranslation from '../../../hooks/useTranslation/index.js';
 
 const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
     let selectedFolderName = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
+    const {t} = useTranslation();
 
     const onDelete = () => {
         deleteFolder(selectedFolder);
@@ -24,18 +27,21 @@ const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) =
     })
 
     if (selectedFolderName === null )
-        return <h1>Please, select a folder to start</h1>
+        return <h1>{t('documentsListRighPanel.Please, select a folder to start')}</h1>
 
     return (
         <div>
             <SectionTitle 
                 title={selectedFolderName}
                 buttons={[
-                    {label: 'Create', onClick: ()=>setShowNewPasswordDialog(true)},
-                    {backgroundColor: '#ca0000', color: 'white', label: 'Delete Folder', onClick: () => setShowConfirmationDialog(true)},
+                    {label: t('common.Create'), onClick: ()=>setShowNewPasswordDialog(true)},
+                    {backgroundColor: '#ca0000', color: 'white', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
             <Table
-                columns={["Title", "Owner", "Last Modification Date"]}
+                columns={[
+                    t("documentsListRighPanel.Title"), 
+                    t("documentsListRighPanel.Owner"), 
+                    t("documentsListRighPanel.Last modification date")]}
                 rows={[]}/>
             {
                 showConfirmationDialog && 

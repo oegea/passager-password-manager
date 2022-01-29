@@ -1,12 +1,25 @@
 {
     "common": {
+        "Cancel": "Cancelar",
         "Create": "Añadir",
         "Folders": "Carpetas"
+    },
+    "documentsListRighPanel": {
+        "Delete folder": "Eliminar carpeta",
+        "Last modification date": "Fecha de última modificación",
+        "Owner": "Propietario",
+        "Please, select a folder to start": "Selecciona una carpeta para empezar",
+        "Title": "Título"
     },
     "login": {
         "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
         "Log in with Google": "Iniciar sesión con Google",
         "Change to": "Cambiar a:"
+    },
+    "newFolderDialog": {
+        "Folder name is required": "El nombre de la carpeta es obligatorio",
+        "New Folder": "Nueva carpeta",
+        "New folder name": "Nombre de la carpeta"
     },
     "Document name is required": "El nombre del documento es obligatorio"
 }
