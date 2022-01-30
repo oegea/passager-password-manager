@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // Pages
-import Home from './components/pages/Home/firebaseHomePage.js';
-import Login from './components/pages/Login/firebaseLoginPage.js';
+import Home from './components/pages/Home/index.js';
+import Login from './components/pages/Login/index.js';
 // Context
 import withUser from './providers/WithUser.js';
 

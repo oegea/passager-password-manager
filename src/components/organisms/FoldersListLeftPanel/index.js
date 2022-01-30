@@ -1,6 +1,7 @@
 // Third party dependencies
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from "react-router-dom";
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import LeftPanelList from '../../molecules/LeftPanelList/index.js';
@@ -8,8 +9,14 @@ import LeftPanelList from '../../molecules/LeftPanelList/index.js';
 import NewFolderDialog from '../NewFolderDialog/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+// Own libraries
+import { createFolder } from '../../../libs/folders.js';
+// Context
+import withUsers from '../../../providers/WithUser.js';
+import withFolders from '../../../providers/WithFolders.js';
 
-const FoldersListLeftPanel = ({createFolder, folders, selectedFolder}) => {
+const FoldersListLeftPanel = ({user, folders}) => {
+    const {folderId} = useParams();
     const { t } = useTranslation();
     const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
     return (
@@ -18,11 +25,11 @@ const FoldersListLeftPanel = ({createFolder, folders, selectedFolder}) => {
             {
                 showNewFolderDialog && 
                 <NewFolderDialog 
-                    createFolder={createFolder} 
+                    createFolder={(folder) => createFolder(user, folder)} 
                     closeDialog={()=>setShowNewFolderDialog(false)} 
                 /> 
             }
-            <LeftPanelList folders={folders} selectedFolder={selectedFolder} />
+            <LeftPanelList folders={folders} selectedFolder={folderId} />
             
         </>
     )
@@ -30,9 +37,8 @@ const FoldersListLeftPanel = ({createFolder, folders, selectedFolder}) => {
 
 FoldersListLeftPanel.displayName = 'FoldersListLeftPanel';
 FoldersListLeftPanel.propTypes = {
-    createFolder: PropTypes.func,
     folders: PropTypes.array,
-    selectedFolder: PropTypes.string,
+    user: PropTypes.object
 }
 
-export default FoldersListLeftPanel;
+export default withUsers(withFolders(FoldersListLeftPanel));

@@ -1,6 +1,5 @@
 // Third party dependencies
 import React from 'react';
-import PropTypes from 'prop-types';
 import i18n from 'i18next';
 import styled from 'styled-components';
 import useTranslation from '../../../hooks/useTranslation/index.js';
@@ -9,15 +8,16 @@ import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
-
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
+// Own libs
+import { signInWithGoogle } from '../../../libs/firebase';
 
 const LanguageSelector = styled.div`
     margin-top: 40px;
 `;
 
-const PageLogin = ({onGoogleLogin}) => {
+const PageLogin = () => {
 
     const { t } = useTranslation();
 
@@ -41,7 +41,7 @@ const PageLogin = ({onGoogleLogin}) => {
             <Title>Passager</Title>
             <p>{RANDOM_SENTENCES[randomIntFromInterval(0, RANDOM_SENTENCES.length - 1)]}</p>
             <ButtonWrapper justifyContent='center'>
-                <Button label={t('login.Log in with Google')} onClick={onGoogleLogin}/>
+                <Button label={t('login.Log in with Google')} onClick={signInWithGoogle}/>
             </ButtonWrapper>
             <LanguageSelector>
                 {t('login.Change to')} 
@@ -54,8 +54,5 @@ const PageLogin = ({onGoogleLogin}) => {
 }
 
 PageLogin.displayName = 'PageLogin';
-PageLogin.propTypes = {
-    onGoogleLogin: PropTypes.func
-}
 
 export default PageLogin;

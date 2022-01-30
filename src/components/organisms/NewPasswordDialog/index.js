@@ -67,11 +67,9 @@ const NewPasswordDialog = ({onClose, onSave}) => {
         if (save){
             const password = mapStateToObject(newState);
             onSave(password);
-            return true;
         }
         else{
             setState(newState);
-            return false;
         }
             
     }

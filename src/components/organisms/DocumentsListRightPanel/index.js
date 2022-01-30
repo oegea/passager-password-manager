@@ -1,20 +1,29 @@
 // Third party dependencies
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from "react-router-dom";
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Organisms
 import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
 import NewPasswordDialog from '../NewPasswordDialog/index.js';
+// Own libs
+import { deleteFolder } from '../../../libs/folders.js';
+import { createPassword } from '../../../libs/passwords.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+// Context
+import withUser from '../../../providers/WithUser.js';
+import withFolders from '../../../providers/WithFolders.js';
 
-const DocumentsListRightPanel = ({ createPassword, deleteFolder, folders = [], selectedFolder}) => {
+const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let selectedFolderName = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
     const {t} = useTranslation();
+    const {folderId} = useParams();
+    const selectedFolder = folderId;
 
     const onDelete = () => {
         deleteFolder(selectedFolder);
@@ -22,7 +31,8 @@ const DocumentsListRightPanel = ({ createPassword, deleteFolder, folders = [], s
     }
 
     const onCreateNewPassword = (password) => {
-        createPassword(selectedFolder, password);
+        createPassword(user, selectedFolder, password);
+        setShowNewPasswordDialog(false);
     }
 
     folders.forEach(folder => {
@@ -67,10 +77,8 @@ const DocumentsListRightPanel = ({ createPassword, deleteFolder, folders = [], s
 
 DocumentsListRightPanel.displayName = 'DocumentsListRightPanel';
 DocumentsListRightPanel.propTypes = {
-    createPassword: PropTypes.func,
-    deleteFolder: PropTypes.func,
-    folders: PropTypes.array,
-    selectedFolder: PropTypes.string,
+    user: PropTypes.object,
+    folders: PropTypes.array
 }
 
-export default DocumentsListRightPanel;
+export default withUser(withFolders(DocumentsListRightPanel));
