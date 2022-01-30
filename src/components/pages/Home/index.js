@@ -6,7 +6,7 @@ import DocumentsListRightPanel from '../../organisms/DocumentsListRightPanel/ind
 // Templates
 import LoggedWithLeftPanel from '../../templates/LoggedWithLeftPanel/index.js';
 
-const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}) => {
+const PageHome = ({ createPassword, createFolder, deleteFolder, selectedFolder, folders, signOut}) => {
     const leftPanel = <FoldersListLeftPanel 
         createFolder={createFolder} 
         selectedFolder={selectedFolder}
@@ -16,6 +16,7 @@ const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}
             signOut={signOut} 
             leftPanelContent={leftPanel}>
             <DocumentsListRightPanel 
+                createPassword={createPassword}
                 deleteFolder={deleteFolder}
                 folders={folders}
                 selectedFolder={selectedFolder} />
@@ -25,6 +26,7 @@ const PageHome = ({createFolder, deleteFolder, selectedFolder, folders, signOut}
 
 PageHome.displayName = 'PageHome';
 PageHome.propTypes = {
+    createPassword: PropTypes.func,
     createFolder: PropTypes.func,
     deleteFolder: PropTypes.func,
     selectedFolder: PropTypes.string,

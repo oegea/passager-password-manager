@@ -10,7 +10,7 @@ import NewPasswordDialog from '../NewPasswordDialog/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 
-const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) => {
+const DocumentsListRightPanel = ({ createPassword, deleteFolder, folders = [], selectedFolder}) => {
     let selectedFolderName = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
@@ -19,6 +19,10 @@ const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) =
     const onDelete = () => {
         deleteFolder(selectedFolder);
         setShowConfirmationDialog(false);
+    }
+
+    const onCreateNewPassword = (password) => {
+        createPassword(selectedFolder, password);
     }
 
     folders.forEach(folder => {
@@ -52,7 +56,9 @@ const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) =
             }
             {
                 showNewPasswordDialog &&
-                <NewPasswordDialog onClose={() => setShowNewPasswordDialog(false)} />
+                <NewPasswordDialog 
+                    onClose={() => setShowNewPasswordDialog(false)} 
+                    onSave={(password) => onCreateNewPassword(password)} />
             }
             
         </div>
@@ -61,6 +67,7 @@ const DocumentsListRightPanel = ({deleteFolder, folders = [], selectedFolder}) =
 
 DocumentsListRightPanel.displayName = 'DocumentsListRightPanel';
 DocumentsListRightPanel.propTypes = {
+    createPassword: PropTypes.func,
     deleteFolder: PropTypes.func,
     folders: PropTypes.array,
     selectedFolder: PropTypes.string,

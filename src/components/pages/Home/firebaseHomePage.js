@@ -30,12 +30,19 @@ const FirebasePageHome = ({user, folders}) => {
         deleteDoc(docRef);
     }
 
+    const createPassword = (folderId, password) => {
+        const subcollectionRef = collection(db, "folders", folderId, "passwords");
+
+        addDoc(subcollectionRef, {...password, owner: user.uid});
+    }
+
     const logout = () => {
         signOut(auth);
         window.location.href = '/';
     }
     return <>
         <Home 
+            createPassword={createPassword}
             createFolder={createFolder}
             deleteFolder={deleteFolder}
             folders={folders} 

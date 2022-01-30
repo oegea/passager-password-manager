@@ -14,7 +14,12 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
-const NewPasswordDialog = ({onClose}) => {
+const InputLabel = styled.label`
+        
+`;
+
+const NewPasswordDialog = ({onClose, onSave}) => {
+
     const [state, setState] = useState({
         name: {value: '', error: ''},
         url: {value: '', error: ''},
@@ -22,31 +27,66 @@ const NewPasswordDialog = ({onClose}) => {
         password: {value: '', error: ''},
     });
     const { t } = useTranslation();
-    useDialogConfirmation(onClose, onClose);
 
     const onChangeHandler = (e, field) => {
         let value = e.target.value;
+        let error = checkFieldErrors(value);
+        const newState = {...state};
+        newState[field] = {value, error};
+        setState(newState);
+    }
+
+    const checkFieldErrors = (value) => {
         let error = '';
         if (value.length === 0) {
             error = t('common.This field is required');
         } else if (value.length > 50) {
             error = t('common.This field must be less than 50 characters');
         }
-        const newState = {...state};
-        newState[field] = {value, error};
-        setState(newState);
+        return error;
     }
 
-    const InputLabel = styled.label`
+    const mapStateToObject = () => {
+        const object = {};
+        Object.keys(state).forEach(key => {
+            object[key] = state[key].value;
+        });
+        return object;
+    }
 
-    `;
+    const beforeSave = () => {
+        let save = true;
+        const newState = {...state};
+        for(let field in newState){
+            const { value } = newState[field];
+            const error = checkFieldErrors(value);
+            if (error.length > 0)
+                save = false;
+            newState[field] = {value, error};
+        }
+        if (save){
+            const password = mapStateToObject(newState);
+            onSave(password);
+            return true;
+        }
+        else{
+            setState(newState);
+            return false;
+        }
+            
+    }
+
+
+    useDialogConfirmation(onClose, beforeSave);
+
+
 
     return (
         <SideDialog onClose={()=>onClose()}>
             <SectionTitle title={t('newPasswordDialog.New password')} />
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="name">{t('newPasswordDialog.Password name')}</InputLabel>
+                <InputLabel htmlFor="name">{t('newPasswordDialog.Password name')}</InputLabel>
                 <Input 
                     autoFocus
                     id="name"
@@ -57,7 +97,7 @@ const NewPasswordDialog = ({onClose}) => {
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="url">{t('newPasswordDialog.Website URL')}</InputLabel>
+                <InputLabel htmlFor="url">{t('newPasswordDialog.Website URL')}</InputLabel>
                 <Input 
                     id="url"
                     type="text" 
@@ -67,7 +107,7 @@ const NewPasswordDialog = ({onClose}) => {
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="username">{t('newPasswordDialog.Username')}</InputLabel>
+                <InputLabel htmlFor="username">{t('newPasswordDialog.Username')}</InputLabel>
                 <Input 
                     id="username"
                     type="text" 
@@ -77,7 +117,7 @@ const NewPasswordDialog = ({onClose}) => {
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
-                <InputLabel for="password">{t('newPasswordDialog.Password')}</InputLabel>
+                <InputLabel htmlFor="password">{t('newPasswordDialog.Password')}</InputLabel>
                 <Input 
                     id="password"
                     type="password"
@@ -88,7 +128,7 @@ const NewPasswordDialog = ({onClose}) => {
             
             <ButtonWrapper>
                 <Button label={t('common.Cancel')} onClick={() => onClose()} color="black" backgroundColor="white"/>
-                <Button label={t('common.Save')} onClick={() => onClose()} color="black" backgroundColor="white"/>
+                <Button label={t('common.Save')} onClick={() => beforeSave()} color="black" backgroundColor="white"/>
             </ButtonWrapper>
         </SideDialog>
     )
@@ -97,6 +137,7 @@ const NewPasswordDialog = ({onClose}) => {
 NewPasswordDialog.displayName = 'NewPasswordDialog';
 NewPasswordDialog.propTypes = {
     onClose: PropTypes.func,
+    onSave: PropTypes.func
 }
 
 export default NewPasswordDialog;
