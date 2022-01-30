@@ -1,21 +1,20 @@
+// Third party dependencies
 import { initializeApp } from "firebase/app";
 import { 
   getAuth, 
+  signOut,
   signInWithPopup,
   GoogleAuthProvider 
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-
-// Basic configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBBT8hT33SyyZ8PSwoPHfdazfn86-eN6rs",
-  authDomain: "passager-673da.firebaseapp.com",
-  projectId: "passager-673da",
-  storageBucket: "passager-673da.appspot.com",
-  messagingSenderId: "573045151241",
-  appId: "1:573045151241:web:8d91f688c3ffbf955e8ad8",
-  measurementId: "G-Z4ZZG30YCS"
-};
+import {
+  addDoc, 
+  collection, 
+  doc,
+  deleteDoc,  
+  getFirestore 
+} from "firebase/firestore";
+// Config 
+import { firebaseConfig } from "../config/firebase.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -26,6 +25,20 @@ const provider = new GoogleAuthProvider()
 export const collectIdsAndDocs = (doc) => {
   return { id: doc.id, ...doc.data() };
 };
+
+// Firestore wrapper
+export const fireStore = {
+  addDoc,
+  collection,
+  doc,
+  deleteDoc
+};
+
+// Firebase Auth wrapper
+export const fireAuth = {
+  getAuth,
+  signOut
+}
 
 export const auth = getAuth();
 export const db = getFirestore();

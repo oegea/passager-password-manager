@@ -1,16 +1,16 @@
 // Third party dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getAuth, signOut } from 'firebase/auth';
-import { collection, addDoc } from "firebase/firestore";
 // Own libraries
-import { db } from '../../../libs/firebase.js';
+import { db, fireStore, fireAuth } from '../../../libs/firebase.js';
 // Pages
 import TableHome from './index.js';
 // Context
 import withFolders from '../../../providers/WithFolders.js';
 
 const FirebaseTablePageHome = ({folders}) => {
+    const { addDoc, collection } = fireStore;
+    const { getAuth, signOut } = fireAuth;
     const auth = getAuth();
     const createFolder = (folder) => {
 

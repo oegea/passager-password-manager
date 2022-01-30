@@ -2,15 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom";
-import { getAuth, signOut } from 'firebase/auth';
-import { 
-    addDoc, 
-    collection, 
-    doc,
-    deleteDoc 
-} from "firebase/firestore";
 // Own libraries
-import { db } from '../../../libs/firebase.js';
+import { db, fireStore, fireAuth } from '../../../libs/firebase.js';
 // Pages
 import Home from './index.js';
 // Context
@@ -18,6 +11,9 @@ import withFolders from '../../../providers/WithFolders.js';
 import withUser from '../../../providers/WithUser.js';
 
 const FirebasePageHome = ({user, folders}) => {
+    const { addDoc, collection, doc, deleteDoc } = fireStore;
+    const { getAuth, signOut } = fireAuth;
+
     const {folderId} = useParams();
 
     const auth = getAuth();
