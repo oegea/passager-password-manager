@@ -16,6 +16,7 @@ import useTranslation from '../../../hooks/useTranslation/index.js';
 // Context
 import withUser from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
+import PasswordsProvider, {PasswordsContext} from '../../../providers/PasswordsProvider.js'
 
 const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let selectedFolderName = null;
@@ -44,19 +45,27 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
         return <h1>{t('documentsListRighPanel.Please, select a folder to start')}</h1>
 
     return (
-        <div>
+        <PasswordsProvider folderId={selectedFolder}>
             <SectionTitle 
                 title={selectedFolderName}
                 buttons={[
                     {label: t('common.Create'), onClick: ()=>setShowNewPasswordDialog(true)},
                     {backgroundColor: '#ca0000', color: 'white', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
-            <Table
-                columns={[
-                    t("documentsListRighPanel.Title"), 
-                    t("documentsListRighPanel.Owner"), 
-                    t("documentsListRighPanel.Last modification date")]}
-                rows={[]}/>
+            
+            <PasswordsContext.Consumer>
+                {passwords => {
+                    const passwordsRows = passwords.map((password) => [password.name, password.url, password.username])
+                    return <Table
+                        columns={[
+                            t("documentsListRighPanel.Title"), 
+                            t("documentsListRighPanel.Website"), 
+                            t("documentsListRighPanel.Username")]}
+                        rows={passwordsRows}/>
+                }
+                }
+            </PasswordsContext.Consumer>
+            
             {
                 showConfirmationDialog && 
                 <ConfirmationDialog 
@@ -71,7 +80,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                     onSave={(password) => onCreateNewPassword(password)} />
             }
             
-        </div>
+        </PasswordsProvider>
     )
 }
 

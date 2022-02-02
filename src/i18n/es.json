@@ -13,8 +13,8 @@
     },
     "documentsListRighPanel": {
         "Delete folder": "Eliminar carpeta",
-        "Last modification date": "Fecha de última modificación",
-        "Owner": "Propietario",
+        "Username": "Nombre de usuario",
+        "Website": "Sitio web",
         "Please, select a folder to start": "Seleccione una carpeta para empezar",
         "Title": "Título"
     },

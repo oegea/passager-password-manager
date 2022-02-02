@@ -13,8 +13,8 @@
     },
     "documentsListRighPanel": {
         "Delete folder": "Delete folder",
-        "Last modification date": "Last modification date",
-        "Owner": "Owner",
+        "Username": "Username",
+        "Website": "Website",
         "Please, select a folder to start": "Please, select a folder to start",
         "Title": "Title"
     },
