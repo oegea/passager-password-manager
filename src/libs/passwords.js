@@ -4,10 +4,12 @@ import { db, fireStore } from './firebase.js';
 const { addDoc, updateDoc, collection, doc } = fireStore;
 
 
-export const createPassword = (user, folderId, password) => {
+export const createPassword = async (user, folderId, password) => {
     const subcollectionRef = collection(db, "folders", folderId, "passwords");
 
-    addDoc(subcollectionRef, {...password, owner: user.uid});
+    let docRef = await addDoc(subcollectionRef, {...password, owner: user.uid});
+
+    return docRef;
 }
 
 export const editPassword = (folderId, passwordId,  password) => {

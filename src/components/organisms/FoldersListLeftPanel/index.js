@@ -1,7 +1,7 @@
 // Third party dependencies
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import LeftPanelList from '../../molecules/LeftPanelList/index.js';
@@ -17,15 +17,23 @@ import withFolders from '../../../providers/WithFolders.js';
 
 const FoldersListLeftPanel = ({user, folders}) => {
     const {folderId} = useParams();
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const [showNewFolderDialog, setShowNewFolderDialog] = useState(false);
+
+    const onCreateFolder = async (folder) => {
+        const folderDoc = await createFolder(user, folder)
+        if (folderDoc?.id)
+            navigate('/' + folderDoc.id);
+    }
+
     return (
         <>
             <SectionTitle title={t('common.Folders')} buttons={[{label: t('common.Create'), onClick: ()=>setShowNewFolderDialog(true)}]}/>
             {
                 showNewFolderDialog && 
                 <NewFolderDialog 
-                    createFolder={(folder) => createFolder(user, folder)} 
+                    createFolder={(folder) => onCreateFolder(folder)} 
                     closeDialog={()=>setShowNewFolderDialog(false)} 
                 /> 
             }
