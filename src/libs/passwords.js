@@ -1,7 +1,7 @@
 // Own libraries
 import { db, fireStore } from './firebase.js';
 
-const { addDoc, updateDoc, collection, doc } = fireStore;
+const { addDoc, deleteDoc, updateDoc, collection, doc } = fireStore;
 
 
 export const createPassword = async (user, folderId, password) => {
@@ -12,8 +12,13 @@ export const createPassword = async (user, folderId, password) => {
     return docRef;
 }
 
-export const editPassword = (folderId, passwordId,  password) => {
-    const subcollectionRef = doc(db, "folders", folderId, "passwords", passwordId);
+export const deletePassword = (folderId, passwordId) => {
+    const docRef = doc(db, "folders", folderId, "passwords", passwordId);
+    deleteDoc(docRef);
+}
 
-    updateDoc(subcollectionRef, password);
+export const editPassword = (folderId, passwordId,  password) => {
+    const docRef = doc(db, "folders", folderId, "passwords", passwordId);
+
+    updateDoc(docRef, password);
 }

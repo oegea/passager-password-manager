@@ -25,7 +25,7 @@ const DEFAULT_VALUES = {
     password: ''
 }
 
-const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onSave}) => {
+const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, onSave}) => {
     const {name, url, username, password} = defaultValues;
 
     const [state, setState] = useState({
@@ -95,7 +95,13 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onSave}) =
 
     return (
         <SideDialog onClose={()=>onClose()}>
-            <SectionTitle title={t('passwordFormDialog.New password')} />
+            {
+                defaultValues.id ?
+                <SectionTitle title={t('passwordFormDialog.Edit password')} buttons={[
+                    {backgroundColor: '#ca0000', color: 'white', label: t('common.Delete'), onClick: () => onDelete()},
+                ]}/> :
+                <SectionTitle title={t('passwordFormDialog.New password')} />
+            }
 
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="name">{t('passwordFormDialog.Password name')}</InputLabel>
@@ -154,6 +160,7 @@ PasswordFormDialog.displayName = 'PasswordFormDialog';
 PasswordFormDialog.propTypes = {
     defaultValues: PropTypes.object,
     onClose: PropTypes.func,
+    onDelete: PropTypes.func,
     onSave: PropTypes.func
 }
 

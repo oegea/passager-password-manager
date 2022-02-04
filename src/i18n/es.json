@@ -3,6 +3,7 @@
         "Cancel": "Cancelar",
         "Continue": "Continuar",
         "Create": "Añadir",
+        "Delete": "Eliminar",
         "Folders": "Carpetas",
         "Save": "Guardar",
         "This field is required": "Este campo es obligatorio",
@@ -29,6 +30,7 @@
         "New folder name": "Nombre de la carpeta"
     },
     "passwordFormDialog": {
+        "Edit password": "Editar contraseña",
         "My E-mail Account": "Mi cuenta de correo",
         "New password": "Añadir contraseña",
         "Password name": "Nombre de la contraseña",

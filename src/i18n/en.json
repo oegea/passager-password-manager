@@ -3,6 +3,7 @@
         "Cancel": "Cancel",
         "Continue": "Continue",
         "Create": "Create",
+        "Delete": "Delete",
         "Folders": "Folders",
         "Save": "Save",
         "This field is required": "This field is required",
@@ -29,6 +30,7 @@
         "New folder name": "New folder name"
     },
     "passwordFormDialog": {
+        "Edit password": "Edit password",
         "My E-mail Account": "My E-mail Account",
         "New password": "New password",
         "Password name": "Password name",

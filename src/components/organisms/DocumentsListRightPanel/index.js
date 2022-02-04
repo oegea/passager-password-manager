@@ -10,7 +10,7 @@ import ConfirmationDialog from '../ConfirmationDialog/index.js';
 import PasswordFormDialog from '../PasswordFormDialog/index.js';
 // Own libs
 import { deleteFolder } from '../../../libs/folders.js';
-import { createPassword, editPassword } from '../../../libs/passwords.js';
+import { createPassword, deletePassword, editPassword } from '../../../libs/passwords.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Context
@@ -23,6 +23,8 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
     let [editState, setEditState] = useState({showDialog: false, password: {}});
+    let [deleteState, setDeleteState] = useState({showDialog: false, password: null});
+
     const {t} = useTranslation();
     const {folderId} = useParams();
     const selectedFolder = folderId;
@@ -39,6 +41,12 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
 
     const onEditPassword = (password, passwordId) => {
         editPassword(selectedFolder, passwordId, password);
+        setEditState({showDialog: false, password: {}});
+    }
+
+    const onDeletePassword = () => {
+        deletePassword(selectedFolder, editState.password.id);
+        setDeleteState({showDialog: false, password: null});
         setEditState({showDialog: false, password: {}});
     }
 
@@ -92,7 +100,16 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                     key={editState.password.id}
                     defaultValues={editState.password}
                     onClose={() => setEditState({showDialog: false, password: {}})} 
+                    onDelete={() => setDeleteState({showDialog: true, password: editState.password.id})}
                     onSave={(password, passwordId) => onEditPassword(password, passwordId)} />
+            }
+
+            {
+                deleteState.showDialog &&
+                <ConfirmationDialog 
+                    onAccept={() => onDeletePassword()} 
+                    closeDialog={()=>setDeleteState({showDialog: false, password: null})} 
+                /> 
             }
             
         </PasswordsProvider>
