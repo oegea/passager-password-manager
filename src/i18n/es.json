@@ -28,7 +28,8 @@
         "New Folder": "Nueva carpeta",
         "New folder name": "Nombre de la carpeta"
     },
-    "newPasswordDialog": {
+    "passwordFormDialog": {
+        "My E-mail Account": "Mi cuenta de correo",
         "New password": "Añadir contraseña",
         "Password name": "Nombre de la contraseña",
         "Password": "Contraseña",

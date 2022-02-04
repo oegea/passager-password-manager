@@ -28,7 +28,8 @@
         "New Folder": "New Folder",
         "New folder name": "New folder name"
     },
-    "newPasswordDialog": {
+    "passwordFormDialog": {
+        "My E-mail Account": "My E-mail Account",
         "New password": "New password",
         "Password name": "Password name",
         "Password": "Password",
