@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import {
   addDoc, 
+  updateDoc,
   collection, 
   doc,
   deleteDoc,  
@@ -29,6 +30,7 @@ export const collectIdsAndDocs = (doc) => {
 // Firestore wrapper
 export const fireStore = {
   addDoc,
+  updateDoc,
   collection,
   doc,
   deleteDoc

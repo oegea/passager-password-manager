@@ -7,10 +7,10 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Organisms
 import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
-import NewPasswordDialog from '../NewPasswordDialog/index.js';
+import PasswordFormDialog from '../PasswordFormDialog/index.js';
 // Own libs
 import { deleteFolder } from '../../../libs/folders.js';
-import { createPassword } from '../../../libs/passwords.js';
+import { createPassword, editPassword } from '../../../libs/passwords.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Context
@@ -22,6 +22,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let selectedFolderName = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
+    let [editState, setEditState] = useState({showDialog: false, password: {}});
     const {t} = useTranslation();
     const {folderId} = useParams();
     const selectedFolder = folderId;
@@ -34,6 +35,11 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     const onCreateNewPassword = (password) => {
         createPassword(user, selectedFolder, password);
         setShowNewPasswordDialog(false);
+    }
+
+    const onEditPassword = (password, passwordId) => {
+        editPassword(selectedFolder, passwordId, password);
+        setEditState({showDialog: false, password: {}});
     }
 
     folders.forEach(folder => {
@@ -57,6 +63,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 {passwords => {
                     const passwordsRows = passwords.map((password) => [password.name, password.url, password.username])
                     return <Table
+                        onClick={(rowIndex)=>{setEditState({ password: passwords[rowIndex], showDialog: true})}}
                         columns={[
                             t("documentsListRighPanel.Title"), 
                             t("documentsListRighPanel.Website"), 
@@ -75,9 +82,17 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
             }
             {
                 showNewPasswordDialog &&
-                <NewPasswordDialog 
+                <PasswordFormDialog 
                     onClose={() => setShowNewPasswordDialog(false)} 
                     onSave={(password) => onCreateNewPassword(password)} />
+            }
+            {
+                editState.showDialog &&
+                <PasswordFormDialog 
+                    key={editState.password.id}
+                    defaultValues={editState.password}
+                    onClose={() => setEditState({showDialog: false, password: {}})} 
+                    onSave={(password, passwordId) => onEditPassword(password, passwordId)} />
             }
             
         </PasswordsProvider>

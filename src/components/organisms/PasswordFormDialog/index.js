@@ -18,13 +18,21 @@ const InputLabel = styled.label`
         
 `;
 
-const NewPasswordDialog = ({onClose, onSave}) => {
+const DEFAULT_VALUES = {
+    name: '',
+    url: '',
+    username: '',
+    password: ''
+}
+
+const NewPasswordDialog = ({defaultValues = DEFAULT_VALUES, onClose, onSave}) => {
+    const {name, url, username, password} = defaultValues;
 
     const [state, setState] = useState({
-        name: {value: '', error: ''},
-        url: {value: '', error: ''},
-        username: {value: '', error: ''},
-        password: {value: '', error: ''},
+        name: {value: name, error: ''},
+        url: {value: url, error: ''},
+        username: {value: username, error: ''},
+        password: {value: password, error: ''},
     });
     const { t } = useTranslation();
 
@@ -66,7 +74,15 @@ const NewPasswordDialog = ({onClose, onSave}) => {
         }
         if (save){
             const password = mapStateToObject(newState);
-            onSave(password);
+
+            // If we're editing, send the id too
+            if (defaultValues.id){
+                onSave(password, defaultValues.id)
+            }
+            else{
+                onSave(password);
+            }
+            
         }
         else{
             setState(newState);
@@ -77,8 +93,6 @@ const NewPasswordDialog = ({onClose, onSave}) => {
 
     useDialogConfirmation(onClose, beforeSave);
 
-
-
     return (
         <SideDialog onClose={()=>onClose()}>
             <SectionTitle title={t('newPasswordDialog.New password')} />
@@ -87,16 +101,18 @@ const NewPasswordDialog = ({onClose, onSave}) => {
                 <InputLabel htmlFor="name">{t('newPasswordDialog.Password name')}</InputLabel>
                 <Input 
                     autoFocus
+                    defaultValue={state.name.value} 
                     id="name"
                     onChange={(e) => onChangeHandler(e, 'name')}
                     placeholder="My E-mail Account" 
-                    type="text" />
+                    type="text"/>
                 {state.name.error.length > 0 && <span style={{color: 'red'}}>{state.name.error}</span>}
             </InputWrapper>
 
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="url">{t('newPasswordDialog.Website URL')}</InputLabel>
                 <Input 
+                    defaultValue={state.url.value}
                     id="url"
                     type="text" 
                     placeholder="https://gmail.com"
@@ -107,6 +123,7 @@ const NewPasswordDialog = ({onClose, onSave}) => {
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="username">{t('newPasswordDialog.Username')}</InputLabel>
                 <Input 
+                    defaultValue={state.username.value}
                     id="username"
                     type="text" 
                     placeholder={t('newPasswordDialog.usernameExample')}
@@ -117,8 +134,9 @@ const NewPasswordDialog = ({onClose, onSave}) => {
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="password">{t('newPasswordDialog.Password')}</InputLabel>
                 <Input 
+                    defaultValue={state.password.value}
                     id="password"
-                    type="password"
+                    type="text"
                     placeholder={t('newPasswordDialog.Your secret password')}
                     onChange={(e) => onChangeHandler(e, 'password')}/>
                 {state.password.error.length > 0 && <span style={{color: 'red'}}>{state.password.error}</span>}
@@ -134,6 +152,7 @@ const NewPasswordDialog = ({onClose, onSave}) => {
 
 NewPasswordDialog.displayName = 'NewPasswordDialog';
 NewPasswordDialog.propTypes = {
+    defaultValues: PropTypes.object,
     onClose: PropTypes.func,
     onSave: PropTypes.func
 }
