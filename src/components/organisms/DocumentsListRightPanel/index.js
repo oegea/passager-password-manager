@@ -59,7 +59,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
         return <h1>{t('documentsListRighPanel.Please, select a folder to start')}</h1>
 
     return (
-        <PasswordsProvider folderId={selectedFolder}>
+        <PasswordsProvider key={folderId} folderId={selectedFolder}>
             <SectionTitle 
                 title={selectedFolderName}
                 buttons={[
