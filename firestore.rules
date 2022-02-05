@@ -4,6 +4,13 @@ service cloud.firestore {
     match /{document=**} {
       allow read, write: if false;
     }
+
+    match /users/{userId} {
+	    allow read: if 
+        request.auth.uid == userId &&
+        request.query.limit <= 10;
+	    allow write: if request.auth.uid == userId;
+    }
     
     match /folders/{folderId} {
     	allow read: if 
@@ -27,10 +34,11 @@ service cloud.firestore {
         request.resource.data.name.size() > 0 &&
         request.resource.data.name.size() < 50;
         
+        
       match /passwords/{passwordId} {
 				allow read: if 
           request.auth.uid != null && 
-          resource.data.owner == request.auth.uid &&
+          get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid &&
           request.query.limit <= 10;
         
         allow delete: if
