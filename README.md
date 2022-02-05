@@ -52,9 +52,13 @@ To achieve simplicity, security and usability for teams, the following technical
 
 These are the techniques followed to protect user passwords:
 
-1. Each user defines a master password, from which a hash is generated using pbkdf2, a random salt (stored in database) and a specific number of iterations.
-2. Each user, has also a key-pair. Private key is simmetrically encrypted using the password hash as encryption key. 
-3. When the user logs in an inserts its passwords in the system, password hash is calculated and used to decrypt the private key. Now, this private key is used to encrypt and decrypt passwords stored in database.
+1. Each user defines a master password, from which a hash is generated using pbkdf2, a random salt (stored in database) and 100,000 iterations.
+2. Each user, has also a key-pair. Private key is simmetrically encrypted using the password hash as encryption key, and locally stored.
+3. When the user logs in an inserts its passwords in the system, password hash is calculated and used to decrypt the private key. Now, this private key is used to encrypt and decrypt the keys that are used to encrypt and decrypt passwords from a folder.
+4. Each folder has its specific key to encrypt and decrypt passwords from there. Once shared capabilities are implemented, in case a user wants to share a folder with someone else, the encryption key for that specific folder, will be encrypted using the receiver's public key.
+5. This way, once the receiver logs in, he will be able to decrypt that folder's key, and read and write passwords.
+
+Note that this is a WIP, and is just a draft. Algorithms and details are being implemented.
 
 ## Available Scripts
 
