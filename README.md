@@ -40,12 +40,21 @@ To achieve simplicity, security and usability for teams, the following technical
 
 * `@mdi/js` and `@mdi/react`, to require and render material design icons.
 * `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
+* `crypto-js`, to call encryption algorithms from the browser.
 * `react-i18next` and `i18next`, to translate the app to different languages.
 * `styled-components`, is used to style components.
 
 ## Development dependencies
 
 * `husky`, to run tests before commiting changes to the repository.
+
+## About cryptography
+
+These are the techniques followed to protect user passwords:
+
+1. Each user defines a master password, from which a hash is generated using pbkdf2, a random salt (stored in database) and a specific number of iterations.
+2. Each user, has also a key-pair. Private key is simmetrically encrypted using the password hash as encryption key. 
+3. When the user logs in an inserts its passwords in the system, password hash is calculated and used to decrypt the private key. Now, this private key is used to encrypt and decrypt passwords stored in database.
 
 ## Available Scripts
 
