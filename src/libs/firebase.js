@@ -12,7 +12,11 @@ import {
   collection, 
   doc,
   deleteDoc,  
-  getFirestore 
+  limit,
+  getFirestore,
+  query,
+  getDocs,
+  writeBatch
 } from "firebase/firestore";
 // Config 
 import { firebaseConfig } from "../config/firebase.js";
@@ -33,7 +37,11 @@ export const fireStore = {
   updateDoc,
   collection,
   doc,
-  deleteDoc
+  deleteDoc,
+  limit,
+  query,
+  getDocs,
+  writeBatch
 };
 
 // Firebase Auth wrapper
