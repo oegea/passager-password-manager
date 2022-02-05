@@ -14,7 +14,7 @@ const OrganismAppBar = ({signOut, marginBottom}) => {
 
     return <Toolbar marginBottom={marginBottom}>
         <Title>Passager</Title>
-        <ToolbarInput type="text" placeholder={t('topbar.Search')}  />
+        {/*<ToolbarInput type="text" placeholder={t('topbar.Search')}  />*/}
         <Button 
             backgroundColor="black"
             color="white"
