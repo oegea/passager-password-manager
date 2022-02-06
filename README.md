@@ -49,13 +49,15 @@ To achieve simplicity, security and usability for teams, the following technical
 
 ## About cryptography
 
+WebCrypto API is used to encrypt and decrypt data from passager.
 These are the techniques followed to protect user passwords:
 
-1. Each user defines a master password, from which is derived a 256 bits key.
-2. Each user, has also a ECDSA key-pair. Private key is stored after being simmetrically encrypted using AES and the master password-derived key. Public key is stored in plain-text.
-3. When the user logs in, he is asked to decrypt his private key. Once decrypted, private key is used to decrypt folder-specific keys to access passwords.
-4. Each folder has its specific key to encrypt and decrypt passwords from there. Once shared capabilities are implemented, in case a user wants to share a folder with someone else, the encryption key for that specific folder, will be encrypted using the receiver's public key.
-5. This way, once the receiver logs in, he will be able to decrypt that folder's key, and read and write passwords.
+1. Each user defines a master password, from which is derived a 256 bits AES-GCM key.
+2. Additionally, each user has an RSA-OAEP key-pair. Private key is wrapped using the master password's derived key.
+3. After the user logs in and writes his master password, the private key is unwrapped and loaded in memory.
+4. Each folder has its specific AES-GCM key, which is stored encrypted using the user's RSA public key.
+5. When a user wants to access a specific folder, folder's key is decrypted with the user's private key, then the content is accessed and decrypted using the folder-specific key.
+6. On a future, taking advantatge of users key-pairs, sharing folders will be available.
 
 Note that this is a WIP, and is just a draft. Algorithms and details are being implemented.
 
