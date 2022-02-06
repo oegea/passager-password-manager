@@ -33,14 +33,13 @@ To achieve simplicity, security and usability for teams, the following technical
 * Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
 * Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
 * Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed on a future.
-* Handle encryption of data on the client's browser, using secure and trusted dependencies to implement the encryption algorithms.
+* Handle encryption of data on the client's browser, using native APIs to perform crypto operations.
 * Ensure that team sharing features do not reduce software security.
 
 ## Most relevant dependencies
 
 * `@mdi/js` and `@mdi/react`, to require and render material design icons.
 * `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
-* `crypto-js`, to call encryption algorithms from the browser.
 * `react-i18next` and `i18next`, to translate the app to different languages.
 * `styled-components`, is used to style components.
 
@@ -52,9 +51,9 @@ To achieve simplicity, security and usability for teams, the following technical
 
 These are the techniques followed to protect user passwords:
 
-1. Each user defines a master password, from which a hash is generated using pbkdf2, a random salt (stored in database) and 100,000 iterations.
-2. Each user, has also a key-pair. Private key is simmetrically encrypted using the password hash as encryption key, and locally stored.
-3. When the user logs in an inserts its passwords in the system, password hash is calculated and used to decrypt the private key. Now, this private key is used to encrypt and decrypt the keys that are used to encrypt and decrypt passwords from a folder.
+1. Each user defines a master password, from which is derived a 256 bits key.
+2. Each user, has also a ECDSA key-pair. Private key is stored after being simmetrically encrypted using AES and the master password-derived key. Public key is stored in plain-text.
+3. When the user logs in, he is asked to decrypt his private key. Once decrypted, private key is used to decrypt folder-specific keys to access passwords.
 4. Each folder has its specific key to encrypt and decrypt passwords from there. Once shared capabilities are implemented, in case a user wants to share a folder with someone else, the encryption key for that specific folder, will be encrypted using the receiver's public key.
 5. This way, once the receiver logs in, he will be able to decrypt that folder's key, and read and write passwords.
 

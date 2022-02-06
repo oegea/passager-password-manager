@@ -15,13 +15,13 @@ import withUser from './providers/WithUser.js';
 const RoutesConfiguration = ({user}) => {
     return (
     <BrowserRouter>
-        {user !== null && user.initializedKey === true && 
+        {user !== null && user.initialized === true && 
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:folderId" element={<Home />} />
         </Routes>}
 
-        {user !== null && !user.initializedKey &&
+        {user !== null && !user.initialized &&
         <Routes>
             <Route path="/" element={<UserSignup />} />
         </Routes>}

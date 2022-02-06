@@ -27,12 +27,25 @@ export const getUserDocument = async (user) => {
     }
 
     // If not, create and return
-    let userDocument = {
-        email, displayName, photoURL, salt: '', iterations: 0, initializedKey: false
-    }
+    let userDocument = userDocumentFactory({
+        email, displayName, photoURL
+    });
 
-    await setDoc(doc(db, "users", uid), {...userDocument});
+    await updateUserDocument(uid, userDocument);
     return {uid, ...userDocument};
+}
 
+export const updateUserDocument = async (uid, userDocument) => {
+    await setDoc(doc(db, "users", uid), {...userDocument});
+};
 
+export const userDocumentFactory = ({
+    email, 
+    displayName, 
+    photoURL, 
+    initialized = false,
+    publicKey = '',
+    privateKey = ''
+}) => {
+    return { email, displayName, photoURL, initialized, publicKey, privateKey };
 }

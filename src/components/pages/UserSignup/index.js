@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
 import { logout } from '../../../libs/auth.js';
-import { checkPassword } from '../../../libs/masterPassword.js';
+import { checkPassword, setUserMasterPassword } from '../../../libs/masterPassword.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -71,14 +71,14 @@ const PageUserSignup = ({user}) => {
         setPasswordConfirm({
             value,
             error
-        });
+        }); 
     }
 
     const onFinish = () => {
         if (password.error.length > 0 || passwordConfirm.error.length > 0) 
             return;
-
-        alert('Save password');
+        
+        setUserMasterPassword(user, password.value);
     }
 
     return <>

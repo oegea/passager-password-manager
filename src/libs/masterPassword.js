@@ -1,3 +1,8 @@
+// Own libraries
+import { updateUserDocument, userDocumentFactory } from "./auth.js";
+import { createExportableRSAKeyPair } from "./crypto.js";
+
+
 export const checkPassword = (password) => {
     let strengthValue = {
         'caps': false,
@@ -28,4 +33,22 @@ export const checkPassword = (password) => {
     }
 
     return strengthValue;
+}
+
+export const setUserMasterPassword = async (user, password) => {
+    
+    // Generate key pair
+    const keyPair = await createExportableRSAKeyPair(password);
+
+    // Store encrypted private key in user document
+    const {uid} = user;
+    const userDocument = userDocumentFactory({
+        ...user,
+        publicKey: keyPair.publicKey,
+        privateKey: keyPair.privateKey,
+        initialized: true
+    });
+    await updateUserDocument(uid, userDocument);
+
+    window.location.reload();
 }
