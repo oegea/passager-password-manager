@@ -2,21 +2,18 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
-import styled from 'styled-components';
 // Atoms
 import SideDialog from '../../atoms/SideDialog/index.js';
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 import Input from '../../atoms/Input/index.js';
 import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
+import InputLabel from '../../atoms/InputLabel/index.js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
-const InputLabel = styled.label`
-        
-`;
 
 const DEFAULT_VALUES = {
     name: '',

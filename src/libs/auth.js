@@ -28,7 +28,7 @@ export const getUserDocument = async (user) => {
 
     // If not, create and return
     let userDocument = {
-        email, displayName, photoURL, salt: '', iterations: 0
+        email, displayName, photoURL, salt: '', iterations: 0, initializedKey: false
     }
 
     await setDoc(doc(db, "users", uid), {...userDocument});
