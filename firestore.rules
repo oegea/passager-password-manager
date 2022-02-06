@@ -7,8 +7,7 @@ service cloud.firestore {
 
     match /users/{userId} {
 	    allow read: if 
-        request.auth.uid == userId &&
-        request.query.limit <= 10;
+        request.auth.uid == userId;
 	    allow write: if request.auth.uid == userId;
     }
     

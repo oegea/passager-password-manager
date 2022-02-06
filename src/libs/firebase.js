@@ -8,14 +8,16 @@ import {
 } from "firebase/auth";
 import {
   addDoc, 
-  updateDoc,
   collection, 
-  doc,
   deleteDoc,  
-  limit,
-  getFirestore,
-  query,
+  doc,
+  getDoc, 
   getDocs,
+  getFirestore,
+  limit,
+  query,
+  setDoc,
+  updateDoc,
   writeBatch
 } from "firebase/firestore";
 // Config 
@@ -34,13 +36,15 @@ export const collectIdsAndDocs = (doc) => {
 // Firestore wrapper
 export const fireStore = {
   addDoc,
-  updateDoc,
   collection,
-  doc,
   deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
   limit,
   query,
-  getDocs,
+  setDoc,
+  updateDoc,
   writeBatch
 };
 

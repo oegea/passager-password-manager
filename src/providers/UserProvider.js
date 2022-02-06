@@ -1,5 +1,6 @@
 import React, { Component, createContext } from 'react';
 import {auth} from '../libs/firebase.js';
+import {getUserDocument} from '../libs/auth.js';
 
 export const UserContext = createContext();
 
@@ -10,8 +11,13 @@ class UserProvider extends Component {
 
 	componentDidMount = async () => {
 
-        this.unsubscribe = auth.onAuthStateChanged( user => {
-            this.setState({ user });
+        this.unsubscribe = auth.onAuthStateChanged( async (user) => {
+			let userDocument = null;
+			if (user !== null) {
+				userDocument = await getUserDocument(user);
+			}
+
+            this.setState({ user: userDocument });
         });
 	};
 	
