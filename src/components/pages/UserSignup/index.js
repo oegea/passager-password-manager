@@ -31,8 +31,7 @@ const PageUserSignup = ({user}) => {
         error: ''
     });
 
-    const onPasswordChange = (e) => {
-        const value = e.target.value;
+    const onPasswordChange = (value) => {
         const passwordCheck = checkPassword(value);
         let error = '';
 
@@ -57,7 +56,9 @@ const PageUserSignup = ({user}) => {
             error
         } );
 
-        onPasswordConfirmChange(value, passwordConfirm.value)
+        const {passwordConfirmError} = onPasswordConfirmChange(value, passwordConfirm.value)
+
+        return {passwordError: error, passwordConfirmError};
     }
 
     const onPasswordConfirmChange = (password, value) => {
@@ -72,10 +73,15 @@ const PageUserSignup = ({user}) => {
             value,
             error
         }); 
+
+        return {passwordConfirmError: error};
     }
 
     const onFinish = () => {
-        if (password.error.length > 0 || passwordConfirm.error.length > 0) 
+
+        const {passwordError, passwordConfirmError} = onPasswordChange(password.value);
+
+        if (passwordError.length > 0 || passwordConfirmError.length > 0) 
             return;
         
         setUserMasterPassword(user, password.value);
@@ -85,47 +91,47 @@ const PageUserSignup = ({user}) => {
         <NotLogged>
             <Title>{t('userSignup.Define a master password')}</Title>
             {step === 1 && <>
-                <p>We need to define a master password for your user.</p>
-                <p>This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured.</p>
-                <p>Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information.</p>
+                <p>{t('userSignup.We need to define a master password for your user')}</p>
+                <p>{t('userSignup.This will be the only password you\'ll have to remember from now on, and it will maintain all your other passwords encrypted and secured')}</p>
+                <p>{t('userSignup.Please, choose a password and save it safely. Note that if you forget it, Passager administrators won\'t be able to recover your account and you\'ll lose all your information')}</p>
                 <ButtonWrapper justifyContent='center'>
-                    <Button label="Continue" onClick={() => setStep(2)}/>
+                    <Button label={t('common.Continue')} onClick={() => setStep(2)}/>
                 </ButtonWrapper>
             </>}
 
             {step === 2 && <>
-                <p>Tips for choosing a safe master password:</p>
+                <p>{t('userSignup.Tips for choosing a safe master password')}</p>
                 <ul>
-                    <li>Use a password longer than 8 characters.</li>
-                    <li>Use a password that contains at least one capital letter, one number and one special character.</li>
-                    <li>Avoid using the same password on other services or accounts.</li>
+                    <li>{t('userSignup.Use a password longer than 8 characters')}</li>
+                    <li>{t('userSignup.Use a password that contains at least one capital letter, one number and one special character')}</li>
+                    <li>{t('userSignup.Avoid using the same password on other services or accounts')}</li>
                 </ul>
                 <InputWrapper marginBottom='25px'>
-                    <InputLabel htmlFor="password">{t('Master password')}</InputLabel>
+                    <InputLabel htmlFor="password">{t('userSignup.Master password')}</InputLabel>
                     <Input 
                         defaultValue={password.value}
                         id="password"
                         type="password"
-                        placeholder={t('Type here a safe password')}
-                        onChange={(e) => onPasswordChange(e)}/>
+                        placeholder={t('userSignup.Type here a safe password')}
+                        onChange={(e) => onPasswordChange(e.target.value)}/>
                     {password.error.length > 0 && <span style={{color: 'red'}}>{password.error}</span>}
                 </InputWrapper>
                 <InputWrapper marginBottom='25px'>
-                    <InputLabel htmlFor="password-repeat">{t('Repeat your master password')}</InputLabel>
+                    <InputLabel htmlFor="password-repeat">{t('userSignup.Repeat your master password')}</InputLabel>
                     <Input 
                         defaultValue={passwordConfirm.value}
                         id="password-repeat"
                         type="password"
-                        placeholder={t('Repeat here your password')}
+                        placeholder={t('userSignup.Repeat here your password')}
                         onChange={(e) => onPasswordConfirmChange(password.value, e.target.value)}/>
                     {passwordConfirm.error.length > 0 && <span style={{color: 'red'}}>{passwordConfirm.error}</span>}
                 </InputWrapper>
                 <ButtonWrapper justifyContent='center'>
-                    <Button label="Go back" onClick={() => setStep(1)}/>
-                    <Button label="Finish" onClick={() => onFinish()}/>
+                    <Button label={t('common.Go back')} onClick={() => setStep(1)}/>
+                    <Button label={t('common.Finish')} onClick={() => onFinish()}/>
                 </ButtonWrapper>
             </>}
-            <AtomButtonLink onClick={logout}>Logout</AtomButtonLink>
+            <AtomButtonLink onClick={logout}>{t('common.Logout')}</AtomButtonLink>
         </NotLogged>
     </>
 

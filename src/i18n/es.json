@@ -5,6 +5,7 @@
         "Create": "Añadir",
         "Delete": "Eliminar",
         "Folders": "Carpetas",
+        "Logout": "Cerrar sesión",
         "Save": "Guardar",
         "This field is required": "Este campo es obligatorio",
         "This field must be less than 50 characters": "Este campo no puede contener más de 50 caracteres"
@@ -41,8 +42,16 @@
         "Your secret password": "Tu contraseña secreta"
     },
     "topbar": {
-        "Logout": "Cerrar sesión",
         "Search": "Buscar"
     },
-    "Document name is required": "El nombre del documento es obligatorio"
+    "userSignup": {
+        "Define a master password": "Defina una contraseña maestra",
+        "We need to define a master password for your user": "Necesitamos que defina una contraseña maestra para su usuario.",
+        "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "Esta será la única contraseña que deberá recordar de ahora en adelante, dado que mantendrá todas sus otras contraseñas cifradas y seguras..",
+        "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Por favor, elija una contraseña y guárdela en un lugar seguro. Tenga en cuenta que si la olvida, la administración de Passager no podrá recuperar el acceso a su cuenta y perderá toda su información.",
+        "Tips for choosing a safe master password": "Consejos para elegir una contraseña maestra segura:",
+        "Use a password longer than 8 characters": "Utilice una contraseña de longitud superior a los 8 caracteres.",
+        "Use a password that contains at least one capital letter, one number and one special character": "Utilice una contraseña que contenga al menos una letra mayúscula, un número y un caracter especial.",
+        "Avoid using the same password on other services or accounts": "Evite utilizar la misma contraseña en otros servicios o cuentas."
+    }
 }

@@ -7,7 +7,8 @@
         "Folders": "Folders",
         "Save": "Save",
         "This field is required": "This field is required",
-        "This field must be less than 50 characters": "This field must be less than 50 characters"
+        "This field must be less than 50 characters": "This field must be less than 50 characters",
+        "Logout": "Logout"
     },
     "confirmationDialog": {
         "Are you sure you want to proceed?": "Are you sure you want to proceed?"
@@ -41,8 +42,16 @@
         "Your secret password": "Your secret password"
     },
     "topbar": {
-        "Logout": "Logout",
         "Search": "Search"
     },
-    "Document name is required": "Document name is required"
+    "userSignup": {
+        "Define a master password": "Define a master password",
+        "We need to define a master password for your user": "We need to define a master password for your user.",
+        "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured.",
+        "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information.",
+        "Tips for choosing a safe master password": "Tips for choosing a safe master password:",
+        "Use a password longer than 8 characters": "Use a password longer than 8 characters.",
+        "Use a password that contains at least one capital letter, one number and one special character": "Use a password that contains at least one capital letter, one number and one special character.",
+        "Avoid using the same password on other services or accounts": "Avoid using the same password on other services or accounts."
+    }
 }

@@ -18,7 +18,7 @@ const OrganismAppBar = ({signOut, marginBottom}) => {
         <Button 
             backgroundColor="black"
             color="white"
-            label={t('topbar.Logout')}
+            label={t('common.Logout')}
             onClick={signOut} />
     </Toolbar>
 
