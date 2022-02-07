@@ -87,7 +87,7 @@ const PageUserSignup = ({user}) => {
             {step === 1 && <>
                 <p>We need to define a master password for your user.</p>
                 <p>This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured.</p>
-                <p>Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lost all your information.</p>
+                <p>Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information.</p>
                 <ButtonWrapper justifyContent='center'>
                     <Button label="Continue" onClick={() => setStep(2)}/>
                 </ButtonWrapper>
