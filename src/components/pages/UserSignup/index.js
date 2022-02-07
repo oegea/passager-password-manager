@@ -13,6 +13,8 @@ import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 import Input from '../../atoms/Input/index.js';
 import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
 import InputLabel from '../../atoms/InputLabel/index.js';
+// Molecules
+import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Context
@@ -30,6 +32,8 @@ const PageUserSignup = ({user}) => {
         value: '',
         error: ''
     });
+
+    const [displaySpinner, setDisplaySpinner] = useState(false);
 
     const onPasswordChange = (value) => {
         const passwordCheck = checkPassword(value);
@@ -84,11 +88,13 @@ const PageUserSignup = ({user}) => {
         if (passwordError.length > 0 || passwordConfirmError.length > 0) 
             return;
         
+        setDisplaySpinner(true);
         setUserMasterPassword(user, password.value);
     }
 
     return <>
         <NotLogged>
+            {displaySpinner && <GlobalSpinner /> }
             <Title>{t('userSignup.Define a master password')}</Title>
             {step === 1 && <>
                 <p>{t('userSignup.We need to define a master password for your user')}</p>

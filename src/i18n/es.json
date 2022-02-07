@@ -4,7 +4,9 @@
         "Continue": "Continuar",
         "Create": "Añadir",
         "Delete": "Eliminar",
+        "Finish": "Finalizar",
         "Folders": "Carpetas",
+        "Go back": "Ir atrás",
         "Logout": "Cerrar sesión",
         "Save": "Guardar",
         "This field is required": "Este campo es obligatorio",
@@ -52,6 +54,16 @@
         "Tips for choosing a safe master password": "Consejos para elegir una contraseña maestra segura:",
         "Use a password longer than 8 characters": "Utilice una contraseña de longitud superior a los 8 caracteres.",
         "Use a password that contains at least one capital letter, one number and one special character": "Utilice una contraseña que contenga al menos una letra mayúscula, un número y un caracter especial.",
-        "Avoid using the same password on other services or accounts": "Evite utilizar la misma contraseña en otros servicios o cuentas."
+        "Avoid using the same password on other services or accounts": "Evite utilizar la misma contraseña en otros servicios o cuentas.",
+        "Master password": "Contraseña maestra",
+        "Type here a safe password": "Escriba aquí una contraseña segura",
+        "Repeat your master password": "Repita su contraseña maestra",
+        "Repeat here your password": "Repita aquí su contraseña",
+        "Passwords must match": "Las contraseñas deben coincidir.",
+        "Password must contain at least one small letter": "La contraseña debe contener al menos una letra minúscula.",
+        "Password must contain at least one special character": "La contraseña debe contener al menos un caracter especial.",
+        "Password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres.",
+        "Password must contain at least one capital letter": "La contraseña debe contener al menos una letra mayúscula.",
+        "Password must contain at least one number": "La contraseña debe contener al menos un número."
     }
 }

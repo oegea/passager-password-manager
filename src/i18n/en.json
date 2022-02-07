@@ -4,11 +4,13 @@
         "Continue": "Continue",
         "Create": "Create",
         "Delete": "Delete",
+        "Finish": "Finish",
         "Folders": "Folders",
+        "Go back": "Go back",
+        "Logout": "Logout",
         "Save": "Save",
         "This field is required": "This field is required",
-        "This field must be less than 50 characters": "This field must be less than 50 characters",
-        "Logout": "Logout"
+        "This field must be less than 50 characters": "This field must be less than 50 characters"
     },
     "confirmationDialog": {
         "Are you sure you want to proceed?": "Are you sure you want to proceed?"
@@ -52,6 +54,16 @@
         "Tips for choosing a safe master password": "Tips for choosing a safe master password:",
         "Use a password longer than 8 characters": "Use a password longer than 8 characters.",
         "Use a password that contains at least one capital letter, one number and one special character": "Use a password that contains at least one capital letter, one number and one special character.",
-        "Avoid using the same password on other services or accounts": "Avoid using the same password on other services or accounts."
+        "Avoid using the same password on other services or accounts": "Avoid using the same password on other services or accounts.",
+        "Master password": "Master password",
+        "Type here a safe password": "Type here a safe password",
+        "Repeat your master password": "Repeat your master password",
+        "Repeat here your password": "Repeat here your password",
+        "Passwords must match": "Passwords must match.",
+        "Password must contain at least one small letter": "Password must contain at least one small letter.",
+        "Password must contain at least one special character": "Password must contain at least one special character.",
+        "Password must be at least 8 characters long": "Password must be at least 8 characters long.",
+        "Password must contain at least one capital letter": "Password must contain at least one capital letter.",
+        "Password must contain at least one number": "Password must contain at least one number."
     }
 }
