@@ -49,7 +49,7 @@
     "userSignup": {
         "Define a master password": "Defina una contraseña maestra",
         "We need to define a master password for your user": "Necesitamos que defina una contraseña maestra para su usuario.",
-        "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "Esta será la única contraseña que deberá recordar de ahora en adelante, dado que mantendrá todas sus otras contraseñas cifradas y seguras..",
+        "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "Esta será la única contraseña que deberá recordar de ahora en adelante, dado que mantendrá todas sus otras contraseñas cifradas y seguras.",
         "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Por favor, elija una contraseña y guárdela en un lugar seguro. Tenga en cuenta que si la olvida, la administración de Passager no podrá recuperar el acceso a su cuenta y perderá toda su información.",
         "Tips for choosing a safe master password": "Consejos para elegir una contraseña maestra segura:",
         "Use a password longer than 8 characters": "Utilice una contraseña de longitud superior a los 8 caracteres.",
