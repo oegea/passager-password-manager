@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react';
 import {auth} from '../libs/firebase.js';
-import {getUserDocument} from '../libs/auth.js';
+import {getUserDocument, getUserPublicKey} from '../libs/auth.js';
 
 export const UserContext = createContext();
 
@@ -15,6 +15,7 @@ class UserProvider extends Component {
 			let userDocument = null;
 			if (user !== null) {
 				userDocument = await getUserDocument(user);
+				userDocument.publicKey = await getUserPublicKey(user);
 			}
 
             this.setState({ user: userDocument });

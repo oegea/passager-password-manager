@@ -18,7 +18,8 @@ import {
   query,
   setDoc,
   updateDoc,
-  writeBatch
+  writeBatch,
+  where
 } from "firebase/firestore";
 // Config 
 import { firebaseConfig } from "../config/firebase.js";
@@ -45,7 +46,8 @@ export const fireStore = {
   query,
   setDoc,
   updateDoc,
-  writeBatch
+  writeBatch,
+  where
 };
 
 // Firebase Auth wrapper

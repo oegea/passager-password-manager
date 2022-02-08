@@ -11,12 +11,18 @@ service cloud.firestore {
 	    allow write: if request.auth.uid == userId;
     }
     
+    match /userPublicKeys/{userId} {
+    	allow read: if request.auth.uid != null;
+      allow create, update: if request.auth.uid == userId;
+      allow delete: if false;
+    }
+    
     match /folders/{folderId} {
     	allow read: if 
       	request.auth.uid != null && 
         resource.data.owner == request.auth.uid &&
         request.query.limit <= 10;
-      allow delete: if 
+      allow delete: if
       	request.auth.uid != null && 
         resource.data.owner == request.auth.uid;
       allow create: if 

@@ -1,8 +1,7 @@
 //Own libraries
 import { db, fireStore, fireAuth } from './firebase.js';
 
-// const { addDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
-const {doc, getDoc, setDoc} = fireStore;
+const { doc, getDoc, setDoc} = fireStore;
 const { getAuth, signOut } = fireAuth;
 
 export const logout = () => {
@@ -27,16 +26,36 @@ export const getUserDocument = async (user) => {
     }
 
     // If not, create and return
-    let userDocument = userDocumentFactory({
+    let userDocument = {
         email, displayName, photoURL
-    });
+    };
 
     await updateUserDocument(uid, userDocument);
     return {uid, ...userDocument};
 }
 
+export const getUserPublicKey = async (user) => {
+    if (user === null)
+        return null;
+
+    const docRef = doc(db, "userPublicKeys", user.uid);
+    const docSnap = await getDoc(docRef);
+    
+    // If exists, return
+    if (docSnap.exists()) {
+        return docSnap.data().publicKey;
+    }
+    
+    return '';
+}
+
 export const updateUserDocument = async (uid, userDocument) => {
-    await setDoc(doc(db, "users", uid), {...userDocument});
+    const initializedUserDocument = userDocumentFactory(userDocument);
+    await setDoc(doc(db, "users", uid), {...initializedUserDocument});
+};
+
+export const updateUserPublicKey = async (uid, publicKey) => {
+    await setDoc(doc(db, "userPublicKeys", uid), {publicKey});
 };
 
 export const userDocumentFactory = ({
@@ -44,8 +63,7 @@ export const userDocumentFactory = ({
     displayName, 
     photoURL, 
     initialized = false,
-    publicKey = '',
     privateKey = ''
 }) => {
-    return { email, displayName, photoURL, initialized, publicKey, privateKey };
+    return { email, displayName, photoURL, initialized, privateKey };
 }
