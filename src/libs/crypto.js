@@ -5,8 +5,9 @@ const buff_to_base64 = (buff) => btoa(new Uint8Array(buff).reduce(function (data
 const base64_to_buf = (b64) =>
   Uint8Array.from(atob(b64), (c) => c.charCodeAt(null));
 
-const enc = new TextEncoder();
-const dec = new TextDecoder();
+export const utils = {TextEncoder, TextDecoder};
+const enc = new utils.TextEncoder();
+const dec = new utils.TextDecoder();
 
 export const encrypt = async (data, password) => {
   const encryptedData = await encryptData(data, password);
@@ -21,13 +22,21 @@ export const decrypt = async (data, password) => {
     return decryptedData;
 }
 
-const getPasswordKey = (password) =>
-  window.crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, [
+// #region Derive a key from a password
+
+export const deriveKeyFromPassword = async (password, salt, usage) => {
+  const passwordKey = await _getPasswordKey(password);
+  const aesKey = await _deriveKey(passwordKey, salt, usage);
+  return aesKey;
+}
+
+const _getPasswordKey = (password) =>
+  crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, [
     "deriveKey",
   ]);
 
-const deriveKey = (passwordKey, salt, keyUsage) =>
-  window.crypto.subtle.deriveKey(
+const _deriveKey = (passwordKey, salt, keyUsage) =>
+  crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
       salt: salt,
@@ -39,17 +48,17 @@ const deriveKey = (passwordKey, salt, keyUsage) =>
     false,
     keyUsage
   );
+// #endregion
 
-const generateSalt = () => window.crypto.getRandomValues(new Uint8Array(16));
-const generateIv = () => window.crypto.getRandomValues(new Uint8Array(12));
+const generateSalt = () => crypto.getRandomValues(new Uint8Array(16));
+const generateIv = () => crypto.getRandomValues(new Uint8Array(12));
 
 async function encryptData(secretData, password) {
   try {
     const salt = generateSalt();
     const iv = generateIv();
-    const passwordKey = await getPasswordKey(password);
-    const aesKey = await deriveKey(passwordKey, salt, ["encrypt"]);
-    const encryptedContent = await window.crypto.subtle.encrypt(
+    const aesKey = await deriveKeyFromPassword(password, salt, ["encrypt"]);
+    const encryptedContent = await crypto.subtle.encrypt(
       {
         name: "AES-GCM",
         iv: iv,
@@ -79,9 +88,8 @@ async function decryptData(encryptedData, password) {
     const salt = encryptedDataBuff.slice(0, 16);
     const iv = encryptedDataBuff.slice(16, 16 + 12);
     const data = encryptedDataBuff.slice(16 + 12);
-    const passwordKey = await getPasswordKey(password);
-    const aesKey = await deriveKey(passwordKey, salt, ["decrypt"]);
-    const decryptedContent = await window.crypto.subtle.decrypt(
+    const aesKey = await deriveKeyFromPassword(password, salt, ["decrypt"]);
+    const decryptedContent = await crypto.subtle.decrypt(
       {
         name: "AES-GCM",
         iv: iv,
@@ -97,7 +105,7 @@ async function decryptData(encryptedData, password) {
 }
 
 export const createRSAKeyPair = async () => {
-    const keyPair = await window.crypto.subtle.generateKey(
+    const keyPair = await crypto.subtle.generateKey(
         {
         name: "RSA-OAEP",
         // Consider using a 4096-bit key for systems that require long-term security
@@ -114,17 +122,16 @@ export const createRSAKeyPair = async () => {
 
 export const createExportableRSAKeyPair = async (password) => {
     const keyPair = await createRSAKeyPair();
-    const exportedPublicKey = await window.crypto.subtle.exportKey(
+    const exportedPublicKey = await crypto.subtle.exportKey(
         "jwk",
         keyPair.publicKey
     );
 
     const salt = generateSalt();
     const iv = generateIv();
-    const passwordKey = await getPasswordKey(password);
-    const aesKey = await deriveKey(passwordKey, salt, ["wrapKey"]);
+    const aesKey = await deriveKeyFromPassword(password, salt, ["wrapKey"]);
 
-    let wrappedPrivateKey = await window.crypto.subtle.wrapKey(
+    let wrappedPrivateKey = await crypto.subtle.wrapKey(
         "jwk",
         keyPair.privateKey,
         aesKey,
