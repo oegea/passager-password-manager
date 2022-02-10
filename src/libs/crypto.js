@@ -22,8 +22,12 @@ export const decrypt = async (data, password) => {
     return decryptedData;
 }
 
-// #region Derive a key from a password
+// #region Derive an AES key from a password
 
+/**
+ * Generates an AES key from a password
+ * @returns {Promise<CryptoKey>} AES key
+ */
 export const deriveKeyFromPassword = async (password, salt, usage) => {
   const passwordKey = await _getPasswordKey(password);
   const aesKey = await _deriveKey(passwordKey, salt, usage);
@@ -50,10 +54,25 @@ const _deriveKey = (passwordKey, salt, keyUsage) =>
   );
 // #endregion
 
-const generateSalt = () => crypto.getRandomValues(new Uint8Array(16));
-const generateIv = () => crypto.getRandomValues(new Uint8Array(12));
+// #region Salt and IV generation
+/**
+ * Generates a salt
+ * @returns {Promise<Uint8Array>} salt
+ */
+export const generateSalt = () => crypto.getRandomValues(new Uint8Array(16));
 
-async function encryptData(secretData, password) {
+/**
+ * Generates an iv
+ * @returns {Promise<Uint8Array>} iv
+ */
+export const generateIv = () => crypto.getRandomValues(new Uint8Array(12));
+// #endregion
+
+// #region AES encryption using a password
+/**
+ * Simmetrically encrypts data using a password from which an AES key is derived
+ */
+export async function encryptData(secretData, password) {
   try {
     const salt = generateSalt();
     const iv = generateIv();
@@ -82,7 +101,10 @@ async function encryptData(secretData, password) {
   }
 }
 
-async function decryptData(encryptedData, password) {
+/**
+ * Simmetrically decrypts data using a password from which an AES key is derived
+ */
+export async function decryptData(encryptedData, password) {
   try {
     const encryptedDataBuff = base64_to_buf(encryptedData);
     const salt = encryptedDataBuff.slice(0, 16);
@@ -103,7 +125,12 @@ async function decryptData(encryptedData, password) {
     return "";
   }
 }
+// #endregion
 
+// #region RSA key pair generation
+/**
+ * Generates a secure RSA key pair
+ */
 export const createRSAKeyPair = async () => {
     const keyPair = await crypto.subtle.generateKey(
         {
@@ -120,6 +147,11 @@ export const createRSAKeyPair = async () => {
     return keyPair;
 }
 
+/**
+ * Generates an RSA key pair in an exportable format, and with the private key simmetrically encrypted
+ * @param {String} password Password with which wrap the private key
+ * @returns Exportable key pair
+ */
 export const createExportableRSAKeyPair = async (password) => {
     const keyPair = await createRSAKeyPair();
     const exportedPublicKey = await crypto.subtle.exportKey(
@@ -143,3 +175,4 @@ export const createExportableRSAKeyPair = async (password) => {
     wrappedPrivateKey = new Uint8Array(wrappedPrivateKey);
     return {privateKey: JSON.stringify(wrappedPrivateKey), publicKey: JSON.stringify(exportedPublicKey)};
 }
+// #endregion
