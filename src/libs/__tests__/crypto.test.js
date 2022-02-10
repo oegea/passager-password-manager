@@ -4,7 +4,7 @@ import crypto from 'crypto';
 
 describe('Crypto library tests', () => {
 
-    const DEFAULT_PASSWORD = 'testPassword';
+    const DEFAULT_PASSWORD = 'testPassword123A!NcA';
 
     let cryptoLib;
 
@@ -21,18 +21,7 @@ describe('Crypto library tests', () => {
         expect(aesKey).toBeDefined();
     });
 
-    test('should be able to encrypt and decrypt data simetrically using an AES key', async () => {
-        const salt = cryptoLib.generateSalt();
-        const aesKey = await cryptoLib.deriveKeyFromPassword(DEFAULT_PASSWORD, salt, ['encrypt', 'decrypt']);
-
-        const secretData = 'test data';
-        const encryptedData = await cryptoLib.encryptData(secretData, aesKey);
-        const decryptedData = await cryptoLib.decryptData(encryptedData, aesKey);
-        expect(encryptedData).toBeDefined();
-        expect(decryptedData).toBe(secretData);
-    });
-
-    test('should be able to encrypt and decrypt data by using a password, derivating an AES key automatically', async () => {
+    test('should be able to encrypt and decrypt data simetrically using a password', async () => {
         const secretData = 'test data';
         const encryptedData = await cryptoLib.encrypt(secretData, DEFAULT_PASSWORD);
         const decryptedData = await cryptoLib.decrypt(encryptedData, DEFAULT_PASSWORD);
@@ -47,10 +36,20 @@ describe('Crypto library tests', () => {
         expect(keyPair.privateKey).toBeDefined();
     });
 
-    test('should e able to generate a new exportable and wrapped key pair', async ()=>{
+    test('should be able to generate a new wrapped RSA key-pair', async ()=>{
         const keyPair = await cryptoLib.createExportableRSAKeyPair(DEFAULT_PASSWORD);
         expect(keyPair).toBeDefined();
         expect(keyPair.publicKey).toBeDefined();
         expect(keyPair.privateKey).toBeDefined();
+    });
+
+    test('should be able to import and decrypt a key-pair', async ()=>{
+        const keyPair = await cryptoLib.createExportableRSAKeyPair(DEFAULT_PASSWORD);
+        
+        const unwrappedKey = await cryptoLib.importRSAKeyPair(keyPair, DEFAULT_PASSWORD);
+        expect(unwrappedKey).toBeDefined();
+        expect(unwrappedKey.publicKey).toBeDefined();
+        expect(unwrappedKey.privateKey).toBeDefined();
+
     });
 });

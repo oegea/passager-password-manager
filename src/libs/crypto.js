@@ -9,18 +9,14 @@ export const utils = {TextEncoder, TextDecoder};
 const enc = new utils.TextEncoder();
 const dec = new utils.TextDecoder();
 
-export const encrypt = async (data, password) => {
-  const encryptedData = await encryptData(data, password);
-  return encryptedData;
-}
-
-export const decrypt = async (data, password) => {
-    const decryptedData = await decryptData(data, password);
-    if (!decryptedData) {
-        throw new Error("Decryption failed");
-    }
-    return decryptedData;
-}
+// #region Constants
+const RSA_ALGORITHM_CONFIG = {
+  name: "RSA-OAEP",
+  modulusLength: 4096,
+  publicExponent: new Uint8Array([1, 0, 1]),
+  hash: "SHA-256",
+};
+// #endregion
 
 // #region Derive an AES key from a password
 
@@ -69,14 +65,35 @@ export const generateIv = () => crypto.getRandomValues(new Uint8Array(12));
 // #endregion
 
 // #region AES encryption using a password
+
+export const encrypt = async (data, password) => {
+  const salt = generateSalt();
+  const iv = generateIv();
+  const aesKey = await deriveKeyFromPassword(password, salt, ["encrypt"]);
+
+  const encryptedData = await encryptData(data, salt, iv, aesKey);
+  return encryptedData;
+}
+
+export const decrypt = async (data, password) => {
+    const encryptedDataBuff = base64_to_buf(data);
+    const salt = encryptedDataBuff.slice(0, 16);
+    const iv = encryptedDataBuff.slice(16, 16 + 12);
+    const filteredData = encryptedDataBuff.slice(16 + 12);
+    const aesKey = await deriveKeyFromPassword(password, salt, ["decrypt"]);
+    const decryptedData = await decryptData(filteredData, salt, iv, aesKey);
+    if (!decryptedData) {
+        throw new Error("Decryption failed");
+    }
+    return decryptedData;
+}
+
 /**
- * Simmetrically encrypts data using a password from which an AES key is derived
+ * Simmetrically encrypts data using an AES key, salt, and iv
  */
-export async function encryptData(secretData, password) {
+async function encryptData(secretData, salt, iv, aesKey) {
   try {
-    const salt = generateSalt();
-    const iv = generateIv();
-    const aesKey = await deriveKeyFromPassword(password, salt, ["encrypt"]);
+    
     const encryptedContent = await crypto.subtle.encrypt(
       {
         name: "AES-GCM",
@@ -104,13 +121,9 @@ export async function encryptData(secretData, password) {
 /**
  * Simmetrically decrypts data using a password from which an AES key is derived
  */
-export async function decryptData(encryptedData, password) {
+export async function decryptData(data, salt, iv, aesKey) {
   try {
-    const encryptedDataBuff = base64_to_buf(encryptedData);
-    const salt = encryptedDataBuff.slice(0, 16);
-    const iv = encryptedDataBuff.slice(16, 16 + 12);
-    const data = encryptedDataBuff.slice(16 + 12);
-    const aesKey = await deriveKeyFromPassword(password, salt, ["decrypt"]);
+
     const decryptedContent = await crypto.subtle.decrypt(
       {
         name: "AES-GCM",
@@ -127,19 +140,26 @@ export async function decryptData(encryptedData, password) {
 }
 // #endregion
 
+// #region Export and wrap keys
+
+/**
+ * Exports a key in a legible format
+ */
+const _exportKey = (key) =>
+  crypto.subtle.exportKey("jwk", key);
+
+const _importKey = (key, algorithm, usages) =>
+  crypto.subtle.importKey("jwk", key, algorithm, false, usages);
+
+// #endregion
+
 // #region RSA key pair generation
 /**
  * Generates a secure RSA key pair
  */
 export const createRSAKeyPair = async () => {
     const keyPair = await crypto.subtle.generateKey(
-        {
-        name: "RSA-OAEP",
-        // Consider using a 4096-bit key for systems that require long-term security
-        modulusLength: 4096,
-        publicExponent: new Uint8Array([1, 0, 1]),
-        hash: "SHA-256",
-        },
+        RSA_ALGORITHM_CONFIG,
         true,
         ["encrypt", "decrypt"]
     )
@@ -154,25 +174,22 @@ export const createRSAKeyPair = async () => {
  */
 export const createExportableRSAKeyPair = async (password) => {
     const keyPair = await createRSAKeyPair();
-    const exportedPublicKey = await crypto.subtle.exportKey(
-        "jwk",
-        keyPair.publicKey
-    );
+    const exportedPublicKey = await _exportKey(keyPair.publicKey);
+    const exportedPrivateKey = await _exportKey(keyPair.privateKey);
 
-    const salt = generateSalt();
-    const iv = generateIv();
-    const aesKey = await deriveKeyFromPassword(password, salt, ["wrapKey"]);
+    const encryptedPrivateKey = await encrypt(JSON.stringify(exportedPrivateKey), password);
 
-    let wrappedPrivateKey = await crypto.subtle.wrapKey(
-        "jwk",
-        keyPair.privateKey,
-        aesKey,
-        {
-            name: "AES-GCM",
-            iv: iv,
-        }
-    );
-    wrappedPrivateKey = new Uint8Array(wrappedPrivateKey);
-    return {privateKey: JSON.stringify(wrappedPrivateKey), publicKey: JSON.stringify(exportedPublicKey)};
+    return {privateKey: encryptedPrivateKey, publicKey: JSON.stringify(exportedPublicKey)};
+}
+
+export const importRSAKeyPair = async (keyPair, password) => {
+    const decryptedPrivateKey = await decrypt(keyPair.privateKey, password);
+    const decryptedPrivateKeyJson = JSON.parse(decryptedPrivateKey);
+
+    const privateKey = await _importKey(decryptedPrivateKeyJson, RSA_ALGORITHM_CONFIG, ["decrypt"]);
+
+    const publicKey = await _importKey(JSON.parse(keyPair.publicKey), RSA_ALGORITHM_CONFIG, ["encrypt"]);
+
+    return {privateKey: privateKey, publicKey: publicKey};
 }
 // #endregion
