@@ -229,6 +229,7 @@ export const createExportableRSAKeyPair = async (password) => {
 }
 
 export const importRSAKeyPair = async (keyPair, password) => {
+  debugger;
     const decryptedPrivateKey = await decrypt(keyPair.privateKey, password);
     const decryptedPrivateKeyJson = JSON.parse(decryptedPrivateKey);
 
