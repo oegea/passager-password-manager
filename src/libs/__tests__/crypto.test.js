@@ -43,13 +43,37 @@ describe('Crypto library tests', () => {
         expect(keyPair.privateKey).toBeDefined();
     });
 
-    test('should be able to import and decrypt a key-pair', async ()=>{
+    test('should be able to import and decrypt an RSA key-pair', async ()=>{
         const keyPair = await cryptoLib.createExportableRSAKeyPair(DEFAULT_PASSWORD);
         
         const unwrappedKey = await cryptoLib.importRSAKeyPair(keyPair, DEFAULT_PASSWORD);
         expect(unwrappedKey).toBeDefined();
         expect(unwrappedKey.publicKey).toBeDefined();
         expect(unwrappedKey.privateKey).toBeDefined();
+    });
 
+    test('should be able to encrypt and decrypt data asimetrically with RSA', async ()=>{
+        const dataToEncrypt = 'test data';
+        const keyPair = await cryptoLib.createRSAKeyPair();
+        const encryptedData = await cryptoLib.RSAEncrypt(dataToEncrypt, keyPair.publicKey);
+        const decryptedData = await cryptoLib.RSADecrypt(encryptedData, keyPair.privateKey);
+        expect(encryptedData).toBeDefined();
+        expect(decryptedData).toBe(dataToEncrypt);
+    });
+
+    test('should be able to generate a random AES key, and encrypt/decrypt it using RSA', async ()=>{
+        const keyPair = await cryptoLib.createRSAKeyPair();
+        const encryptedAESKey = await cryptoLib.generateExportableAESKey(keyPair.publicKey);
+        const decryptedAESKey = await cryptoLib.importAESKey(encryptedAESKey, keyPair.privateKey);
+
+        expect(encryptedAESKey).toBeDefined();
+        expect(decryptedAESKey).toBeDefined();
+        // We can use the decrypted key to encrypt and decrypt data 
+        const dataToEncrypt = 'test data';
+        const encryptedData = await cryptoLib.encrypt(dataToEncrypt, decryptedAESKey);
+        const decryptedData = await cryptoLib.decrypt(encryptedData, decryptedAESKey);
+        expect(encryptedData).toBeDefined();
+        expect(decryptedData).toBe(dataToEncrypt);
+        
     });
 });

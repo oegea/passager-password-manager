@@ -18,6 +18,51 @@ const RSA_ALGORITHM_CONFIG = {
 };
 // #endregion
 
+// #region AES key generation
+/**
+ * Generates a random AES key
+ * @returns {Promise<CryptoKey>} The generated key
+ */
+export const generateAESKey = async () => {
+  const key = await window.crypto.subtle.generateKey(
+    {
+      name: "AES-GCM",
+      length: 256,
+    },
+    true,
+    ["encrypt", "decrypt"]
+  );
+  return key;
+};
+
+/**
+ * Generates an AES key encrypted with an RSA public key
+ * @returns 
+ */
+export const generateExportableAESKey = async (publicKey) => {
+  const key = await generateAESKey();
+  const exportedKey = await _exportKey(key);
+  const stringifiedKey = JSON.stringify(exportedKey);
+  const encryptedKey = await RSAEncrypt(stringifiedKey, publicKey);
+  return encryptedKey;
+};
+
+/**
+ * Imports an AES key that has been encrypted with a public RSA key
+ * @returns 
+ */
+export const importAESKey = async (encryptedKey, privateKey) => {
+  const plainTextKey = await RSADecrypt(encryptedKey, privateKey);
+  const key = JSON.parse(plainTextKey);
+  const importedKey = await _importKey(key, {
+    name: "AES-GCM",
+    length: 256,
+  }, ["encrypt", "decrypt"]);
+
+  return importedKey;
+};
+// #endregion
+
 // #region Derive an AES key from a password
 
 /**
@@ -154,6 +199,7 @@ const _importKey = (key, algorithm, usages) =>
 // #endregion
 
 // #region RSA key pair generation
+
 /**
  * Generates a secure RSA key pair
  */
@@ -192,4 +238,29 @@ export const importRSAKeyPair = async (keyPair, password) => {
 
     return {privateKey: privateKey, publicKey: publicKey};
 }
+// #endregion
+
+// #region RSA encrypt and decrypt
+
+export const RSAEncrypt = async (data, publicKey) => {
+    const encryptedData = await crypto.subtle.encrypt(
+        RSA_ALGORITHM_CONFIG,
+        publicKey,
+        enc.encode(data)
+    );
+
+    return encryptedData;
+}
+
+export const RSADecrypt = async (data, privateKey) => {
+    const decryptedData = await crypto.subtle.decrypt(
+        RSA_ALGORITHM_CONFIG,
+        privateKey,
+        data
+    );
+
+    return dec.decode(decryptedData);
+}
+
+
 // #endregion
