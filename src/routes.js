@@ -9,24 +9,21 @@ import PropTypes from 'prop-types';
 import Home from './components/pages/Home/index.js';
 import Login from './components/pages/Login/index.js';
 import UserSignup from './components/pages/UserSignup/index.js';
+import UserMasterPasswordValidation from './components/pages/UserMasterPasswordValidation/index.js';
 // Context
 import withUser from './providers/WithUser.js';
 
 const RoutesConfiguration = ({user}) => {
 
-    if (user !== null && user.initialized === true && user.decryptedPrivateKey === false && !window.asked) {
-        const password = prompt('Password:');
-        window.asked = true;
-        if (password && password.length > 0)
-            user.decryptPrivateKey(password);
-    }
-
-    if (user !== null && user.initialized === true && user.decryptedPrivateKey === false && window.asked) {
-        user = null;
-    }
     return (
     <BrowserRouter>
-        {user !== null && user.initialized === true && 
+
+        {user !== null && user.initialized === true && user.decryptedPrivateKey === false &&
+        <Routes>
+            <Route path="/" element={<UserMasterPasswordValidation />} />
+        </Routes>}
+
+        {user !== null && user.initialized === true && user.decryptedPrivateKey === true &&
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:folderId" element={<Home />} />

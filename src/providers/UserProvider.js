@@ -30,20 +30,33 @@ class UserProvider extends Component {
 			this.unsubscribe();
 	}
 
-	decryptPrivateKey = async (password) => {
-		debugger;
-		if (this.state.user === null || this.state.user.decryptedPrivateKey)
-			return;
-
-		const keyPair = await importRSAKeyPair(this.state.user, password);
-		this.setState({
-			user: {
-				...this.state.user, 
-				privateKey: keyPair.privateKey, 
-				publicKey: keyPair.publicKey, 
-				decryptedPrivateKey: true
-			}
+	securityTimeout = () =>{ 
+		const promise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve();
+			}, 2500);
 		});
+		return promise;
+	}
+
+	decryptPrivateKey = async (password) => {
+		if (this.state.user === null || this.state.user.decryptedPrivateKey)
+			return false;
+		try {
+			await this.securityTimeout();
+			const keyPair = await importRSAKeyPair(this.state.user, password);
+			this.setState({
+				user: {
+					...this.state.user, 
+					privateKey: keyPair.privateKey, 
+					publicKey: keyPair.publicKey, 
+					decryptedPrivateKey: true
+				}
+			});
+			return true;
+		}catch (e) {
+			return false;
+		}
 
 	}
 

@@ -19,6 +19,8 @@ import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
 import NotLogged from '../../templates/NotLogged/index.js';
 // Context
 import withUser from '../../../providers/WithUser.js';
+// Hooks
+import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
 const PageUserSignup = ({user}) => {
     const { t } = useTranslation();
@@ -91,6 +93,14 @@ const PageUserSignup = ({user}) => {
         setDisplaySpinner(true);
         setUserMasterPassword(user, password.value);
     }
+
+    useDialogConfirmation(() => setStep(1), () => {
+        if (step === 2) {
+            onFinish();
+        } else {
+            setStep(2);
+        }
+    });
 
     return <>
         <NotLogged>
