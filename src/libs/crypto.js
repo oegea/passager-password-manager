@@ -133,6 +133,26 @@ export const decrypt = async (data, password) => {
     return decryptedData;
 }
 
+export const AESEncrypt = async(data, aesKey) => {
+  const salt = generateSalt();
+  const iv = generateIv();
+
+  const encryptedData = await encryptData(data, salt, iv, aesKey);
+  return encryptedData;
+}
+
+export const AESDecrypt = async(data, aesKey) => {
+  const encryptedDataBuff = base64_to_buf(data);
+  const salt = encryptedDataBuff.slice(0, 16);
+  const iv = encryptedDataBuff.slice(16, 16 + 12);
+  const filteredData = encryptedDataBuff.slice(16 + 12);
+  const decryptedData = await decryptData(filteredData, salt, iv, aesKey);
+  if (!decryptedData) {
+      throw new Error("Decryption failed");
+  }
+  return decryptedData;
+}
+
 /**
  * Simmetrically encrypts data using an AES key, salt, and iv
  */

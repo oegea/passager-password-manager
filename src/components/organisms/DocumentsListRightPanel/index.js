@@ -20,6 +20,7 @@ import PasswordsProvider, {PasswordsContext} from '../../../providers/PasswordsP
 
 const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let selectedFolderName = null;
+    let selectedFolderKey = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
     let [editState, setEditState] = useState({showDialog: false, password: {}});
@@ -34,8 +35,8 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
         setShowConfirmationDialog(false);
     }
 
-    const onCreateNewPassword = (password) => {
-        createPassword(user, selectedFolder, password);
+    const onCreateNewPassword = async (password) => {
+        createPassword(user, selectedFolder, password, selectedFolderKey, user.privateKey);
         setShowNewPasswordDialog(false);
     }
 
@@ -51,8 +52,10 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     }
 
     folders.forEach(folder => {
-        if (folder.id === selectedFolder)
+        if (folder.id === selectedFolder){
             selectedFolderName = folder.name;
+            selectedFolderKey = folder.key;
+        }  
     })
 
     if (selectedFolderName === null )

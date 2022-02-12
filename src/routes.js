@@ -20,7 +20,7 @@ const RoutesConfiguration = ({user}) => {
 
         {user !== null && user.initialized === true && user.decryptedPrivateKey === false &&
         <Routes>
-            <Route path="/" element={<UserMasterPasswordValidation />} />
+            <Route path="*" element={<UserMasterPasswordValidation />} />
         </Routes>}
 
         {user !== null && user.initialized === true && user.decryptedPrivateKey === true &&
@@ -31,12 +31,12 @@ const RoutesConfiguration = ({user}) => {
 
         {user !== null && !user.initialized &&
         <Routes>
-            <Route path="/" element={<UserSignup />} />
+            <Route path="*" element={<UserSignup />} />
         </Routes>}
 
         {user === null &&
         <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="*" element={<Login />} />
         </Routes>
         }
     </BrowserRouter>);
