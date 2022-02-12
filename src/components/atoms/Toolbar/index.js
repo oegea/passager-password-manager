@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Toolbar = styled.div`
     align-items: center;
-    background: black;
+    background: #24292f;
     color: white;
     display: flex;
     height: 60px;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Toolbar from '../../atoms/Toolbar/index.js';
 // import ToolbarInput from '../../atoms/ToolbarInput/index.js';
 import Title from '../../atoms/Title/index.js';
-import Button from '../../atoms/Button/index.js';
+import AtomToolbarButton from '../../atoms/ToolbarButton/index';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 
@@ -15,9 +15,7 @@ const OrganismAppBar = ({signOut, marginBottom}) => {
     return <Toolbar marginBottom={marginBottom}>
         <Title>Passager</Title>
         {/*<ToolbarInput type="text" placeholder={t('topbar.Search')}  />*/}
-        <Button 
-            backgroundColor="black"
-            color="white"
+        <AtomToolbarButton 
             label={t('common.Logout')}
             onClick={signOut} />
     </Toolbar>

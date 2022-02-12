@@ -19,11 +19,13 @@ import withFolders from '../../../providers/WithFolders.js';
 import PasswordsProvider, {PasswordsContext} from '../../../providers/PasswordsProvider.js'
 
 const DocumentsListRightPanel = ({ user, folders = [] }) => {
+    const EDIT_INITIAL_STATE = { showDialog: false, password: {}};
+    
     let selectedFolderName = null;
     let selectedFolderKey = null;
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
-    let [editState, setEditState] = useState({showDialog: false, password: {}});
+    let [editState, setEditState] = useState(EDIT_INITIAL_STATE);
     let [deleteState, setDeleteState] = useState({showDialog: false, password: null});
 
     const {t} = useTranslation();
@@ -42,6 +44,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
 
     const onClickEditPassword = async (passwords, rowIndex) => {
         const password = await decryptPassword(passwords[rowIndex], selectedFolderKey, user.privateKey);
+        setShowNewPasswordDialog(false);
         setEditState({ password: password, showDialog: true})
     }
 
@@ -71,19 +74,18 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
             <SectionTitle 
                 title={selectedFolderName}
                 buttons={[
-                    {label: t('common.Create'), onClick: ()=>setShowNewPasswordDialog(true)},
+                    {label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}},
                     {backgroundColor: '#ca0000', color: 'white', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
             
             <PasswordsContext.Consumer>
                 {passwords => {
-                    const passwordsRows = passwords.map((password) => [password.name, password.url, password.username])
+                    const passwordsRows = passwords.map((password) => [password.name, password.url])
                     return <Table
                         onClick={(rowIndex)=>{onClickEditPassword(passwords, rowIndex)}}
                         columns={[
                             t("documentsListRighPanel.Title"), 
-                            t("documentsListRighPanel.Website"), 
-                            t("documentsListRighPanel.Username")]}
+                            t("documentsListRighPanel.Website")]}
                         rows={passwordsRows}/>
                 }
                 }
