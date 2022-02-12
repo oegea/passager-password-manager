@@ -1,5 +1,6 @@
 {
     "common": {
+        "Access": "Access",
         "Cancel": "Cancel",
         "Continue": "Continue",
         "Create": "Create",
@@ -65,5 +66,15 @@
         "Password must be at least 8 characters long": "Password must be at least 8 characters long.",
         "Password must contain at least one capital letter": "Password must contain at least one capital letter.",
         "Password must contain at least one number": "Password must contain at least one number."
+    },
+    "userMasterPasswordValidation": {
+        "The entered password is not valid": "The entered password is not valid.",
+        "Please write your master password": "Please write your master password",
+        "We need your master password to decrypt your passwords": "We need your master password to decrypt your passwords.",
+        "Your data can't be accessed without your master password, not even by Passager administrators": "Your data can't be accessed without your master password, not even by Passager administrators.",
+        "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "If you lose your password, you won't be able to access your account. And nobody would be able to recover it.",
+        "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances.",
+        "Master password": "Master password",
+        "Type here your password": "Type here your password"
     }
 }

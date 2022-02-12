@@ -56,24 +56,24 @@ const PageUserMasterPasswordValidation = ({user}) => {
             {displaySpinner && <GlobalSpinner /> }
             <Title>{t('userMasterPasswordValidation.Please write your master password')}</Title>
 
-            <p>{t('userMasterPasswordValidation.We need your master password to decrypt your passwords. Did you know that...')}</p>
+            <p>{t('userMasterPasswordValidation.We need your master password to decrypt your passwords')}</p>
             <ul>
-                <li>{t('userMasterPasswordValidation.Your data can\'t be accessed (not even by us) without your master password')}</li>
-                <li>{t('userMasterPasswordValidation.If you lose your password, you won\'t be able to access your account. And nobody would be able to recover it.')}</li>
-                <li>{t('userMasterPasswordValidation.We will never ask you for your master password. Do not share with anyone, by any reason.')}</li>
+                <li>{t('userMasterPasswordValidation.Your data can\'t be accessed without your master password, not even by Passager administrators')}</li>
+                <li>{t('userMasterPasswordValidation.If you lose your password, you won\'t be able to access your account. And nobody would be able to recover it')}</li>
+                <li>{t('userMasterPasswordValidation.We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances')}</li>
             </ul>
             <InputWrapper marginBottom='25px'>
-                <InputLabel htmlFor="password">{t('userSignup.Master password')}</InputLabel>
+                <InputLabel htmlFor="password">{t('userMasterPasswordValidation.Master password')}</InputLabel>
                 <Input 
                     defaultValue={password.value}
                     id="password"
                     type="password"
-                    placeholder={t('userSignup.Type here your password')}
+                    placeholder={t('userMasterPasswordValidation.Type here your password')}
                     onChange={(e) => setPassword({value: e.target.value, error: ''})}/>
                 {password.error.length > 0 && <span style={{color: 'red'}}>{password.error}</span>}
             </InputWrapper>
             <ButtonWrapper justifyContent='center'>
-                <Button label={t('common.Login')} onClick={() => onLogin()}/>
+                <Button label={t('common.Access')} onClick={() => onLogin()}/>
             </ButtonWrapper>
             
             <AtomButtonLink onClick={logout}>{t('common.Logout')}</AtomButtonLink>

@@ -1,5 +1,6 @@
 {
     "common": {
+        "Access": "Acceder",
         "Cancel": "Cancelar",
         "Continue": "Continuar",
         "Create": "Añadir",
@@ -65,5 +66,15 @@
         "Password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres.",
         "Password must contain at least one capital letter": "La contraseña debe contener al menos una letra mayúscula.",
         "Password must contain at least one number": "La contraseña debe contener al menos un número."
+    },
+    "userMasterPasswordValidation": {
+        "The entered password is not valid": "La contraseña introducida no es correcta.",
+        "Please write your master password": "Por favor, escriba su contraseña maestra",
+        "We need your master password to decrypt your passwords": "Necesitamos que introduzca su contraseña maestra para que pueda acceder a sus datos.",
+        "Your data can't be accessed without your master password, not even by Passager administrators": "Nadie puede acceder a sus datos sin su contraseña maestra, siquiera la administración de Passager.",
+        "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "Si pierde su contraseña, no podrá acceder a su cuenta, y nadie podrá recuperarla.",
+        "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "Nunca le pediremos su contraseña maestra por correo electrónico o cualquier otro medio externo. No comparta su contraseña con nadie, bajo ningún concepto.",
+        "Master password": "Contraseña maestra",
+        "Type here your password": "Escriba aquí su contraseña"
     }
 }
