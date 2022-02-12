@@ -85,6 +85,8 @@ const PageUserSignup = ({user}) => {
 
     const onFinish = () => {
 
+        if (displaySpinner) { return; }
+
         const {passwordError, passwordConfirmError} = onPasswordChange(password.value);
 
         if (passwordError.length > 0 || passwordConfirmError.length > 0) 

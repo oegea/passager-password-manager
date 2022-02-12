@@ -31,6 +31,8 @@ const PageUserMasterPasswordValidation = ({user}) => {
     const [displaySpinner, setDisplaySpinner] = useState(false);
 
     const onLogin = async () => {
+        if (displaySpinner) { return; }
+        console.log('onLogin called')
         setDisplaySpinner(true);
         const decryptResult = await user.decryptPrivateKey(password.value);
         let error = '';
@@ -41,7 +43,7 @@ const PageUserMasterPasswordValidation = ({user}) => {
         
         setDisplaySpinner(false);
         setPassword({
-            value: password,
+            value: password.value,
             error
         } );
         
