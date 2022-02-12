@@ -249,14 +249,14 @@ export const RSAEncrypt = async (data, publicKey) => {
         enc.encode(data)
     );
 
-    return encryptedData;
+    return buff_to_base64(encryptedData);
 }
 
 export const RSADecrypt = async (data, privateKey) => {
     const decryptedData = await crypto.subtle.decrypt(
         RSA_ALGORITHM_CONFIG,
         privateKey,
-        data
+        base64_to_buf(data)
     );
 
     return dec.decode(decryptedData);

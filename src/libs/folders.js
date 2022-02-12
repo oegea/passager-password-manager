@@ -1,11 +1,15 @@
 // Own libraries
 import { db, fireStore } from './firebase.js';
+import {generateExportableAESKey} from './crypto.js';
 
 const { addDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
 
 export const createFolder = async (user, folder) => {
+    // Generate the folder's key
+    const key = await generateExportableAESKey(user.publicKey);
+    // Create the folder in the database
     const collectionRef = collection(db, "folders");
-    const docRef = await addDoc(collectionRef, {...folder, owner: user.uid});
+    const docRef = await addDoc(collectionRef, {...folder, key, owner: user.uid});
     return docRef;
 }
 

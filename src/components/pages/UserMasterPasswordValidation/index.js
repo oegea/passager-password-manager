@@ -49,8 +49,6 @@ const PageUserMasterPasswordValidation = ({user}) => {
 
     useDialogConfirmation(()=>null, onLogin);
 
-
-
     return <>
         <NotLogged>
             {displaySpinner && <GlobalSpinner /> }
