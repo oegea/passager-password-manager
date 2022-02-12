@@ -18,8 +18,8 @@ const SideDialog = styled.div`
     width: 400px;
 
     @media (max-width: 768px) {
-        width: 100%;
-        max-width: 100%;
+        width: calc(100% - 50px);
+        max-width: calc(100% - 50px);
     }
 `;
 

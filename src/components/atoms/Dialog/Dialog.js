@@ -12,6 +12,11 @@ const Dialog = styled.div`
     max-height: 100vh;
     border-radius: 10px;
     padding: 20px;
+
+    @media (max-width: 768px) {
+        width: calc(100% - 40px);
+        max-width: calc(100% - 40px);
+    }
 `;
 
 const AtomDialog = ({children, onClose}) => {

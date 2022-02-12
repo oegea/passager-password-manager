@@ -10,7 +10,7 @@ import ConfirmationDialog from '../ConfirmationDialog/index.js';
 import PasswordFormDialog from '../PasswordFormDialog/index.js';
 // Own libs
 import { deleteFolder } from '../../../libs/folders.js';
-import { createPassword, deletePassword, editPassword } from '../../../libs/passwords.js';
+import { createPassword, decryptPassword, deletePassword, editPassword } from '../../../libs/passwords.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Context
@@ -36,12 +36,17 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     }
 
     const onCreateNewPassword = async (password) => {
-        createPassword(user, selectedFolder, password, selectedFolderKey, user.privateKey);
+        await createPassword(user, selectedFolder, password, selectedFolderKey, user.privateKey);
         setShowNewPasswordDialog(false);
     }
 
-    const onEditPassword = (password, passwordId) => {
-        editPassword(selectedFolder, passwordId, password);
+    const onClickEditPassword = async (passwords, rowIndex) => {
+        const password = await decryptPassword(passwords[rowIndex], selectedFolderKey, user.privateKey);
+        setEditState({ password: password, showDialog: true})
+    }
+
+    const onEditPassword = async (password, passwordId) => {
+        await editPassword(selectedFolder, passwordId, password, selectedFolderKey, user.privateKey);
         setEditState({showDialog: false, password: {}});
     }
 
@@ -74,7 +79,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 {passwords => {
                     const passwordsRows = passwords.map((password) => [password.name, password.url, password.username])
                     return <Table
-                        onClick={(rowIndex)=>{setEditState({ password: passwords[rowIndex], showDialog: true})}}
+                        onClick={(rowIndex)=>{onClickEditPassword(passwords, rowIndex)}}
                         columns={[
                             t("documentsListRighPanel.Title"), 
                             t("documentsListRighPanel.Website"), 
