@@ -20,10 +20,7 @@ const MoleculeSectionTitle = ({title, buttons = []}) => {
             return <ButtonComponent 
                 key={button.label} 
                 label={button.label} 
-                onClick={button.onClick}
-                padding="5px"
-                color={button.color || 'black'}
-                backgroundColor={button.backgroundColor || 'white'} />
+                onClick={button.onClick}/>
         })}
 
     </SectionTitle>
@@ -33,8 +30,6 @@ MoleculeSectionTitle.displayName = 'MoleculeSectionTitle';
 MoleculeSectionTitle.propTypes = {
     title: PropTypes.string,
     buttons: PropTypes.arrayOf(PropTypes.shape({
-        backgroundColor: PropTypes.string,
-        color: PropTypes.string,
         label: PropTypes.string,
         onClick: PropTypes.func,
     })),

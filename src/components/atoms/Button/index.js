@@ -3,30 +3,26 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = styled.div`
-    background-color: ${props => props.backgroundColor};
-    border: 1px solid ${props => props.color};
-    border-radius: 5px;
-    color: ${props => props.color};
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    color: #383838;
     cursor: pointer;
-    padding: ${props => props.padding};
+    padding: 5px;
+    font-weight: 600;
+
+    &:hover {
+        background: #e5e5e5;
+    }
 `;
 
-const AtomButton = ({label, onClick, color, backgroundColor, padding = "10px"}) => {
-    return <Button 
-        backgroundColor={backgroundColor}
-        color={color}
-        onClick={onClick} 
-        padding={padding}
-    >{label}</Button>
+const AtomButton = ({label, onClick}) => {
+    return <Button onClick={onClick}>{label}</Button>
 }
 
 AtomButton.displayName = 'AtomButton';
 AtomButton.propTypes = {
     label: PropTypes.string,
     onClick: PropTypes.func,
-    color: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    padding: PropTypes.string,
 }
 
 export default AtomButton;
