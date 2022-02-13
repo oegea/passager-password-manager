@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import LeftPanelList from '../../molecules/LeftPanelList/index.js';
 // Organisms
-import NewFolderDialog from '../NewFolderDialog/index.js';
+import FolderFormDialog from '../FolderFormDialog/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libraries
@@ -34,8 +34,8 @@ const FoldersListLeftPanel = ({user, folders, onChange = () => null}) => {
             <SectionTitle title={t('common.Folders')} buttons={[{label: t('common.Create'), onClick: ()=>setShowNewFolderDialog(true)}]}/>
             {
                 showNewFolderDialog && 
-                <NewFolderDialog 
-                    createFolder={(folder) => onCreateFolder(folder)} 
+                <FolderFormDialog 
+                    onSave={(folder) => onCreateFolder(folder)} 
                     closeDialog={()=>setShowNewFolderDialog(false)} 
                 /> 
             }

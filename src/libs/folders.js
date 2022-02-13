@@ -2,7 +2,7 @@
 import { db, fireStore } from './firebase.js';
 import {generateExportableAESKey} from './crypto.js';
 
-const { addDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
+const { addDoc, updateDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
 
 export const createFolder = async (user, folder) => {
     // Generate the folder's key
@@ -11,6 +11,12 @@ export const createFolder = async (user, folder) => {
     const collectionRef = collection(db, "folders");
     const docRef = await addDoc(collectionRef, {...folder, key, owner: user.uid});
     return docRef;
+}
+
+export const editFolder = async(folderId, folder) =>{
+    const collectionRef = collection(db, "folders");
+    const docRef = doc(collectionRef, folderId);
+    await updateDoc(docRef, folder);
 }
 
 export const deleteFolder = async (folderId) => {

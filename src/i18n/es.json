@@ -18,6 +18,7 @@
     },
     "documentsListRighPanel": {
         "Delete folder": "Eliminar carpeta",
+        "Edit folder": "Editar carpeta",
         "Username": "Nombre de usuario",
         "Website": "Sitio web",
         "Please, select a folder to start": "Seleccione una carpeta para empezar",
@@ -28,7 +29,8 @@
         "Log in with Google": "Iniciar sesión con Google",
         "Change to": "Cambiar a:"
     },
-    "newFolderDialog": {
+    "folderFormDialog": {
+        "Edit Folder": "Editar carpeta",
         "Folder name is required": "El nombre de la carpeta es obligatorio",
         "New Folder": "Nueva carpeta",
         "New folder name": "Nombre de la carpeta"

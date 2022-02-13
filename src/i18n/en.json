@@ -18,6 +18,7 @@
     },
     "documentsListRighPanel": {
         "Delete folder": "Delete folder",
+        "Edit folder": "Edit folder",
         "Username": "Username",
         "Website": "Website",
         "Please, select a folder to start": "Please, select a folder to start",
@@ -28,7 +29,8 @@
         "Log in with Google": "Log in with Google",
         "Change to": "Switch to:"
     },
-    "newFolderDialog": {
+    "folderFormDialog": {
+        "Edit Folder": "Edit Folder",
         "Folder name is required": "Folder name is required",
         "New Folder": "New Folder",
         "New folder name": "New folder name"

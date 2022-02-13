@@ -9,8 +9,9 @@ import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
 import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
 import PasswordFormDialog from '../PasswordFormDialog/index.js';
+import FolderFormDialog from '../FolderFormDialog/index.js';
 // Own libs
-import { deleteFolder } from '../../../libs/folders.js';
+import { deleteFolder, editFolder } from '../../../libs/folders.js';
 import { createPassword, decryptPassword, deletePassword, editPassword } from '../../../libs/passwords.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
@@ -29,6 +30,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
     let [editState, setEditState] = useState(EDIT_INITIAL_STATE);
     let [deleteState, setDeleteState] = useState({showDialog: false, password: null});
+    let [showEditFolderDialog, setShowEditFolderDialog] = useState(false);
 
     const {t} = useTranslation();
     const {folderId} = useParams();
@@ -37,6 +39,11 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     const onDelete = () => {
         deleteFolder(selectedFolder);
         setShowConfirmationDialog(false);
+    }
+
+    const onEditFolder = async (folder) => {
+       await editFolder(selectedFolder, folder);
+       setShowEditFolderDialog(false);
     }
 
     const onCreateNewPassword = async (password) => {
@@ -81,6 +88,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 title={selectedFolderName}
                 buttons={[
                     {label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}},
+                    {label: t('documentsListRighPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
                     {type: 'alert', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
             
@@ -105,6 +113,14 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 /> 
             }
             {
+                showEditFolderDialog &&
+                <FolderFormDialog 
+                    onSave={(folder) => onEditFolder(folder)} 
+                    closeDialog={()=>setShowEditFolderDialog(false)} 
+                    defaultName={selectedFolderName}
+                /> 
+            }
+            {
                 showNewPasswordDialog &&
                 <PasswordFormDialog 
                     onClose={() => setShowNewPasswordDialog(false)} 
@@ -119,7 +135,6 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                     onDelete={() => setDeleteState({showDialog: true, password: editState.password.id})}
                     onSave={(password, passwordId) => onEditPassword(password, passwordId)} />
             }
-
             {
                 deleteState.showDialog &&
                 <ConfirmationDialog 
