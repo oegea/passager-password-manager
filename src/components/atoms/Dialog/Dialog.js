@@ -16,6 +16,7 @@ const Dialog = styled.div`
     @media (max-width: 768px) {
         width: calc(100% - 40px);
         max-width: calc(100% - 40px);
+        height: calc(100vh - 40px);
     }
 `;
 

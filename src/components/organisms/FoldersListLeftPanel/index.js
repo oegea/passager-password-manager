@@ -15,7 +15,7 @@ import { createFolder } from '../../../libs/folders.js';
 import withUsers from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
 
-const FoldersListLeftPanel = ({user, folders}) => {
+const FoldersListLeftPanel = ({user, folders, onChange = () => null}) => {
     const {folderId} = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -23,8 +23,10 @@ const FoldersListLeftPanel = ({user, folders}) => {
 
     const onCreateFolder = async (folder) => {
         const folderDoc = await createFolder(user, folder)
-        if (folderDoc?.id)
+        if (folderDoc?.id){
             navigate('/' + folderDoc.id);
+            onChange();
+        } 
     }
 
     return (
@@ -37,7 +39,7 @@ const FoldersListLeftPanel = ({user, folders}) => {
                     closeDialog={()=>setShowNewFolderDialog(false)} 
                 /> 
             }
-            <LeftPanelList folders={folders} selectedFolder={folderId} />
+            <LeftPanelList onChange={onChange} folders={folders} selectedFolder={folderId} />
             
         </>
     )
@@ -46,7 +48,8 @@ const FoldersListLeftPanel = ({user, folders}) => {
 FoldersListLeftPanel.displayName = 'FoldersListLeftPanel';
 FoldersListLeftPanel.propTypes = {
     folders: PropTypes.array,
-    user: PropTypes.object
+    user: PropTypes.object,
+    onChange: PropTypes.func,
 }
 
 export default withUsers(withFolders(FoldersListLeftPanel));

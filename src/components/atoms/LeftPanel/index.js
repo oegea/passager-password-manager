@@ -7,6 +7,10 @@ const LeftPanel = styled.div`
     height: calc(100vh - 110px);
     padding: 25px;
     width: 20%;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `;
 
 const AtomLeftPanel = ({children}) => {
