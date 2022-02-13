@@ -3,29 +3,28 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = styled.div`
-    background-color: transparent;
+    background-color: #d32f2f;
     border-radius: 10px;
     color: white;
     cursor: pointer;
-    padding: 7px;
+    padding: 5px;
     font-weight: 600;
 
     &:hover{
-        border: 2px solid white;
-        padding: 5px;
+        background: #ba2929;
     }
 `;
 
-const AtomToolbarButton = ({label, onClick}) => {
+const AtomAlertButton = ({label, onClick}) => {
     return <Button 
         onClick={onClick} 
     >{label}</Button>
 }
 
-AtomToolbarButton.displayName = 'AtomToolbarButton';
-AtomToolbarButton.propTypes = {
+AtomAlertButton.displayName = 'AtomAlertButton';
+AtomAlertButton.propTypes = {
     label: PropTypes.string,
     onClick: PropTypes.func
 }
 
-export default AtomToolbarButton;
+export default AtomAlertButton;

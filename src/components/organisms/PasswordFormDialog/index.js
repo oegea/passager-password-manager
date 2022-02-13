@@ -95,7 +95,7 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
             {
                 defaultValues.id ?
                 <SectionTitle title={t('passwordFormDialog.Edit password')} buttons={[
-                    {backgroundColor: '#ca0000', color: 'white', label: t('common.Delete'), onClick: () => onDelete()},
+                    {type: 'alert', label: t('common.Delete'), onClick: () => onDelete()},
                 ]}/> :
                 <SectionTitle title={t('passwordFormDialog.New password')} />
             }

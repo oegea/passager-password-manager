@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom";
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
+import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
 // Organisms
 import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
@@ -23,6 +24,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     
     let selectedFolderName = null;
     let selectedFolderKey = null;
+    let [showSpinner, setShowSpinner] = useState(false);
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
     let [editState, setEditState] = useState(EDIT_INITIAL_STATE);
@@ -38,7 +40,9 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     }
 
     const onCreateNewPassword = async (password) => {
+        setShowSpinner(true);
         await createPassword(user, selectedFolder, password, selectedFolderKey, user.privateKey);
+        setShowSpinner(false);
         setShowNewPasswordDialog(false);
     }
 
@@ -49,7 +53,9 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     }
 
     const onEditPassword = async (password, passwordId) => {
+        setShowSpinner(true);
         await editPassword(selectedFolder, passwordId, password, selectedFolderKey, user.privateKey);
+        setShowSpinner(false);
         setEditState({showDialog: false, password: {}});
     }
 
@@ -75,7 +81,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 title={selectedFolderName}
                 buttons={[
                     {label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}},
-                    {backgroundColor: '#ca0000', color: 'white', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
+                    {type: 'alert', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
             
             <PasswordsContext.Consumer>
@@ -120,6 +126,11 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                     onAccept={() => onDeletePassword()} 
                     closeDialog={()=>setDeleteState({showDialog: false, password: null})} 
                 /> 
+            }
+
+            {
+                showSpinner && 
+                <GlobalSpinner />
             }
             
         </PasswordsProvider>

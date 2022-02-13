@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
+import AlertButton from '../../atoms/AlertButton/index.js';
 
 const SectionTitle = styled.div`
     align-items: auto;
@@ -14,15 +15,16 @@ const SectionTitle = styled.div`
 const MoleculeSectionTitle = ({title, buttons = []}) => {
     return <SectionTitle>
         <Title>{title}</Title>
-        {buttons.map(button => 
-            <Button 
+        {buttons.map(button => {
+            const ButtonComponent = button.type === 'alert' ? AlertButton : Button;
+            return <ButtonComponent 
                 key={button.label} 
                 label={button.label} 
                 onClick={button.onClick}
                 padding="5px"
                 color={button.color || 'black'}
-                backgroundColor={button.backgroundColor || 'white'}/>
-        )}
+                backgroundColor={button.backgroundColor || 'white'} />
+        })}
 
     </SectionTitle>
 }
