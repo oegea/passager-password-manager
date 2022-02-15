@@ -12,10 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-
-#changelog{
-  position: absolute;
-  left: calc(15% + 80px);
-  top: 9px;
-}
