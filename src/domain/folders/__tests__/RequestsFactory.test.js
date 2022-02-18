@@ -18,14 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Factories
-import {FoldersServicesFactory} from '../Services/factory.js';
-// User cases
-import {CreateFolderUseCase} from './CreateFolderUseCase.js';
+import {FoldersRequestsFactory} from '../Requests/factory.js';
 
-export class FoldersUseCasesFactory {
-    static createFolderUseCase = ({config}) => 
-        new CreateFolderUseCase({
-            service: FoldersServicesFactory.createFolderService({config})
+describe('Requests Factory tests', ()=>{
+    it('should properly create a CreateFolderRequest', ()=>{
+        const DEFAULT_NAME = 'folder name';
+        const DEFAULT_USER_ID = '123';
+        const DEFAULT_PUBLIC_KEY = '123';
+        const folderRequest = FoldersRequestsFactory.createFolderRequest({
+            name: DEFAULT_NAME, 
+            owner: DEFAULT_USER_ID,
+            publicKey: DEFAULT_PUBLIC_KEY
         });
-}
+
+        expect(typeof folderRequest).toBe('object');
+        expect(folderRequest.getName()).toBe(DEFAULT_NAME)
+        expect(folderRequest.getOwner()).toBe(DEFAULT_USER_ID);
+        expect(folderRequest.getPublicKey()).toBe(DEFAULT_PUBLIC_KEY);
+    })
+});

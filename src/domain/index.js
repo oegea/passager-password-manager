@@ -18,12 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import config from "./config.js";
+// Domain config
+import config from './config.js';
+// Use cases
+import {FoldersUseCasesFactory} from './folders/UseCases/factory.js';
 
 const useCases = {
-
+    'folders': {
+        'create_folder_use_case': FoldersUseCasesFactory.createFolderUseCase({config})
+    }
 }
 
-export default {
-    config
-}
+const domain = {
+    config,
+    useCases
+};
+
+export default domain;
