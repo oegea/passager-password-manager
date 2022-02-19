@@ -18,12 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
-import {CreateFolderService} from './CreateFolderService.js';
+export default class FirebaseFoldersRepository {
 
-export class FoldersServicesFactory {
-    static createFolderService = ({config}) =>  
-        new CreateFolderService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
-        })
+    /**
+     * Creates a folder in firebase and returns a FolderEntity
+     */
+    async createFolder(){
+        throw new Error('[FirebaseFoldersRepository][createFolder] is not implemented yet');
+    }
 }

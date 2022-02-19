@@ -19,7 +19,7 @@
  */
 
 // Domain config
-import config from './config.js';
+import config from './config/index.js';
 // Use cases
 import {FoldersUseCasesFactory} from './folders/UseCases/factory.js';
 

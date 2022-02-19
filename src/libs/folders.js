@@ -18,6 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Domain
+import domain from '../domain/index.js';
+
 // Own libraries
 import { db, fireStore } from './firebase.js';
 import {generateExportableAESKey} from './crypto.js';
@@ -25,12 +28,7 @@ import {generateExportableAESKey} from './crypto.js';
 const { addDoc, updateDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
 
 export const createFolder = async (user, folder) => {
-    // Generate the folder's key
-    const key = await generateExportableAESKey(user.publicKey);
-    // Create the folder in the database
-    const collectionRef = collection(db, "folders");
-    const docRef = await addDoc(collectionRef, {...folder, key, owner: user.uid});
-    return docRef;
+    return await domain.useCases.folders['create_folder_use_case'].execute({userId: user.uid, userPublicKey: user.publicKey, folderName: folder.name});
 }
 
 export const editFolder = async(folderId, folder) =>{

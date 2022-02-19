@@ -79,4 +79,11 @@ export const fireAuth = {
 export const auth = getAuth();
 export const db = getFirestore();
 export const  signInWithGoogle = () => signInWithPopup(auth, provider);
-export default app;
+
+const defaultExport = {
+  app,
+  db,
+  fireStore
+};
+
+export default defaultExport;
