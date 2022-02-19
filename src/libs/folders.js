@@ -23,9 +23,8 @@ import domain from '../domain/index.js';
 
 // Own libraries
 import { db, fireStore } from './firebase.js';
-import {generateExportableAESKey} from './crypto.js';
 
-const { addDoc, updateDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
+const { updateDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
 
 export const createFolder = async (user, folder) => {
     return await domain.useCases.folders['create_folder_use_case'].execute({userId: user.uid, userPublicKey: user.publicKey, folderName: folder.name});
