@@ -138,7 +138,7 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
                     defaultValue={state.url.value}
                     id="url"
                     type="text" 
-                    placeholder="https://gmail.com"
+                    placeholder={t("passwordFormDialog.urlExample")}
                     onChange={(e) => onChangeHandler(e, 'url')}/>
                 {state.url.error.length > 0 && <span style={{color: 'red'}}>{state.url.error}</span>}
             </InputWrapper>

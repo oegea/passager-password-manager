@@ -42,9 +42,10 @@
         "Password name": "Password name",
         "Password": "Password",
         "Username": "Username",
-        "usernameExample": "myusername@gmail.com",
+        "usernameExample": "Type here your username",
         "Website URL": "Website URL",
-        "Your secret password": "Your secret password"
+        "Your secret password": "Your secret password",
+        "urlExample": "Type here the website URL"
     },
     "topbar": {
         "Search": "Search"
