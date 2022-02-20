@@ -23,6 +23,7 @@ export class CreateFolderRequest {
         this._name = name;
         this._owner = owner;
         this._publicKey = publicKey;
+        this._folderKey = '';
     }
 
     getName() {
@@ -35,5 +36,13 @@ export class CreateFolderRequest {
 
     getPublicKey(){
         return this._publicKey;
+    }
+
+    setFolderKey(key){
+        this._folderKey = key;
+    }
+
+    getFolderKey(){
+        return this._folderKey;
     }
 }

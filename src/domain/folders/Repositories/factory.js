@@ -20,7 +20,6 @@
 
 // Third party dependencies
 import firebaseUtils from '../../../libs/firebase.js';
-import {generateExportableAESKey} from '../../../libs/crypto.js';
 // Repositories
 import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
 // Mappers
@@ -30,7 +29,6 @@ export class FoldersRepositoriesFactory {
     static firebaseFoldersRepository = ({config}) =>
         new FirebaseFoldersRepository(({
             config,
-            generateExportableAESKey,
             firebaseUtils
         }))
         // fromResultToFolderEntityMapper: FoldersMappersFactory.fromResultToFolderEntityMapper()

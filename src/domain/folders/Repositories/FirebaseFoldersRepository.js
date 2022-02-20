@@ -23,13 +23,11 @@ import FoldersRepository from './FoldersRepository.js';
 export default class FirebaseFoldersRepository extends FoldersRepository {
     constructor({
         config,
-        generateExportableAESKey,
         firebaseUtils,
         fromResultToFolderEntityMapper
     }) {
         super({})
         this._config = config;
-        this._generateExportableAESKey = generateExportableAESKey;
         this._firebaseUtils = firebaseUtils;
         this._fromResultToFolderEntityMapper = fromResultToFolderEntityMapper;
     }
@@ -43,12 +41,9 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         // Retrieve data
         const name = createFolderRequest.getName();
         const owner = createFolderRequest.getOwner();
-        const userPublicKey = createFolderRequest.getPublicKey();
+        const key = createFolderRequest.getFolderKey();
         const {db, fireStore} = this._firebaseUtils;
         const {addDoc, collection} = fireStore;
-        
-        // Generate a key to encrypt the folder
-        const key = await this._generateExportableAESKey(userPublicKey);
 
         // Create folder in the database
         const collectionRef = collection(db, "folders");

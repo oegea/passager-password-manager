@@ -18,12 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
+// Third party dependencies
+import {generateExportableAESKey} from '../../../libs/crypto.js';
+// Services
 import {CreateFolderService} from './CreateFolderService.js';
+// Factories
+import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
 
 export class FoldersServicesFactory {
     static createFolderService = ({config}) =>  
         new CreateFolderService({
+            generateExportableAESKey,
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
         })
 }

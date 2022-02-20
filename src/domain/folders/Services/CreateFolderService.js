@@ -19,11 +19,21 @@
  */
 
 export class CreateFolderService {
-    constructor({repository}) {
+    constructor({
+        generateExportableAESKey,
+        repository
+    }) {
+        this._generateExportableAESKey = generateExportableAESKey;
         this._repository = repository;
     }
 
     async execute({createFolderRequest}) {
+
+        // Generate a key to encrypt the folder
+        const userPublicKey = createFolderRequest.getPublicKey();
+        const key = await this._generateExportableAESKey(userPublicKey);
+        createFolderRequest.setFolderKey(key);
+
         const createFolderResult = await this._repository.createFolder({
             createFolderRequest
         });
