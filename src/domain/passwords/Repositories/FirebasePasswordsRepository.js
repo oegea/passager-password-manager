@@ -40,7 +40,7 @@ export class FirebasePasswordsRepository extends PasswordsRepository {
         const url = passwordOperationRequest.getUrl();
         const username = passwordOperationRequest.getUsername();
         const folderId = passwordOperationRequest.getFolderId();
-        debugger;
+
         const subcollectionRef = collection(db, "folders", folderId, "passwords");
 
         let docRef = await addDoc(subcollectionRef, {
