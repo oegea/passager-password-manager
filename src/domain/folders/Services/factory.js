@@ -24,6 +24,7 @@ import {generateExportableAESKey} from '../../../libs/crypto.js';
 import {CreateFolderService} from './CreateFolderService.js';
 import {DeleteFolderService} from './DeleteFolderService.js';
 import {EditFolderService} from './EditFolderService.js';
+import {DeleteFolderRelatedPasswordsService} from './DeleteFolderRelatedPasswordsService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
 
@@ -41,6 +42,12 @@ export class FoldersServicesFactory {
     
     static deleteFolderService = ({config}) =>
         new DeleteFolderService({
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
+            deleteFolderRelatedPasswordsService: FoldersServicesFactory.deleteFolderRelatedPasswordsService({config})
+        });  
+        
+    static deleteFolderRelatedPasswordsService = ({config}) =>
+        new DeleteFolderRelatedPasswordsService({
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
-        });    
+        })
 }

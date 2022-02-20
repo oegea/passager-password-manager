@@ -18,24 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export default class FoldersRepository {
-
-    /**
-     * Creates a folder in firebase and returns a FolderEntity
-     */
-    async createFolder(){
-        throw new Error('[FoldersRepository][createFolder] is not implemented yet');
+ export class DeleteFolderRelatedPasswordsService {
+    constructor({
+        repository
+    }) {
+        this._repository = repository;
     }
 
-    async editFolder(){
-        throw new Error('[FoldersRepository][editFolder] is not implemented yet');
-    }
-
-    async deleteFolder(){
-        throw new Error('[FoldersRepository][deleteFolder] is not implemented yet');
-    }
-
-    async deleteFolderRelatedPasswords() {
-        throw new Error('[FoldersRepository][deleteFolderRelatedPasswords] is not implemented yet');
+    async execute({folderReferenceRequest}) {
+        const deleteFolderResult = await this._repository.deleteFolderRelatedPasswords({folderReferenceRequest});
+        return deleteFolderResult;
     }
 }

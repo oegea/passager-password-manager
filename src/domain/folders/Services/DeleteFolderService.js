@@ -20,12 +20,15 @@
 
 export class DeleteFolderService {
     constructor({
+        deleteFolderRelatedPasswordsService,
         repository
     }) {
+        this._deleteFolderRelatedPasswordsService = deleteFolderRelatedPasswordsService;
         this._repository = repository;
     }
 
     async execute({folderReferenceRequest}) {
+        await this._deleteFolderRelatedPasswordsService.execute({folderReferenceRequest});
         const deleteFolderResult = await this._repository.deleteFolder({folderReferenceRequest});
         return deleteFolderResult;
     }
