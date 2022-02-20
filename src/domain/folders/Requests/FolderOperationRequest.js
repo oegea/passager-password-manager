@@ -18,10 +18,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FolderOperationRequest} from './FolderOperationRequest.js';
+export class FolderOperationRequest {
+    constructor({
+            folderKey = '',
+            id = '',
+            name,
+            owner, 
+            publicKey 
+        }) {
+        this._folderKey = folderKey;
+        this._id = id;
+        this._name = name;
+        this._owner = owner;
+        this._publicKey = publicKey;
+    }
 
-export class FoldersRequestsFactory {
-    static folderOperationRequest = ({id, folderKey, name, owner, publicKey}) => {
-        return new FolderOperationRequest({id, folderKey, name, owner, publicKey});
+    getName() {
+        return this._name;
+    }
+
+    getOwner() {
+        return this._owner;
+    }
+
+    getPublicKey(){
+        return this._publicKey;
+    }
+
+    setFolderKey(key){
+        this._folderKey = key;
+    }
+
+    getFolderKey(){
+        return this._folderKey;
+    }
+
+    getId(){
+        return this._id;
     }
 }

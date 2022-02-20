@@ -21,11 +21,11 @@
 import {FoldersRequestsFactory} from '../Requests/factory.js';
 
 describe('Requests Factory tests', ()=>{
-    it('should properly create a CreateFolderRequest', ()=>{
+    it('should properly create a FolderOperationRequest', ()=>{
         const DEFAULT_NAME = 'folder name';
         const DEFAULT_USER_ID = '123';
         const DEFAULT_PUBLIC_KEY = '123';
-        const folderRequest = FoldersRequestsFactory.createFolderRequest({
+        const folderRequest = FoldersRequestsFactory.folderOperationRequest({
             name: DEFAULT_NAME, 
             owner: DEFAULT_USER_ID,
             publicKey: DEFAULT_PUBLIC_KEY

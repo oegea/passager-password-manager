@@ -22,6 +22,7 @@
 import {generateExportableAESKey} from '../../../libs/crypto.js';
 // Services
 import {CreateFolderService} from './CreateFolderService.js';
+import {EditFolderService} from './EditFolderService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
 
@@ -30,5 +31,10 @@ export class FoldersServicesFactory {
         new CreateFolderService({
             generateExportableAESKey,
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
-        })
+        });
+
+    static editFolderService = ({config}) =>
+        new EditFolderService({
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+        });
 }

@@ -27,15 +27,15 @@ export class CreateFolderService {
         this._repository = repository;
     }
 
-    async execute({createFolderRequest}) {
+    async execute({folderOperationRequest}) {
 
         // Generate a key to encrypt the folder
-        const userPublicKey = createFolderRequest.getPublicKey();
+        const userPublicKey = folderOperationRequest.getPublicKey();
         const key = await this._generateExportableAESKey(userPublicKey);
-        createFolderRequest.setFolderKey(key);
+        folderOperationRequest.setFolderKey(key);
 
         const createFolderResult = await this._repository.createFolder({
-            createFolderRequest
+            folderOperationRequest
         });
 
         return createFolderResult;

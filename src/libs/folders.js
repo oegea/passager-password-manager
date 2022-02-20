@@ -24,16 +24,21 @@ import domain from '../domain/index.js';
 // Own libraries
 import { db, fireStore } from './firebase.js';
 
-const { updateDoc, collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
+const { collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
 
 export const createFolder = async (user, folder) => {
-    return await domain.useCases.folders['create_folder_use_case'].execute({userId: user.uid, userPublicKey: user.publicKey, folderName: folder.name});
+    return await domain.useCases.folders['create_folder_use_case'].execute({
+        folderName: folder.name,
+        userId: user.uid, 
+        userPublicKey: user.publicKey 
+    });
 }
 
-export const editFolder = async(folderId, folder) =>{
-    const collectionRef = collection(db, "folders");
-    const docRef = doc(collectionRef, folderId);
-    await updateDoc(docRef, folder);
+export const editFolder = async(folderId, folder) => {
+    return await domain.useCases.folders['edit_folder_use_case'].execute({
+        id: folderId, 
+        name: folder.name
+    });
 }
 
 export const deleteFolder = async (folderId) => {

@@ -52,7 +52,6 @@ const PageUserMasterPasswordValidation = ({user}) => {
 
     const onLogin = async () => {
         if (displaySpinner) { return; }
-        console.log('onLogin called')
         setDisplaySpinner(true);
         const decryptResult = await user.decryptPrivateKey(password.value);
         let error = '';

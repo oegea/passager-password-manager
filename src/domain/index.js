@@ -25,7 +25,8 @@ import {FoldersUseCasesFactory} from './folders/UseCases/factory.js';
 
 const useCases = {
     'folders': {
-        'create_folder_use_case': FoldersUseCasesFactory.createFolderUseCase({config})
+        'create_folder_use_case': FoldersUseCasesFactory.createFolderUseCase({config}),
+        'edit_folder_use_case': FoldersUseCasesFactory.editFolderUseCase({config})
     }
 }
 

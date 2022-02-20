@@ -34,14 +34,14 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
 
     /**
      * Creates a folder in firebase and returns a FolderEntity
-     * @param {CreateFolderRequest} createFolderRequest Request with data to create the folder 
+     * @param {FolderOperationRequest} folderOperationRequest Request with data to create the folder 
      * @returns FolderEntity that represents the new folder
      */
-    async createFolder({createFolderRequest}){
+    async createFolder({folderOperationRequest}){
         // Retrieve data
-        const name = createFolderRequest.getName();
-        const owner = createFolderRequest.getOwner();
-        const key = createFolderRequest.getFolderKey();
+        const name = folderOperationRequest.getName();
+        const owner = folderOperationRequest.getOwner();
+        const key = folderOperationRequest.getFolderKey();
         const {db, fireStore} = this._firebaseUtils;
         const {addDoc, collection} = fireStore;
 
@@ -50,6 +50,21 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         const result = await addDoc(collectionRef, {name, key, owner});
 
         return result;
-        //return this._fromResultToFolderEntityMapper.map({result})
+    }
+
+    async editFolder({folderOperationRequest}) {
+        // Retrieve data
+        const {db, fireStore} = this._firebaseUtils;
+        const {updateDoc, collection, doc} = fireStore;
+
+        const folderId = folderOperationRequest.getId();
+        const name = folderOperationRequest.getName();
+
+        const collectionRef = collection(db, "folders");
+        const docRef = doc(collectionRef, folderId);
+        const result = await updateDoc(docRef, {
+            name
+        });
+        return result;
     }
 }

@@ -18,31 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class CreateFolderRequest {
-    constructor({name, owner, publicKey}) {
-        this._name = name;
-        this._owner = owner;
-        this._publicKey = publicKey;
-        this._folderKey = '';
+export class EditFolderService {
+    constructor({
+        repository
+    }) {
+        this._repository = repository;
     }
 
-    getName() {
-        return this._name;
-    }
-
-    getOwner() {
-        return this._owner;
-    }
-
-    getPublicKey(){
-        return this._publicKey;
-    }
-
-    setFolderKey(key){
-        this._folderKey = key;
-    }
-
-    getFolderKey(){
-        return this._folderKey;
+    async execute({folderOperationRequest}) {
+        const editFolderResult = await this._repository.editFolder({
+            folderOperationRequest
+        });
+        return editFolderResult;
     }
 }

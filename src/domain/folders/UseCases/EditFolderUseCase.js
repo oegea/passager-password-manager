@@ -18,32 +18,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FoldersRequestsFactory} from '../Requests/factory.js';
+import {FoldersRequestsFactory} from "../Requests/factory.js";
 
-export class CreateFolderUseCase {
-    
+export class EditFolderUseCase {
+
     /**
      * CTOR
-     * @param {CreateFolderService} service Service to execute the use case 
+     * @param {EditFolderService} service Service to execute the use case 
      */
     constructor({service}) {
         this._service = service;
     }
 
     /**
-     * Executes the use case to create a new folder
-     * @param {String} userId Identifier of the owner
-     * @param {String} userPublicKey Public key of the owner
-     * @param {String} folderName Name for the new folder 
-     * @returns {DocumentReference} Reference to the created folder
+     * Executes the use case to edit a folder
+     * @param {String} folderKey AES key of the folder
+     * @param {String} id Folder id
+     * @param {String} name Folder name
+     * @param {String} owner Owner of the folder
+     * @returns {DocumentReference} Reference to the edited folder
      */
-    async execute({userId, userPublicKey, folderName}) {
+    async execute({
+        id,
+        name
+    }) {
         const folderOperationRequest = FoldersRequestsFactory.folderOperationRequest({
-            name: folderName, 
-            owner: userId, 
-            publicKey: userPublicKey
+            id,
+            name
         });
         const result = await this._service.execute({folderOperationRequest});
         return result;
+
     }
+
 }

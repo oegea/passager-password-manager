@@ -22,10 +22,16 @@
 import {FoldersServicesFactory} from '../Services/factory.js';
 // User cases
 import {CreateFolderUseCase} from './CreateFolderUseCase.js';
+import {EditFolderUseCase} from './EditFolderUseCase.js';
 
 export class FoldersUseCasesFactory {
     static createFolderUseCase = ({config}) => 
         new CreateFolderUseCase({
             service: FoldersServicesFactory.createFolderService({config})
+        });
+
+    static editFolderUseCase = ({config}) =>
+        new EditFolderUseCase({
+            service: FoldersServicesFactory.editFolderService({config})
         });
 }
