@@ -18,26 +18,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Factories
-import {FoldersServicesFactory} from '../Services/factory.js';
-// Use cases
-import {CreateFolderUseCase} from './CreateFolderUseCase.js';
-import {DeleteFolderUseCase} from './DeleteFolderUseCase.js';
-import {EditFolderUseCase} from './EditFolderUseCase.js';
+import {PasswordOperationRequest} from './PasswordOperationRequest.js';
 
-export class FoldersUseCasesFactory {
-    static createFolderUseCase = ({config}) => 
-        new CreateFolderUseCase({
-            service: FoldersServicesFactory.createFolderService({config})
+export class PasswordsRequestsFactory {
+    static passwordOperationRequest = ({
+        folderId,
+        folderKey,
+        name,
+        owner,
+        password,
+        url,
+        username,
+        userPrivateKey
+    }) => {
+        return new PasswordOperationRequest({
+            folderId,
+            folderKey,
+            name,
+            owner,
+            password,
+            url,
+            username,
+            userPrivateKey
         });
-
-    static editFolderUseCase = ({config}) =>
-        new EditFolderUseCase({
-            service: FoldersServicesFactory.editFolderService({config})
-        });
-
-    static deleteFolderUseCase = ({config}) =>
-        new DeleteFolderUseCase({
-            service: FoldersServicesFactory.deleteFolderService({config})
-        })
+    }
 }

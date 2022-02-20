@@ -22,12 +22,16 @@
 import config from './config/index.js';
 // Use cases
 import {FoldersUseCasesFactory} from './folders/UseCases/factory.js';
+import {PasswordsUseCasesFactory} from './passwords/UseCases/factory.js';
 
 const useCases = {
     'folders': {
         'create_folder_use_case': FoldersUseCasesFactory.createFolderUseCase({config}),
         'delete_folder_use_case': FoldersUseCasesFactory.deleteFolderUseCase({config}),
         'edit_folder_use_case': FoldersUseCasesFactory.editFolderUseCase({config})
+    },
+    'passwords': {
+        'create_password_use_case': PasswordsUseCasesFactory.createPasswordUseCase({config})
     }
 }
 

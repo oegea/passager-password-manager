@@ -18,26 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Factories
-import {FoldersServicesFactory} from '../Services/factory.js';
-// Use cases
-import {CreateFolderUseCase} from './CreateFolderUseCase.js';
-import {DeleteFolderUseCase} from './DeleteFolderUseCase.js';
-import {EditFolderUseCase} from './EditFolderUseCase.js';
-
-export class FoldersUseCasesFactory {
-    static createFolderUseCase = ({config}) => 
-        new CreateFolderUseCase({
-            service: FoldersServicesFactory.createFolderService({config})
-        });
-
-    static editFolderUseCase = ({config}) =>
-        new EditFolderUseCase({
-            service: FoldersServicesFactory.editFolderService({config})
-        });
-
-    static deleteFolderUseCase = ({config}) =>
-        new DeleteFolderUseCase({
-            service: FoldersServicesFactory.deleteFolderService({config})
-        })
+export class PasswordsRepository {
+    async createPassword(){
+        throw new Error('[PasswordsRepository][createPassword] is not implemented yet');
+    }
 }

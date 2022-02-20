@@ -19,25 +19,13 @@
  */
 
 // Factories
-import {FoldersServicesFactory} from '../Services/factory.js';
+import {PasswordsServicesFactory} from '../Services/factory.js';
 // Use cases
-import {CreateFolderUseCase} from './CreateFolderUseCase.js';
-import {DeleteFolderUseCase} from './DeleteFolderUseCase.js';
-import {EditFolderUseCase} from './EditFolderUseCase.js';
+import {CreatePasswordUseCase} from './CreatePasswordUseCase.js';
 
-export class FoldersUseCasesFactory {
-    static createFolderUseCase = ({config}) => 
-        new CreateFolderUseCase({
-            service: FoldersServicesFactory.createFolderService({config})
+export class PasswordsUseCasesFactory {
+    static createPasswordUseCase = ({config}) => 
+        new CreatePasswordUseCase({
+            service: PasswordsServicesFactory.createPasswordService({config})
         });
-
-    static editFolderUseCase = ({config}) =>
-        new EditFolderUseCase({
-            service: FoldersServicesFactory.editFolderService({config})
-        });
-
-    static deleteFolderUseCase = ({config}) =>
-        new DeleteFolderUseCase({
-            service: FoldersServicesFactory.deleteFolderService({config})
-        })
 }

@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Third party dependencies
+// Own libraries
 import {generateExportableAESKey} from '../../../libs/crypto.js';
 // Services
 import {CreateFolderService} from './CreateFolderService.js';
