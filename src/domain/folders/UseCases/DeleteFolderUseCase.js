@@ -18,20 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export default class FoldersRepository {
+import {FoldersRequestsFactory} from "../Requests/factory.js";
 
-    /**
-     * Creates a folder in firebase and returns a FolderEntity
-     */
-    async createFolder(){
-        throw new Error('[FoldersRepository][createFolder] is not implemented yet');
+export class DeleteFolderUseCase {
+
+    constructor({service}){
+        this._service = service;
     }
 
-    async editFolder(){
-        throw new Error('[FoldersRepository][editFolder] is not implemented yet');
+    async execute({
+        id
+    }) {
+        const folderReferenceRequest = FoldersRequestsFactory.folderReferenceRequest({
+            id
+        });
+        const result = this._service.execute({folderReferenceRequest});
+        return result;
     }
 
-    async deleteFolder(){
-        throw new Error('[FoldersRepository][deleteFolder] is not implemented yet');
-    }
 }

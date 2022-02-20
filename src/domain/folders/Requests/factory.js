@@ -19,9 +19,14 @@
  */
 
 import {FolderOperationRequest} from './FolderOperationRequest.js';
+import {FolderReferenceRequest} from './FolderReferenceRequest.js';
 
 export class FoldersRequestsFactory {
     static folderOperationRequest = ({id, folderKey, name, owner, publicKey}) => {
         return new FolderOperationRequest({id, folderKey, name, owner, publicKey});
+    }
+
+    static folderReferenceRequest = ({id}) => {
+        return new FolderReferenceRequest({id});
     }
 }

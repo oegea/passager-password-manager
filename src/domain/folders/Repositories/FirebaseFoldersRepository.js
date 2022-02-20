@@ -67,4 +67,13 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         });
         return result;
     }
+
+    async deleteFolder({folderReferenceRequest}) {
+        const {db, fireStore} = this._firebaseUtils;
+        const {deleteDoc, doc} = fireStore;
+
+        const folderId = folderReferenceRequest.getId();
+        const docRef = doc(db, "folders", folderId);
+        deleteDoc(docRef);
+    } 
 }

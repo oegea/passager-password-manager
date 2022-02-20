@@ -24,7 +24,7 @@ import domain from '../domain/index.js';
 // Own libraries
 import { db, fireStore } from './firebase.js';
 
-const { collection, doc, deleteDoc, limit, query, getDocs, writeBatch } = fireStore;
+const { collection, limit, query, getDocs, writeBatch } = fireStore;
 
 export const createFolder = async (user, folder) => {
     return await domain.useCases.folders['create_folder_use_case'].execute({
@@ -42,11 +42,13 @@ export const editFolder = async(folderId, folder) => {
 }
 
 export const deleteFolder = async (folderId) => {
-    const docRef = doc(db, "folders", folderId);
+    
 
     await _deleteRelatedPasswords(folderId);
 
-    deleteDoc(docRef);
+    return await domain.useCases.folders['delete_folder_use_case'].execute({
+        id: folderId
+    });
 }
 
 const _deleteRelatedPasswords = async (folderId) => {
