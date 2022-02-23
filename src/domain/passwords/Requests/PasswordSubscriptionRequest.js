@@ -18,20 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class PasswordsRepository {
-    async createPassword(){
-        throw new Error('[PasswordsRepository][createPassword] is not implemented yet');
+ export class PasswordSubscriptionRequest {
+    constructor({
+        folderId,
+        onSubscriptionChanges,
+        userId, 
+    }){
+        this._folderId = folderId;
+        this._onSubscriptionChanges = onSubscriptionChanges;
+        this._userId = userId;
     }
 
-    async deletePassword(){
-        throw new Error('[PasswordsRepository][deletePassword] is not implemented yet');
+    getFolderId(){
+        return this._folderId;
     }
 
-    async editPassword(){
-        throw new Error('[PasswordsRepository][editPassword] is not implemented yet');
+    getOnSubscriptionChanges(){
+        return this._onSubscriptionChanges;
     }
 
-    async subscribeToPasswords(){
-        throw new Error('[PasswordsRepository][subscribeToPasswords] is not implemented yet');
+    getUserId(){
+        return this._userId;
     }
+    
 }

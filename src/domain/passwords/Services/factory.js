@@ -24,6 +24,7 @@ import {AESEncrypt, importAESKey} from '../../../libs/crypto.js';
 import {CreatePasswordService} from './CreatePasswordService.js';
 import {DeletePasswordService} from './DeletePasswordService.js';
 import {EditPasswordService} from './EditPasswordService.js';
+import {SubscribeToPasswordsService} from './SubscribeToPasswordsService.js';
 // Factories
 import {PasswordsRepositoriesFactory} from '../Repositories/factory.js';
 
@@ -44,6 +45,11 @@ export class PasswordsServicesFactory {
         new EditPasswordService({
             AESEncrypt,
             importAESKey,
+            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+        });
+
+    static subscribeToPasswordsService = ({config}) =>
+        new SubscribeToPasswordsService({
             repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
         });
 }

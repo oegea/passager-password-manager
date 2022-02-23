@@ -20,6 +20,7 @@
 
 import {PasswordOperationRequest} from './PasswordOperationRequest.js';
 import {PasswordReferenceRequest} from './PasswordReferenceRequest.js';
+import {PasswordSubscriptionRequest} from './PasswordSubscriptionRequest.js';
 
 export class PasswordsRequestsFactory {
     static passwordOperationRequest = ({
@@ -53,6 +54,18 @@ export class PasswordsRequestsFactory {
         return new PasswordReferenceRequest({
             folderId,
             passwordId
+        });
+    }
+
+    static passwordSubscriptionRequest = ({
+        folderId,
+        onSubscriptionChanges,
+        userId
+    }) => {
+        return new PasswordSubscriptionRequest({
+            folderId,
+            onSubscriptionChanges,
+            userId
         });
     }
 }

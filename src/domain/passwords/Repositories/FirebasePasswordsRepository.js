@@ -83,4 +83,30 @@ export class FirebasePasswordsRepository extends PasswordsRepository {
             username
         });
     }
+
+    /**
+     * Subscribes to passwords of a specific folder
+     * @param {PasswordSubscriptionRequest} passwordSubscriptionRequest Details to make the subscription
+     * @returns {function} Function to call to unsubscribe
+     */
+    async subscribeToPasswords({
+        passwordSubscriptionRequest
+    }){
+        const {collectIdsAndDocs, db, fireStore} = this._firebaseUtils;
+        const {collection, onSnapshot, query, where, limit} = fireStore;
+
+        const folderId = passwordSubscriptionRequest.getFolderId();
+        const userId = passwordSubscriptionRequest.getUserId();
+        const onSubscriptionChanges = passwordSubscriptionRequest.getOnSubscriptionChanges();
+
+        const collectionRef = collection(db, "folders", folderId, "passwords");
+		const q = query(collectionRef, where("owner", "==", userId), limit(100));
+        const subscription = onSnapshot(q, (snapshot) => {
+            const passwords = snapshot.docs.map(collectIdsAndDocs);
+            
+            onSubscriptionChanges(passwords);
+        });
+
+        return subscription;
+    }
 }

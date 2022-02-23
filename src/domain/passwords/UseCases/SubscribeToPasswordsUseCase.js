@@ -18,20 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class PasswordsRepository {
-    async createPassword(){
-        throw new Error('[PasswordsRepository][createPassword] is not implemented yet');
+import {PasswordsRequestsFactory} from "../Requests/factory.js";
+
+export class SubscribeToPasswordsUseCase {
+
+    constructor({service}) {
+        this._service = service;
     }
 
-    async deletePassword(){
-        throw new Error('[PasswordsRepository][deletePassword] is not implemented yet');
+    async execute({
+        folderId,
+        onSubscriptionChanges,
+        userId
+    }) {
+        const passwordSubscriptionRequest = PasswordsRequestsFactory.passwordSubscriptionRequest({
+            folderId,
+            onSubscriptionChanges,
+            userId
+        });
+        const result = await this._service.execute({passwordSubscriptionRequest});
+        return result;
+
     }
 
-    async editPassword(){
-        throw new Error('[PasswordsRepository][editPassword] is not implemented yet');
-    }
-
-    async subscribeToPasswords(){
-        throw new Error('[PasswordsRepository][subscribeToPasswords] is not implemented yet');
-    }
 }

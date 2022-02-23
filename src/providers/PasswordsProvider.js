@@ -20,11 +20,10 @@
 
 // Third party dependencies
 import React, { Component, createContext } from 'react';
-import { collection, onSnapshot, where, query, limit } from "firebase/firestore";
-// Own libraries
-import { db, collectIdsAndDocs} from '../libs/firebase.js';
 // Context
 import withUser from '../providers/WithUser.js';
+// Domain 
+import domain from '../domain/index.js';
 
 export const PasswordsContext = createContext();
 
@@ -46,18 +45,17 @@ class PasswordsProvider extends Component {
 		    this.unsubscribe();
 	}
 
-	subscribe = () => {
+	subscribe = async () => {
 		const {user, folderId} = this.props;
 		
 		if (user === null || this.unsubscribe !== null)
 			return
 
-        const collectionRef = collection(db, "folders", folderId, "passwords");
-		const q = query(collectionRef, where("owner", "==", user.uid), limit(10));
-        this.unsubscribe = onSnapshot(q, (snapshot) => {
-            const passwords = snapshot.docs.map(collectIdsAndDocs);
-            this.setState({ passwords });
-        });
+		this.unsubscribe = await domain.useCases.passwords['subscribe_to_passwords_use_case'].execute({
+			folderId,
+			userId: user.uid,
+			onSubscriptionChanges: (passwords) => this.setState({passwords})
+		});
 	}
 
 	render() {

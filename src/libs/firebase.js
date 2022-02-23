@@ -35,11 +35,12 @@ import {
   getDocs,
   getFirestore,
   limit,
+  onSnapshot,
   query,
   setDoc,
   updateDoc,
-  writeBatch,
-  where
+  where,
+  writeBatch
 } from "firebase/firestore";
 // Config 
 import { firebaseConfig } from "../config/firebase.js";
@@ -63,11 +64,12 @@ export const fireStore = {
   getDoc,
   getDocs,
   limit,
+  onSnapshot,
   query,
   setDoc,
   updateDoc,
-  writeBatch,
-  where
+  where,
+  writeBatch
 };
 
 // Firebase Auth wrapper
@@ -82,6 +84,7 @@ export const  signInWithGoogle = () => signInWithPopup(auth, provider);
 
 const defaultExport = {
   app,
+  collectIdsAndDocs,
   db,
   fireStore
 };

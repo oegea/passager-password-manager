@@ -21,7 +21,7 @@ service cloud.firestore {
     	allow read: if 
       	request.auth.uid != null && 
         resource.data.owner == request.auth.uid &&
-        request.query.limit <= 10;
+        request.query.limit <= 25;
       allow delete: if
       	request.auth.uid != null && 
         resource.data.owner == request.auth.uid;
@@ -44,7 +44,7 @@ service cloud.firestore {
 				allow read: if 
           request.auth.uid != null && 
           get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid &&
-          request.query.limit <= 10;
+          request.query.limit <= 100;
         
         allow delete: if
         	request.auth.uid != null && 
