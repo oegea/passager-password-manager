@@ -25,6 +25,7 @@ export class PasswordOperationRequest {
         name,
         owner,
         password,
+        passwordId = '',
         url,
         username,
         userPrivateKey
@@ -34,6 +35,7 @@ export class PasswordOperationRequest {
         this._name = name;
         this._owner = owner;
         this._password = password;
+        this._passwordId = passwordId;
         this._url = url;
         this._username = username;
         this._userPrivateKey = userPrivateKey;
@@ -61,6 +63,10 @@ export class PasswordOperationRequest {
 
     setPassword(password) {
         this._password = password;
+    }
+
+    getPasswordId() {
+        return this._passwordId;
     }
 
     getUrl() {

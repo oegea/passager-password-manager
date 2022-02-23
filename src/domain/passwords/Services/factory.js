@@ -22,12 +22,26 @@
 import {AESEncrypt, importAESKey} from '../../../libs/crypto.js';
 // Services
 import {CreatePasswordService} from './CreatePasswordService.js';
+import {DeletePasswordService} from './DeletePasswordService.js';
+import {EditPasswordService} from './EditPasswordService.js';
 // Factories
 import {PasswordsRepositoriesFactory} from '../Repositories/factory.js';
 
 export class PasswordsServicesFactory {
     static createPasswordService = ({config}) => 
         new CreatePasswordService({
+            AESEncrypt,
+            importAESKey,
+            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+        });
+    
+    static deletePasswordService = ({config}) =>
+        new DeletePasswordService({
+            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+        });
+    
+    static editPasswordService = ({config}) =>
+        new EditPasswordService({
             AESEncrypt,
             importAESKey,
             repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})

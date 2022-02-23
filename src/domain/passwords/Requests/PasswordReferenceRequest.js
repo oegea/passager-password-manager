@@ -18,41 +18,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PasswordOperationRequest} from './PasswordOperationRequest.js';
-import {PasswordReferenceRequest} from './PasswordReferenceRequest.js';
-
-export class PasswordsRequestsFactory {
-    static passwordOperationRequest = ({
-        folderId,
-        folderKey,
-        name,
-        owner,
-        password,
-        passwordId,
-        url,
-        username,
-        userPrivateKey
-    }) => {
-        return new PasswordOperationRequest({
-            folderId,
-            folderKey,
-            name,
-            owner,
-            password,
-            passwordId,
-            url,
-            username,
-            userPrivateKey
-        });
+ export class PasswordReferenceRequest {
+    constructor({folderId, passwordId}){
+        this._folderId = folderId;
+        this._passwordId = passwordId;
     }
 
-    static passwordReferenceRequest = ({
-        folderId,
-        passwordId
-    }) => {
-        return new PasswordReferenceRequest({
-            folderId,
-            passwordId
-        });
+    getFolderId(){
+        return this._folderId;
     }
+
+    getPasswordId(){
+        return this._passwordId;
+    }
+    
 }

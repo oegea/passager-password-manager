@@ -52,4 +52,35 @@ export class FirebasePasswordsRepository extends PasswordsRepository {
         });
         return docRef;
     }
+
+    async deletePassword({passwordReferenceRequest}){
+        const {db, fireStore} = this._firebaseUtils;
+        const {doc, deleteDoc} = fireStore;
+
+        const folderId = passwordReferenceRequest.getFolderId();
+        const passwordId = passwordReferenceRequest.getPasswordId();
+
+        const docRef = doc(db, "folders", folderId, "passwords", passwordId);
+        await deleteDoc(docRef);
+    }
+
+    async editPassword({passwordOperationRequest}){
+        const {db, fireStore} = this._firebaseUtils;
+        const {doc, updateDoc} = fireStore;
+
+        const name = passwordOperationRequest.getName();
+        const password = passwordOperationRequest.getPassword();
+        const passwordId = passwordOperationRequest.getPasswordId();
+        const url = passwordOperationRequest.getUrl();
+        const username = passwordOperationRequest.getUsername();
+        const folderId = passwordOperationRequest.getFolderId();
+
+        const docRef = doc(db, "folders", folderId, "passwords", passwordId);
+        await updateDoc(docRef, {
+            name,
+            password,
+            url,
+            username
+        });
+    }
 }

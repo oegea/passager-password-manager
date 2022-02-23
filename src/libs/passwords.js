@@ -19,12 +19,10 @@
  */
 
 // Own libraries
-import { db, fireStore } from './firebase.js';
-import { importAESKey, AESEncrypt, AESDecrypt } from './crypto.js';
+import { importAESKey, AESDecrypt } from './crypto.js';
 // Domain
 import domain from '../domain/index.js';
 
-const { deleteDoc, updateDoc, doc } = fireStore;
 
 export const decryptPassword = async(passwordDocument, folderKey, userPrivateKey) => {
     const decryptedFolderKey = await importAESKey(folderKey, userPrivateKey);
@@ -48,19 +46,23 @@ export const createPassword = async (user, folderId, passwordDocument, folderKey
     });
 }
 
-export const deletePassword = (folderId, passwordId) => {
-    const docRef = doc(db, "folders", folderId, "passwords", passwordId);
-    deleteDoc(docRef);
+export const deletePassword = async (folderId, passwordId) => {
+    return await domain.useCases.passwords['delete_password_use_case'].execute({
+        folderId,
+        passwordId
+    });
 }
 
 export const editPassword = async (folderId, passwordId,  passwordDocument, folderKey, userPrivateKey) => {
-    const decryptedFolderKey = await importAESKey(folderKey, userPrivateKey);
 
-    // Encrypt username and password
-    const username = await AESEncrypt(passwordDocument.username, decryptedFolderKey);
-    const password = await AESEncrypt(passwordDocument.password, decryptedFolderKey);
-
-    const docRef = doc(db, "folders", folderId, "passwords", passwordId);
-
-    updateDoc(docRef, {...passwordDocument, username, password});
+    return await domain.useCases.passwords['edit_password_use_case'].execute({
+        folderId,
+        folderKey,
+        name: passwordDocument.name,
+        password: passwordDocument.password,
+        passwordId,
+        url: passwordDocument.url,
+        username: passwordDocument.username,
+        userPrivateKey
+    });
 }

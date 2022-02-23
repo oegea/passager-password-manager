@@ -18,22 +18,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PasswordOperationRequest} from './PasswordOperationRequest.js';
-import {PasswordReferenceRequest} from './PasswordReferenceRequest.js';
+import {PasswordsRequestsFactory} from "../Requests/factory.js";
 
-export class PasswordsRequestsFactory {
-    static passwordOperationRequest = ({
+export class EditPasswordUseCase {
+
+    /**
+     * CTOR
+     * @param {EditPasswordService} service Service to execute the use case 
+     */
+    constructor({service}) {
+        this._service = service;
+    }
+
+    async execute({
         folderId,
-        folderKey,
-        name,
-        owner,
-        password,
+        folderKey, 
+        name, 
+        owner, 
+        password, 
         passwordId,
-        url,
-        username,
+        url, 
+        username, 
         userPrivateKey
-    }) => {
-        return new PasswordOperationRequest({
+    }) {
+        const passwordOperationRequest = PasswordsRequestsFactory.passwordOperationRequest({
             folderId,
             folderKey,
             name,
@@ -41,18 +49,12 @@ export class PasswordsRequestsFactory {
             password,
             passwordId,
             url,
-            username,
+            username, 
             userPrivateKey
         });
+        const result = await this._service.execute({passwordOperationRequest});
+        return result;
+
     }
 
-    static passwordReferenceRequest = ({
-        folderId,
-        passwordId
-    }) => {
-        return new PasswordReferenceRequest({
-            folderId,
-            passwordId
-        });
-    }
 }

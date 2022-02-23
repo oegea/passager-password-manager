@@ -18,41 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {PasswordOperationRequest} from './PasswordOperationRequest.js';
-import {PasswordReferenceRequest} from './PasswordReferenceRequest.js';
-
-export class PasswordsRequestsFactory {
-    static passwordOperationRequest = ({
-        folderId,
-        folderKey,
-        name,
-        owner,
-        password,
-        passwordId,
-        url,
-        username,
-        userPrivateKey
-    }) => {
-        return new PasswordOperationRequest({
-            folderId,
-            folderKey,
-            name,
-            owner,
-            password,
-            passwordId,
-            url,
-            username,
-            userPrivateKey
-        });
+ export class DeletePasswordService {
+    constructor({
+        repository
+    }) {
+        this._repository = repository;
     }
 
-    static passwordReferenceRequest = ({
-        folderId,
-        passwordId
-    }) => {
-        return new PasswordReferenceRequest({
-            folderId,
-            passwordId
-        });
+    async execute({passwordReferenceRequest}) {
+        const deleteResult = await this._repository.deletePassword({passwordReferenceRequest});
+        return deleteResult;
     }
 }

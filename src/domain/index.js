@@ -31,7 +31,9 @@ const useCases = {
         'edit_folder_use_case': FoldersUseCasesFactory.editFolderUseCase({config})
     },
     'passwords': {
-        'create_password_use_case': PasswordsUseCasesFactory.createPasswordUseCase({config})
+        'create_password_use_case': PasswordsUseCasesFactory.createPasswordUseCase({config}),
+        'delete_password_use_case': PasswordsUseCasesFactory.deletePasswordUseCase({config}),
+        'edit_password_use_case': PasswordsUseCasesFactory.editPasswordUseCase({config})
     }
 }
 

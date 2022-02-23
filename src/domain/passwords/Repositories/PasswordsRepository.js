@@ -22,4 +22,12 @@ export class PasswordsRepository {
     async createPassword(){
         throw new Error('[PasswordsRepository][createPassword] is not implemented yet');
     }
+
+    async deletePassword(){
+        throw new Error('[PasswordsRepository][deletePassword] is not implemented yet');
+    }
+
+    async editPassword(){
+        throw new Error('[PasswordsRepository][editPassword] is not implemented yet');
+    }
 }

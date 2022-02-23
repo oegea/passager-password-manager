@@ -32,10 +32,8 @@ export class EditFolderUseCase {
 
     /**
      * Executes the use case to edit a folder
-     * @param {String} folderKey AES key of the folder
      * @param {String} id Folder id
      * @param {String} name Folder name
-     * @param {String} owner Owner of the folder
      * @returns {DocumentReference} Reference to the edited folder
      */
     async execute({
