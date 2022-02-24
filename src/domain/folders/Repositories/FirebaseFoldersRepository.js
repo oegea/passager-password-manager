@@ -117,4 +117,24 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
                 throw new Error('Too many passwords to delete');
         }
     }
+
+    async subscribeToFolders({
+        folderSubscriptionRequest
+    }){
+        const {collectIdsAndDocs, db, fireStore} = this._firebaseUtils;
+        const {collection, onSnapshot, query, where, limit} = fireStore;
+
+        const userId = folderSubscriptionRequest.getUserId();
+        const onSubscriptionChanges = folderSubscriptionRequest.getOnSubscriptionChanges();
+
+        const collectionRef = collection(db, "folders");
+        const q = query(collectionRef, where("owner", "==", userId), limit(25));
+        const subscription = onSnapshot(q, (snapshot) => {
+            const folders = snapshot.docs.map(collectIdsAndDocs);
+            
+            onSubscriptionChanges(folders);
+        });
+
+        return subscription;
+    }
 }

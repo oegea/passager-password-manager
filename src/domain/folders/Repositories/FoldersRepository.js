@@ -38,4 +38,8 @@ export default class FoldersRepository {
     async deleteFolderRelatedPasswords() {
         throw new Error('[FoldersRepository][deleteFolderRelatedPasswords] is not implemented yet');
     }
+
+    async subscribeToFolders(){
+        throw new Error('[FoldersRepository][subscribeToFolders] is not implemented yet');
+    }
 }

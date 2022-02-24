@@ -18,20 +18,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {FolderOperationRequest} from './FolderOperationRequest.js';
-import {FolderReferenceRequest} from './FolderReferenceRequest.js';
-import {FolderSubscriptionRequest} from './FolderSubscriptionRequest.js';
-
-export class FoldersRequestsFactory {
-    static folderOperationRequest = ({id, folderKey, name, owner, publicKey}) => {
-        return new FolderOperationRequest({id, folderKey, name, owner, publicKey});
+ export class FolderSubscriptionRequest {
+    constructor({
+        onSubscriptionChanges,
+        userId, 
+    }){
+        this._onSubscriptionChanges = onSubscriptionChanges;
+        this._userId = userId;
     }
 
-    static folderReferenceRequest = ({id}) => {
-        return new FolderReferenceRequest({id});
+    getOnSubscriptionChanges(){
+        return this._onSubscriptionChanges;
     }
 
-    static folderSubscriptionRequest = ({onSubscriptionChanges, userId}) => {
-        return new FolderSubscriptionRequest({onSubscriptionChanges, userId});
+    getUserId(){
+        return this._userId;
     }
+    
 }

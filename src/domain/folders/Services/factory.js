@@ -25,6 +25,7 @@ import {CreateFolderService} from './CreateFolderService.js';
 import {DeleteFolderService} from './DeleteFolderService.js';
 import {EditFolderService} from './EditFolderService.js';
 import {DeleteFolderRelatedPasswordsService} from './DeleteFolderRelatedPasswordsService.js';
+import {SubscribeToFoldersService} from './SubscribeToFoldersService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
 
@@ -35,19 +36,24 @@ export class FoldersServicesFactory {
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
         });
 
-    static editFolderService = ({config}) =>
-        new EditFolderService({
+    static deleteFolderRelatedPasswordsService = ({config}) =>
+        new DeleteFolderRelatedPasswordsService({
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
-        });
-    
+        })
+
     static deleteFolderService = ({config}) =>
         new DeleteFolderService({
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
             deleteFolderRelatedPasswordsService: FoldersServicesFactory.deleteFolderRelatedPasswordsService({config})
         });  
-        
-    static deleteFolderRelatedPasswordsService = ({config}) =>
-        new DeleteFolderRelatedPasswordsService({
+
+    static editFolderService = ({config}) =>
+        new EditFolderService({
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
-        })
+        });
+
+    static subscribeToFoldersService = ({config}) =>
+        new SubscribeToFoldersService({
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+        });
 }
