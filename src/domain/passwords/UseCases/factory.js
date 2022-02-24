@@ -22,6 +22,7 @@
 import {PasswordsServicesFactory} from '../Services/factory.js';
 // Use cases
 import {CreatePasswordUseCase} from './CreatePasswordUseCase.js';
+import {DecryptPasswordUseCase} from './DecryptPasswordUseCase.js';
 import {DeletePasswordUseCase} from './DeletePasswordUseCase.js';
 import {EditPasswordUseCase} from './EditPasswordUseCase.js';
 import {SubscribeToPasswordsUseCase} from './SubscribeToPasswordsUseCase.js';
@@ -30,6 +31,11 @@ export class PasswordsUseCasesFactory {
     static createPasswordUseCase = ({config}) => 
         new CreatePasswordUseCase({
             service: PasswordsServicesFactory.createPasswordService({config})
+        });
+
+    static decryptPasswordUseCase = ({config}) =>
+        new DecryptPasswordUseCase({
+            service: PasswordsServicesFactory.decryptPasswordService({config})
         });
 
     static deletePasswordUseCase = ({config}) =>

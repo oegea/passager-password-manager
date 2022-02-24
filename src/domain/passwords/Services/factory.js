@@ -19,9 +19,10 @@
  */
 
 // Own libraries
-import {AESEncrypt, importAESKey} from '../../../libs/crypto.js';
+import {AESDecrypt, AESEncrypt, importAESKey} from '../../../libs/crypto.js';
 // Services
 import {CreatePasswordService} from './CreatePasswordService.js';
+import {DecryptPasswordService} from './DecryptPasswordService.js';
 import {DeletePasswordService} from './DeletePasswordService.js';
 import {EditPasswordService} from './EditPasswordService.js';
 import {SubscribeToPasswordsService} from './SubscribeToPasswordsService.js';
@@ -34,6 +35,12 @@ export class PasswordsServicesFactory {
             AESEncrypt,
             importAESKey,
             repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+        });
+
+    static decryptPasswordService = ({config}) =>
+        new DecryptPasswordService({
+            AESDecrypt,
+            importAESKey,
         });
     
     static deletePasswordService = ({config}) =>

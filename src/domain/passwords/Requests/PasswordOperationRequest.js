@@ -85,4 +85,18 @@ export class PasswordOperationRequest {
         return this._userPrivateKey;
     }
 
+    toJSON() {
+        return {
+            folderId: this._folderId,
+            folderKey: this._folderKey,
+            name: this._name,
+            owner: this._owner,
+            password: this._password,
+            passwordId: this._passwordId,
+            url: this._url,
+            username: this._username,
+            userPrivateKey: this._userPrivateKey
+        };
+    }
+
 }

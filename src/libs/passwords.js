@@ -18,19 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Own libraries
-import { importAESKey, AESDecrypt } from './crypto.js';
 // Domain
 import domain from '../domain/index.js';
 
-
 export const decryptPassword = async(passwordDocument, folderKey, userPrivateKey) => {
-    const decryptedFolderKey = await importAESKey(folderKey, userPrivateKey);
-    const username = await AESDecrypt(passwordDocument.username, decryptedFolderKey);
-    const password = await AESDecrypt(passwordDocument.password, decryptedFolderKey);
 
-    
-    return {...passwordDocument, username, password};
+    const decryptPasswordResult = await domain.useCases.passwords['decrypt_password_use_case'].execute({
+        folderKey,
+        password: passwordDocument.password,
+        username: passwordDocument.username,
+        userPrivateKey
+    });
+
+    const {username, password} = decryptPasswordResult;
+
+    return {
+        ...passwordDocument, 
+        username, 
+        password
+    };
 }
 
 export const createPassword = async (user, folderId, passwordDocument, folderKey, userPrivateKey) => {

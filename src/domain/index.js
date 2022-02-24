@@ -32,6 +32,7 @@ const useCases = {
     },
     'passwords': {
         'create_password_use_case': PasswordsUseCasesFactory.createPasswordUseCase({config}),
+        'decrypt_password_use_case': PasswordsUseCasesFactory.decryptPasswordUseCase({config}),
         'delete_password_use_case': PasswordsUseCasesFactory.deletePasswordUseCase({config}),
         'edit_password_use_case': PasswordsUseCasesFactory.editPasswordUseCase({config}),
         'subscribe_to_passwords_use_case': PasswordsUseCasesFactory.subscribeToPasswordsUseCase({config})
