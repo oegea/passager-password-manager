@@ -58,7 +58,7 @@ export const getUserPublicKey = async (user) => {
     if (user === null)
         return null;
 
-    const docRef = doc(db, "userPublicKeys", user.uid);
+    const docRef = doc(db, "userSharingSettings", user.uid);
     const docSnap = await getDoc(docRef);
     
     // If exists, return
@@ -74,8 +74,8 @@ export const updateUserDocument = async (uid, userDocument) => {
     await setDoc(doc(db, "users", uid), {...initializedUserDocument});
 };
 
-export const updateUserPublicKey = async (uid, publicKey) => {
-    await setDoc(doc(db, "userPublicKeys", uid), {publicKey});
+export const updateUserPublicKey = async (uid, email, publicKey) => {
+    await setDoc(doc(db, "userSharingSettings", uid), {email, publicKey});
 };
 
 export const userDocumentFactory = ({

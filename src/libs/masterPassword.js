@@ -67,7 +67,7 @@ export const setUserMasterPassword = async (user, password) => {
         initialized: true
     };
     await updateUserDocument(uid, userDocument);
-    await updateUserPublicKey(uid, keyPair.publicKey);
+    await updateUserPublicKey(uid, userDocument.email, keyPair.publicKey);
 
     window.location.reload();
 }
