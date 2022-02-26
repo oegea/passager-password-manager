@@ -23,18 +23,24 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 // Atoms
 import Title from '../../atoms/Title/index.js';
+// Hooks
+import useTranslation from '../../../hooks/useTranslation/index.js';
 
 const FolderShareNotice = styled.div`
     margin-top: 20px;
 `;
 const MoleculeFolderShareNotice = ({email}) => {
+
+    const {t} = useTranslation();
+
     return <FolderShareNotice>
         <Title>
-            Vas a compartir esta carpeta con: {email}
+            {t('folderShareNotice.You will share this folder with')}
+            {email}
         </Title>
         <ul>
-            <li>Esta persona podrá acceder a esta carpeta, visualizar y modificar sus contraseñas.</li>
-            <li>Sólo tú puedes eliminar la carpeta o compartirla con más personas.</li>
+            <li>{t('folderShareNotice.This person will be able to access this folder, as well as view and modify contained passwords')}</li>
+            <li>{t('folderShareNotice.This person will not be able to delete this folder or share it with additional people')}</li>
         </ul>
     </FolderShareNotice>
 }

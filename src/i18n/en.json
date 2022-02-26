@@ -41,6 +41,11 @@
         "Email": "Email",
         "Share Folder": "Share Folder"
     },
+    "folderShareNotice": {
+        "You will share this folder with": "You will share this folder with ",
+        "This person will be able to access this folder, as well as view and modify contained passwords": "This person will be able to access this folder, as well as view and modify contained passwords.",
+        "This person will not be able to delete this folder or share it with additional people": "This person will not be able to delete this folder or share it with additional people."
+    },
     "passwordFormDialog": {
         "Edit password": "Edit password",
         "My E-mail Account": "My E-mail Account",

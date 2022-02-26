@@ -41,6 +41,11 @@
         "Email": "Correo electrónico",
         "Share Folder": "Compartir carpeta"
     },
+    "folderShareNotice": {
+        "You will share this folder with": "Va a compartir esta carpeta con ",
+        "This person will be able to access this folder, as well as view and modify contained passwords": "Esta persona podrá acceder a esta carpeta, así como ver y modificar las contraseñas contenidas.",
+        "This person will not be able to delete this folder or share it with additional people": "Esta persona no podrá eliminar esta carpeta o compartirla con otras personas."
+    },
     "passwordFormDialog": {
         "Edit password": "Editar contraseña",
         "My E-mail Account": "Mi cuenta de correo",
