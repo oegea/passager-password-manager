@@ -16,13 +16,14 @@
     "confirmationDialog": {
         "Are you sure you want to proceed?": "Are you sure you want to proceed?"
     },
-    "documentsListRighPanel": {
+    "documentsListRightPanel": {
         "Delete folder": "Delete folder",
         "Edit folder": "Edit folder",
-        "Username": "Username",
-        "Website": "Website",
         "Please, select a folder to start": "Please, select a folder to start",
-        "Title": "Title"
+        "Share folder": "Share folder",
+        "Title": "Title",
+        "Username": "Username",
+        "Website": "Website"
     },
     "login": {
         "A safe place to store your passwords": "A safe place to store your passwords",
@@ -34,6 +35,11 @@
         "Folder name is required": "Folder name is required",
         "New Folder": "New Folder",
         "New folder name": "New folder name"
+    },
+    "folderShareDialog": {
+        "Add people by typing their email": "Add people by typing their email",
+        "Email": "Email",
+        "Share Folder": "Share Folder"
     },
     "passwordFormDialog": {
         "Edit password": "Edit password",

@@ -16,13 +16,14 @@
     "confirmationDialog": {
         "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"
     },
-    "documentsListRighPanel": {
+    "documentsListRightPanel": {
         "Delete folder": "Eliminar carpeta",
         "Edit folder": "Editar carpeta",
-        "Username": "Nombre de usuario",
-        "Website": "Sitio web",
         "Please, select a folder to start": "Seleccione una carpeta para empezar",
-        "Title": "Título"
+        "Share folder": "Compartir carpeta",
+        "Title": "Título",
+        "Username": "Nombre de usuario",
+        "Website": "Sitio web"
     },
     "login": {
         "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
@@ -34,6 +35,11 @@
         "Folder name is required": "El nombre de la carpeta es obligatorio",
         "New Folder": "Nueva carpeta",
         "New folder name": "Nombre de la carpeta"
+    },
+    "folderShareDialog": {
+        "Add people by typing their email": "Añade personas escribiendo su correo electrónico",
+        "Email": "Correo electrónico",
+        "Share Folder": "Compartir carpeta"
     },
     "passwordFormDialog": {
         "Edit password": "Editar contraseña",

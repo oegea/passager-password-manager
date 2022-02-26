@@ -30,6 +30,7 @@ import Table from '../Table/index.js'
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
 import PasswordFormDialog from '../PasswordFormDialog/index.js';
 import FolderFormDialog from '../FolderFormDialog/index.js';
+import FolderShareDialog from '../FolderShareDialog/index.js';
 // Own libs
 import { deleteFolder, editFolder } from '../../../libs/folders.js';
 import { createPassword, decryptPassword, deletePassword, editPassword } from '../../../libs/passwords.js';
@@ -51,6 +52,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     let [editState, setEditState] = useState(EDIT_INITIAL_STATE);
     let [deleteState, setDeleteState] = useState({showDialog: false, password: null});
     let [showEditFolderDialog, setShowEditFolderDialog] = useState(false);
+    let [showShareFolder, setShowShareFolder] = useState(false);
 
     const {t} = useTranslation();
     const {folderId} = useParams();
@@ -100,7 +102,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     })
 
     if (selectedFolderName === null )
-        return <h1>{t('documentsListRighPanel.Please, select a folder to start')}</h1>
+        return <h1>{t('documentsListRightPanel.Please, select a folder to start')}</h1>
 
     return (
         <PasswordsProvider key={folderId} folderId={selectedFolder}>
@@ -108,8 +110,9 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 title={selectedFolderName}
                 buttons={[
                     {label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}},
-                    {label: t('documentsListRighPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
-                    {type: 'alert', label: t('documentsListRighPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
+                    {label: t('documentsListRightPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
+                    {label: t('documentsListRightPanel.Share folder'), onClick: () => setShowShareFolder(true)},
+                    {type: 'alert', label: t('documentsListRightPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
                 ]}/>
             
             <PasswordsContext.Consumer>
@@ -118,8 +121,8 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                     return <Table
                         onClick={(rowIndex)=>{onClickEditPassword(passwords, rowIndex)}}
                         columns={[
-                            t("documentsListRighPanel.Title"), 
-                            t("documentsListRighPanel.Website")]}
+                            t("documentsListRightPanel.Title"), 
+                            t("documentsListRightPanel.Website")]}
                         rows={passwordsRows}/>
                 }
                 }
@@ -139,6 +142,13 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                     closeDialog={()=>setShowEditFolderDialog(false)} 
                     defaultName={selectedFolderName}
                 /> 
+            }
+            {
+                showShareFolder &&
+                <FolderShareDialog
+                    closeDialog={()=>setShowShareFolder(false)}
+                    defaultValues={selectedFolder}
+                />
             }
             {
                 showNewPasswordDialog &&

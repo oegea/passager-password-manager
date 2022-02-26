@@ -11,7 +11,7 @@ service cloud.firestore {
 	    allow write: if request.auth.uid == userId;
     }
     
-    match /userPublicKeys/{userId} {
+    match /userSharingSettings/{userId} {
     	allow read: if request.auth.uid != null;
       allow create, update: if request.auth.uid == userId;
       allow delete: if false;
