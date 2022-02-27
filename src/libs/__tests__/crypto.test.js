@@ -32,6 +32,7 @@ describe('Crypto library tests', () => {
         global.TextDecoder = TextDecoder;
         global.crypto = crypto;
         cryptoLib = require('../crypto.js');
+        jest.setTimeout(15000);
     });
 
     test('should derive an aes key from a password string', async () => {
