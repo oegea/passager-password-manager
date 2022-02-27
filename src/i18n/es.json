@@ -10,6 +10,7 @@
         "Folders": "Carpetas",
         "Go back": "Ir atrás",
         "Logout": "Cerrar sesión",
+        "Remove": "Eliminar",
         "Save": "Guardar",
         "Share": "Compartir",
         "This field is required": "Este campo es obligatorio",
@@ -41,10 +42,12 @@
     "folderShareDialog": {
         "Add people by typing their email": "Añada personas escribiendo su correo electrónico",
         "Email": "Correo electrónico",
+        "Is not possible to share a folder with your own user": "No es posible compartir una carpeta con su propio usuario",
         "People with access to this folder": "Personas con acceso a esta carpeta",
         "Share Folder": "Compartir carpeta",
         "This email does not exist": "Este correo electrónico no existe",
-        "This folder has been already shared with this email": "Esta carpeta ya ha sido compartida con este correo electrónico."
+        "This folder has been already shared with this email": "Esta carpeta ya ha sido compartida con este correo electrónico.",
+        "This folder has not been shared with anyone": "Esta carpeta no ha sido compartida con nadie aún."
     },
     "folderShareNotice": {
         "You will share this folder with": "Va a compartir esta carpeta con ",

@@ -10,6 +10,7 @@
         "Folders": "Folders",
         "Go back": "Go back",
         "Logout": "Logout",
+        "Remove": "Remove",
         "Save": "Save",
         "Share": "Share",
         "This field is required": "This field is required",
@@ -41,10 +42,12 @@
     "folderShareDialog": {
         "Add people by typing their email": "Add people by typing their email",
         "Email": "Email",
+        "Is not possible to share a folder with your own user": "Is not possible to share a folder with your own user.",
         "People with access to this folder": "People with access to this folder",
         "Share Folder": "Share Folder",
         "This email does not exist": "This email does not exist.",
-        "This folder has been already shared with this email": "This folder has been already shared with this email."
+        "This folder has been already shared with this email": "This folder has been already shared with this email.",
+        "This folder has not been shared with anyone": "This folder has not been shared with anyone."
     },
     "folderShareNotice": {
         "You will share this folder with": "You will share this folder with ",

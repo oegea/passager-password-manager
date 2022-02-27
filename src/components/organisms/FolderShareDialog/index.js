@@ -23,6 +23,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 // Atoms
 import Button from '../../atoms/Button/index.js';
+import ButtonLink from '../../atoms/ButtonLink/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 import Dialog from '../../atoms/Dialog/Dialog.js';
 import Input from '../../atoms/Input/index.js';
@@ -35,13 +36,22 @@ import FolderShareNotice from '../../molecules/FolderShareNotice/index.js';
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
-import {shareFolder} from '../../../libs/folders.js';
+import {shareFolder, removeEmail} from '../../../libs/folders.js';
+// Context
+import withUser from '../../../providers/WithUser.js';
 
-const FolderShareDialog = ({folderId, sharedWith = [], closeDialog}) => {
+const FolderShareDialog = ({folderId, sharedWith = [], closeDialog, user}) => {
     const { t } = useTranslation();
     const [state, setState] = useState({email: '', error: ''});
 
     const shareWith = async (email) => {
+
+        if (state.email.length < 1 || state.error.length !== 0)
+            return;
+        
+        if (user.email.toLowerCase() === email.toLowerCase()) 
+            return;
+
         const result = await shareFolder(folderId, email, sharedWith);
         
         if (result === false)
@@ -51,12 +61,19 @@ const FolderShareDialog = ({folderId, sharedWith = [], closeDialog}) => {
         }
     }
 
+    const unshare = async(email) => {
+        await removeEmail(folderId, email, sharedWith);
+    }
+
     const onChangeHandler = (e) => {
         let email = e.target.value;
         let error = '';
 
         if (sharedWith.includes(email))
             error = t('folderShareDialog.This folder has been already shared with this email');
+
+        if (user.email.toLowerCase() === email.toLowerCase()) 
+            error = t('folderShareDialog.Is not possible to share a folder with your own user');
 
         setState({email, error});
     }
@@ -71,6 +88,7 @@ const FolderShareDialog = ({folderId, sharedWith = [], closeDialog}) => {
             <InputWrapper>
                 <InputLabel htmlFor="email">{t('folderShareDialog.Add people by typing their email')}</InputLabel>
                 <Input 
+                    autoComplete="off"
                     autoFocus
                     value={state.email}
                     id="email"
@@ -91,10 +109,16 @@ const FolderShareDialog = ({folderId, sharedWith = [], closeDialog}) => {
                     <Title marginTop="20px">{t('folderShareDialog.People with access to this folder')}</Title>
                     {
                         sharedWith.map((email, index) => {
-                            return <div key={index}>
-                                <p>{email}</p>
-                            </div>
+                            return <p key={index}>
+                                {email}
+                                <ButtonLink onClick={() => unshare(email)}>{t('common.Remove')}</ButtonLink>
+                            </p>
                         })
+                    }
+
+                    {
+                        sharedWith.length === 0 &&
+                        <p>{t('folderShareDialog.This folder has not been shared with anyone')}</p>
                     }
                 </div>
             }
@@ -114,7 +138,8 @@ FolderShareDialog.displayName = 'FolderShareDialog';
 FolderShareDialog.propTypes = {
     closeDialog: PropTypes.func,
     folderId: PropTypes.string.isRequired,
-    sharedWith: PropTypes.arrayOf(PropTypes.string)
+    sharedWith: PropTypes.arrayOf(PropTypes.string),
+    user: PropTypes.object
 }
 
-export default FolderShareDialog;
+export default withUser(FolderShareDialog);

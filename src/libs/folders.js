@@ -71,3 +71,22 @@ export const shareFolder = async (folderId, email, emailList) => {
     });
     return true;
 }
+
+export const removeEmail = async (folderId, email, emailList) => {
+    const {db, fireStore} = firebase;
+    const {doc, updateDoc} = fireStore;
+
+    // Remove e-mail from emailList
+    const index = emailList.indexOf(email);
+    if (index > -1) {
+        emailList.splice(index, 1);
+    }
+
+    // Save the new email list updating the folder in firebase
+    const folderRef = doc(db, "folders", folderId);
+    await updateDoc(folderRef, {
+        sharedWith: JSON.stringify(emailList)
+    });
+
+    return true;
+}
