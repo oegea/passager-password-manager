@@ -19,7 +19,7 @@
  */
 
 // Third party dependencies
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 // Atoms
 import Button from '../../atoms/Button/index.js';
@@ -34,29 +34,34 @@ import FolderShareNotice from '../../molecules/FolderShareNotice/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
+// Own libs
+import {shareFolder} from '../../../libs/folders.js';
 
-const FolderShareDialog = ({defaultValues = '', onSave, closeDialog}) => {
+const FolderShareDialog = ({folderId, sharedWith = [], closeDialog}) => {
     const { t } = useTranslation();
     const [state, setState] = useState({email: '', error: ''});
 
-    const onSaveHandler = useCallback((email) => {
-        if (email.length === 0) {
-            setState({...state, error: t('folderShareDialog.Folder name is required')});
-            return false;
+    const shareWith = async (email) => {
+        const result = await shareFolder(folderId, email, sharedWith);
+        
+        if (result === false)
+            setState({email: email, error: t('folderShareDialog.This email does not exist')});
+        else {
+            setState({email: '', error: ''});
         }
-
-        onSave({email});
-        return true;
-    }, [state, onSave, t]);
+    }
 
     const onChangeHandler = (e) => {
         let email = e.target.value;
         let error = '';
 
+        if (sharedWith.includes(email))
+            error = t('folderShareDialog.This folder has been already shared with this email');
+
         setState({email, error});
     }
 
-    useDialogConfirmation(closeDialog, onSaveHandler, state.name);
+    useDialogConfirmation(closeDialog, ()=> { shareWith( state.email); return false; }, state.name);
 
     return (
         <Dialog onClose={() => closeDialog()}>
@@ -67,7 +72,7 @@ const FolderShareDialog = ({defaultValues = '', onSave, closeDialog}) => {
                 <InputLabel htmlFor="email">{t('folderShareDialog.Add people by typing their email')}</InputLabel>
                 <Input 
                     autoFocus
-                    defaultValue={state.email}
+                    value={state.email}
                     id="email"
                     type="text" 
                     placeholder={t('folderShareDialog.Email')}
@@ -79,13 +84,27 @@ const FolderShareDialog = ({defaultValues = '', onSave, closeDialog}) => {
                 state.email.length > 0 &&
                 <FolderShareNotice email={state.email}/>
             }
+
+            {
+                state.email.length === 0 &&
+                <div>
+                    <Title marginTop="20px">{t('folderShareDialog.People with access to this folder')}</Title>
+                    {
+                        sharedWith.map((email, index) => {
+                            return <div key={index}>
+                                <p>{email}</p>
+                            </div>
+                        })
+                    }
+                </div>
+            }
             
             <ButtonWrapper>
-                <Button label={t('common.Cancel')} onClick={() => closeDialog()} color="black" backgroundColor="white"/>
-                <Button label={t('common.Save')} onClick={() => {
-                    if (onSaveHandler(state.name)) 
-                        closeDialog();
-                }} color="black" backgroundColor="white"/>
+                <Button label={t('common.Close')} onClick={() => closeDialog()} color="black" backgroundColor="white"/>
+                {
+                    state.email.length > 0 && state.error.length === 0 &&
+                    <Button label={t('common.Share')} onClick={() => shareWith(state.email)} color="black" backgroundColor="white"/>
+                }
             </ButtonWrapper>
         </Dialog>
     );
@@ -93,9 +112,9 @@ const FolderShareDialog = ({defaultValues = '', onSave, closeDialog}) => {
 
 FolderShareDialog.displayName = 'FolderShareDialog';
 FolderShareDialog.propTypes = {
-    onSave: PropTypes.func,
     closeDialog: PropTypes.func,
-    defaultValues: PropTypes.string
+    folderId: PropTypes.string.isRequired,
+    sharedWith: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default FolderShareDialog;

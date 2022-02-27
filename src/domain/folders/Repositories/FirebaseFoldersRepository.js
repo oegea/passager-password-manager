@@ -130,11 +130,21 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         const collectionRef = collection(db, "folders");
         const q = query(collectionRef, where("owner", "==", userId), limit(25));
         const subscription = onSnapshot(q, (snapshot) => {
-            const folders = snapshot.docs.map(collectIdsAndDocs);
+            const folders = snapshot.docs.map(collectIdsAndDocs).map(this._parseSharedWithParam);
             
             onSubscriptionChanges(folders);
         });
 
         return subscription;
+    }
+
+    _parseSharedWithParam (folder) {
+        try {
+            folder.sharedWith = JSON.parse(folder.sharedWith);
+        } catch (error) {
+            folder.sharedWith = [];
+        }
+        
+        return folder;
     }
 }

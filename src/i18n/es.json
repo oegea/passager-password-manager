@@ -2,6 +2,7 @@
     "common": {
         "Access": "Acceder",
         "Cancel": "Cancelar",
+        "Close": "Cerrar",
         "Continue": "Continuar",
         "Create": "Añadir",
         "Delete": "Eliminar",
@@ -10,6 +11,7 @@
         "Go back": "Ir atrás",
         "Logout": "Cerrar sesión",
         "Save": "Guardar",
+        "Share": "Compartir",
         "This field is required": "Este campo es obligatorio",
         "This field must be less than 50 characters": "Este campo no puede contener más de 50 caracteres"
     },
@@ -39,7 +41,10 @@
     "folderShareDialog": {
         "Add people by typing their email": "Añada personas escribiendo su correo electrónico",
         "Email": "Correo electrónico",
-        "Share Folder": "Compartir carpeta"
+        "People with access to this folder": "Personas con acceso a esta carpeta",
+        "Share Folder": "Compartir carpeta",
+        "This email does not exist": "Este correo electrónico no existe",
+        "This folder has been already shared with this email": "Esta carpeta ya ha sido compartida con este correo electrónico."
     },
     "folderShareNotice": {
         "You will share this folder with": "Va a compartir esta carpeta con ",

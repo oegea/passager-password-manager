@@ -45,6 +45,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     const EDIT_INITIAL_STATE = { showDialog: false, password: {}};
     
     let selectedFolderName = null;
+    let selectedFolderSharedEmails = [];
     let selectedFolderKey = null;
     let [showSpinner, setShowSpinner] = useState(false);
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
@@ -97,6 +98,7 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
     folders.forEach(folder => {
         if (folder.id === selectedFolder){
             selectedFolderName = folder.name;
+            selectedFolderSharedEmails = folder.sharedWith || [];
             selectedFolderKey = folder.key;
         }  
     })
@@ -147,7 +149,8 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 showShareFolder &&
                 <FolderShareDialog
                     closeDialog={()=>setShowShareFolder(false)}
-                    defaultValues={selectedFolder}
+                    sharedWith={selectedFolderSharedEmails}
+                    folderId={selectedFolder}
                 />
             }
             {

@@ -2,6 +2,7 @@
     "common": {
         "Access": "Access",
         "Cancel": "Cancel",
+        "Close": "Close",
         "Continue": "Continue",
         "Create": "Create",
         "Delete": "Delete",
@@ -10,6 +11,7 @@
         "Go back": "Go back",
         "Logout": "Logout",
         "Save": "Save",
+        "Share": "Share",
         "This field is required": "This field is required",
         "This field must be less than 50 characters": "This field must be less than 50 characters"
     },
@@ -39,7 +41,10 @@
     "folderShareDialog": {
         "Add people by typing their email": "Add people by typing their email",
         "Email": "Email",
-        "Share Folder": "Share Folder"
+        "People with access to this folder": "People with access to this folder",
+        "Share Folder": "Share Folder",
+        "This email does not exist": "This email does not exist.",
+        "This folder has been already shared with this email": "This folder has been already shared with this email."
     },
     "folderShareNotice": {
         "You will share this folder with": "You will share this folder with ",

@@ -26,16 +26,18 @@ const Title = styled.div`
     font-size: 22px;
     font-weight: bold;
     margin-bottom: ${props => props.marginBottom};
+    margin-top: ${props => props.marginTop};
 `;
 
-const AtomTitle = ({ children, marginBottom = '0px' }) => {
-    return <Title marginBottom={marginBottom}>{children}</Title>
+const AtomTitle = ({ children, marginBottom = '0px', marginTop = '0px' }) => {
+    return <Title marginBottom={marginBottom} marginTop={marginTop}>{children}</Title>
 }
 
 AtomTitle.displayName = 'AtomTitle';
 AtomTitle.propTypes = {
     children: PropTypes.node,
     marginBottom: PropTypes.string,
+    marginTop: PropTypes.string
 };
 
 export default AtomTitle;

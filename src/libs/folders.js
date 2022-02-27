@@ -21,6 +21,9 @@
 // Domain
 import domain from '../domain/index.js';
 
+// Own libraries
+import firebase from './firebase.js';
+
 export const createFolder = async (user, folder) => {
     return await domain.useCases.folders['create_folder_use_case'].execute({
         folderName: folder.name,
@@ -40,4 +43,31 @@ export const deleteFolder = async (folderId) => {
     return await domain.useCases.folders['delete_folder_use_case'].execute({
         id: folderId
     });
+}
+
+export const shareFolder = async (folderId, email, emailList) => {
+    // Load firebase library
+    const {db, fireStore} = firebase;
+    const {collection, doc, query, where, limit, getDocs, updateDoc} = fireStore;
+    // Gets the public Key of the user by e-mail
+    const collectionRef = collection(db, "userSharingSettings");
+    const q = query(collectionRef, where("email", "==", email), limit(1));
+    const querySnapshot = await getDocs(q);
+
+    // If email doesn't exists, return false
+    if (querySnapshot.docs.length === 0) {
+        return false;
+    }
+
+    // Get the public key of the user
+    // const publicKey = querySnapshot.docs[0].data().publicKey;    
+    // If email exists, add email to the email list
+    emailList.push(email);
+
+    // Save the new email list updating the folder in firebase
+    const folderRef = doc(db, "folders", folderId);
+    await updateDoc(folderRef, {
+        sharedWith: JSON.stringify(emailList)
+    });
+    return true;
 }
