@@ -149,8 +149,11 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
                 showShareFolder &&
                 <FolderShareDialog
                     closeDialog={()=>setShowShareFolder(false)}
-                    sharedWith={selectedFolderSharedEmails}
                     folderId={selectedFolder}
+                    folderName={selectedFolderName}
+                    folderKey={selectedFolderKey}
+                    sharedWith={selectedFolderSharedEmails}
+                    userPrivateKey={user.privateKey}
                 />
             }
             {

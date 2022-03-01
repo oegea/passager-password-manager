@@ -40,7 +40,15 @@ import {shareFolder, removeEmail} from '../../../libs/folders.js';
 // Context
 import withUser from '../../../providers/WithUser.js';
 
-const FolderShareDialog = ({folderId, sharedWith = [], closeDialog, user}) => {
+const FolderShareDialog = ({
+    closeDialog, 
+    folderId, 
+    folderName,
+    folderKey, 
+    sharedWith = [], 
+    user, 
+    userPrivateKey
+}) => {
     const { t } = useTranslation();
     const [state, setState] = useState({email: '', error: ''});
 
@@ -52,7 +60,7 @@ const FolderShareDialog = ({folderId, sharedWith = [], closeDialog, user}) => {
         if (user.email.toLowerCase() === email.toLowerCase()) 
             return;
 
-        const result = await shareFolder(folderId, email, sharedWith);
+        const result = await shareFolder(folderName, folderId, folderKey, email, sharedWith, userPrivateKey);
         
         if (result === false)
             setState({email: email, error: t('folderShareDialog.This email does not exist')});
@@ -138,8 +146,11 @@ FolderShareDialog.displayName = 'FolderShareDialog';
 FolderShareDialog.propTypes = {
     closeDialog: PropTypes.func,
     folderId: PropTypes.string.isRequired,
+    folderKey: PropTypes.string,
+    folderName: PropTypes.string.isRequired,
     sharedWith: PropTypes.arrayOf(PropTypes.string),
-    user: PropTypes.object
+    user: PropTypes.object,
+    userPrivateKey: PropTypes.string
 }
 
 export default withUser(FolderShareDialog);

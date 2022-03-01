@@ -23,6 +23,7 @@ import domain from '../domain/index.js';
 
 // Own libraries
 import firebase from './firebase.js';
+import {RSADecrypt, RSAEncrypt, importRSAPublicKey} from './crypto.js';
 
 export const createFolder = async (user, folder) => {
     return await domain.useCases.folders['create_folder_use_case'].execute({
@@ -45,7 +46,7 @@ export const deleteFolder = async (folderId) => {
     });
 }
 
-export const shareFolder = async (folderId, email, emailList) => {
+export const shareFolder = async (folderName, folderId, folderKey, email, emailList, userPrivateKey) => {
     // Load firebase library
     const {db, fireStore} = firebase;
     const {doc, updateDoc, setDoc} = fireStore;
@@ -58,15 +59,22 @@ export const shareFolder = async (folderId, email, emailList) => {
     }
 
     // Get the public key of the user
-    const {uid} = user;
+    const {uid, publicKey} = user;
+    const importedPublicKey = await importRSAPublicKey(publicKey);
+
+    // Decrypt the folder key
+    const decryptedFolderKey = await RSADecrypt(folderKey, userPrivateKey);
+    // Encrypt for the new user
+    const encryptedFolderKey = await RSAEncrypt(decryptedFolderKey, importedPublicKey);
 
     // Create a new document inside sharedFolders
     const sharedFolder = {
-        test: true
+        name: folderName,
+        key: encryptedFolderKey,
     }
-
+    const sharedFolderRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
     await setDoc(
-        doc(db, "userSharingSettings", uid, "sharedFolders", folderId), 
+        sharedFolderRef, 
         sharedFolder
     );
     

@@ -278,6 +278,11 @@ export const importRSAKeyPair = async (keyPair, password) => {
 
     return {privateKey: privateKey, publicKey: publicKey};
 }
+
+export const importRSAPublicKey = async (publicKey) => {
+    const result =  await _importKey(JSON.parse(publicKey), RSA_ALGORITHM_CONFIG, ["encrypt"]);
+    return result;
+}
 // #endregion
 
 // #region RSA encrypt and decrypt
