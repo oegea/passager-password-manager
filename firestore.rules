@@ -18,7 +18,8 @@ service cloud.firestore {
       
       match /sharedFolders/{folderId} {
       	allow create: if 
-        	request.auth.uid != null;
+        	request.auth.uid != null && 
+          get(/databases/$(database)/documents/folders/$(folderId)).data.owner != request.auth.uid;
         
         allow read: if
         	userId == request.auth.uid;

@@ -18,25 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
-import { FoldersContext } from './FoldersProvider.js'
+ import {FoldersRequestsFactory} from "../Requests/factory.js";
 
-const getDisplayName = (WrappedComponent) => {
-	return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
-
-const withFolders = Component => {
-	const WrappedComponent = props => {
-		return (
-			<FoldersContext.Consumer>
-				{value => <Component folders={value.folders} sharedFolders={value.sharedFolders} {...props}/>}
-			</FoldersContext.Consumer>
-		)
-	}
-
-	WrappedComponent.displayName = `WithFolders(${getDisplayName(WrappedComponent)})`
-
-	return WrappedComponent;
-}
-
-export default withFolders;
+ export class SubscribeToSharedFoldersUseCase {
+ 
+     constructor({service}) {
+         this._service = service;
+     }
+ 
+     async execute({
+         onSubscriptionChanges,
+         userId
+     }) {
+         const folderSubscriptionRequest = FoldersRequestsFactory.folderSubscriptionRequest({
+             onSubscriptionChanges,
+             userId
+         });
+         const result = await this._service.execute({folderSubscriptionRequest});
+         return result;
+     }
+ 
+ }

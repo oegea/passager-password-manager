@@ -26,6 +26,7 @@ import {DeleteFolderService} from './DeleteFolderService.js';
 import {EditFolderService} from './EditFolderService.js';
 import {DeleteFolderRelatedPasswordsService} from './DeleteFolderRelatedPasswordsService.js';
 import {SubscribeToFoldersService} from './SubscribeToFoldersService.js';
+import {SubscribeToSharedFoldersService} from './SubscribeToSharedFoldersService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
 
@@ -54,6 +55,11 @@ export class FoldersServicesFactory {
 
     static subscribeToFoldersService = ({config}) =>
         new SubscribeToFoldersService({
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+        });
+
+    static subscribeToSharedFoldersService = ({config}) =>
+        new SubscribeToSharedFoldersService({
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
         });
 }

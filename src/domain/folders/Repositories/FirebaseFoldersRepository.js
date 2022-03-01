@@ -138,6 +138,26 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         return subscription;
     }
 
+    async subscribeToSharedFolders({
+        folderSubscriptionRequest
+    }){
+        const {collectIdsAndDocs, db, fireStore} = this._firebaseUtils;
+        const {collection, onSnapshot, query, where, limit} = fireStore;
+
+        const userId = folderSubscriptionRequest.getUserId();
+        const onSubscriptionChanges = folderSubscriptionRequest.getOnSubscriptionChanges();
+
+        const collectionRef = collection(db, "userSharingSettings", userId, "sharedFolders");
+        const q = query(collectionRef, limit(25));
+        const subscription = onSnapshot(q, (snapshot) => {
+            const folders = snapshot.docs.map(collectIdsAndDocs);
+            
+            onSubscriptionChanges(folders);
+        });
+
+        return subscription;
+    }
+
     _parseSharedWithParam (folder) {
         try {
             folder.sharedWith = JSON.parse(folder.sharedWith);

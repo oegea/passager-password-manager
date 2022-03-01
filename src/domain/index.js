@@ -29,7 +29,8 @@ const useCases = {
         'create_folder_use_case': FoldersUseCasesFactory.createFolderUseCase({config}),
         'delete_folder_use_case': FoldersUseCasesFactory.deleteFolderUseCase({config}),
         'edit_folder_use_case': FoldersUseCasesFactory.editFolderUseCase({config}),
-        'subscribe_to_folders_use_case': FoldersUseCasesFactory.subscribeToFoldersUseCase({config})
+        'subscribe_to_folders_use_case': FoldersUseCasesFactory.subscribeToFoldersUseCase({config}),
+        'subscribe_to_shared_folders_use_case': FoldersUseCasesFactory.subscribeToSharedFoldersUseCase({config})
     },
     'passwords': {
         'create_password_use_case': PasswordsUseCasesFactory.createPasswordUseCase({config}),

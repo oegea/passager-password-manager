@@ -25,6 +25,7 @@ import {CreateFolderUseCase} from './CreateFolderUseCase.js';
 import {DeleteFolderUseCase} from './DeleteFolderUseCase.js';
 import {EditFolderUseCase} from './EditFolderUseCase.js';
 import {SubscribeToFoldersUseCase} from './SubscribeToFoldersUseCase.js';
+import {SubscribeToSharedFoldersUseCase} from './SubscribeToSharedFoldersUseCase.js';
 
 export class FoldersUseCasesFactory {
     static createFolderUseCase = ({config}) => 
@@ -45,5 +46,10 @@ export class FoldersUseCasesFactory {
     static subscribeToFoldersUseCase = ({config}) =>
         new SubscribeToFoldersUseCase({
             service: FoldersServicesFactory.subscribeToFoldersService({config})
+        });
+    
+    static subscribeToSharedFoldersUseCase = ({config}) =>
+        new SubscribeToSharedFoldersUseCase({
+            service: FoldersServicesFactory.subscribeToSharedFoldersService({config})
         });
 }

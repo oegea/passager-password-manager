@@ -28,41 +28,61 @@ import domain from '../domain/index.js';
 export const FoldersContext = createContext();
 
 class FoldersProvider extends Component {
-	state = { folders: [] };
+	state = { folders: [], sharedFolders: [] };
 
-	unsubscribe = null;
+	unsubscribeFromFolders = null;
+	unsubscribeFromSharedFolders = null;
 
 	componentDidMount = () => {
-		this.subscribe();
+		this.subscribeToFolders();
+		this.subscribeToSharedFolders();
 	}
 
 	componentDidUpdate = () => {
-		this.subscribe();
+		this.subscribeToFolders();
+		this.subscribeToSharedFolders();
 	}
 	
 	componentWillUnmount = () => {
-        if (this.unsubscribe !== null)
-		    this.unsubscribe();
+        if (this.unsubscribeFromFolders !== null)
+		    this.unsubscribeFromFolders();
+		
+		if (this.unsubscribeFromSharedFolders !== null)
+		    this.unsubscribeFromSharedFolders();
 	}
 
-	subscribe = async () => {
+	subscribeToFolders = async () => {
 		const {user} = this.props;
 		
-		if (user === null || this.unsubscribe !== null )
+		if (user === null || this.unsubscribeFromFolders !== null )
 			return;
 
-		this.unsubscribe = await domain.useCases.folders['subscribe_to_folders_use_case'].execute({
+		this.unsubscribeFromFolders = await domain.useCases.folders['subscribe_to_folders_use_case'].execute({
 			userId: user.uid,
 			onSubscriptionChanges: (folders) => this.setState({folders})
 		});
 	}
 
+	subscribeToSharedFolders = async () => {
+		const {user} = this.props;
+		
+		if (user === null || this.unsubscribeFromSharedFolders !== null )
+			return;
+
+		this.unsubscribeFromSharedFolders = await domain.useCases.folders['subscribe_to_shared_folders_use_case'].execute({
+			userId: user.uid,
+			onSubscriptionChanges: (sharedFolders) => this.setState({sharedFolders})
+		});
+	}
+
 	render() {
-		const { folders } = this.state;
+		const { folders, sharedFolders } = this.state;
 		const { children } = this.props;
 
 		return (
-			<FoldersContext.Provider value={folders}>{ children }</FoldersContext.Provider>
+			<FoldersContext.Provider value={{
+				folders, sharedFolders
+			}}>{ children }</FoldersContext.Provider>
 		);
 	}
 

@@ -35,7 +35,7 @@ import { createFolder } from '../../../libs/folders.js';
 import withUsers from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
 
-const FoldersListLeftPanel = ({user, folders, onChange = () => null}) => {
+const FoldersListLeftPanel = ({user, folders, sharedFolders, onChange = () => null}) => {
     const {folderId} = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -60,6 +60,8 @@ const FoldersListLeftPanel = ({user, folders, onChange = () => null}) => {
                 /> 
             }
             <LeftPanelList onChange={onChange} folders={folders} selectedFolder={folderId} />
+
+            <LeftPanelList onChange={onChange} folders={sharedFolders} selectedFolder={folderId} />
             
         </>
     )
@@ -68,6 +70,7 @@ const FoldersListLeftPanel = ({user, folders, onChange = () => null}) => {
 FoldersListLeftPanel.displayName = 'FoldersListLeftPanel';
 FoldersListLeftPanel.propTypes = {
     folders: PropTypes.array,
+    sharedFolders: PropTypes.array,
     user: PropTypes.object,
     onChange: PropTypes.func,
 }
