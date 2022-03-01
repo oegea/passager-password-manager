@@ -48,19 +48,28 @@ export const deleteFolder = async (folderId) => {
 export const shareFolder = async (folderId, email, emailList) => {
     // Load firebase library
     const {db, fireStore} = firebase;
-    const {collection, doc, query, where, limit, getDocs, updateDoc} = fireStore;
+    const {doc, updateDoc, setDoc} = fireStore;
     // Gets the public Key of the user by e-mail
-    const collectionRef = collection(db, "userSharingSettings");
-    const q = query(collectionRef, where("email", "==", email), limit(1));
-    const querySnapshot = await getDocs(q);
+    const user = await _getUserPublicDetails(email);
 
     // If email doesn't exists, return false
-    if (querySnapshot.docs.length === 0) {
+    if (user === null) {
         return false;
     }
 
     // Get the public key of the user
-    // const publicKey = querySnapshot.docs[0].data().publicKey;    
+    const {uid} = user;
+
+    // Create a new document inside sharedFolders
+    const sharedFolder = {
+        test: true
+    }
+
+    await setDoc(
+        doc(db, "userSharingSettings", uid, "sharedFolders", folderId), 
+        sharedFolder
+    );
+    
     // If email exists, add email to the email list
     emailList.push(email);
 
@@ -74,7 +83,7 @@ export const shareFolder = async (folderId, email, emailList) => {
 
 export const removeEmail = async (folderId, email, emailList) => {
     const {db, fireStore} = firebase;
-    const {doc, updateDoc} = fireStore;
+    const {doc, updateDoc, deleteDoc} = fireStore;
 
     // Remove e-mail from emailList
     const index = emailList.indexOf(email);
@@ -88,5 +97,43 @@ export const removeEmail = async (folderId, email, emailList) => {
         sharedWith: JSON.stringify(emailList)
     });
 
+    // Gets the public Key of the user by e-mail
+    const user = await _getUserPublicDetails(email);
+
+    if (user === null)
+        return false;
+
+    const {uid} = user;
+
+    // Remove the folder from the user's shared folders
+    const docRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
+    await deleteDoc(docRef);
+
     return true;
+}
+
+export const _getUserPublicDetails = async (email) => {
+
+    // Load firebase library
+    const {db, fireStore} = firebase;
+    const {collection, query, where, limit, getDocs} = fireStore;
+
+    const collectionRef = collection(db, "userSharingSettings");
+    const q = query(collectionRef, where("email", "==", email), limit(1));
+    const querySnapshot = await getDocs(q);
+
+    // If email doesn't exists, return false
+    if (querySnapshot.docs.length === 0) {
+        return null;
+    }
+
+    // Get the public key of the user
+    const publicKey = querySnapshot.docs[0].data().publicKey;
+    const uid = querySnapshot.docs[0].id;   
+
+    return {
+        publicKey,
+        uid
+    };
+
 }

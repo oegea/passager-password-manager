@@ -15,6 +15,17 @@ service cloud.firestore {
     	allow read: if request.auth.uid != null;
       allow create, update: if request.auth.uid == userId;
       allow delete: if false;
+      
+      match /sharedFolders/{folderId} {
+      	allow create: if 
+        	request.auth.uid != null;
+        
+        allow read: if
+        	userId == request.auth.uid;
+        
+        allow delete: if
+        	get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid;
+      }
     }
     
     match /folders/{folderId} {
