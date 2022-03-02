@@ -1,4 +1,5 @@
 # Passager Password Manager
+![Build](https://github.com/oegea/passager-password-manager/actions/workflows/firebase-hosting-merge.yml/badge.svg) 
 [![License](https://shields.io/badge/license-AGPL-green)](LICENSE.md)
 ![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager) 
 ![Last Commit](https://shields.io/github/last-commit/oegea/passager-password-manager)
