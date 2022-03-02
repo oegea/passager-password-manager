@@ -142,7 +142,7 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         folderSubscriptionRequest
     }){
         const {collectIdsAndDocs, db, fireStore} = this._firebaseUtils;
-        const {collection, onSnapshot, query, where, limit} = fireStore;
+        const {collection, onSnapshot, query, limit} = fireStore;
 
         const userId = folderSubscriptionRequest.getUserId();
         const onSubscriptionChanges = folderSubscriptionRequest.getOnSubscriptionChanges();
