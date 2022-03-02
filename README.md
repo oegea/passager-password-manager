@@ -1,5 +1,5 @@
 # Passager Password Manager
-[![License](https://shields.io/badge/license-AGPL-green)](license.md)
+[![License](https://shields.io/badge/license-AGPL-green)](LICENSE.md)
 ![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager) 
 ![Last Commit](https://shields.io/github/last-commit/oegea/passager-password-manager)
 
