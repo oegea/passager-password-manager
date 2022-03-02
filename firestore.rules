@@ -19,7 +19,8 @@ service cloud.firestore {
       match /sharedFolders/{folderId} {
       	allow create: if 
         	request.auth.uid != null && 
-          get(/databases/$(database)/documents/folders/$(folderId)).data.owner != request.auth.uid;
+          get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid &&
+          get(/databases/$(database)/documents/folders/$(folderId)).data.owner != userId;
         
         allow read: if
         	userId == request.auth.uid;
@@ -55,16 +56,25 @@ service cloud.firestore {
       match /passwords/{passwordId} {
 				allow read: if 
           request.auth.uid != null && 
-          get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid &&
+          (
+          	get(/databases/$(database)/documents/userSharingSettings/$(request.auth.uid)/sharedFolders/$(folderId)).data.shared == true 
+          	|| get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid
+          ) &&
           request.query.limit <= 100;
         
         allow delete: if
         	request.auth.uid != null && 
-        	resource.data.owner == request.auth.uid;
+        	(
+          	get(/databases/$(database)/documents/userSharingSettings/$(request.auth.uid)/sharedFolders/$(folderId)).data.shared == true 
+          	|| get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid
+          );
         
         allow create: if 
           request.auth.uid != null && 
-          get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid &&
+          (
+          	get(/databases/$(database)/documents/userSharingSettings/$(request.auth.uid)/sharedFolders/$(folderId)).data.shared == true 
+          	|| get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid
+          ) &&
           request.resource.data.owner == request.auth.uid &&
           request.resource.data.name != null &&
           request.resource.data.name.size() > 0 &&
@@ -72,8 +82,11 @@ service cloud.firestore {
           
         allow update: if 
           request.auth.uid != null && 
-          resource.data.owner == request.auth.uid &&
-          request.resource.data.owner == request.auth.uid &&
+          (
+          	get(/databases/$(database)/documents/userSharingSettings/$(request.auth.uid)/sharedFolders/$(folderId)).data.shared == true 
+          	|| get(/databases/$(database)/documents/folders/$(folderId)).data.owner == request.auth.uid
+          ) &&
+          resource.data.owner == request.resource.data.owner && 
           request.resource.data.name != null &&
           request.resource.data.name.size() > 0 &&
           request.resource.data.name.size() < 50;

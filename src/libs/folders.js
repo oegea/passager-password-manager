@@ -71,6 +71,7 @@ export const shareFolder = async (folderName, folderId, folderKey, email, emailL
     const sharedFolder = {
         name: folderName,
         key: encryptedFolderKey,
+        shared: true
     }
     const sharedFolderRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
     await setDoc(

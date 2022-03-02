@@ -41,12 +41,13 @@ import withUser from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
 import PasswordsProvider, {PasswordsContext} from '../../../providers/PasswordsProvider.js'
 
-const DocumentsListRightPanel = ({ user, folders = [] }) => {
+const DocumentsListRightPanel = ({ user, folders = [], sharedFolders = [] }) => {
     const EDIT_INITIAL_STATE = { showDialog: false, password: {}};
     
     let selectedFolderName = null;
     let selectedFolderSharedEmails = [];
     let selectedFolderKey = null;
+    let selectedFolderIsShared = false;
     let [showSpinner, setShowSpinner] = useState(false);
     let [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
     let [showNewPasswordDialog, setShowNewPasswordDialog] = useState(false);
@@ -95,27 +96,36 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
         setEditState({showDialog: false, password: {}});
     }
 
-    folders.forEach(folder => {
+    const _checkSelectedFolder = (shared, folder) => {
         if (folder.id === selectedFolder){
             selectedFolderName = folder.name;
             selectedFolderSharedEmails = folder.sharedWith || [];
             selectedFolderKey = folder.key;
+            selectedFolderIsShared = shared;
         }  
-    })
+    }
+
+    folders.forEach(folder => _checkSelectedFolder(false, folder));
+    sharedFolders.forEach(folder => _checkSelectedFolder(true, folder));
+
 
     if (selectedFolderName === null )
         return <h1>{t('documentsListRightPanel.Please, select a folder to start')}</h1>
 
+    let sectionButtons = [{label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}}];
+    if (selectedFolderIsShared === false){
+        sectionButtons = [
+            ...sectionButtons,
+            {label: t('documentsListRightPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
+            {label: t('documentsListRightPanel.Share folder'), onClick: () => setShowShareFolder(true)},
+            {type: 'alert', label: t('documentsListRightPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
+        ];
+    }
     return (
-        <PasswordsProvider key={folderId} folderId={selectedFolder}>
+        <PasswordsProvider key={selectedFolder} folderId={selectedFolder}>
             <SectionTitle 
                 title={selectedFolderName}
-                buttons={[
-                    {label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}},
-                    {label: t('documentsListRightPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
-                    {label: t('documentsListRightPanel.Share folder'), onClick: () => setShowShareFolder(true)},
-                    {type: 'alert', label: t('documentsListRightPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
-                ]}/>
+                buttons={sectionButtons}/>
             
             <PasswordsContext.Consumer>
                 {passwords => {
@@ -191,7 +201,8 @@ const DocumentsListRightPanel = ({ user, folders = [] }) => {
 DocumentsListRightPanel.displayName = 'DocumentsListRightPanel';
 DocumentsListRightPanel.propTypes = {
     user: PropTypes.object,
-    folders: PropTypes.array
+    folders: PropTypes.array,
+    sharedFolders: PropTypes.array,
 }
 
 export default withUser(withFolders(DocumentsListRightPanel));

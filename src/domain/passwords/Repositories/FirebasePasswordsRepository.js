@@ -93,14 +93,13 @@ export class FirebasePasswordsRepository extends PasswordsRepository {
         passwordSubscriptionRequest
     }){
         const {collectIdsAndDocs, db, fireStore} = this._firebaseUtils;
-        const {collection, onSnapshot, query, where, limit} = fireStore;
+        const {collection, onSnapshot, query, limit} = fireStore;
 
         const folderId = passwordSubscriptionRequest.getFolderId();
-        const userId = passwordSubscriptionRequest.getUserId();
         const onSubscriptionChanges = passwordSubscriptionRequest.getOnSubscriptionChanges();
 
         const collectionRef = collection(db, "folders", folderId, "passwords");
-		const q = query(collectionRef, where("owner", "==", userId), limit(100));
+		const q = query(collectionRef, limit(100));
         const subscription = onSnapshot(q, (snapshot) => {
             const passwords = snapshot.docs.map(collectIdsAndDocs);
             
