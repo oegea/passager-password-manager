@@ -21,6 +21,7 @@
 import {FolderOperationRequest} from './FolderOperationRequest.js';
 import {FolderReferenceRequest} from './FolderReferenceRequest.js';
 import {FolderSubscriptionRequest} from './FolderSubscriptionRequest.js';
+import {FolderShareRequest} from './FolderShareRequest.js';
 
 export class FoldersRequestsFactory {
     static folderOperationRequest = ({id, folderKey, name, owner, publicKey}) => {
@@ -33,5 +34,9 @@ export class FoldersRequestsFactory {
 
     static folderSubscriptionRequest = ({onSubscriptionChanges, userId}) => {
         return new FolderSubscriptionRequest({onSubscriptionChanges, userId});
+    }
+
+    static folderShareRequest = ({folderName, folderId, folderKey, email, emailList, userPrivateKey}) => {
+        return new FolderShareRequest({folderName, folderId, folderKey, email, emailList, userPrivateKey});
     }
 }

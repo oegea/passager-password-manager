@@ -167,4 +167,80 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         
         return folder;
     }
+
+    //async shareFolder({folderShareRequest}){
+    async shareFolder(){
+        // Load firebase library
+        /*const {db, fireStore} = this._firebaseUtils;
+        const {doc, updateDoc, setDoc} = fireStore;
+
+        // Get data from the folderShareRequest
+        const email = folderShareRequest.getEmail();
+
+
+        // Gets the public Key of the user by e-mail
+        const user = await this._getUserPublicDetails(email);
+
+        // If email doesn't exists, return false
+        if (user === null) {
+            return false;
+        }
+
+        // Get the public key of the user
+         const {uid, publicKey} = user;
+        const importedPublicKey = await importRSAPublicKey(publicKey);
+
+        // Decrypt the folder key
+        const decryptedFolderKey = await RSADecrypt(folderKey, userPrivateKey);
+        // Encrypt for the new user
+        const encryptedFolderKey = await RSAEncrypt(decryptedFolderKey, importedPublicKey);
+
+        // Create a new document inside sharedFolders
+        const sharedFolder = {
+            name: folderName,
+            key: encryptedFolderKey,
+            shared: true
+        }
+        const sharedFolderRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
+        await setDoc(
+            sharedFolderRef, 
+            sharedFolder
+        );
+        
+        // If email exists, add email to the email list
+        emailList.push(email);
+
+        // Save the new email list updating the folder in firebase
+        const folderRef = doc(db, "folders", folderId);
+        await updateDoc(folderRef, {
+            sharedWith: JSON.stringify(emailList)
+        }); */
+        return true;
+    }
+
+    async _getUserPublicDetails (email)  {
+
+        // Load firebase library
+        const {db, fireStore} = this._firebaseUtils;
+        const {collection, query, where, limit, getDocs} = fireStore;
+    
+        const collectionRef = collection(db, "userSharingSettings");
+        const q = query(collectionRef, where("email", "==", email), limit(1));
+        const querySnapshot = await getDocs(q);
+    
+        // If email doesn't exists, return false
+        if (querySnapshot.docs.length === 0) {
+            return null;
+        }
+    
+        // Get the public key of the user
+        const publicKey = querySnapshot.docs[0].data().publicKey;
+        const uid = querySnapshot.docs[0].id;   
+    
+        return {
+            publicKey,
+            uid
+        };
+    
+    }
 }

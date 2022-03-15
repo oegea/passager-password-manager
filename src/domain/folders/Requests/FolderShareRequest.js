@@ -18,32 +18,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export default class FoldersRepository {
-
-    /**
-     * Creates a folder in firebase and returns a FolderEntity
-     */
-    async createFolder(){
-        throw new Error('[FoldersRepository][createFolder] is not implemented yet');
+ export class FolderShareRequest {
+    constructor({
+        folderName, 
+        folderId, 
+        folderKey, 
+        email, 
+        emailList, 
+        userPrivateKey
+    }) {
+        this._folderName = folderName;
+        this._folderId = folderId;
+        this._folderKey = folderKey;
+        this._email = email;
+        this._emailList = emailList;
+        this._userPrivateKey = userPrivateKey;
     }
 
-    async editFolder(){
-        throw new Error('[FoldersRepository][editFolder] is not implemented yet');
+    getFolderName() {
+        return this._folderName;
     }
 
-    async deleteFolder(){
-        throw new Error('[FoldersRepository][deleteFolder] is not implemented yet');
+    getFolderId() {
+        return this._folderId;
     }
 
-    async deleteFolderRelatedPasswords() {
-        throw new Error('[FoldersRepository][deleteFolderRelatedPasswords] is not implemented yet');
+    getFolderKey() {
+        return this._folderKey;
     }
 
-    async subscribeToFolders(){
-        throw new Error('[FoldersRepository][subscribeToFolders] is not implemented yet');
+    getEmail() {
+        return this._email;
     }
 
-    async shareFolder(){
-        throw new Error('[FoldersRepository][shareFolder] is not implemented yet');
+    getEmailList() {
+        return this._emailList;
+    }
+
+    getUserPrivateKey() {
+        return this._userPrivateKey;
     }
 }
