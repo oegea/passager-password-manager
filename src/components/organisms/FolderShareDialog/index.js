@@ -150,7 +150,7 @@ FolderShareDialog.propTypes = {
     folderName: PropTypes.string.isRequired,
     sharedWith: PropTypes.arrayOf(PropTypes.string),
     user: PropTypes.object,
-    userPrivateKey: PropTypes.string
+    userPrivateKey: PropTypes.object
 }
 
 export default withUser(FolderShareDialog);
