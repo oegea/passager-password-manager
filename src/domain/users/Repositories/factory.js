@@ -18,26 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- export class ShareFolderService {
-    constructor({
-        repository,
-        userOperationRequest,
-        getUserPublicDetailsService
-    }) {
-        this._repository = repository;
-        this._userOperationRequest = userOperationRequest;
-        this._getUserPublicDetailsService = getUserPublicDetailsService;
-    }
+// Third party dependencies
+import firebaseUtils from '../../../libs/firebase.js';
+// Repositories
+import FirebaseUsersRepository from './FirebaseUsersRepository.js';
 
-    async execute({folderShareRequest}) {
-
-        const email = folderShareRequest.getEmail();
-        const userOperationRequest = this._userOperationRequest({email});
-        const publicDetails = await this._getUserPublicDetailsService.execute({userOperationRequest});
-        debugger
-        /*const shareFolderResult = await this._repository.shareFolder({
-            folderShareRequest
-        });*/
-        return publicDetails;
-    }
+export class UsersRepositoriesFactory {
+    static firebaseUsersRepository = ({config}) =>
+        new FirebaseUsersRepository(({
+            config,
+            firebaseUtils
+        }))
 }

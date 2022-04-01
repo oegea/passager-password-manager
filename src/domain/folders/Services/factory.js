@@ -30,6 +30,8 @@ import {SubscribeToSharedFoldersService} from './SubscribeToSharedFoldersService
 import {ShareFolderService} from './ShareFolderService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
+import {UsersRequestsFactory} from '../../users/Requests/factory.js';
+import {UsersServicesFactory} from '../../users/Services/factory.js';
 
 export class FoldersServicesFactory {
     static createFolderService = ({config}) =>  
@@ -66,6 +68,8 @@ export class FoldersServicesFactory {
     
     static shareFolderService = ({config}) =>
         new ShareFolderService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
+            userOperationRequest: UsersRequestsFactory.userOperationRequest,
+            getUserPublicDetailsService: UsersServicesFactory.getUserPublicDetailsService({config})
         });
 }

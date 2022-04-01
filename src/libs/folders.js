@@ -47,6 +47,12 @@ export const deleteFolder = async (folderId) => {
 }
 
 export const shareFolder = async (folderName, folderId, folderKey, email, emailList, userPrivateKey) => {
+    return await domain.useCases.folders['share_folder_use_case'].execute({
+        folderName, folderId, folderKey, email, emailList, userPrivateKey
+    });
+}
+
+/*export const shareFolder = async (folderName, folderId, folderKey, email, emailList, userPrivateKey) => {
     // Load firebase library
     const {db, fireStore} = firebase;
     const {doc, updateDoc, setDoc} = fireStore;
@@ -88,7 +94,7 @@ export const shareFolder = async (folderName, folderId, folderKey, email, emailL
         sharedWith: JSON.stringify(emailList)
     });
     return true;
-}
+}*/
 
 export const removeEmail = async (folderId, email, emailList) => {
     const {db, fireStore} = firebase;

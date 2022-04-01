@@ -27,9 +27,9 @@ import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
 
 export class FoldersRepositoriesFactory {
     static firebaseFoldersRepository = ({config}) =>
-        new FirebaseFoldersRepository(({
+        new FirebaseFoldersRepository({
             config,
             firebaseUtils
-        }))
+        })
         // fromResultToFolderEntityMapper: FoldersMappersFactory.fromResultToFolderEntityMapper()
 }

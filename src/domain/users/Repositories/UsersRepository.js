@@ -18,26 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- export class ShareFolderService {
-    constructor({
-        repository,
-        userOperationRequest,
-        getUserPublicDetailsService
-    }) {
-        this._repository = repository;
-        this._userOperationRequest = userOperationRequest;
-        this._getUserPublicDetailsService = getUserPublicDetailsService;
-    }
+export default class UsersRepository {
 
-    async execute({folderShareRequest}) {
-
-        const email = folderShareRequest.getEmail();
-        const userOperationRequest = this._userOperationRequest({email});
-        const publicDetails = await this._getUserPublicDetailsService.execute({userOperationRequest});
-        debugger
-        /*const shareFolderResult = await this._repository.shareFolder({
-            folderShareRequest
-        });*/
-        return publicDetails;
+    /**
+     * Gets public details of a user
+     */
+    async getUserPublicDetails(){
+        throw new Error('[UsersRepository][getUserPublicDetails] is not implemented yet');
     }
 }

@@ -18,17 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- export class GetUserPublicDetailsService {
-    constructor({
-        repository
-    }) {
-        this._repository = repository;
-    }
+import {UserOperationRequest} from './UserOperationRequest.js';
 
-    async execute({email}) {
-        const userPublicDetails = await this._repository.getUserPublicDetails({
-            email
-        });
-        return userPublicDetails;
+export class UsersRequestsFactory {
+    static userOperationRequest = ({email}) => {
+        return new UserOperationRequest({email});
     }
 }

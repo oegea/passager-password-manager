@@ -18,26 +18,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- export class ShareFolderService {
+export class UserOperationRequest {
     constructor({
-        repository,
-        userOperationRequest,
-        getUserPublicDetailsService
-    }) {
-        this._repository = repository;
-        this._userOperationRequest = userOperationRequest;
-        this._getUserPublicDetailsService = getUserPublicDetailsService;
+            email = ''
+        }) {
+        this._email = email;
     }
 
-    async execute({folderShareRequest}) {
-
-        const email = folderShareRequest.getEmail();
-        const userOperationRequest = this._userOperationRequest({email});
-        const publicDetails = await this._getUserPublicDetailsService.execute({userOperationRequest});
-        debugger
-        /*const shareFolderResult = await this._repository.shareFolder({
-            folderShareRequest
-        });*/
-        return publicDetails;
+    getEmail() {
+        return this._email;
     }
 }
