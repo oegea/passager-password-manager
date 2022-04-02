@@ -52,50 +52,6 @@ export const shareFolder = async (folderName, folderId, folderKey, email, emailL
     });
 }
 
-/*export const shareFolder = async (folderName, folderId, folderKey, email, emailList, userPrivateKey) => {
-    // Load firebase library
-    const {db, fireStore} = firebase;
-    const {doc, updateDoc, setDoc} = fireStore;
-    // Gets the public Key of the user by e-mail
-    const user = await _getUserPublicDetails(email);
-
-    // If email doesn't exists, return false
-    if (user === null) {
-        return false;
-    }
-
-    // Get the public key of the user
-    const {uid, publicKey} = user;
-    const importedPublicKey = await importRSAPublicKey(publicKey);
-
-    // Decrypt the folder key
-    const decryptedFolderKey = await RSADecrypt(folderKey, userPrivateKey);
-    // Encrypt for the new user
-    const encryptedFolderKey = await RSAEncrypt(decryptedFolderKey, importedPublicKey);
-
-    // Create a new document inside sharedFolders
-    const sharedFolder = {
-        name: folderName,
-        key: encryptedFolderKey,
-        shared: true
-    }
-    const sharedFolderRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
-    await setDoc(
-        sharedFolderRef, 
-        sharedFolder
-    );
-    
-    // If email exists, add email to the email list
-    emailList.push(email);
-
-    // Save the new email list updating the folder in firebase
-    const folderRef = doc(db, "folders", folderId);
-    await updateDoc(folderRef, {
-        sharedWith: JSON.stringify(emailList)
-    });
-    return true;
-}*/
-
 export const removeEmail = async (folderId, email, emailList) => {
     const {db, fireStore} = firebase;
     const {doc, updateDoc, deleteDoc} = fireStore;
