@@ -58,4 +58,12 @@
     getUserPrivateKey() {
         return this._userPrivateKey;
     }
+
+    getEncryptedFolderKey() {
+        return this._encryptedFolderKey;
+    }
+
+    setEncryptedFolderKey(encryptedFolderKey) {
+        this._encryptedFolderKey = encryptedFolderKey;
+    }
 }

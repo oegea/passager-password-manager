@@ -168,19 +168,17 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         return folder;
     }
 
-    /*async shareFolder({userPublicDetails}){
+    async shareFolder({userPublicDetails, folderShareRequest}){
         // Load firebase library
         const {db, fireStore} = this._firebaseUtils;
         const {doc, updateDoc, setDoc} = fireStore;
 
-        // Get the public key of the user
-        const {uid, publicKey} = userPublicDetails;
-        const importedPublicKey = await importRSAPublicKey(publicKey);
-
-        // Decrypt the folder key
-        const decryptedFolderKey = await RSADecrypt(folderKey, userPrivateKey);
-        // Encrypt for the new user
-        const encryptedFolderKey = await RSAEncrypt(decryptedFolderKey, importedPublicKey);
+        const {uid} = userPublicDetails;
+        const folderName = folderShareRequest.getFolderName();
+        const encryptedFolderKey = folderShareRequest.getEncryptedFolderKey();
+        const folderId = folderShareRequest.getFolderId();
+        const email = folderShareRequest.getEmail();
+        const emailList = folderShareRequest.getEmailList();
 
         // Create a new document inside sharedFolders
         const sharedFolder = {
@@ -203,6 +201,6 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
             sharedWith: JSON.stringify(emailList)
         }); 
         return true;
-    }*/
+    }
 
 }

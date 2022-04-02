@@ -22,22 +22,40 @@
     constructor({
         repository,
         userOperationRequest,
-        getUserPublicDetailsService
+        getUserPublicDetailsService,
+        importRSAPublicKey,
+        RSADecrypt,
+        RSAEncrypt
     }) {
         this._repository = repository;
         this._userOperationRequest = userOperationRequest;
         this._getUserPublicDetailsService = getUserPublicDetailsService;
+        this._importRSAPublicKey = importRSAPublicKey;
+        this._RSADecrypt = RSADecrypt;
+        this._RSAEncrypt = RSAEncrypt;
     }
 
     async execute({folderShareRequest}) {
-
+        const userPrivateKey = folderShareRequest.getUserPrivateKey();
+        const folderKey = folderShareRequest.getFolderKey();
         const email = folderShareRequest.getEmail();
         const userOperationRequest = this._userOperationRequest({email});
-        const publicDetails = await this._getUserPublicDetailsService.execute({userOperationRequest});
-        debugger
-        /*const shareFolderResult = await this._repository.shareFolder({
-            folderShareRequest
-        });*/
-        return publicDetails;
+        const userPublicDetails = await this._getUserPublicDetailsService.execute({userOperationRequest});
+
+        // Get the public key of the user
+        const {publicKey} = userPublicDetails;
+        const importedPublicKey = await this._importRSAPublicKey(publicKey);
+
+        // Decrypt the folder key
+        const decryptedFolderKey = await this._RSADecrypt(folderKey, userPrivateKey);
+        // Encrypt for the new user
+        const encryptedFolderKey = await this._RSAEncrypt(decryptedFolderKey, importedPublicKey);
+        folderShareRequest.setEncryptedFolderKey(encryptedFolderKey);
+
+        const shareFolderResult = await this._repository.shareFolder({
+            folderShareRequest,
+            userPublicDetails
+        });
+        return shareFolderResult;
     }
 }
