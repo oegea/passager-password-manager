@@ -18,18 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Third party dependencies
-import firebaseUtils from '../../../libs/firebase.js';
-// Repositories
-import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
-// Mappers
-// import {FoldersMappersFactory} from '../Mappers/factory.js';
+export default class UsersRepository {
 
-export class FoldersRepositoriesFactory {
-    static firebaseFoldersRepository = ({config}) =>
-        new FirebaseFoldersRepository({
-            config,
-            firebaseUtils
-        })
-        // fromResultToFolderEntityMapper: FoldersMappersFactory.fromResultToFolderEntityMapper()
+    /**
+     * Gets public details of a user
+     */
+    async getUserPublicDetails(){
+        throw new Error('[UsersRepository][getUserPublicDetails] is not implemented yet');
+    }
 }

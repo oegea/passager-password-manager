@@ -19,7 +19,7 @@
  */
 
 // Own libraries
-import {generateExportableAESKey} from '../../../libs/crypto.js';
+import {importRSAPublicKey, RSADecrypt, RSAEncrypt, generateExportableAESKey} from '../../../libs/crypto.js';
 // Services
 import {CreateFolderService} from './CreateFolderService.js';
 import {DeleteFolderService} from './DeleteFolderService.js';
@@ -30,6 +30,8 @@ import {SubscribeToSharedFoldersService} from './SubscribeToSharedFoldersService
 import {ShareFolderService} from './ShareFolderService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
+import {UsersRequestsFactory} from '../../users/Requests/factory.js';
+import {UsersServicesFactory} from '../../users/Services/factory.js';
 
 export class FoldersServicesFactory {
     static createFolderService = ({config}) =>  
@@ -66,6 +68,11 @@ export class FoldersServicesFactory {
     
     static shareFolderService = ({config}) =>
         new ShareFolderService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            getUserPublicDetailsService: UsersServicesFactory.getUserPublicDetailsService({config}),
+            importRSAPublicKey, 
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
+            RSADecrypt, 
+            RSAEncrypt,
+            userOperationRequest: UsersRequestsFactory.userOperationRequest
         });
 }

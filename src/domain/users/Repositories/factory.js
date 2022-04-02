@@ -21,15 +21,12 @@
 // Third party dependencies
 import firebaseUtils from '../../../libs/firebase.js';
 // Repositories
-import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
-// Mappers
-// import {FoldersMappersFactory} from '../Mappers/factory.js';
+import FirebaseUsersRepository from './FirebaseUsersRepository.js';
 
-export class FoldersRepositoriesFactory {
-    static firebaseFoldersRepository = ({config}) =>
-        new FirebaseFoldersRepository({
+export class UsersRepositoriesFactory {
+    static firebaseUsersRepository = ({config}) =>
+        new FirebaseUsersRepository(({
             config,
             firebaseUtils
-        })
-        // fromResultToFolderEntityMapper: FoldersMappersFactory.fromResultToFolderEntityMapper()
+        }))
 }

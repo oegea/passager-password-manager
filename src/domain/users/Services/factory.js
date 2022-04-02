@@ -17,3 +17,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+// Services
+import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
+// Factories
+import {UsersRepositoriesFactory} from '../Repositories/factory.js';
+
+export class UsersServicesFactory {
+    static getUserPublicDetailsService = ({config}) =>  
+        new GetUserPublicDetailsService({
+            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+        });
+}
