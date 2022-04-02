@@ -23,7 +23,6 @@ import domain from '../domain/index.js';
 
 // Own libraries
 import firebase from './firebase.js';
-import {RSADecrypt, RSAEncrypt, importRSAPublicKey} from './crypto.js';
 
 export const createFolder = async (user, folder) => {
     return await domain.useCases.folders['create_folder_use_case'].execute({
