@@ -29,6 +29,11 @@ class UserProvider extends Component {
 	state = { user: null };
 
 	unsubscribe = null;
+	logoutTimeout = null;
+
+	ONE_MINUTE = 60 * 1000;
+	TEN_MINUTES = 10 * this.ONE_MINUTE;
+	LOGOUT_TIME = this.TEN_MINUTES;
 
 	componentDidMount = async () => {
 
@@ -43,11 +48,20 @@ class UserProvider extends Component {
 
             this.setState({ user: userDocument });
         });
+
+		document.body.addEventListener("click", () => this.resetLogoutTimeout());
+		document.body.addEventListener("keydown", () => this.resetLogoutTimeout());
 	};
 	
 	componentWillUnmount = () => {
 		if (this.unsubscribe !== null)
 			this.unsubscribe();
+		
+		if (this.logoutTimeout !== null)
+			clearTimeout(this.logoutTimeout);
+
+		document.body.removeEventListener("click", () => this.resetLogoutTimeout());
+		document.body.removeEventListener("keydown", () => this.resetLogoutTimeout());
 	}
 
 	securityTimeout = () =>{ 
@@ -68,16 +82,37 @@ class UserProvider extends Component {
 			this.setState({
 				user: {
 					...this.state.user, 
+					encryptedPrivateKey: this.state.user.privateKey,
 					privateKey: keyPair.privateKey, 
 					publicKey: keyPair.publicKey, 
 					decryptedPrivateKey: true
 				}
 			});
+			
+			this.logoutTimeout = setTimeout( () => this.loginTimeout(), this.LOGOUT_TIME);
 			return true;
 		}catch (e) {
 			return false;
 		}
 
+	}
+
+	resetLogoutTimeout() {
+		if (this.logoutTimeout !== null){
+			clearTimeout(this.logoutTimeout);
+			this.logoutTimeout = setTimeout( () => this.loginTimeout(), this.LOGOUT_TIME);
+		}
+	}
+
+	loginTimeout () {
+		this.logoutTimeout = null;
+		this.setState({ 
+			user: {
+				...this.state.user,
+				privateKey: this.state.user.encryptedPrivateKey,
+				decryptedPrivateKey: false
+			}
+		 });
 	}
 
 	render() {
