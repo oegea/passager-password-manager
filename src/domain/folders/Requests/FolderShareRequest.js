@@ -20,12 +20,12 @@
 
  export class FolderShareRequest {
     constructor({
-        folderName, 
-        folderId, 
-        folderKey, 
-        email, 
-        emailList, 
-        userPrivateKey
+        folderName = '', 
+        folderId = '', 
+        folderKey = '', 
+        email = '', 
+        emailList = [], 
+        userPrivateKey = ''
     }) {
         this._folderName = folderName;
         this._folderId = folderId;
@@ -53,6 +53,10 @@
 
     getEmailList() {
         return this._emailList;
+    }
+
+    setEmailList(emailList) {
+        this._emailList = emailList;
     }
 
     getUserPrivateKey() {

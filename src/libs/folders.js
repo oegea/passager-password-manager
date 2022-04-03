@@ -21,9 +21,6 @@
 // Domain
 import domain from '../domain/index.js';
 
-// Own libraries
-import firebase from './firebase.js';
-
 export const createFolder = async (user, folder) => {
     return await domain.useCases.folders['create_folder_use_case'].execute({
         folderName: folder.name,
@@ -52,58 +49,7 @@ export const shareFolder = async (folderName, folderId, folderKey, email, emailL
 }
 
 export const removeEmail = async (folderId, email, emailList) => {
-    const {db, fireStore} = firebase;
-    const {doc, updateDoc, deleteDoc} = fireStore;
-
-    // Remove e-mail from emailList
-    const index = emailList.indexOf(email);
-    if (index > -1) {
-        emailList.splice(index, 1);
-    }
-
-    // Save the new email list updating the folder in firebase
-    const folderRef = doc(db, "folders", folderId);
-    await updateDoc(folderRef, {
-        sharedWith: JSON.stringify(emailList)
+    return await domain.useCases.folders['remove_shared_email_use_case'].execute({
+        folderId, email, emailList
     });
-
-    // Gets the public Key of the user by e-mail
-    const user = await _getUserPublicDetails(email);
-
-    if (user === null)
-        return false;
-
-    const {uid} = user;
-
-    // Remove the folder from the user's shared folders
-    const docRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
-    await deleteDoc(docRef);
-
-    return true;
-}
-
-export const _getUserPublicDetails = async (email) => {
-
-    // Load firebase library
-    const {db, fireStore} = firebase;
-    const {collection, query, where, limit, getDocs} = fireStore;
-
-    const collectionRef = collection(db, "userSharingSettings");
-    const q = query(collectionRef, where("email", "==", email), limit(1));
-    const querySnapshot = await getDocs(q);
-
-    // If email doesn't exists, return false
-    if (querySnapshot.docs.length === 0) {
-        return null;
-    }
-
-    // Get the public key of the user
-    const publicKey = querySnapshot.docs[0].data().publicKey;
-    const uid = querySnapshot.docs[0].id;   
-
-    return {
-        publicKey,
-        uid
-    };
-
 }
