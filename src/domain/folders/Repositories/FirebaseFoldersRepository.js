@@ -203,4 +203,34 @@ export default class FirebaseFoldersRepository extends FoldersRepository {
         return true;
     }
 
+    async updateFolderSharedWith({folderShareRequest}){
+        // Load firebase library
+        const {db, fireStore} = this._firebaseUtils;
+        const {doc, updateDoc} = fireStore;
+
+        const folderId = folderShareRequest.getFolderId();
+        const emailList = folderShareRequest.getEmailList();
+
+        // Save the new email list updating the folder in firebase
+        const folderRef = doc(db, "folders", folderId);
+
+        await updateDoc(folderRef, {
+            sharedWith: JSON.stringify(emailList)
+        });
+    }
+
+    async unshareFolder({folderShareRequest, userPublicDetails}){
+        // Load firebase library
+        const {db, fireStore} = this._firebaseUtils;
+        const {doc, deleteDoc} = fireStore;
+
+        const {uid} = userPublicDetails;
+        const folderId = folderShareRequest.getFolderId();
+
+        // Remove the folder from the user's shared folders
+        const docRef = doc(db, "userSharingSettings", uid, "sharedFolders", folderId);
+
+        await deleteDoc(docRef);
+    }
+
 }

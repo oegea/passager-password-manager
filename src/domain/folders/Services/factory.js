@@ -28,6 +28,7 @@ import {DeleteFolderRelatedPasswordsService} from './DeleteFolderRelatedPassword
 import {SubscribeToFoldersService} from './SubscribeToFoldersService.js';
 import {SubscribeToSharedFoldersService} from './SubscribeToSharedFoldersService.js';
 import {ShareFolderService} from './ShareFolderService.js';
+import {RemoveSharedEmailService} from './RemoveSharedEmailService.js';
 // Factories
 import {FoldersRepositoriesFactory} from '../Repositories/factory.js';
 import {UsersRequestsFactory} from '../../users/Requests/factory.js';
@@ -73,6 +74,13 @@ export class FoldersServicesFactory {
             repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
             RSADecrypt, 
             RSAEncrypt,
+            userOperationRequest: UsersRequestsFactory.userOperationRequest
+        });
+
+    static removeSharedEmailService = ({config}) =>
+        new RemoveSharedEmailService({
+            getUserPublicDetailsService: UsersServicesFactory.getUserPublicDetailsService({config}),
+            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
             userOperationRequest: UsersRequestsFactory.userOperationRequest
         });
 }
