@@ -46,4 +46,12 @@ export default class FoldersRepository {
     async shareFolder(){
         throw new Error('[FoldersRepository][shareFolder] is not implemented yet');
     }
+
+    async updateFolderSharedWith(){
+        throw new Error('[FoldersRepository][updateFolderSharedWith] is not implemented yet');
+    }
+
+    async unshareFolder(){
+        throw new Error('[FoldersRepository][unshareFolder] is not implemented yet');
+    }
 }
