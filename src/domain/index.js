@@ -23,6 +23,7 @@ import config from './config/index.js';
 // Use cases
 import {FoldersUseCasesFactory} from './folders/UseCases/factory.js';
 import {PasswordsUseCasesFactory} from './passwords/UseCases/factory.js';
+import {UsersUseCasesFactory} from './users/UseCases/factory.js';
 
 const useCases = {
     'folders': {
@@ -40,6 +41,9 @@ const useCases = {
         'delete_password_use_case': PasswordsUseCasesFactory.deletePasswordUseCase({config}),
         'edit_password_use_case': PasswordsUseCasesFactory.editPasswordUseCase({config}),
         'subscribe_to_passwords_use_case': PasswordsUseCasesFactory.subscribeToPasswordsUseCase({config})
+    },
+    'users': {
+        'update_user_public_key_use_case': UsersUseCasesFactory.updateUserPublicKeyUseCase({config})
     }
 }
 

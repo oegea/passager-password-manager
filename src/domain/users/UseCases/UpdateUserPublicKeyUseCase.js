@@ -18,20 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Services
-import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
-import {UpdateUserPublicKeyService} from './UpdateUserPublicKeyService.js';
-// Factories
-import {UsersRepositoriesFactory} from '../Repositories/factory.js';
+export class UpdateUserPublicKeyUseCase {
+    constructor({
+        service,
+        userOperationRequest
+    }) {
+        this._service = service;
+        this._userOperationRequest = userOperationRequest;
+    }
 
-export class UsersServicesFactory {
-    static getUserPublicDetailsService = ({config}) =>  
-        new GetUserPublicDetailsService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
-        });
-    
-    static updateUserPublicKeyService = ({config}) =>
-        new UpdateUserPublicKeyService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
-        });
+    async execute({
+        email, 
+        publicKey,
+        uid
+    }){
+        const userOperationRequest = this._userOperationRequest({
+            email,
+            publicKey,
+            uid
+        })
+        await this._service.execute({userOperationRequest});
+    }
 }

@@ -20,12 +20,24 @@
 
 export class UserOperationRequest {
     constructor({
-            email = ''
+            email = '',
+            publicKey = '',
+            uid = ''
         }) {
         this._email = email;
+        this._publicKey = publicKey;
+        this._uid = uid;
     }
 
     getEmail() {
         return this._email;
+    }
+
+    getPublicKey() {
+        return this._publicKey;
+    }
+
+    getUid() {
+        return this._uid;
     }
 }

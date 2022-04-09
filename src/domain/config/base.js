@@ -18,8 +18,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const config = {
+import firebase from './firebase.js';
+import local from './local.js';
 
+const LOCAL_ENV = 'local';
+const FIREBASE_ENV = 'firebase';
+
+let config = {}
+
+if (process.env.NODE_ENV === FIREBASE_ENV || process.env.NODE_ENV === undefined) {
+    config = {...config, ...firebase};
+} else if (process.env.NODE_ENV === LOCAL_ENV) {
+    config = {...config, ...local};
 }
 
 export default config;

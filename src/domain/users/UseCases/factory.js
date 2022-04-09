@@ -18,20 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Services
-import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
-import {UpdateUserPublicKeyService} from './UpdateUserPublicKeyService.js';
 // Factories
-import {UsersRepositoriesFactory} from '../Repositories/factory.js';
+import {UsersServicesFactory} from '../Services/factory.js';
+import {UsersRequestsFactory} from '../Requests/factory.js';
+// Use cases
+import {UpdateUserPublicKeyUseCase} from './UpdateUserPublicKeyUseCase.js';
 
-export class UsersServicesFactory {
-    static getUserPublicDetailsService = ({config}) =>  
-        new GetUserPublicDetailsService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
-        });
-    
-    static updateUserPublicKeyService = ({config}) =>
-        new UpdateUserPublicKeyService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+export class UsersUseCasesFactory {
+    static updateUserPublicKeyUseCase = ({config}) => 
+        new UpdateUserPublicKeyUseCase({
+            service: UsersServicesFactory.updateUserPublicKeyService({config}),
+            userOperationRequest: UsersRequestsFactory.userOperationRequest
         });
 }

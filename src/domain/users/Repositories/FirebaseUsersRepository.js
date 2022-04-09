@@ -57,4 +57,18 @@ export default class FirebaseUsersRepository extends UsersRepository {
         };
     
     }
+
+    async updateUserPublicKey ({userOperationRequest}) {
+        // Load firebase library
+        const {db, fireStore} = this._firebaseUtils;
+        const {setDoc, doc} = fireStore;
+
+        // Retrieve data
+        const uid = userOperationRequest.getUid();
+        const publicKey = userOperationRequest.getPublicKey();
+        const email = userOperationRequest.getEmail();
+        
+        const docRef = doc(db, "userSharingSettings", uid);
+        await setDoc(docRef, {email, publicKey});
+    }
 }
