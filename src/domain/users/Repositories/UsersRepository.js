@@ -26,4 +26,11 @@ export default class UsersRepository {
     async getUserPublicDetails(){
         throw new Error('[UsersRepository][getUserPublicDetails] is not implemented yet');
     }
+
+    /**
+     * Updates public key of a user
+     */
+    async updateUserPublicKeyService(){
+        throw new Error('[UsersRepository][updateUserPublicKeyService] is not implemented yet');
+    }
 }
