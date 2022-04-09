@@ -74,10 +74,6 @@ export const updateUserDocument = async (uid, userDocument) => {
     await setDoc(doc(db, "users", uid), {...initializedUserDocument});
 };
 
-export const updateUserPublicKey = async (uid, email, publicKey) => {
-    await setDoc(doc(db, "userSharingSettings", uid), {email, publicKey});
-};
-
 export const userDocumentFactory = ({
     email, 
     displayName, 

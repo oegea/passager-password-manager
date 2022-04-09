@@ -18,8 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Domain
+import domain from '../domain/index.js';
+
 // Own libraries
-import { updateUserPublicKey, updateUserDocument } from "./auth.js";
+import { updateUserDocument } from "./auth.js";
 import { createExportableRSAKeyPair } from "./crypto.js";
 
 export const checkPassword = (password) => {
@@ -67,7 +70,12 @@ export const setUserMasterPassword = async (user, password) => {
         initialized: true
     };
     await updateUserDocument(uid, userDocument);
-    await updateUserPublicKey(uid, userDocument.email, keyPair.publicKey);
+
+    await domain.useCases.users['update_user_public_key_use_case'].execute({
+        uid, 
+        email: userDocument.email, 
+        publicKey: keyPair.publicKey
+    });
 
     window.location.reload();
 }
