@@ -18,6 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Domain
+import domain from '../domain/index.js';
+
 //Own libraries
 import { db, fireStore, fireAuth } from './firebase.js';
 
@@ -55,18 +58,11 @@ export const getUserDocument = async (user) => {
 }
 
 export const getUserPublicKey = async (user) => {
-    if (user === null)
-        return null;
-
-    const docRef = doc(db, "userSharingSettings", user.uid);
-    const docSnap = await getDoc(docRef);
+    const publicKey = await domain.useCases.users['get_user_public_key_use_case'].execute({
+        email: user.email
+    });
     
-    // If exists, return
-    if (docSnap.exists()) {
-        return docSnap.data().publicKey;
-    }
-    
-    return '';
+    return publicKey;
 }
 
 export const updateUserDocument = async (uid, userDocument) => {
