@@ -43,7 +43,8 @@ const useCases = {
         'subscribe_to_passwords_use_case': PasswordsUseCasesFactory.subscribeToPasswordsUseCase({config})
     },
     'users': {
-        'update_user_public_key_use_case': UsersUseCasesFactory.updateUserPublicKeyUseCase({config})
+        'update_user_public_key_use_case': UsersUseCasesFactory.updateUserPublicKeyUseCase({config}),
+        'get_user_public_key_use_case': UsersUseCasesFactory.GetUserPublicKeyUseCase({config})
     }
 }
 

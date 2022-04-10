@@ -21,12 +21,18 @@
 // Services
 import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
 import {UpdateUserPublicKeyService} from './UpdateUserPublicKeyService.js';
+import {GetUserPublicKeyService} from './GetUserPublicKeyService.js';
 // Factories
 import {UsersRepositoriesFactory} from '../Repositories/factory.js';
 
 export class UsersServicesFactory {
     static getUserPublicDetailsService = ({config}) =>  
         new GetUserPublicDetailsService({
+            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+        });
+    
+    static getUserPublicKeyService = ({config}) =>
+        new GetUserPublicKeyService({
             repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
         });
     

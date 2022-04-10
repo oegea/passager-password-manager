@@ -18,23 +18,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Factories
-import {UsersServicesFactory} from '../Services/factory.js';
-import {UsersRequestsFactory} from '../Requests/factory.js';
-// Use cases
-import {UpdateUserPublicKeyUseCase} from './UpdateUserPublicKeyUseCase.js';
-import {GetUserPublicKeyUseCase} from './GetUserPublicKeyUseCase.js';
+ export class GetUserPublicKeyService {
+    constructor({
+        repository
+    }) {
+        this._repository = repository;
+    }
 
-export class UsersUseCasesFactory {
-    static updateUserPublicKeyUseCase = ({config}) => 
-        new UpdateUserPublicKeyUseCase({
-            service: UsersServicesFactory.updateUserPublicKeyService({config}),
-            userOperationRequest: UsersRequestsFactory.userOperationRequest
+    async execute({userOperationRequest}) {
+        const userPublicDetails = await this._repository.getUserPublicDetails({
+            userOperationRequest
         });
-
-    static GetUserPublicKeyUseCase = ({config}) =>
-        new GetUserPublicKeyUseCase({
-            service: UsersServicesFactory.getUserPublicKeyService({config}),
-            userOperationRequest: UsersRequestsFactory.userOperationRequest
-        });
+        
+        if (userPublicDetails === null)
+            return '';
+        
+        return userPublicDetails.publicKey;
+    }
 }
