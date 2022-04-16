@@ -22,8 +22,11 @@
 import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
 import {UpdateUserPublicKeyService} from './UpdateUserPublicKeyService.js';
 import {GetUserPublicKeyService} from './GetUserPublicKeyService.js';
+import {GetAndCreateUserDocumentService} from './GetAndCreateUserDocumentService.js';
+import {UpdateUserDocumentService} from './UpdateUserDocumentService.js';
 // Factories
 import {UsersRepositoriesFactory} from '../Repositories/factory.js';
+import {UsersEntitiesFactory} from '../Entities/factory.js';
 
 export class UsersServicesFactory {
     static getUserPublicDetailsService = ({config}) =>  
@@ -38,6 +41,18 @@ export class UsersServicesFactory {
     
     static updateUserPublicKeyService = ({config}) =>
         new UpdateUserPublicKeyService({
+            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+        });
+
+    static getAndCreateUserDocumentService = ({config}) =>
+        new GetAndCreateUserDocumentService({
+            repository: UsersRepositoriesFactory.firebaseUsersRepository({config}),
+            userDocumentEntity: UsersEntitiesFactory.userDocumentEntity,
+            updateUserDocumentService: UsersServicesFactory.updateUserDocumentService({config})
+        });
+    
+    static updateUserDocumentService = ({config}) =>
+        new UpdateUserDocumentService({
             repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
         });
 }

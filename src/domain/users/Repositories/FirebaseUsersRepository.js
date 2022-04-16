@@ -71,4 +71,38 @@ export default class FirebaseUsersRepository extends UsersRepository {
         const docRef = doc(db, "userSharingSettings", uid);
         await setDoc(docRef, {email, publicKey});
     }
+
+    async getUserDocumentByUid ({userOperationRequest}) {
+        // Load firebase library
+        const {db, fireStore} = this._firebaseUtils;
+        const {doc, getDoc} = fireStore;
+
+        // Retrieve uid
+        const uid = userOperationRequest.getUid();
+
+        // Retrieve current user document
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+        
+        // If exists, return
+        if (docSnap.exists()) {
+            return {uid, ...docSnap.data()};
+        }
+
+        return null;
+    }
+
+    async updateUserDocument({userOperationRequest, userDocumentEntity}) {
+        // Load firebase library
+        const {db, fireStore} = this._firebaseUtils;
+        const {setDoc, doc} = fireStore;
+
+        // Retrieve data
+        const uid = userOperationRequest.getUid();
+        const userDocument = userDocumentEntity.toJSON();
+
+        // Update user document
+        const docRef = doc(db, "users", uid);
+        await setDoc(docRef, userDocument);
+    }
 }

@@ -44,7 +44,8 @@ const useCases = {
     },
     'users': {
         'update_user_public_key_use_case': UsersUseCasesFactory.updateUserPublicKeyUseCase({config}),
-        'get_user_public_key_use_case': UsersUseCasesFactory.GetUserPublicKeyUseCase({config})
+        'get_user_public_key_use_case': UsersUseCasesFactory.getUserPublicKeyUseCase({config}),
+        'get_and_create_user_document_use_case': UsersUseCasesFactory.getAndCreateUserDocumentUseCase({config})
     }
 }
 

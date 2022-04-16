@@ -18,38 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class UserOperationRequest {
-    constructor({
-        displayName = '',
-        email = '', 
-        photoURL = '',
-        publicKey = '', 
-        uid = '',
-    }) {
-        this._displayName = displayName;
-        this._email = email;
-        this._photoURL = photoURL;
-        this._publicKey = publicKey;
-        this._uid = uid;
-    }
+import {UserDocumentEntity} from './UserDocumentEntity.js';
 
-    getDisplayName() {
-        return this._displayName;
-    }
-
-    getEmail() {
-        return this._email;
-    }
-
-    getPhotoURL() {
-        return this._photoURL;
-    }
-
-    getPublicKey() {
-        return this._publicKey;
-    }
-
-    getUid() {
-        return this._uid;
+export class UsersEntitiesFactory {
+    static userDocumentEntity = ({
+        email, 
+        displayName, 
+        photoURL, 
+        initialized,
+        privateKey
+    }) => {
+        return new UserDocumentEntity({email, displayName, photoURL, initialized, privateKey});
     }
 }
