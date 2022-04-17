@@ -93,6 +93,7 @@ export default class FirebaseUsersRepository extends UsersRepository {
     }
 
     async updateUserDocument({userOperationRequest, userDocumentEntity}) {
+        debugger;
         // Load firebase library
         const {db, fireStore} = this._firebaseUtils;
         const {setDoc, doc} = fireStore;

@@ -30,7 +30,6 @@
     }
 
     async execute({userOperationRequest}) {
-
         // Retrieve email, displayName, photoURL
         const email = userOperationRequest.getEmail();
         const displayName = userOperationRequest.getDisplayName();
@@ -44,11 +43,12 @@
         // If not, create and return
         let userDocumentEntity = this._userDocumentEntity({
             email, displayName, photoURL
-        });
-        await this._repository.updateUserDocument({
+        }); 
+        await this._updateUserDocumentService.execute({
             userOperationRequest,
             userDocumentEntity
-        })
+        });
+
         const uid = userOperationRequest.getUid();
         const initializedUserDocument = userDocumentEntity.toJSON();
         return {uid, ...initializedUserDocument};
