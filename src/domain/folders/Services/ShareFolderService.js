@@ -42,6 +42,9 @@
         const userOperationRequest = this._userOperationRequest({email});
         const userPublicDetails = await this._getUserPublicDetailsService.execute({userOperationRequest});
 
+        if (userPublicDetails === null)
+            return false;
+
         // Get the public key of the user
         const {publicKey} = userPublicDetails;
         const importedPublicKey = await this._importRSAPublicKey(publicKey);
