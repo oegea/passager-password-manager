@@ -18,38 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class UserOperationRequest {
+ export class GetAndCreateUserDocumentUseCase {
     constructor({
-        displayName = '',
-        email = '', 
-        photoURL = '',
-        publicKey = '', 
-        uid = '',
+        service,
+        userOperationRequest
     }) {
-        this._displayName = displayName;
-        this._email = email;
-        this._photoURL = photoURL;
-        this._publicKey = publicKey;
-        this._uid = uid;
+        this._service = service;
+        this._userOperationRequest = userOperationRequest;
     }
 
-    getDisplayName() {
-        return this._displayName;
-    }
+    async execute({
+        uid, email, displayName, photoURL
+    }){
+        const userOperationRequest = this._userOperationRequest({
+            uid, email, displayName, photoURL
+        })
 
-    getEmail() {
-        return this._email;
-    }
-
-    getPhotoURL() {
-        return this._photoURL;
-    }
-
-    getPublicKey() {
-        return this._publicKey;
-    }
-
-    getUid() {
-        return this._uid;
+        return await this._service.execute({userOperationRequest});
     }
 }

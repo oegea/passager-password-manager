@@ -18,38 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class UserOperationRequest {
+ export class UserDocumentEntity {
     constructor({
-        displayName = '',
-        email = '', 
-        photoURL = '',
-        publicKey = '', 
-        uid = '',
+        email, 
+        displayName, 
+        photoURL, 
+        initialized = false,
+        privateKey = ''
     }) {
-        this._displayName = displayName;
         this._email = email;
+        this._displayName = displayName;
         this._photoURL = photoURL;
-        this._publicKey = publicKey;
-        this._uid = uid;
+        this._initialized = initialized;
+        this._privateKey = privateKey;
     }
 
-    getDisplayName() {
-        return this._displayName;
-    }
+    toJSON() {
 
-    getEmail() {
-        return this._email;
-    }
-
-    getPhotoURL() {
-        return this._photoURL;
-    }
-
-    getPublicKey() {
-        return this._publicKey;
-    }
-
-    getUid() {
-        return this._uid;
+        return {
+            email: this._email,
+            displayName: this._displayName,
+            photoURL: this._photoURL,
+            initialized: this._initialized,
+            privateKey: this._privateKey
+        }
     }
 }

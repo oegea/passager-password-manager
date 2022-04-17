@@ -24,7 +24,7 @@ import domain from '../domain/index.js';
 //Own libraries
 import { db, fireStore, fireAuth } from './firebase.js';
 
-const { doc, getDoc, setDoc} = fireStore;
+const { doc, setDoc} = fireStore;
 const { getAuth, signOut } = fireAuth;
 
 export const logout = () => {
@@ -39,22 +39,11 @@ export const getUserDocument = async (user) => {
 
     const {uid, email, displayName, photoURL} = user;
 
-    // Retrieve current user document
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
+    const userDocument = await domain.useCases.users['get_and_create_user_document_use_case'].execute({
+        uid, email, displayName, photoURL
+    });
     
-    // If exists, return
-    if (docSnap.exists()) {
-        return {uid, ...docSnap.data()};
-    }
-
-    // If not, create and return
-    let userDocument = {
-        email, displayName, photoURL
-    };
-
-    await updateUserDocument(uid, userDocument);
-    return {uid, ...userDocument};
+    return userDocument;
 }
 
 export const getUserPublicKey = async (user) => {

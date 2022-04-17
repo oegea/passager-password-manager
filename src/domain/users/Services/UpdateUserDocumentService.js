@@ -18,38 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export class UserOperationRequest {
+ export class UpdateUserDocumentService {
     constructor({
-        displayName = '',
-        email = '', 
-        photoURL = '',
-        publicKey = '', 
-        uid = '',
+        repository
     }) {
-        this._displayName = displayName;
-        this._email = email;
-        this._photoURL = photoURL;
-        this._publicKey = publicKey;
-        this._uid = uid;
+        this._repository = repository;
     }
 
-    getDisplayName() {
-        return this._displayName;
-    }
-
-    getEmail() {
-        return this._email;
-    }
-
-    getPhotoURL() {
-        return this._photoURL;
-    }
-
-    getPublicKey() {
-        return this._publicKey;
-    }
-
-    getUid() {
-        return this._uid;
+    async execute({userOperationRequest, userDocumentEntity}) {
+        await this._repository.updateUserDocument({
+            userOperationRequest,
+            userDocumentEntity
+        })
     }
 }

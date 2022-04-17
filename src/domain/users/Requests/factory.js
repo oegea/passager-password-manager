@@ -21,7 +21,13 @@
 import {UserOperationRequest} from './UserOperationRequest.js';
 
 export class UsersRequestsFactory {
-    static userOperationRequest = ({email, publicKey, uid}) => {
-        return new UserOperationRequest({email, publicKey, uid});
+    static userOperationRequest = ({
+        displayName,
+        email, 
+        photoURL,
+        publicKey, 
+        uid,
+    }) => {
+        return new UserOperationRequest({displayName, email, photoURL, publicKey, uid});
     }
 }

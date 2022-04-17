@@ -24,6 +24,7 @@ import {UsersRequestsFactory} from '../Requests/factory.js';
 // Use cases
 import {UpdateUserPublicKeyUseCase} from './UpdateUserPublicKeyUseCase.js';
 import {GetUserPublicKeyUseCase} from './GetUserPublicKeyUseCase.js';
+import {GetAndCreateUserDocumentUseCase} from './/GetAndCreateUserDocumentUseCase.js';
 
 export class UsersUseCasesFactory {
     static updateUserPublicKeyUseCase = ({config}) => 
@@ -32,9 +33,15 @@ export class UsersUseCasesFactory {
             userOperationRequest: UsersRequestsFactory.userOperationRequest
         });
 
-    static GetUserPublicKeyUseCase = ({config}) =>
+    static getUserPublicKeyUseCase = ({config}) =>
         new GetUserPublicKeyUseCase({
             service: UsersServicesFactory.getUserPublicKeyService({config}),
+            userOperationRequest: UsersRequestsFactory.userOperationRequest
+        });
+
+    static getAndCreateUserDocumentUseCase = ({config}) =>
+        new GetAndCreateUserDocumentUseCase({
+            service: UsersServicesFactory.getAndCreateUserDocumentService({config}),
             userOperationRequest: UsersRequestsFactory.userOperationRequest
         });
 }

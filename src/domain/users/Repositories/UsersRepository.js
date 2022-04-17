@@ -30,7 +30,14 @@ export default class UsersRepository {
     /**
      * Updates public key of a user
      */
-    async updateUserPublicKeyService(){
-        throw new Error('[UsersRepository][updateUserPublicKeyService] is not implemented yet');
+    async updateUserPublicKey(){
+        throw new Error('[UsersRepository][updateUserPublicKey] is not implemented yet');
+    }
+
+    /**
+     * Gets the user document by uid
+     */
+    async getUserDocumentByUid(){
+        throw new Error('[UsersRepository][getUserDocumentByUid] is not implemented yet');
     }
 }
