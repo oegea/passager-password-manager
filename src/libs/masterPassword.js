@@ -21,10 +21,6 @@
 // Domain
 import domain from '../domain/index.js';
 
-// Own libraries
-import { updateUserDocument } from "./auth.js";
-import { createExportableRSAKeyPair } from "./crypto.js";
-
 export const checkPassword = (password) => {
     let strengthValue = {
         'caps': false,
@@ -58,24 +54,22 @@ export const checkPassword = (password) => {
 }
 
 export const setUserMasterPassword = async (user, password) => {
-    
-    // Generate key pair
-    const keyPair = await createExportableRSAKeyPair(password);
 
-    // Store encrypted private key in user document
-    const {uid} = user;
-    const userDocument = {
-        ...user,
-        privateKey: keyPair.privateKey,
-        initialized: true
-    };
-    await updateUserDocument(uid, userDocument);
+    const {
+        displayName,
+        email,
+        photoURL,
+        uid
+    } = user;
 
-    await domain.useCases.users['update_user_public_key_use_case'].execute({
-        uid, 
-        email: userDocument.email, 
-        publicKey: keyPair.publicKey
+    await domain.useCases.users['set_user_master_password_use_case'].execute({
+        displayName,
+        email,
+        password,
+        photoURL,
+        uid
     });
 
     window.location.reload();
 }
+

@@ -22,12 +22,14 @@ export class UserOperationRequest {
     constructor({
         displayName = '',
         email = '', 
+        password = '',
         photoURL = '',
         publicKey = '', 
-        uid = '',
+        uid = ''
     }) {
         this._displayName = displayName;
         this._email = email;
+        this._password = password;
         this._photoURL = photoURL;
         this._publicKey = publicKey;
         this._uid = uid;
@@ -41,12 +43,20 @@ export class UserOperationRequest {
         return this._email;
     }
 
+    getPassword() {
+        return this._password;
+    }
+
     getPhotoURL() {
         return this._photoURL;
     }
 
     getPublicKey() {
         return this._publicKey;
+    }
+
+    setPublicKey(publicKey) {
+        this._publicKey = publicKey;
     }
 
     getUid() {

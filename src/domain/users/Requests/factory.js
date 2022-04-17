@@ -24,10 +24,11 @@ export class UsersRequestsFactory {
     static userOperationRequest = ({
         displayName,
         email, 
+        password,
         photoURL,
         publicKey, 
         uid,
     }) => {
-        return new UserOperationRequest({displayName, email, photoURL, publicKey, uid});
+        return new UserOperationRequest({displayName, email, password, photoURL, publicKey, uid});
     }
 }

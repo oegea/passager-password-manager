@@ -18,12 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Own libraries
+import {createExportableRSAKeyPair} from '../../../libs/crypto.js';
 // Services
 import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
 import {UpdateUserPublicKeyService} from './UpdateUserPublicKeyService.js';
 import {GetUserPublicKeyService} from './GetUserPublicKeyService.js';
 import {GetAndCreateUserDocumentService} from './GetAndCreateUserDocumentService.js';
 import {UpdateUserDocumentService} from './UpdateUserDocumentService.js';
+import {SetUserMasterPasswordService} from './SetUserMasterPasswordService.js';
 // Factories
 import {UsersRepositoriesFactory} from '../Repositories/factory.js';
 import {UsersEntitiesFactory} from '../Entities/factory.js';
@@ -54,5 +57,13 @@ export class UsersServicesFactory {
     static updateUserDocumentService = ({config}) =>
         new UpdateUserDocumentService({
             repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+        });
+
+    static setUserMasterPasswordService = ({config}) =>
+        new SetUserMasterPasswordService({
+            createExportableRSAKeyPair,
+            updateUserDocumentService: UsersServicesFactory.updateUserDocumentService({config}),
+            updateUserPublicKeyService: UsersServicesFactory.updateUserPublicKeyService({config}),
+            userDocumentEntity: UsersEntitiesFactory.userDocumentEntity
         });
 }

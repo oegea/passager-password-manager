@@ -18,37 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Domain
-import domain from '../domain/index.js';
+ export class SetUserMasterPasswordUseCase {
+    constructor({
+        service,
+        userOperationRequest
+    }) {
+        this._service = service;
+        this._userOperationRequest = userOperationRequest;
+    }
 
-//Own libraries
-import { fireAuth } from './firebase.js';
-
-const { getAuth, signOut } = fireAuth;
-
-export const logout = () => {
-    const auth = getAuth();
-    signOut(auth);
-    window.location.href = '/';
-}
-
-export const getUserDocument = async (user) => {
-    if (user === null)
-        return null;
-
-    const {uid, email, displayName, photoURL} = user;
-
-    const userDocument = await domain.useCases.users['get_and_create_user_document_use_case'].execute({
-        uid, email, displayName, photoURL
-    });
-    
-    return userDocument;
-}
-
-export const getUserPublicKey = async (user) => {
-    const publicKey = await domain.useCases.users['get_user_public_key_use_case'].execute({
-        email: user.email
-    });
-    
-    return publicKey;
+    async execute({
+        displayName,
+        email,
+        password,
+        photoURL,
+        uid,
+    }){
+        const userOperationRequest = this._userOperationRequest({
+            displayName,
+            email,
+            password,
+            photoURL,
+            uid
+        })
+        return await this._service.execute({userOperationRequest});
+    }
 }
