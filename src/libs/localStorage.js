@@ -4,7 +4,7 @@ export default class LocalStorageDatabase {
 
     // Method to unsubscribe from changes in a local storage array
     static unsubscribeFromLocalStorage (collection, onSubscriptionChanges) {
-        LocalStorageDatabase.subscriptors[collection] = LocalStorage.subscriptors[collection].filter(subscription => subscription !== onSubscriptionChanges);
+        LocalStorageDatabase.subscriptors[collection] = LocalStorageDatabase.subscriptors[collection].filter(subscription => subscription !== onSubscriptionChanges);
     }
 
     // Method to subscribe to changes in a local storage array
@@ -59,6 +59,6 @@ export default class LocalStorageDatabase {
         // Notify subscriptors
         LocalStorageDatabase.notifySubscribers(collection, filtered);
     }
-
-
 }
+
+export const  enableLocalMode = () => localStorage.setItem('storeMode', 'LOCAL');

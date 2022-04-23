@@ -20,7 +20,7 @@
 
 
 const config = {
-
+    storeMode: 'FIREBASE'
 }
 
 export default config;

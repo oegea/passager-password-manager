@@ -31,7 +31,8 @@ import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
-import { signInWithGoogle } from '../../../libs/firebase';
+import { signInWithGoogle } from '../../../libs/firebase.js';
+import { enableLocalMode } from '../../../libs/localStorage.js';
 
 const LanguageSelector = styled.div`
     margin-top: 40px;
@@ -62,6 +63,9 @@ const PageLogin = () => {
             <p>{RANDOM_SENTENCES[randomIntFromInterval(0, RANDOM_SENTENCES.length - 1)]}</p>
             <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Log in with Google')} onClick={signInWithGoogle}/>
+            </ButtonWrapper>
+            <ButtonWrapper justifyContent='center'>
+                <Button label={t('login.Store my passwords locally')} onClick={enableLocalMode}/>
             </ButtonWrapper>
             <LanguageSelector>
                 {t('login.Change to')} 

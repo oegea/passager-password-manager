@@ -80,7 +80,10 @@ export const fireAuth = {
 
 export const auth = getAuth();
 export const db = getFirestore();
-export const  signInWithGoogle = () => signInWithPopup(auth, provider);
+export const  signInWithGoogle = () => {
+  localStorage.setItem('storeMode', 'FIREBASE');
+  signInWithPopup(auth, provider);
+}
 
 const defaultExport = {
   app,

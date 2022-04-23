@@ -38,40 +38,40 @@ export class FoldersServicesFactory {
     static createFolderService = ({config}) =>  
         new CreateFolderService({
             generateExportableAESKey,
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            repository: FoldersRepositoriesFactory.getRepository({config})
         });
 
     static deleteFolderRelatedPasswordsService = ({config}) =>
         new DeleteFolderRelatedPasswordsService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            repository: FoldersRepositoriesFactory.getRepository({config})
         })
 
     static deleteFolderService = ({config}) =>
         new DeleteFolderService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
+            repository: FoldersRepositoriesFactory.getRepository({config}),
             deleteFolderRelatedPasswordsService: FoldersServicesFactory.deleteFolderRelatedPasswordsService({config})
         });  
 
     static editFolderService = ({config}) =>
         new EditFolderService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            repository: FoldersRepositoriesFactory.getRepository({config})
         });
 
     static subscribeToFoldersService = ({config}) =>
         new SubscribeToFoldersService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            repository: FoldersRepositoriesFactory.getRepository({config})
         });
 
     static subscribeToSharedFoldersService = ({config}) =>
         new SubscribeToSharedFoldersService({
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config})
+            repository: FoldersRepositoriesFactory.getRepository({config})
         });
     
     static shareFolderService = ({config}) =>
         new ShareFolderService({
             getUserPublicDetailsService: UsersServicesFactory.getUserPublicDetailsService({config}),
             importRSAPublicKey, 
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
+            repository: FoldersRepositoriesFactory.getRepository({config}),
             RSADecrypt, 
             RSAEncrypt,
             userOperationRequest: UsersRequestsFactory.userOperationRequest
@@ -80,7 +80,7 @@ export class FoldersServicesFactory {
     static removeSharedEmailService = ({config}) =>
         new RemoveSharedEmailService({
             getUserPublicDetailsService: UsersServicesFactory.getUserPublicDetailsService({config}),
-            repository: FoldersRepositoriesFactory.firebaseFoldersRepository({config}),
+            repository: FoldersRepositoriesFactory.getRepository({config}),
             userOperationRequest: UsersRequestsFactory.userOperationRequest
         });
 }

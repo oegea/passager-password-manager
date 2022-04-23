@@ -31,7 +31,8 @@
     "login": {
         "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
         "Log in with Google": "Iniciar sesión con Google",
-        "Change to": "Cambiar a:"
+        "Change to": "Cambiar a:",
+        "Store my passwords locally": "Almacenar mis contraseñas localmente"
     },
     "folderFormDialog": {
         "Edit Folder": "Editar carpeta",
