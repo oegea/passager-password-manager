@@ -105,4 +105,17 @@ export default class FirebaseUsersRepository extends UsersRepository {
         const docRef = doc(db, "users", uid);
         await setDoc(docRef, userDocument);
     }
+
+    async subscribeToAuthStateChange({userSubscriptionRequest}) {
+        // Load firebase library
+        const {fireAuth} = this._firebaseUtils;
+
+        // Retrieve callback function
+        const onAuthStateChangedCallback = userSubscriptionRequest.getOnSubscriptionChanges();
+
+        // Subscribe to auth state change
+        const unsubscribe = fireAuth.getAuth().onAuthStateChanged(onAuthStateChangedCallback);
+
+        return unsubscribe;
+    }
 }

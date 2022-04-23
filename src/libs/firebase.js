@@ -89,6 +89,7 @@ const defaultExport = {
   app,
   collectIdsAndDocs,
   db,
+  fireAuth,
   fireStore
 };
 

@@ -18,24 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {UserOperationRequest} from './UserOperationRequest.js';
-import {UserSubscriptionRequest} from './UserSubscriptionRequest.js';
 
-export class UsersRequestsFactory {
-    static userOperationRequest = ({
-        displayName,
-        email, 
-        password,
-        photoURL,
-        publicKey, 
-        uid,
-    }) => {
-        return new UserOperationRequest({displayName, email, password, photoURL, publicKey, uid});
+export class SubscribeToAuthStateChangeUseCase {
+
+    constructor({service, userSubscriptionRequest}) {
+        this._service = service;
+        this._userSubscriptionRequest = userSubscriptionRequest;
     }
 
-    static userSubscriptionRequest = ({
+    async execute({
         onSubscriptionChanges
-    }) => {
-        return new UserSubscriptionRequest({onSubscriptionChanges});
+    }) {
+        const userSubscriptionRequest = this._userSubscriptionRequest({
+            onSubscriptionChanges
+        });
+        const result = await this._service.execute({userSubscriptionRequest});
+        return result;
     }
+
 }

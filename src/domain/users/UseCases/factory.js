@@ -26,6 +26,7 @@ import {UpdateUserPublicKeyUseCase} from './UpdateUserPublicKeyUseCase.js';
 import {GetUserPublicKeyUseCase} from './GetUserPublicKeyUseCase.js';
 import {GetAndCreateUserDocumentUseCase} from './/GetAndCreateUserDocumentUseCase.js';
 import {SetUserMasterPasswordUseCase} from './SetUserMasterPasswordUseCase.js';
+import { SubscribeToAuthStateChangeUseCase } from './SubscribeToAuthStateChangeUseCase.js';
 
 export class UsersUseCasesFactory {
     static updateUserPublicKeyUseCase = ({config}) => 
@@ -50,5 +51,11 @@ export class UsersUseCasesFactory {
         new SetUserMasterPasswordUseCase({
             service: UsersServicesFactory.setUserMasterPasswordService({config}),
             userOperationRequest: UsersRequestsFactory.userOperationRequest
-        });    
+        }); 
+        
+    static subscribeToAuthStateChangeUseCase = ({config}) =>
+        new SubscribeToAuthStateChangeUseCase({
+            service: UsersServicesFactory.subscribeToAuthStateChangeService({config}),
+            userSubscriptionRequest: UsersRequestsFactory.userSubscriptionRequest
+        });
 }
