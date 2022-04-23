@@ -18,8 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const config = {
-    storeMode: 'LOCAL',
-}
+ export class UserSubscriptionRequest {
+    constructor({
+        onSubscriptionChanges
+    }){
+        this._onSubscriptionChanges = onSubscriptionChanges;
+    }
 
-export default config;
+    getOnSubscriptionChanges(){
+        return this._onSubscriptionChanges;
+    }
+    
+}

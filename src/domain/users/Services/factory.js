@@ -27,6 +27,7 @@ import {GetUserPublicKeyService} from './GetUserPublicKeyService.js';
 import {GetAndCreateUserDocumentService} from './GetAndCreateUserDocumentService.js';
 import {UpdateUserDocumentService} from './UpdateUserDocumentService.js';
 import {SetUserMasterPasswordService} from './SetUserMasterPasswordService.js';
+import {SubscribeToAuthStateChangeService} from './SubscribeToAuthStateChangeService.js';
 // Factories
 import {UsersRepositoriesFactory} from '../Repositories/factory.js';
 import {UsersEntitiesFactory} from '../Entities/factory.js';
@@ -65,5 +66,10 @@ export class UsersServicesFactory {
             updateUserDocumentService: UsersServicesFactory.updateUserDocumentService({config}),
             updateUserPublicKeyService: UsersServicesFactory.updateUserPublicKeyService({config}),
             userDocumentEntity: UsersEntitiesFactory.userDocumentEntity
+        });
+
+    static subscribeToAuthStateChangeService = ({config}) =>
+        new SubscribeToAuthStateChangeService({
+            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
         });
 }

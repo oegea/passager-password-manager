@@ -19,6 +19,7 @@
  */
 
 import {UserOperationRequest} from './UserOperationRequest.js';
+import {UserSubscriptionRequest} from './UserSubscriptionRequest.js';
 
 export class UsersRequestsFactory {
     static userOperationRequest = ({
@@ -30,5 +31,11 @@ export class UsersRequestsFactory {
         uid,
     }) => {
         return new UserOperationRequest({displayName, email, password, photoURL, publicKey, uid});
+    }
+
+    static userSubscriptionRequest = ({
+        onSubscriptionChanges
+    }) => {
+        return new UserSubscriptionRequest({onSubscriptionChanges});
     }
 }

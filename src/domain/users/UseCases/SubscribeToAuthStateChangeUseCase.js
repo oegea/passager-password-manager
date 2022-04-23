@@ -18,8 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const config = {
-    storeMode: 'LOCAL',
-}
 
-export default config;
+export class SubscribeToAuthStateChangeUseCase {
+
+    constructor({service, userSubscriptionRequest}) {
+        this._service = service;
+        this._userSubscriptionRequest = userSubscriptionRequest;
+    }
+
+    async execute({
+        onSubscriptionChanges
+    }) {
+        const userSubscriptionRequest = this._userSubscriptionRequest({
+            onSubscriptionChanges
+        });
+        const result = await this._service.execute({userSubscriptionRequest});
+        return result;
+    }
+
+}

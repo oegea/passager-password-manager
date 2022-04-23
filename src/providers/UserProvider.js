@@ -19,9 +19,11 @@
  */
 
 import React, { Component, createContext } from 'react';
-import {auth} from '../libs/firebase.js';
 import {getUserDocument, getUserPublicKey} from '../libs/auth.js';
 import {importRSAKeyPair} from '../libs/crypto.js';
+
+// Domain
+import domain from '../domain/index.js';
 
 export const UserContext = createContext();
 
@@ -37,7 +39,7 @@ class UserProvider extends Component {
 
 	componentDidMount = async () => {
 
-        this.unsubscribe = auth.onAuthStateChanged( async (user) => {
+		const onSubscriptionChanges = async (user) => {
 			let userDocument = null;
 			if (user !== null) {
 				userDocument = await getUserDocument(user);
@@ -46,8 +48,12 @@ class UserProvider extends Component {
 				userDocument.decryptPrivateKey = this.decryptPrivateKey.bind(this);
 			}
 
-            this.setState({ user: userDocument });
-        });
+			this.setState({ user: userDocument });
+		};
+
+		this.unsubscribe = await domain.useCases.users['subscribe_to_auth_state_change_use_case'].execute({
+			onSubscriptionChanges
+		});
 
 		document.body.addEventListener("click", () => this.resetLogoutTimeout());
 		document.body.addEventListener("keydown", () => this.resetLogoutTimeout());
