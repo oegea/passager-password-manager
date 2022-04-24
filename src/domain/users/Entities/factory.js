@@ -22,10 +22,10 @@ import {UserDocumentEntity} from './UserDocumentEntity.js';
 
 export class UsersEntitiesFactory {
     static userDocumentEntity = ({
-        email, 
         displayName, 
-        photoURL, 
+        email, 
         initialized,
+        photoURL, 
         privateKey
     }) => {
         return new UserDocumentEntity({email, displayName, photoURL, initialized, privateKey});

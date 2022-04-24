@@ -53,14 +53,15 @@ class FoldersProvider extends Component {
 
 	subscribeToFolders = async () => {
 		const {user} = this.props;
-		
 		if (user === null || this.unsubscribeFromFolders !== null )
 			return;
 
-		this.unsubscribeFromFolders = await domain.useCases.folders['subscribe_to_folders_use_case'].execute({
+		const unsubscribe = await domain.useCases.folders['subscribe_to_folders_use_case'].execute({
 			userId: user.uid,
-			onSubscriptionChanges: (folders) => this.setState({folders})
+			onSubscriptionChanges: (folders) => {this.setState({folders})}
 		});
+
+		this.unsubscribeFromFolders = unsubscribe;
 	}
 
 	subscribeToSharedFolders = async () => {

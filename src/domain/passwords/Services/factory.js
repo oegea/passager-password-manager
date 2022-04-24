@@ -34,7 +34,7 @@ export class PasswordsServicesFactory {
         new CreatePasswordService({
             AESEncrypt,
             importAESKey,
-            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+            repository: PasswordsRepositoriesFactory.getRepository({config})
         });
 
     static decryptPasswordService = ({config}) =>
@@ -45,18 +45,18 @@ export class PasswordsServicesFactory {
     
     static deletePasswordService = ({config}) =>
         new DeletePasswordService({
-            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+            repository: PasswordsRepositoriesFactory.getRepository({config})
         });
     
     static editPasswordService = ({config}) =>
         new EditPasswordService({
             AESEncrypt,
             importAESKey,
-            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+            repository: PasswordsRepositoriesFactory.getRepository({config})
         });
 
     static subscribeToPasswordsService = ({config}) =>
         new SubscribeToPasswordsService({
-            repository: PasswordsRepositoriesFactory.firebasePasswordsRepository({config})
+            repository: PasswordsRepositoriesFactory.getRepository({config})
         });
 }

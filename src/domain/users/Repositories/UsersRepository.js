@@ -40,4 +40,18 @@ export default class UsersRepository {
     async getUserDocumentByUid(){
         throw new Error('[UsersRepository][getUserDocumentByUid] is not implemented yet');
     }
+
+    /**
+     * Updates or sets a user's document
+     */
+    async updateUserDocument(){
+        throw new Error('[UsersRepository][updateUserDocument] is not implemented yet');
+    }
+
+    /**
+     * Subscription to auth status (login or logout)
+     */
+    async subscribeToAuthStateChange(){
+        throw new Error('[UsersRepository][subscribeToAuthStateChange] is not implemented yet');
+    }
 }

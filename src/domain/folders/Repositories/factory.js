@@ -20,10 +20,10 @@
 
 // Third party dependencies
 import firebaseUtils from '../../../libs/firebase.js';
+import LocalStorageDatabase from '../../../libs/localStorage.js';
 // Repositories
 import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
-// Mappers
-// import {FoldersMappersFactory} from '../Mappers/factory.js';
+import LocalFoldersRepository from './LocalFoldersRepository.js';
 
 export class FoldersRepositoriesFactory {
     static firebaseFoldersRepository = ({config}) =>
@@ -33,9 +33,9 @@ export class FoldersRepositoriesFactory {
         })
     
     static localFoldersRepository = ({config}) =>
-        new FirebaseFoldersRepository({
+        new LocalFoldersRepository({
             config,
-            firebaseUtils
+            LocalStorageDatabase
         })
 
     static getRepository = ({config}) => {

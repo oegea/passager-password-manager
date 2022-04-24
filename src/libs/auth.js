@@ -29,6 +29,7 @@ const { getAuth, signOut } = fireAuth;
 export const logout = () => {
     const auth = getAuth();
     signOut(auth);
+    localStorage.setItem('storeMode', 'FIREBASE');
     window.location.href = '/';
 }
 
