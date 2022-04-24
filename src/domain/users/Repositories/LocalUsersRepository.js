@@ -55,7 +55,6 @@ export default class LocalUsersRepository extends UsersRepository {
     }
 
     async updateUserPublicKey ({userOperationRequest}) {
-        debugger;
         // Retrieve data
         const uid = userOperationRequest.getUid();
         const publicKey = userOperationRequest.getPublicKey();
@@ -86,7 +85,6 @@ export default class LocalUsersRepository extends UsersRepository {
     }
 
     async updateUserDocument({userOperationRequest, userDocumentEntity}) {
-        debugger;
         // Retrieve data
         const uid = userOperationRequest.getUid();
         const userDocument = userDocumentEntity.toJSON();
@@ -108,9 +106,6 @@ export default class LocalUsersRepository extends UsersRepository {
 
         // Subscribe to auth state change
         const unsubscribe =  this._LocalStorageDatabase.subscribeToLocalStorage('auth', onAuthStateChangedCallback);
-
-        // Schedule the first notification
-        this._LocalStorageDatabase.notifySubscribersWithCurrentValue('auth');
 
         return unsubscribe;
     }

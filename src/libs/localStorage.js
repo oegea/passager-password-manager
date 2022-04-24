@@ -11,6 +11,9 @@ export default class LocalStorageDatabase {
     static subscribeToLocalStorage (collection, onSubscriptionChanges) {
         LocalStorageDatabase.subscriptors[collection] = LocalStorageDatabase.subscriptors[collection] || [];
         LocalStorageDatabase.subscriptors[collection].push(onSubscriptionChanges);
+
+        // Schedule the first notification
+        setTimeout(() => LocalStorageDatabase.notifySubscribersWithCurrentValue(collection), 0);
         
         // Return a function to unsubscribe
         return () => LocalStorageDatabase.unsubscribeFromLocalStorage(collection, onSubscriptionChanges);
@@ -79,6 +82,44 @@ export default class LocalStorageDatabase {
         LocalStorageDatabase.setCollection(collection, filtered);
 
         // Notify subscriptors
+        LocalStorageDatabase.notifySubscribers(collection, filtered);
+    }
+
+    // Partial updates a document
+    static updateDocument (collection, document, field, value) {
+
+        const existentDocument = LocalStorageDatabase.searchDocument(collection, field, value);
+        let finalDocument = existentDocument.length > 0 ? existentDocument[0] : {};
+        finalDocument = {
+            ...finalDocument,
+            ...document
+        };
+
+        const data = LocalStorageDatabase.getCollection(collection);
+        const filtered = data.filter(item => item[field] !== value);
+        filtered.push(finalDocument);
+        LocalStorageDatabase.setCollection(collection, filtered);
+        LocalStorageDatabase.notifySubscribers(collection, filtered);
+
+        return finalDocument;
+    }
+
+    // Adds a new document
+    static createDocument(collection, document){
+        const data = LocalStorageDatabase.getCollection(collection);
+        document.id = LocalStorageDatabase.getRandomId();
+        data.push(document);
+        LocalStorageDatabase.setCollection(collection, data);
+        LocalStorageDatabase.notifySubscribers(collection, data);
+
+        return data;
+    }
+
+    // Deletes a document
+    static deleteDocument (collection, field, value) {
+        const data = LocalStorageDatabase.getCollection(collection);
+        const filtered = data.filter(item => item[field] !== value);
+        LocalStorageDatabase.setCollection(collection, filtered);
         LocalStorageDatabase.notifySubscribers(collection, filtered);
     }
 
