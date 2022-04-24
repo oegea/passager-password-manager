@@ -55,7 +55,7 @@ export default class LocalUsersRepository extends UsersRepository {
     }
 
     async updateUserPublicKey ({userOperationRequest}) {
-
+        debugger;
         // Retrieve data
         const uid = userOperationRequest.getUid();
         const publicKey = userOperationRequest.getPublicKey();
@@ -86,14 +86,14 @@ export default class LocalUsersRepository extends UsersRepository {
     }
 
     async updateUserDocument({userOperationRequest, userDocumentEntity}) {
-
+        debugger;
         // Retrieve data
         const uid = userOperationRequest.getUid();
         const userDocument = userDocumentEntity.toJSON();
 
         // Update user document
         const document = {
-            ...uid,
+            uid,
             ...userDocument
         }
         this._LocalStorageDatabase.setDocument('users', document, 'uid', uid)
