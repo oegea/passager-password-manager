@@ -29,7 +29,7 @@ I've developed this software with all my 💛, but as you know there are evil pe
 
 If you find any security issue or possible improvement, feel free to submit a PR and I would try to do my best to handle it.
 
-## Nice features
+## Nice features
 
 * DDD architecture: Which allows to use `passager` in local mode, or in the cloud using firebase.
 * Password sharing capabilities when using `passager` in cloud mode.
