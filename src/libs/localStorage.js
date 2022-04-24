@@ -25,8 +25,14 @@ export default class LocalStorageDatabase {
         }
     }
 
+    // Method to notify subscribers of a specific collection with the current value
+    static notifySubscribersWithCurrentValue (collection) {
+        const currentValue = LocalStorageDatabase.getCollection(collection);
+        LocalStorageDatabase.notifySubscribers(collection, currentValue);
+    }
+
     // Basic methods to save and get
-    static saveCollection (collection, value) {
+    static setCollection (collection, value) {
         localStorage.setItem(collection, JSON.stringify(value));
 
         // Notify subscribers
@@ -35,7 +41,19 @@ export default class LocalStorageDatabase {
 
     // Gets all items from a collection
     static getCollection (collection) {
-        return JSON.parse(localStorage.getItem(collection));
+        const value = localStorage.getItem(collection);
+
+        if (value === null)
+            return [];
+
+        return JSON.parse(value);
+    }
+
+    // Gets an item without initializing it
+    static getItem(item){
+        const value = localStorage.getItem(item);
+
+        return JSON.parse(value);
     }
 
     // Method to filter in a local storage array
@@ -46,19 +64,32 @@ export default class LocalStorageDatabase {
     };
 
     // Method to save a document from a collection with an specific field
-    static saveDocumentToLocalStorage (collection, document, field, value) {
+    static setDocument (collection, document, field, value) {
         const data = LocalStorageDatabase.getCollection(collection);
+
+        // Initialize uid
+        if (document.id === undefined)
+            document.id = LocalStorageDatabase.getRandomId();
         
         // Remove existing document
         const filtered = data.filter(item => item[field] !== value);
         filtered.push(document);
 
         // Save the new data
-        LocalStorageDatabase.saveCollection(collection, filtered);
+        LocalStorageDatabase.setCollection(collection, filtered);
 
         // Notify subscriptors
         LocalStorageDatabase.notifySubscribers(collection, filtered);
     }
+
+    static getRandomId() {
+        const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
+        return uint32.toString(16);
+    }
 }
 
-export const  enableLocalMode = () => localStorage.setItem('storeMode', 'LOCAL');
+export const  enableLocalMode = () => {
+    localStorage.setItem('storeMode', 'LOCAL');
+    // Refresh
+    window.location.reload();
+}

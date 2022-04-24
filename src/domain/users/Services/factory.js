@@ -35,29 +35,29 @@ import {UsersEntitiesFactory} from '../Entities/factory.js';
 export class UsersServicesFactory {
     static getUserPublicDetailsService = ({config}) =>  
         new GetUserPublicDetailsService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+            repository: UsersRepositoriesFactory.getRepository({config})
         });
     
     static getUserPublicKeyService = ({config}) =>
         new GetUserPublicKeyService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+            repository: UsersRepositoriesFactory.getRepository({config})
         });
     
     static updateUserPublicKeyService = ({config}) =>
         new UpdateUserPublicKeyService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+            repository: UsersRepositoriesFactory.getRepository({config})
         });
 
     static getAndCreateUserDocumentService = ({config}) =>
         new GetAndCreateUserDocumentService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config}),
+            repository: UsersRepositoriesFactory.getRepository({config}),
             userDocumentEntity: UsersEntitiesFactory.userDocumentEntity,
             updateUserDocumentService: UsersServicesFactory.updateUserDocumentService({config})
         });
     
     static updateUserDocumentService = ({config}) =>
         new UpdateUserDocumentService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+            repository: UsersRepositoriesFactory.getRepository({config})
         });
 
     static setUserMasterPasswordService = ({config}) =>
@@ -70,6 +70,6 @@ export class UsersServicesFactory {
 
     static subscribeToAuthStateChangeService = ({config}) =>
         new SubscribeToAuthStateChangeService({
-            repository: UsersRepositoriesFactory.firebaseUsersRepository({config})
+            repository: UsersRepositoriesFactory.getRepository({config})
         });
 }

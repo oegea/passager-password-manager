@@ -20,9 +20,9 @@
 
  export class UserDocumentEntity {
     constructor({
-        email, 
-        displayName, 
-        photoURL, 
+        email = '', 
+        displayName = '', 
+        photoURL = '', 
         initialized = false,
         privateKey = ''
     }) {
