@@ -113,7 +113,7 @@ const DocumentsListRightPanel = ({ user, folders = [], sharedFolders = [] }) => 
         return <h1>{t('documentsListRightPanel.Please, select a folder to start')}</h1>
 
     let sectionButtons = [{label: t('common.Create'), onClick: ()=>{setEditState(EDIT_INITIAL_STATE); setShowNewPasswordDialog(true)}}];
-    if (selectedFolderIsShared === false){
+    if (selectedFolderIsShared === false && localStorage.getItem('storeMode') !== 'LOCAL'){
         sectionButtons = [
             ...sectionButtons,
             {label: t('documentsListRightPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
@@ -121,6 +121,15 @@ const DocumentsListRightPanel = ({ user, folders = [], sharedFolders = [] }) => 
             {type: 'alert', label: t('documentsListRightPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
         ];
     }
+
+    else if (localStorage.getItem('storeMode') === 'LOCAL'){
+        sectionButtons = [
+            ...sectionButtons,
+            {label: t('documentsListRightPanel.Edit folder'), onClick: () => setShowEditFolderDialog(true)},
+            {type: 'alert', label: t('documentsListRightPanel.Delete folder'), onClick: () => setShowConfirmationDialog(true)},
+        ];
+    }
+
     return (
         <PasswordsProvider key={selectedFolder} folderId={selectedFolder}>
             <SectionTitle 
