@@ -112,7 +112,7 @@ export default class LocalStorageDatabase {
         LocalStorageDatabase.setCollection(collection, data);
         LocalStorageDatabase.notifySubscribers(collection, data);
 
-        return data;
+        return document;
     }
 
     // Deletes a document
@@ -121,6 +121,15 @@ export default class LocalStorageDatabase {
         const filtered = data.filter(item => item[field] !== value);
         LocalStorageDatabase.setCollection(collection, filtered);
         LocalStorageDatabase.notifySubscribers(collection, filtered);
+
+        // Remove empty collections
+        if (filtered.length === 0)
+            LocalStorageDatabase.deleteCollection(collection);
+    }
+
+    // Deletes a collection
+    static deleteCollection (collection) {
+        localStorage.removeItem(collection);
     }
 
     static getRandomId() {

@@ -82,7 +82,7 @@ export default class LocalFoldersRepository extends FoldersRepository {
         const querySnapshot = this._LocalStorageDatabase.getCollection(`folders.${folderId}.passwords`);
         
         // Delete each of them
-        querySnapshot.docs.forEach(doc => this._LocalStorageDatabase.deleteDocument(`folders.${folderId}.passwords`, "id", doc.id));
+        querySnapshot.forEach(doc => this._LocalStorageDatabase.deleteDocument(`folders.${folderId}.passwords`, "id", doc.id));
         
     }
 
