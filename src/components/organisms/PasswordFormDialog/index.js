@@ -123,6 +123,7 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="name">{t('passwordFormDialog.Password name')}</InputLabel>
                 <Input 
+                    autoComplete="off"
                     autoFocus
                     defaultValue={state.name.value} 
                     id="name"
@@ -135,6 +136,7 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="url">{t('passwordFormDialog.Website URL')}</InputLabel>
                 <Input 
+                    autoComplete="off"
                     defaultValue={state.url.value}
                     id="url"
                     type="text" 
@@ -146,6 +148,7 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="username">{t('passwordFormDialog.Username')}</InputLabel>
                 <Input 
+                    autoComplete="off"
                     defaultValue={state.username.value}
                     id="username"
                     type="text" 
@@ -157,6 +160,7 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
             <InputWrapper marginBottom='25px'>
                 <InputLabel htmlFor="password">{t('passwordFormDialog.Password')}</InputLabel>
                 <Input 
+                    autoComplete="off"
                     defaultValue={state.password.value}
                     id="password"
                     type="text"
