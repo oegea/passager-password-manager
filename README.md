@@ -25,9 +25,15 @@ These are the three topics around the value-proposition of `passager`, and these
 This is a personal project and I do not consider myself responsible for the usage given to this software.
 Please understand that I can't be responsible for any direct or indirect damage this software may cause due to any kind of problem.
 
-I've developed this software with all my 💛, but as you know there are evil people outside in the network. Take care, install always all available updates, and use at your own risk.
+I've developed this software with all my 💛, but as you know there are evil people outside in the network. Take care, install always all available updates, and use `passager` at your own risk.
 
 If you find any security issue or possible improvement, feel free to submit a PR and I would try to do my best to handle it.
+
+## Nice features
+
+* DDD architecture: Which allows to use `passager` in local mode, or in the cloud using firebase.
+* Password sharing capabilities when using `passager` in cloud mode.
+* Screen lock after ten minutes of inactivity.
 
 ## Technical decisions
 
@@ -52,7 +58,7 @@ To achieve simplicity, security and usability for teams, the following technical
 
 ## About cryptography
 
-WebCrypto API is used to encrypt and decrypt data from passager.
+WebCrypto API is used to encrypt and decrypt data from passager. This theorically means, as long as your browser is updated, your crypto algorithms will be safe.
 These are the techniques followed to protect user passwords:
 
 1. Each user defines a master password, from which is derived a 256 bits AES-GCM key.
@@ -60,12 +66,11 @@ These are the techniques followed to protect user passwords:
 3. After the user logs in and writes his master password, the private key is unwrapped and loaded in memory.
 4. Each folder has its specific AES-GCM key, which is stored encrypted using the user's RSA public key.
 5. When a user wants to access a specific folder, folder's key is decrypted with the user's private key, then the content is accessed and decrypted using the folder-specific key.
-6. On a future, taking advantatge of users key-pairs, sharing folders will be available.
-
-Note that this is a WIP, and is just a draft. Algorithms and details are being implemented.
+6. When a folder is shared, its AES-GCM key is encrypted using the receiver public key, and shared with him.
 
 ## Available Scripts
 
+`create-react-app` is the `passager`'s scaffolding engine.
 In the project directory, you can run:
 
 ### `npm run prepare`
