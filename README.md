@@ -68,6 +68,10 @@ These are the techniques followed to protect user passwords:
 5. When a user wants to access a specific folder, folder's key is decrypted with the user's private key, then the content is accessed and decrypted using the folder-specific key.
 6. When a folder is shared, its AES-GCM key is encrypted using the receiver public key, and shared with him.
 
+## Attributions
+
+* **Favicon**: Safe box icons created by Freepik - Flaticon - https://www.flaticon.com/free-icons/safe-box
+
 ## Available Scripts
 
 `create-react-app` is the `passager`'s scaffolding engine.
