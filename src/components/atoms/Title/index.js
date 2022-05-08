@@ -27,7 +27,7 @@ const Title = styled.div`
     font-weight: bold;
     margin-bottom: ${props => props.marginBottom};
     margin-top: ${props => props.marginTop};
-    ${(props => props.onClick ? { cursor: 'pointer' } : {})}
+    ${(props => props.onClick ? 'cursor: pointer' : '')}
 `;
 
 const AtomTitle = ({ children, marginBottom = '0px', marginTop = '0px', onClick = undefined }) => {
