@@ -105,9 +105,16 @@
         "Profile options": "Profile options",
         "User details": "User details",
         "Backups": "Backups",
-        "This page is under construction": "This page is under construction",
+        "Download Backup": "Download Backup",
+        "Import Backup": "Import Backup",
         "Name": "Name",
         "Email": "Email",
-        "Id": "User Identifier"
+        "Id": "User Identifier",
+        "This feature is only available when passwords are stored locally": "This feature is only available when passwords are stored locally",
+        "When you store your passwords locally, they are saved in the local storage of your Internet browser": "When you store your passwords locally, they are saved in the local storage of your Internet browser.",
+        "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords.",
+        "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "It is therefore recommended to regularly download backups via this page and store them on a secure storage device.",
+        "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup\" button.",
+        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "In addition, you can upload your backups to other computers to have your passwords available on different devices."
     }
 }

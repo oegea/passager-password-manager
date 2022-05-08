@@ -28,11 +28,25 @@ import useTranslation from '../../../hooks/useTranslation/index.js';
 const UserDetailsRightPanel = () => {
     const { t } = useTranslation();
 
+    if (localStorage.getItem('storeMode') !== 'LOCAL'){
+        return (<>
+            <SectionTitle title={t('profile.Backups')} buttons={[]}/>
+            <p>{t('profile.This feature is only available when passwords are stored locally')}</p>
+        </>)
+    }
+
     return (
         <>
-            <SectionTitle title={t('profile.Backups')} buttons={[]}/>
+            <SectionTitle title={t('profile.Backups')} buttons={[
+                {label: t('profile.Download Backup'), onClick: () => alert('This feature is not available yet')},
+                {label: t('profile.Import Backup'), onClick: () => alert('This feature is not available yet')},
+            ]}/>
 
-            <p>{t('profile.This page is under construction')}</p>
+            <p>{t('profile.When you store your passwords locally, they are saved in the local storage of your Internet browser')}</p>
+            <p>{t('profile.There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords')}</p>
+            <p>{t('profile.It is therefore recommended to regularly download backups via this page and store them on a secure storage device')}</p>
+            <p><strong>{t('profile.In case you accidentally delete your data, you can upload a backup copy by clicking on the "Import backup copy" button')}</strong></p>
+            <p>{t('profile.In addition, you can upload your backups to other computers to have your passwords available on different devices')}</p>
             
         </>
     )
