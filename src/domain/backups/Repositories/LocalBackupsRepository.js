@@ -18,9 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import UsersRepository from './UsersRepository.js';
+import BackupsRepository from './BackupsRepository.js';
 
-export default class LocalUsersRepository extends UsersRepository {
+export default class LocalUsersRepository extends BackupsRepository {
     constructor({
         config,
         LocalStorageDatabase

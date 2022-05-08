@@ -24,6 +24,8 @@ import React from 'react';
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+// Own libs
+import {downloadBackup} from '../../../libs/backups.js';
 
 const UserDetailsRightPanel = () => {
     const { t } = useTranslation();
@@ -38,7 +40,7 @@ const UserDetailsRightPanel = () => {
     return (
         <>
             <SectionTitle title={t('profile.Backups')} buttons={[
-                {label: t('profile.Download Backup'), onClick: () => alert('This feature is not available yet')},
+                {label: t('profile.Download Backup'), onClick: () => downloadBackup()},
                 {label: t('profile.Import Backup'), onClick: () => alert('This feature is not available yet')},
             ]}/>
 

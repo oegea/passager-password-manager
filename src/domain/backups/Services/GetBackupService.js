@@ -27,7 +27,6 @@
 
     async execute(){
         const backupData = await this._repository.getFullBackup();
-        debugger
-        console.log(backupData)
+        return backupData;
     }
 }

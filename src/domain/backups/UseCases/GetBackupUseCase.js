@@ -26,6 +26,7 @@
     }
 
     async execute(){
-        await this._service.execute();
+        const backupData = await this._service.execute();
+        return backupData;
     }
 }

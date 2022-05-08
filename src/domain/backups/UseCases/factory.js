@@ -21,7 +21,7 @@
 // Factories
 import {BackupsServicesFactory} from '../Services/factory.js';
 // Use cases
-import {GetBackupUseCase} from './CreateFolderUseCase.js';
+import {GetBackupUseCase} from './GetBackupUseCase.js';
 
 export class BackupsUseCasesFactory {
     static getBackupUseCase = ({config}) => 
