@@ -105,6 +105,9 @@
         "Profile options": "Profile options",
         "User details": "User details",
         "Backups": "Backups",
-        "This page is under construction": "This page is under construction"
+        "This page is under construction": "This page is under construction",
+        "Name": "Name",
+        "Email": "Email",
+        "Id": "User Identifier"
     }
 }

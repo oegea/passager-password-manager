@@ -105,6 +105,9 @@
         "Profile options": "Opciones de perfil",
         "User details": "Detalles del usuario",
         "Backups": "Copias de seguridad",
-        "This page is under construction": "Esta página se encuentra en construcción"
+        "This page is under construction": "Esta página se encuentra en construcción",
+        "Name": "Nombre",
+        "Email": "Correo electrónico",
+        "Id": "Identificador de usuario"
     }
 }

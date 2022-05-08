@@ -24,15 +24,27 @@ import React from 'react';
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+// Context
+import withUser from '../../../providers/WithUser.js';
 
-const UserDetailsRightPanel = () => {
+const UserDetailsRightPanel = ({user}) => {
     const { t } = useTranslation();
-
+    console.log(user)
     return (
         <>
             <SectionTitle title={t('profile.User details')} buttons={[]}/>
 
-            <p>{t('profile.This page is under construction')}</p>
+            <p>
+                <strong>{t('profile.Name')}: </strong>{user.displayName || '-'}
+            </p>
+
+            <p>
+                <strong>{t('profile.Email')}: </strong>{user.email || '-'}
+            </p>
+
+            <p>
+                <strong>{t('profile.Id')}: </strong>{user.uid || '-'}
+            </p>
             
         </>
     )
@@ -42,4 +54,4 @@ UserDetailsRightPanel.displayName = 'UserDetailsRightPanel';
 UserDetailsRightPanel.propTypes = {
 }
 
-export default UserDetailsRightPanel;
+export default withUser(UserDetailsRightPanel);
