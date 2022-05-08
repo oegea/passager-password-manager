@@ -42,16 +42,16 @@ const LeftPanelListItem = styled.div`
     }
 `;
 
-const MoleculeLeftPanelList = ({onChange = () => null, folders, selectedFolder}) => {
+const MoleculeLeftPanelList = ({onChange = () => null, items, selectedItem = ''}) => {
 
     return <>
-        {folders.map((folder, index) => 
+        {items.map((item, index) => 
             <LeftPanelListItem 
-                key={`folder-${index}`} 
-                data-isactive={(selectedFolder === folder.id)}
+                key={`item-${index}`} 
+                data-isactive={(selectedItem === item.id)}
             >
-                <Link to={`/${folder.id}`} onClick={onChange}>
-                    {folder.name}
+                <Link to={`/${item.id}`} onClick={onChange}>
+                    {item.name}
                 </Link>
             </LeftPanelListItem>
         )}
@@ -62,7 +62,7 @@ MoleculeLeftPanelList.displayName = 'MoleculeLeftPanelList';
 MoleculeLeftPanelList.propTypes = {
     onChange: PropTypes.func,
     folders: PropTypes.array,
-    selectedFolder: PropTypes.string,
+    selectedItem: PropTypes.string,
 }
 
 export default MoleculeLeftPanelList;

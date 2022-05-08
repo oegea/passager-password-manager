@@ -18,28 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Third party dependencies
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+ export default class BackupsRepository {
 
-const Title = styled.div`
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: ${props => props.marginBottom};
-    margin-top: ${props => props.marginTop};
-    ${(props => props.onClick ? { cursor: 'pointer' } : {})}
-`;
-
-const AtomTitle = ({ children, marginBottom = '0px', marginTop = '0px', onClick = undefined }) => {
-    return <Title marginBottom={marginBottom} marginTop={marginTop} onClick={onClick}>{children}</Title>
+    /**
+     * Gets a full backup of the user data and returns it as a string
+     */
+    async getFullBackup(){
+        throw new Error('[BackupsRepository][getFullBackup] is not implemented yet');
+    }
 }
-
-AtomTitle.displayName = 'AtomTitle';
-AtomTitle.propTypes = {
-    children: PropTypes.node,
-    marginBottom: PropTypes.string,
-    marginTop: PropTypes.string,
-    onClick: PropTypes.func
-};
-
-export default AtomTitle;
