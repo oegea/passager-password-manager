@@ -24,6 +24,7 @@ import config from './config/index.js';
 import {FoldersUseCasesFactory} from './folders/UseCases/factory.js';
 import {PasswordsUseCasesFactory} from './passwords/UseCases/factory.js';
 import {UsersUseCasesFactory} from './users/UseCases/factory.js';
+import {BackupsUseCasesFactory} from './backups/UseCases/factory.js';
 
 const useCases = {
     'folders': {
@@ -48,6 +49,9 @@ const useCases = {
         'get_and_create_user_document_use_case': UsersUseCasesFactory.getAndCreateUserDocumentUseCase({config}),
         'set_user_master_password_use_case': UsersUseCasesFactory.setUserMasterPasswordUseCase({config}),
         'subscribe_to_auth_state_change_use_case': UsersUseCasesFactory.subscribeToAuthStateChangeUseCase({config})
+    },
+    'backups': {
+        'get_backup_use_case': BackupsUseCasesFactory.getBackupUseCase({config})
     }
 }
 

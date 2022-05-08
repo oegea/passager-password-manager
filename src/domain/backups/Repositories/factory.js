@@ -35,7 +35,7 @@ export class BackupsRepositoriesFactory {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
             case config.get('LOCAL_STORE_MODE'):
-                return UsersRepositoriesFactory.localBackupsRepository({config});
+                return BackupsRepositoriesFactory.localBackupsRepository({config});
             default:
                 throw new Error(`Unknown store mode: ${storeMode}`);
         }
