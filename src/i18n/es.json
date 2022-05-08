@@ -10,6 +10,7 @@
         "Folders": "Carpetas",
         "Go back": "Ir atrás",
         "Logout": "Cerrar sesión",
+        "My profile": "Mi perfil",
         "Remove": "Eliminar",
         "Save": "Guardar",
         "Share": "Compartir",
@@ -99,5 +100,11 @@
         "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "Nunca le pediremos su contraseña maestra por correo electrónico o cualquier otro medio externo. No comparta su contraseña con nadie, bajo ningún concepto.",
         "Master password": "Contraseña maestra",
         "Type here your password": "Escriba aquí su contraseña"
+    },
+    "profile": {
+        "Profile options": "Opciones de perfil",
+        "User details": "Detalles del usuario",
+        "Backups": "Copias de seguridad",
+        "This page is under construction": "Esta página se encuentra en construcción"
     }
 }

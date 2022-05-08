@@ -10,6 +10,7 @@
         "Folders": "Folders",
         "Go back": "Go back",
         "Logout": "Logout",
+        "My profile": "My Profile",
         "Remove": "Remove",
         "Save": "Save",
         "Share": "Share",
@@ -99,5 +100,11 @@
         "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances.",
         "Master password": "Master password",
         "Type here your password": "Type here your password"
+    },
+    "profile": {
+        "Profile options": "Profile options",
+        "User details": "User details",
+        "Backups": "Backups",
+        "This page is under construction": "This page is under construction"
     }
 }

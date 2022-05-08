@@ -22,24 +22,18 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Title = styled.div`
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: ${props => props.marginBottom};
-    margin-top: ${props => props.marginTop};
-    ${(props => props.onClick ? 'cursor: pointer' : '')}
+const ToolbarGroup = styled.div`
+    display: flex;
+    gap: 10px;
 `;
 
-const AtomTitle = ({ children, marginBottom = '0px', marginTop = '0px', onClick = undefined }) => {
-    return <Title marginBottom={marginBottom} marginTop={marginTop} onClick={onClick}>{children}</Title>
+const AtomToolbarGroup = ({ children }) => {
+    return <ToolbarGroup>{children}</ToolbarGroup>
 }
 
-AtomTitle.displayName = 'AtomTitle';
-AtomTitle.propTypes = {
+AtomToolbarGroup.displayName  ='AtomToolbarGroup';
+AtomToolbarGroup.propTypes = {
     children: PropTypes.node,
-    marginBottom: PropTypes.string,
-    marginTop: PropTypes.string,
-    onClick: PropTypes.func
-};
+}
 
-export default AtomTitle;
+export default AtomToolbarGroup;

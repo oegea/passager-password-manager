@@ -59,9 +59,9 @@ const FoldersListLeftPanel = ({user, folders, sharedFolders, onChange = () => nu
                     closeDialog={()=>setShowNewFolderDialog(false)} 
                 /> 
             }
-            <LeftPanelList onChange={onChange} folders={folders} selectedFolder={folderId} />
+            <LeftPanelList onChange={onChange} items={folders} selectedItem={folderId} />
 
-            <LeftPanelList onChange={onChange} folders={sharedFolders} selectedFolder={folderId} />
+            <LeftPanelList onChange={onChange} items={sharedFolders} selectedItem={folderId} />
             
         </>
     )

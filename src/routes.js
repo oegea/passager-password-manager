@@ -30,6 +30,8 @@ import Home from './components/pages/Home/index.js';
 import Login from './components/pages/Login/index.js';
 import UserSignup from './components/pages/UserSignup/index.js';
 import UserMasterPasswordValidation from './components/pages/UserMasterPasswordValidation/index.js';
+import Profile from './components/pages/Profile/index.js';
+import ProfileBackups from './components/pages/Profile/backups.js';
 // Context
 import withUser from './providers/WithUser.js';
 
@@ -47,6 +49,8 @@ const RoutesConfiguration = ({user}) => {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:folderId" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/backups" element={<ProfileBackups />} />
         </Routes>}
 
         {user !== null && !user.initialized &&
