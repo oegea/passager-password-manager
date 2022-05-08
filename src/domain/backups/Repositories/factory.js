@@ -22,6 +22,7 @@
 import LocalStorageDatabase from '../../../libs/localStorage.js';
 // Repositories
 import LocalBackupsRepository from './LocalBackupsRepository.js';
+import BackupsRepository from './BackupsRepository.js';
 
 export class BackupsRepositoriesFactory {
 
@@ -31,9 +32,14 @@ export class BackupsRepositoriesFactory {
             LocalStorageDatabase
         }))
 
+    static firebaseBackupsRepository = () =>
+        new BackupsRepository()
+
     static getRepository = ({config}) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
+            case config.get('FIREBASE_STORE_MODE'):
+                return BackupsRepositoriesFactory.firebaseBackupsRepository({config});
             case config.get('LOCAL_STORE_MODE'):
                 return BackupsRepositoriesFactory.localBackupsRepository({config});
             default:
