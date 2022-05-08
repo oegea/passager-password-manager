@@ -29,7 +29,6 @@ import withUser from '../../../providers/WithUser.js';
 
 const UserDetailsRightPanel = ({user}) => {
     const { t } = useTranslation();
-    console.log(user)
     return (
         <>
             <SectionTitle title={t('profile.User details')} buttons={[]}/>
