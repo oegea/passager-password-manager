@@ -15,7 +15,7 @@
         "Save": "Guardar",
         "Share": "Compartir",
         "This field is required": "Este campo es obligatorio",
-        "This field must be less than 50 characters": "Este campo no puede contener más de 50 caracteres"
+        "This field must be less than 150 characters": "Este campo no puede contener más de 150 caracteres"
     },
     "confirmationDialog": {
         "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"

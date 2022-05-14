@@ -65,8 +65,8 @@ const PasswordFormDialog = ({defaultValues = DEFAULT_VALUES, onClose, onDelete, 
         let error = '';
         if (value.length === 0) {
             error = t('common.This field is required');
-        } else if (value.length > 50) {
-            error = t('common.This field must be less than 50 characters');
+        } else if (value.length > 150) {
+            error = t('common.This field must be less than 150 characters');
         }
         return error;
     }

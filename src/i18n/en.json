@@ -15,7 +15,7 @@
         "Save": "Save",
         "Share": "Share",
         "This field is required": "This field is required",
-        "This field must be less than 50 characters": "This field must be less than 50 characters"
+        "This field must be less than 150 characters": "This field must be less than 150 characters"
     },
     "confirmationDialog": {
         "Are you sure you want to proceed?": "Are you sure you want to proceed?"
