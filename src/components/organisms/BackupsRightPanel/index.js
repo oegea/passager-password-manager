@@ -19,7 +19,9 @@
  */
 
 // Third party dependencies
-import React from 'react';
+import React, {useRef} from 'react';
+import styled from 'styled-components';
+
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
@@ -27,8 +29,13 @@ import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
 import {downloadBackup} from '../../../libs/backups.js';
 
+const FileSelector = styled.input`
+    display: none;
+`;
+
 const UserDetailsRightPanel = () => {
     const { t } = useTranslation();
+    const uploadBackupRef = useRef(null);
 
     if (localStorage.getItem('storeMode') !== 'LOCAL'){
         return (<>
@@ -37,12 +44,36 @@ const UserDetailsRightPanel = () => {
         </>)
     }
 
+    const showFile = async (e) => {
+        e.preventDefault()
+        const reader = new FileReader()
+        reader.onload = async (e) => { 
+          const text = (e.target.result);
+          loadBackup(text);
+        };
+        reader.readAsText(e.target.files[0])
+    }
+
+    const loadBackup = (backupData) => {
+        const backup = JSON.parse(backupData);
+        localStorage.clear();
+        //Each key of the backup should be setted into localStorage
+        for (const key in backup) {
+            if (backup.hasOwnProperty(key)) {
+                localStorage.setItem(key, backup[key]);
+            }
+        }
+        window.location.reload();
+    }
+
     return (
         <>
             <SectionTitle title={t('profile.Backups')} buttons={[
                 {label: t('profile.Download Backup'), onClick: () => downloadBackup()},
-                {label: t('profile.Import Backup'), onClick: () => alert('This feature is not available yet')},
+                {label: t('profile.Import Backup'), onClick: () => uploadBackupRef.current.click()},
             ]}/>
+
+            <FileSelector ref={uploadBackupRef} type="file" onChange={(e) => showFile(e)} />
 
             <p>{t('profile.When you store your passwords locally, they are saved in the local storage of your Internet browser')}</p>
             <p>{t('profile.There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords')}</p>
