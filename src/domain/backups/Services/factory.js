@@ -20,12 +20,18 @@
 
 // Services
 import {GetBackupService} from './GetBackupService.js';
+import {ImportBackupService} from './ImportBackupService.js';
 // Factories
 import {BackupsRepositoriesFactory} from '../Repositories/factory.js';
 
 export class BackupsServicesFactory {
     static getBackupService = ({config}) =>  
         new GetBackupService({
+            repository: BackupsRepositoriesFactory.getRepository({config})
+        });
+
+    static importBackupService = ({config}) =>
+        new ImportBackupService({
             repository: BackupsRepositoriesFactory.getRepository({config})
         });
 }

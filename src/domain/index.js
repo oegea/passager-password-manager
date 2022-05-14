@@ -51,7 +51,8 @@ const useCases = {
         'subscribe_to_auth_state_change_use_case': UsersUseCasesFactory.subscribeToAuthStateChangeUseCase({config})
     },
     'backups': {
-        'get_backup_use_case': BackupsUseCasesFactory.getBackupUseCase({config})
+        'get_backup_use_case': BackupsUseCasesFactory.getBackupUseCase({config}),
+        'import_backup_use_case': BackupsUseCasesFactory.importBackupUseCase({config})
     }
 }
 

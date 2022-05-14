@@ -18,33 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import BackupsRepository from './BackupsRepository.js';
-
-export default class LocalUsersRepository extends BackupsRepository {
+ export class ImportBackupService {
     constructor({
-        config,
-        LocalStorageDatabase
+        repository
     }) {
-        super({})
-        this._config = config;
-        this._LocalStorageDatabase = LocalStorageDatabase;
+        this._repository = repository;
     }
 
-    /**
-     * Gets a full backup of the user data and returns it as a string
-     */
-    async getFullBackup(){
-        return JSON.stringify(localStorage);
+    async execute({backupData}){
+        const backup = JSON.parse(backupData);
+        await this._repository.importBackup({backup});
     }
-
-    async importBackup({backup}){
-        localStorage.clear();
-        //Each key of the backup should be setted into localStorage
-        for (const key in backup) {
-            if (backup.hasOwnProperty(key)) {
-                localStorage.setItem(key, backup[key]);
-            }
-        }
-    }
-
 }

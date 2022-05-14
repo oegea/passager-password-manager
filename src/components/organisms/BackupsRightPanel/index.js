@@ -27,7 +27,7 @@ import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
-import {downloadBackup} from '../../../libs/backups.js';
+import {downloadBackup, importBackup} from '../../../libs/backups.js';
 
 const FileSelector = styled.input`
     display: none;
@@ -55,15 +55,7 @@ const UserDetailsRightPanel = () => {
     }
 
     const loadBackup = (backupData) => {
-        const backup = JSON.parse(backupData);
-        localStorage.clear();
-        //Each key of the backup should be setted into localStorage
-        for (const key in backup) {
-            if (backup.hasOwnProperty(key)) {
-                localStorage.setItem(key, backup[key]);
-            }
-        }
-        window.location.reload();
+        importBackup({backupData});
     }
 
     return (

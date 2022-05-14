@@ -21,6 +21,13 @@
 // Domain
 import domain from '../domain/index.js';
 
+export const importBackup = async ({backupData}) => {
+    await domain.useCases.backups['import_backup_use_case'].execute({
+        backupData
+    });
+    window.location.reload();
+}
+
 export const downloadBackup = async () => {
 
     const backupData = await domain.useCases.backups['get_backup_use_case'].execute();

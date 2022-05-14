@@ -22,10 +22,16 @@
 import {BackupsServicesFactory} from '../Services/factory.js';
 // Use cases
 import {GetBackupUseCase} from './GetBackupUseCase.js';
+import {ImportBackupUseCase} from './ImportBackupUseCase.js';
 
 export class BackupsUseCasesFactory {
     static getBackupUseCase = ({config}) => 
         new GetBackupUseCase({
             service: BackupsServicesFactory.getBackupService({config})
+        });
+
+    static importBackupUseCase = ({config}) =>
+        new ImportBackupUseCase({
+            service: BackupsServicesFactory.importBackupService({config})
         });
 }
