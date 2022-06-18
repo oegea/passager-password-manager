@@ -23,6 +23,7 @@ import React from 'react';
 import i18n from 'i18next';
 import styled from 'styled-components';
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import { Capacitor } from '@capacitor/core';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -61,9 +62,9 @@ const PageLogin = () => {
         <NotLogged>
             <Title>Passager</Title>
             <p>{RANDOM_SENTENCES[randomIntFromInterval(0, RANDOM_SENTENCES.length - 1)]}</p>
-            <ButtonWrapper justifyContent='center'>
+            {Capacitor.getPlatform() === 'web' ? <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Log in with Google')} onClick={signInWithGoogle}/>
-            </ButtonWrapper>
+            </ButtonWrapper> : null}
             <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Store my passwords locally')} onClick={enableLocalMode}/>
             </ButtonWrapper>

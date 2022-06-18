@@ -19,9 +19,10 @@
  */
 
 // Third party dependencies
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import { NativeBiometric } from "capacitor-native-biometric";
 // Own libs
 import { logout } from '../../../libs/auth.js';
 // Atoms
@@ -50,7 +51,36 @@ const PageUserMasterPasswordValidation = ({user}) => {
 
     const [displaySpinner, setDisplaySpinner] = useState(false);
 
-    const onLogin = async () => {
+    useEffect(()=>{
+        (async () => {
+            const biometrics = await NativeBiometric.isAvailable()
+            if (biometrics.isAvailable) {
+                const credentials = await NativeBiometric.getCredentials({
+                    server: 'im.oriol.passager'
+                });
+                await NativeBiometric.verifyIdentity({
+                    reason: "For easy log in",
+                    title: "Log in",
+                    subtitle: "Maybe add subtitle here?",
+                    description: "Maybe a description too?",
+                });
+                onLogin(credentials.password);
+            }
+        })();
+    }, []);
+
+    const enableBiometricAuth = async (password) => {
+        await NativeBiometric.setCredentials({
+            username: "",
+            password,
+            server: "im.oriol.passager",
+        });
+    }
+
+    const onLogin = async (overridedPassword) => {
+        if (overridedPassword)
+            password.value = overridedPassword;
+
         if (displaySpinner) { return; }
         setDisplaySpinner(true);
         const decryptResult = await user.decryptPrivateKey(password.value);
@@ -60,6 +90,8 @@ const PageUserMasterPasswordValidation = ({user}) => {
             error = t('userMasterPasswordValidation.The entered password is not valid');
         }
         
+        enableBiometricAuth(password.value)
+
         setDisplaySpinner(false);
         setPassword({
             value: password.value,
