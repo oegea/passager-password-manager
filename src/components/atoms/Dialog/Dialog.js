@@ -22,7 +22,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // Atoms
-import OverlayBackground from '../OverlayBackground';
+import OverlayBackground from '../OverlayBackground/index.js';
+import AppWrapper from '../AppWrapper/index.js';
 
 const Dialog = styled.div`
     background: white;
@@ -51,7 +52,11 @@ const AtomDialog = ({children, onClose}) => {
         <OverlayBackground data-isdialogbackground="true" onClick={(event) => { 
             if (_isDialogBackground(event.target)) { onClose(); } 
         }}>
-            <Dialog>{children}</Dialog>
+            <Dialog>
+                <AppWrapper>
+                    {children}
+                </AppWrapper>
+            </Dialog>
         </OverlayBackground>
     </>
 }

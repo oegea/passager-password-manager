@@ -25,12 +25,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build&npx cap sync",
+    "build": "react-scripts build&&npx cap sync",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "start:android": "npx cap run android",
-    "start:ios": "npx cap run ios"
+    "start:android": "npm run build&&npx cap run android",
+    "start:ios": "npm run build&&npx cap run ios"
   },
   "eslintConfig": {
     "extends": [

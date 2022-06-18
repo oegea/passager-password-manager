@@ -21,6 +21,7 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import AppWrapper from '../AppWrapper/index.js';
 
 const DialogBackground = styled.div``;
 
@@ -55,7 +56,11 @@ const AtomSideDialog = ({children, onClose}) => {
         <DialogBackground data-isdialogbackground="true" onClick={(event) => { 
             if (_isDialogBackground(event.target)) { onClose(); } 
         }}>
-            <SideDialog>{children}</SideDialog>
+            <SideDialog>
+                <AppWrapper>
+                    {children}
+                </AppWrapper>
+            </SideDialog>
         </DialogBackground>
     </>
 }
