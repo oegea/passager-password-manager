@@ -55,7 +55,7 @@ const PageUserMasterPasswordValidation = ({user}) => {
         loginWithCredentialsIfAvailable().then(
             (password) => password !== null && onLogin(password)
         );
-    }, []);
+    }, [onLogin]);
 
     const onLogin = async (overridedPassword) => {
         if (overridedPassword)
