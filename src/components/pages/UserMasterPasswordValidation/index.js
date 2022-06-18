@@ -19,7 +19,7 @@
  */
 
 // Third party dependencies
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
@@ -51,13 +51,7 @@ const PageUserMasterPasswordValidation = ({user}) => {
 
     const [displaySpinner, setDisplaySpinner] = useState(false);
 
-    useEffect(()=>{
-        loginWithCredentialsIfAvailable().then(
-            (password) => password !== null && onLogin(password)
-        );
-    }, [onLogin]);
-
-    const onLogin = async (overridedPassword) => {
+    const onLogin = useCallback(async (overridedPassword) => {
         if (overridedPassword)
             password.value = overridedPassword;
 
@@ -78,7 +72,13 @@ const PageUserMasterPasswordValidation = ({user}) => {
             error
         } );
         
-    }
+    }, [displaySpinner, password, t, user])
+
+    useEffect(()=>{
+        loginWithCredentialsIfAvailable().then(
+            (password) => password !== null && onLogin(password)
+        );
+    }, [onLogin]);
 
     useDialogConfirmation(()=>null, onLogin);
 
