@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "start:android": "npm run build&&npx cap run android",
-    "start:ios": "npm run build&&npx cap run ios"
+    "start:ios": "npm run build&&npx cap run ios",
+    "build:icons": "cordova-res ios --skip-config --copy&&cordova-res android --skip-config --copy"
   },
   "eslintConfig": {
     "extends": [
