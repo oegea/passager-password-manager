@@ -31,11 +31,16 @@ import Routes from './routes.js';
 // Providers
 import UserProvider from './providers/UserProvider.js';
 import FoldersProvider from './providers/FoldersProvider.js';
+// Own libs
+import { initMobileSettings } from './libs/mobile.js';
 // Config
 import {i18nConfig} from './config/i18n.js';
 
 //i18n initialization
 i18n.use(initReactI18next).init(i18nConfig);
+
+// Init things if we're running on mobile...
+initMobileSettings();
 
 ReactDOM.render(
   <React.StrictMode>

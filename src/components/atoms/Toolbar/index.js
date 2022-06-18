@@ -21,18 +21,24 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+// Own libs
+import { isMobileDevice } from '../../../libs/mobile.js';
+
+export const DEFAULT_TOOLBAR_HEIGHT = 60;
+export const TOOLBAR_TOP_PADDING = isMobileDevice() ? 25 : 0;
 
 const Toolbar = styled.div`
     align-items: center;
     background: #24292f;
     color: white;
     display: flex;
-    height: 60px;
+    height: ${DEFAULT_TOOLBAR_HEIGHT}px;
     justify-content: space-between;
     margin-bottom: ${props => props.marginBottom};
     padding-left: 15%;
     padding-right: 15%;
     width: 70%;
+    padding-top: ${TOOLBAR_TOP_PADDING}px;
 `;
 
 const AtomToolbar = ({ children, marginBottom = '35px' }) => {

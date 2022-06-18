@@ -21,8 +21,12 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+// Constants
+import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
 
 const DialogBackground = styled.div``;
+
+const DEFAULT_PADDING = 25;
 
 const SideDialog = styled.div`
     background: white;
@@ -32,7 +36,7 @@ const SideDialog = styled.div`
     max-width: 400px;
     min-height: 100vh;
     overflow: hidden;
-    padding: 25px;
+    padding: ${DEFAULT_PADDING}px;
     position: fixed;
     top: 0;
     right: 0;
@@ -41,6 +45,7 @@ const SideDialog = styled.div`
     @media (max-width: 768px) {
         width: calc(100% - 50px);
         max-width: calc(100% - 50px);
+        padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
     }
 `;
 
@@ -55,7 +60,9 @@ const AtomSideDialog = ({children, onClose}) => {
         <DialogBackground data-isdialogbackground="true" onClick={(event) => { 
             if (_isDialogBackground(event.target)) { onClose(); } 
         }}>
-            <SideDialog>{children}</SideDialog>
+            <SideDialog>
+                {children}
+            </SideDialog>
         </DialogBackground>
     </>
 }

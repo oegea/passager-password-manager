@@ -19,11 +19,12 @@
  */
 
 // Third party dependencies
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
 import { logout } from '../../../libs/auth.js';
+import { loginWithCredentialsIfAvailable, setCredentials } from '../../../libs/biometric.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -50,7 +51,10 @@ const PageUserMasterPasswordValidation = ({user}) => {
 
     const [displaySpinner, setDisplaySpinner] = useState(false);
 
-    const onLogin = async () => {
+    const onLogin = useCallback(async (overridedPassword) => {
+        if (overridedPassword)
+            password.value = overridedPassword;
+
         if (displaySpinner) { return; }
         setDisplaySpinner(true);
         const decryptResult = await user.decryptPrivateKey(password.value);
@@ -60,13 +64,21 @@ const PageUserMasterPasswordValidation = ({user}) => {
             error = t('userMasterPasswordValidation.The entered password is not valid');
         }
         
+        setCredentials(password.value)
+
         setDisplaySpinner(false);
         setPassword({
             value: password.value,
             error
         } );
         
-    }
+    }, [displaySpinner, password, t, user])
+
+    useEffect(()=>{
+        loginWithCredentialsIfAvailable().then(
+            (password) => password !== null && onLogin(password)
+        );
+    }, [onLogin]);
 
     useDialogConfirmation(()=>null, onLogin);
 

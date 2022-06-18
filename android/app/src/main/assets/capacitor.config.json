@@ -1,0 +1,6 @@
+{
+	"appId": "im.oriol.passager",
+	"appName": "Passager Password Manager",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

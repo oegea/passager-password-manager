@@ -33,6 +33,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '../../../libs/localStorage.js';
+import { isMobileDevice } from '../../../libs/mobile.js';
 
 const LanguageSelector = styled.div`
     margin-top: 40px;
@@ -61,9 +62,9 @@ const PageLogin = () => {
         <NotLogged>
             <Title>Passager</Title>
             <p>{RANDOM_SENTENCES[randomIntFromInterval(0, RANDOM_SENTENCES.length - 1)]}</p>
-            <ButtonWrapper justifyContent='center'>
+            {!isMobileDevice() ? <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Log in with Google')} onClick={signInWithGoogle}/>
-            </ButtonWrapper>
+            </ButtonWrapper> : null}
             <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Store my passwords locally')} onClick={enableLocalMode}/>
             </ButtonWrapper>
