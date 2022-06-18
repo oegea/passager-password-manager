@@ -51,6 +51,7 @@ To achieve simplicity, security and usability for teams, the following technical
 * `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
 * `react-i18next` and `i18next`, to translate the app to different languages.
 * `styled-components`, is used to style components.
+* `@capacitor/android`, `@capacitor/cli`, `@capacitor/core`, `@capacitor/ios`, `@capacitor/status-bar` and `capacitor-native-biometric` are used to compile the app for mobile devices.
 
 ## Development dependencies
 
