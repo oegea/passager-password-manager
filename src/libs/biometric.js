@@ -10,9 +10,9 @@ export const loginWithCredentialsIfAvailable = async () => {
         });
         await NativeBiometric.verifyIdentity({
             reason: "For easy log in",
-            title: "Log in",
-            subtitle: "Maybe add subtitle here?",
-            description: "Maybe a description too?",
+            title: "Log in to Passager",
+            subtitle: "Access Passager without having to remember your master password",
+            description: "Please use a biometric device to identify yourself",
         });
         return credentials.password
     }
