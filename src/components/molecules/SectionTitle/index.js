@@ -31,17 +31,35 @@ const SectionTitle = styled.div`
     display: flex;
     margin-bottom: 30px;
     gap: 25px;
+
+    @media (max-width: 768px) {
+        display: block;
+        text-align: center;
+    }
 `;
+
+const ButtonWrapper = styled.div`
+    display: flex;
+    gap: 25px;
+    @media (max-width: 768px) {
+        margin-top: 20px;
+        justify-content: center;
+    }
+`;
+
 const MoleculeSectionTitle = ({title, buttons = []}) => {
     return <SectionTitle>
         <Title>{title}</Title>
-        {buttons.map(button => {
-            const ButtonComponent = button.type === 'alert' ? AlertButton : Button;
-            return <ButtonComponent 
-                key={button.label} 
-                label={button.label} 
-                onClick={button.onClick}/>
-        })}
+        <ButtonWrapper>
+            {buttons.map(button => {
+                const ButtonComponent = button.type === 'alert' ? AlertButton : Button;
+                return <ButtonComponent 
+                    key={button.label} 
+                    label={button.label} 
+                    onClick={button.onClick}/>
+            })}
+        </ButtonWrapper>
+
 
     </SectionTitle>
 }

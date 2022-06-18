@@ -34,6 +34,7 @@ import FolderShareDialog from '../FolderShareDialog/index.js';
 // Own libs
 import { deleteFolder, editFolder } from '../../../libs/folders.js';
 import { createPassword, decryptPassword, deletePassword, editPassword } from '../../../libs/passwords.js';
+import { isMobileDevice } from '../../../libs/mobile.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Context
@@ -138,12 +139,22 @@ const DocumentsListRightPanel = ({ user, folders = [], sharedFolders = [] }) => 
             
             <PasswordsContext.Consumer>
                 {passwords => {
-                    const passwordsRows = passwords.map((password) => [password.name, password.url])
+                    let tableColumns = [
+                        t("documentsListRightPanel.Title")
+                    ]
+                    if (!isMobileDevice()){
+                        tableColumns.push(t("documentsListRightPanel.Website"))
+                    }
+
+                    const passwordsRows = passwords.map(
+                        (password) => 
+                            (!isMobileDevice()) ?
+                                [password.name, password.url] :
+                                [password.name]
+                    )
                     return <Table
                         onClick={(rowIndex)=>{onClickEditPassword(passwords, rowIndex)}}
-                        columns={[
-                            t("documentsListRightPanel.Title"), 
-                            t("documentsListRightPanel.Website")]}
+                        columns={tableColumns}
                         rows={passwordsRows}/>
                 }
                 }

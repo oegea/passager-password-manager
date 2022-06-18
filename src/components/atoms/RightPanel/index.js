@@ -30,8 +30,8 @@ const RightPanel = styled.div`
     height: calc(100vh - ${50 + DEFAULT_TOOLBAR_HEIGHT + TOOLBAR_TOP_PADDING}px);
     padding: 25px;
     overflow-y: auto;
-    overflow-z: none;
-    width: 80%;
+    overflow-x: visible;
+    width: calc(100% - 25px);
 `;
 
 const AtomRightPanel = ({children}) => {
