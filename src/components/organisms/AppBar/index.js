@@ -48,7 +48,7 @@ const OrganismAppBar = ({signOut, marginBottom}) => {
             <ToolbarGroup>
                 <AtomToolbarButton 
                     label={t('common.My profile')}
-                    onClick={ () => navigate('/profile')} />
+                    onClick={ () => navigate('/profile/backups')} />
                 <AtomToolbarButton 
                     label={t('common.Logout')}
                     onClick={signOut} />
