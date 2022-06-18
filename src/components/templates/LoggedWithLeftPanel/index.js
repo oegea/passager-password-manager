@@ -25,8 +25,6 @@ import PropTypes from 'prop-types';
 import LeftPanelLayout from '../../molecules/LeftPanelLayout/index.js';
 // Organisms
 import AppBar from '../../organisms/AppBar/index.js';
-// Atoms
-import AppWrapper from '../../atoms/AppWrapper/index.js';
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -41,14 +39,14 @@ const TemplateLoggedWithLeftPanel = ({
     leftPanelContent,
     signOut,
 }) => {
-    return <AppWrapper>
+    return <>
         <AppBar signOut={signOut} marginBottom={appBarMarginBottom} />
         <ContentWrapper>
             <LeftPanelLayout leftPanelContent={leftPanelContent}>
                 {children}
             </LeftPanelLayout>
         </ContentWrapper>
-    </AppWrapper>
+    </>
 
 }
 

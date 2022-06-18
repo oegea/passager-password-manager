@@ -23,7 +23,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // Atoms
 import OverlayBackground from '../OverlayBackground/index.js';
-import AppWrapper from '../AppWrapper/index.js';
+// Constants
+import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
+
+const DEFAULT_PADDING = 20;
 
 const Dialog = styled.div`
     background: white;
@@ -32,12 +35,13 @@ const Dialog = styled.div`
     min-height: 150px;
     max-height: 100vh;
     border-radius: 10px;
-    padding: 20px;
+    padding: ${DEFAULT_PADDING}px;
 
     @media (max-width: 768px) {
         width: calc(100% - 40px);
         max-width: calc(100% - 40px);
         height: calc(100vh - 40px);
+        padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
     }
 `;
 
@@ -53,9 +57,7 @@ const AtomDialog = ({children, onClose}) => {
             if (_isDialogBackground(event.target)) { onClose(); } 
         }}>
             <Dialog>
-                <AppWrapper>
-                    {children}
-                </AppWrapper>
+                {children}
             </Dialog>
         </OverlayBackground>
     </>

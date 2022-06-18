@@ -23,7 +23,6 @@ import React from 'react';
 import i18n from 'i18next';
 import styled from 'styled-components';
 import useTranslation from '../../../hooks/useTranslation/index.js';
-import { Capacitor } from '@capacitor/core';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -34,6 +33,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '../../../libs/localStorage.js';
+import { isMobileDevice } from '../../../libs/mobile.js';
 
 const LanguageSelector = styled.div`
     margin-top: 40px;
@@ -62,7 +62,7 @@ const PageLogin = () => {
         <NotLogged>
             <Title>Passager</Title>
             <p>{RANDOM_SENTENCES[randomIntFromInterval(0, RANDOM_SENTENCES.length - 1)]}</p>
-            {Capacitor.getPlatform() === 'web' ? <ButtonWrapper justifyContent='center'>
+            {!isMobileDevice() ? <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Log in with Google')} onClick={signInWithGoogle}/>
             </ButtonWrapper> : null}
             <ButtonWrapper justifyContent='center'>

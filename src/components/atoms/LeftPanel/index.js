@@ -22,11 +22,11 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // Constants
-import {NOTCH_SIZE} from '../AppWrapper/index.js';
+import { DEFAULT_TOOLBAR_HEIGHT, TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
 
 const LeftPanel = styled.div`
     background: #EDECEC;
-    height: calc(100vh - ${110+NOTCH_SIZE}px);
+    height: calc(100vh - ${50 + DEFAULT_TOOLBAR_HEIGHT + TOOLBAR_TOP_PADDING}px);
     padding: 25px;
     width: 20%;
 

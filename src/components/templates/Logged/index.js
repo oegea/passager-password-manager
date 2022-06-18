@@ -21,8 +21,6 @@
 // Third party dependencies
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-// Atoms
-import AppWrapper from '../../atoms/AppWrapper/index.js';
 // Organisms
 import AppBar from '../../organisms/AppBar/index.js';
 
@@ -33,12 +31,12 @@ const ContentWrapper = styled.div`
 `;
 
 const TemplateLogged = ({signOut, children, appBarMarginBottom = '35px'}) => {
-    return <AppWrapper>
+    return <>
         <AppBar signOut={signOut} marginBottom={appBarMarginBottom} />
         <ContentWrapper>
             {children}
         </ContentWrapper>
-    </AppWrapper>
+    </>
 
 }
 
