@@ -20,6 +20,8 @@
 
 // Domain
 import domain from '../domain/index.js';
+// Mobile
+import { isMobileDevice, writeFile } from './mobile.js';
 
 export const importBackup = async ({backupData}) => {
     await domain.useCases.backups['import_backup_use_case'].execute({
@@ -47,14 +49,19 @@ const _getBackupFileName = () => {
 }
 
 const _downloadFile =  (filename, text) => {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-  
-    element.style.display = 'none';
-    document.body.appendChild(element);
-  
-    element.click();
-  
-    document.body.removeChild(element);
+    if (!isMobileDevice()) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+      
+        element.style.display = 'none';
+        document.body.appendChild(element);
+      
+        element.click();
+      
+        document.body.removeChild(element);
+    } else {
+        writeFile(filename, text);
+    }
+
 }
