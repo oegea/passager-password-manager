@@ -19,7 +19,7 @@
  */
 
 // Own libraries
-import {importRSAPublicKey, RSADecrypt, RSAEncrypt, generateExportableAESKey} from '../../../libs/crypto.js';
+import {importRSAPublicKey, RSADecrypt, RSAEncrypt, generateExportableAESKey} from '@useful-tools/crypto';
 // Services
 import {CreateFolderService} from './CreateFolderService.js';
 import {DeleteFolderService} from './DeleteFolderService.js';

@@ -19,7 +19,7 @@
  */
 
 // Own libraries
-import {createExportableRSAKeyPair} from '../../../libs/crypto.js';
+import {createExportableRSAKeyPair} from '@useful-tools/crypto';
 // Services
 import {GetUserPublicDetailsService} from './GetUserPublicDetailsService.js';
 import {UpdateUserPublicKeyService} from './UpdateUserPublicKeyService.js';

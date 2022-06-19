@@ -20,7 +20,7 @@
 
 import React, { Component, createContext } from 'react';
 import {getUserDocument, getUserPublicKey} from '../libs/auth.js';
-import {importRSAKeyPair} from '../libs/crypto.js';
+import {importRSAKeyPair} from '@useful-tools/crypto';
 
 // Domain
 import domain from '../domain/index.js';

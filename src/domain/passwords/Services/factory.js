@@ -19,7 +19,7 @@
  */
 
 // Own libraries
-import {AESDecrypt, AESEncrypt, importAESKey} from '../../../libs/crypto.js';
+import {AESDecrypt, AESEncrypt, importAESKey} from '@useful-tools/crypto';
 // Services
 import {CreatePasswordService} from './CreatePasswordService.js';
 import {DecryptPasswordService} from './DecryptPasswordService.js';
