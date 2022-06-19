@@ -20,7 +20,7 @@
 
 // Third party dependencies
 import firebaseUtils from '../../../libs/firebase.js';
-import LocalStorageDatabase from '../../../libs/localStorage.js';
+import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
 import FirebaseUsersRepository from './FirebaseUsersRepository.js';
 import LocalUsersRepository from './LocalUsersRepository.js';

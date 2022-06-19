@@ -32,7 +32,7 @@ import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { signInWithGoogle } from '../../../libs/firebase.js';
-import { enableLocalMode } from '../../../libs/localStorage.js';
+import { enableLocalMode } from '@useful-tools/localstorage';
 import { isMobileDevice } from '../../../libs/mobile.js';
 
 const LanguageSelector = styled.div`

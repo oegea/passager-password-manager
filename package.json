@@ -17,6 +17,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@useful-tools/crypto": "1",
+    "@useful-tools/localstorage": "1",
     "capacitor-native-biometric": "^3.1.1",
     "firebase": "^9.6.1",
     "i18next": "^21.6.10",
