@@ -20,6 +20,8 @@
 
 // Domain
 import domain from '../domain/index.js';
+// Own libs
+import { saveFile } from './fileSystem.js';
 
 export const importBackup = async ({backupData}) => {
     await domain.useCases.backups['import_backup_use_case'].execute({
@@ -31,7 +33,7 @@ export const importBackup = async ({backupData}) => {
 export const downloadBackup = async () => {
 
     const backupData = await domain.useCases.backups['get_backup_use_case'].execute();
-    _downloadFile(_getBackupFileName(), backupData);
+    saveFile(_getBackupFileName(), backupData);
 }
 
 const _getBackupFileName = () => {
@@ -44,17 +46,4 @@ const _getBackupFileName = () => {
     const second = date.getSeconds();
     const backupFileName = `backup_${year}-${month}-${day}_${hour}-${minute}-${second}.json`;
     return backupFileName;
-}
-
-const _downloadFile =  (filename, text) => {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-  
-    element.style.display = 'none';
-    document.body.appendChild(element);
-  
-    element.click();
-  
-    document.body.removeChild(element);
 }
