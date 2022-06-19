@@ -28,7 +28,7 @@ export const writeFile = (fileName, data) => {
       })
       .then((uriResult) => {
         return Share.share({
-          title: 'Passager Backup',
+          title: fileName,
           url: uriResult.uri,
         });
       });
