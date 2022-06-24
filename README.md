@@ -3,8 +3,7 @@
 [![License](https://shields.io/badge/license-AGPL-green)](LICENSE.md)
 ![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager) 
 ![Last Commit](https://shields.io/github/last-commit/oegea/passager-password-manager)
-
-<a href="https://play.google.com/store/apps/details?id=im.oriol.passager" data-target="_blank">
+<a href="https://play.google.com/store/apps/details?id=im.oriol.passager" target="_blank">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Available on Google Play Store" width="100"/>
 </a>
 
