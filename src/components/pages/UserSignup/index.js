@@ -113,7 +113,7 @@ const PageUserSignup = ({user}) => {
             return;
         
         setDisplaySpinner(true);
-        setUserMasterPassword(user, password.value);
+        setUserMasterPassword(user, password.value, user.reloadAuthDetails, user.decryptPrivateKey);
     }
 
     useDialogConfirmation(() => setStep(1), () => {

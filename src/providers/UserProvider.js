@@ -39,25 +39,33 @@ class UserProvider extends Component {
 
 	componentDidMount = async () => {
 
-		const onSubscriptionChanges = async (user) => {
+		this.onSubscriptionChanges = async (user, onFinish) => {
 			let userDocument = null;
 			if (user !== null) {
 				userDocument = await getUserDocument(user);
 				userDocument.publicKey = await getUserPublicKey(user);
 				userDocument.decryptedPrivateKey = false;
 				userDocument.decryptPrivateKey = this.decryptPrivateKey.bind(this);
+				userDocument.reloadAuthDetails = this.onSubscriptionChanges.bind(this, user);
 			}
 
-			this.setState({ user: userDocument });
+			await this.asyncSetState({ user: userDocument });
 		};
 
 		this.unsubscribe = await domain.useCases.users['subscribe_to_auth_state_change_use_case'].execute({
-			onSubscriptionChanges
+			onSubscriptionChanges: this.onSubscriptionChanges
 		});
 
 		document.body.addEventListener("click", () => this.resetLogoutTimeout());
 		document.body.addEventListener("keydown", () => this.resetLogoutTimeout());
 	};
+
+	asyncSetState = (state) => {
+		return new Promise((resolve) => {
+			this.setState(state, resolve);
+		});
+	}
+
 	
 	componentWillUnmount = () => {
 		if (this.unsubscribe !== null)
@@ -79,11 +87,12 @@ class UserProvider extends Component {
 		return promise;
 	}
 
-	decryptPrivateKey = async (password) => {
+	decryptPrivateKey = async (password, withTimeout = true) => {
 		if (this.state.user === null || this.state.user.decryptedPrivateKey)
 			return false;
 		try {
-			await this.securityTimeout();
+			if (withTimeout)
+				await this.securityTimeout();
 			const keyPair = await importRSAKeyPair(this.state.user, password);
 			this.setState({
 				user: {
