@@ -4,6 +4,10 @@
 ![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager) 
 ![Last Commit](https://shields.io/github/last-commit/oegea/passager-password-manager)
 
+<a href="https://play.google.com/store/apps/details?id=im.oriol.passager" data-target="_blank">
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Available on Google Play Store" width="100"/>
+</a>
+
 Passager Password Manager is an open-source and easy-to-use password manager.
 
 ## Why?
@@ -72,6 +76,7 @@ These are the techniques followed to protect user passwords:
 ## Attributions
 
 * **Favicon**: Safe box icons created by Freepik - Flaticon - https://www.flaticon.com/free-icons/safe-box
+* Google Play and the Google Play logo are trademarks of Google LLC.
 
 ## Available Scripts
 
