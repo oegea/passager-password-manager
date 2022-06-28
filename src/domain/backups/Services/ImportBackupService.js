@@ -24,9 +24,37 @@
     }) {
         this._repository = repository;
     }
+    
+    isValidBackup(backup){
+        // backup is an object
+        if (typeof backup !== "object")
+            return false;
+        
+        // backup has auth, folders, language, storeMode, userSharingSettings and users properties
+        if (
+            !backup.hasOwnProperty("auth") || 
+            !backup.hasOwnProperty("storeMode") || 
+            !backup.hasOwnProperty("userSharingSettings") || 
+            !backup.hasOwnProperty("users")
+        )
+            return false;
+            
+        return true;
+    }
 
     async execute({backupData}){
-        const backup = JSON.parse(backupData);
-        await this._repository.importBackup({backup});
+        try{
+            const backup = JSON.parse(backupData);
+
+            if (!this.isValidBackup(backup))
+                throw new Error("Invalid backup JSON detected");
+
+            await this._repository.importBackup({backup});
+            return true;
+        } catch(e){
+            console.error(e);
+            return false;
+        }
+
     }
 }

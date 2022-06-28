@@ -26,6 +26,6 @@
     }
 
     async execute({backupData}){
-        await this._service.execute({backupData});
+        return await this._service.execute({backupData});
     }
 }

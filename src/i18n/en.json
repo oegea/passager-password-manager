@@ -115,6 +115,7 @@
         "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords.",
         "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "It is therefore recommended to regularly download backups via this page and store them on a secure storage device.",
         "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup\" button.",
-        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "In addition, you can upload your backups to other computers to have your passwords available on different devices."
+        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "In addition, you can upload your backups to other computers to have your passwords available on different devices.",
+        "Error importing data. Submitted file is not a valid backup": "Error importing data. Submitted file is not a valid backup."
     }
 }

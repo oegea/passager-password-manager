@@ -19,7 +19,7 @@
  */
 
 // Third party dependencies
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
 
 // Molecules
@@ -33,9 +33,16 @@ const FileSelector = styled.input`
     display: none;
 `;
 
+const ErrorMessage = styled.p`
+    color: red;
+    font-weight: bold;
+    margin-bottom: 30px;
+`
+
 const UserDetailsRightPanel = () => {
     const { t } = useTranslation();
     const uploadBackupRef = useRef(null);
+    const [backupImportError, setBackupImportError] = useState(false);
 
     if (localStorage.getItem('storeMode') !== 'LOCAL'){
         return (<>
@@ -54,19 +61,27 @@ const UserDetailsRightPanel = () => {
         reader.readAsText(e.target.files[0])
     }
 
-    const loadBackup = (backupData) => {
-        importBackup({backupData});
+    const loadBackup = async (backupData) => {
+        const backupImportResult = await importBackup({backupData});
+
+        if (backupImportResult)
+            window.location.reload();
+        else
+            setBackupImportError(true);
     }
 
     return (
         <>
             <SectionTitle title={t('profile.Backups')} buttons={[
                 {label: t('profile.Download Backup'), onClick: () => downloadBackup()},
-                {label: t('profile.Import Backup'), onClick: () => uploadBackupRef.current.click()},
+                {label: t('profile.Import Backup'), onClick: () => uploadBackupRef.current.click(), type: (backupImportError) ? 'alert' : 'button'},
             ]}/>
 
-            <FileSelector ref={uploadBackupRef} type="file" onChange={(e) => showFile(e)} />
+            <FileSelector ref={uploadBackupRef} type="file" accept="application/JSON" onChange={(e) => showFile(e)} />
 
+            {
+                backupImportError ? <ErrorMessage>{t('profile.Error importing data. Submitted file is not a valid backup')}</ErrorMessage> : null
+            }
             <p>{t('profile.When you store your passwords locally, they are saved in the local storage of your Internet browser')}</p>
             <p>{t('profile.There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords')}</p>
             <p>{t('profile.It is therefore recommended to regularly download backups via this page and store them on a secure storage device')}</p>

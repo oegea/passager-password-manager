@@ -115,6 +115,7 @@
         "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "Existen ciertas operaciones de limpieza del navegador que pueden llegar a borrar esta información, y pueden hacerte perder tus contraseñas.",
         "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "Por ello, se recomienda descargar regularmente copias de seguridad a través de esta página, y guardarlas en un medio seguro de almacenamiento.",
         "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "En caso de eliminar accidentalmente tus datos, puedes subir una copia de seguridad pulsando el botón \"Importar copia de seguridad\".",
-        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "Además, puedes cargar tus copias de seguridad en otros ordenadores para disponer de tus contraseñas en distintos dispositivos."
+        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "Además, puedes cargar tus copias de seguridad en otros ordenadores para disponer de tus contraseñas en distintos dispositivos.",
+        "Error importing data. Submitted file is not a valid backup": "Error al importar datos. El archivo enviado no es una copia de seguridad válida."
     }
 }

@@ -24,14 +24,13 @@ import domain from '../domain/index.js';
 import { saveFile } from './fileSystem.js';
 
 export const importBackup = async ({backupData}) => {
-    await domain.useCases.backups['import_backup_use_case'].execute({
+    const backupImportResult = await domain.useCases.backups['import_backup_use_case'].execute({
         backupData
     });
-    window.location.reload();
+    return backupImportResult;
 }
 
 export const downloadBackup = async () => {
-
     const backupData = await domain.useCases.backups['get_backup_use_case'].execute();
     saveFile(_getBackupFileName(), backupData);
 }
