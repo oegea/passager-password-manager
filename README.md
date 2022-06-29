@@ -6,6 +6,11 @@
 <a href="https://play.google.com/store/apps/details?id=im.oriol.passager" target="_blank">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Available on Google Play Store" width="100"/>
 </a>
+<a href="https://apps.apple.com/es/app/passager-password-manager/id1631897662" target="_blank">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Available on App Store" width="100"/>
+</a>
+
+
 
 Passager Password Manager is an open-source and easy-to-use password manager.
 
