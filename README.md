@@ -4,10 +4,10 @@
 ![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager) 
 ![Last Commit](https://shields.io/github/last-commit/oegea/passager-password-manager)
 <a href="https://play.google.com/store/apps/details?id=im.oriol.passager" target="_blank">
-    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Available on Google Play Store" width="100"/>
+    <img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Available on Google Play Store"/>
 </a>
 <a href="https://apps.apple.com/es/app/passager-password-manager/id1631897662" target="_blank">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Available on App Store" width="100"/>
+    <img src="https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"/>
 </a>
 
 
