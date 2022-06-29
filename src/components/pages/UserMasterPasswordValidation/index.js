@@ -53,7 +53,6 @@ const PageUserMasterPasswordValidation = ({user}) => {
     const [displaySpinner, setDisplaySpinner] = useState(false);
 
     const onLogin = useCallback(async (overridedPassword) => {
-        biometricAuthTried.current = true;
         if (overridedPassword)
             password.value = overridedPassword;
 
@@ -81,6 +80,7 @@ const PageUserMasterPasswordValidation = ({user}) => {
             loginWithCredentialsIfAvailable().then(
                 (password) => password !== null && onLogin(password)
             );
+            biometricAuthTried.current = true;
         }
     });
 
