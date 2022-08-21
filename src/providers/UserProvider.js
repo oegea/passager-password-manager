@@ -97,6 +97,7 @@ class UserProvider extends Component {
 			this.setState({
 				user: {
 					...this.state.user, 
+					nonParsedPublicKey: this.state.user.publicKey,
 					encryptedPrivateKey: this.state.user.privateKey,
 					privateKey: keyPair.privateKey, 
 					publicKey: keyPair.publicKey, 
@@ -124,6 +125,7 @@ class UserProvider extends Component {
 		this.setState({ 
 			user: {
 				...this.state.user,
+				publicKey: this.state.user.nonParsedPublicKey,
 				privateKey: this.state.user.encryptedPrivateKey,
 				decryptedPrivateKey: false
 			}
