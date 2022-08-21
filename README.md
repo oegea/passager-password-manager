@@ -18,7 +18,7 @@ Passager Password Manager is an open-source and easy-to-use password manager.
 
 You could be wondering why the world needs another password manager.
 
-The answer is that I don't really know if the world needs another password manager, but I used to need an open source, easy to install and maintain one, and I have never found it.
+The answer is that the world doesn't really need more password managers, but I used to need an open source, easy to install and maintain one, and I have never found it.
 
 This is the reason to create `passager`. To bring to the world a password manager that is:
 
