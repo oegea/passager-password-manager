@@ -4,7 +4,7 @@ Welcome to Passager Password Manager! Before sending your pull requests, please 
 
 ## Getting started
 
-### Environment
+### Environment
 
 To run and make modifications to Passager, please note that it has been built with:
 
@@ -13,7 +13,7 @@ To run and make modifications to Passager, please note that it has been built wi
 
 Do not forget to install dependencies before trying to start the project.
 
-### Main commands
+### Main commands
 
 These are the available commands:
 
