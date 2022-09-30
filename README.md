@@ -113,3 +113,11 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## 🛡️ License
+
+LinkFree is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Support
+
+Show your support to the project. Don't forget to leave a star ⭐️ while you are at it.
