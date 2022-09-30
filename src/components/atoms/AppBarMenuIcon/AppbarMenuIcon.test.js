@@ -18,30 +18,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Third party dependencies
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Icon from '@mdi/react'
-import { mdiMenu } from '@mdi/js'
-
-const MenuIcon = styled.div`
-    cursor: pointer;
-    display: none;
-
-    @media (max-width: 768px) {
-        display: block;
-    }
-`;
-
-const AtomAppBarMenuIcon = ({onClick}) => {
-    return <MenuIcon data-testid="menu-icon">
-            <Icon data-testid="menu-icon-svg" onClick={()=>onClick()} size="30px" path={mdiMenu}/>    
-        </MenuIcon>
-}
-
-AtomAppBarMenuIcon.displayName = 'AtomAppBarMenuIcon';
-AtomAppBarMenuIcon.propTypes = {
-    onClick: PropTypes.func,
-}
-
-export default AtomAppBarMenuIcon;
+ import { render, screen, fireEvent } from '@testing-library/react';
+ import AppbarMenuIcon from './index.js';
+ 
+ 
+ test('renders a basic button', () => {
+   render(<AppbarMenuIcon/>);
+   const menuIconElement = screen.getByTestId('menu-icon');
+   expect(menuIconElement).toBeInTheDocument();
+ });
+ 
+ test('should execute callback when button is clicked', () => {
+   const onClick = jest.fn();
+   render(<AppbarMenuIcon onClick={onClick}/>);
+   const menuIconSvgElement = screen.getByTestId('menu-icon-svg');
+   expect(menuIconSvgElement).toBeInTheDocument();
+   fireEvent(
+      menuIconSvgElement,
+      new MouseEvent('click', {
+         bubbles: true,
+         cancelable: true,
+      })
+   )
+   expect(onClick).toHaveBeenCalledTimes(1);
+ });
+ 
