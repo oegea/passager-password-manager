@@ -22,13 +22,13 @@
  import AppbarMenuIcon from './index.js';
  
  
- test('renders a basic button', () => {
+ test('renders a AppbarMenuIcon', () => {
    render(<AppbarMenuIcon/>);
    const menuIconElement = screen.getByTestId('menu-icon');
    expect(menuIconElement).toBeInTheDocument();
  });
  
- test('should execute callback when button is clicked', () => {
+ test('should execute callback when icon is clicked', () => {
    const onClick = jest.fn();
    render(<AppbarMenuIcon onClick={onClick}/>);
    const menuIconSvgElement = screen.getByTestId('menu-icon-svg');
