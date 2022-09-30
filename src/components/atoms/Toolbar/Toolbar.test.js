@@ -17,3 +17,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+ import { render, screen } from '@testing-library/react';
+ import AtomToolbar from './index.js';
+ 
+ const DEFAULT_CONTENT = 'Toolbar content';
+ 
+ test('renders the toolbar with the expected children', () => {
+   render(<AtomToolbar>{DEFAULT_CONTENT}</AtomToolbar>);
+   const toolbarElement = screen.getByText(DEFAULT_CONTENT);
+   expect(toolbarElement).toBeInTheDocument();
+ });
+ 
+ test('should programmatically apply the marginBottom property', () => {
+    render(<AtomToolbar marginBottom='10px'>{DEFAULT_CONTENT}</AtomToolbar>);
+    const toolbarElement = screen.getByText(DEFAULT_CONTENT);
+    expect(toolbarElement).toBeInTheDocument();
+    expect(toolbarElement).toHaveStyle('margin-bottom: 10px');
+ });
+ 
