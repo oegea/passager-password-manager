@@ -24,16 +24,16 @@ import AtomToolbarButton from './index.js';
 const DEFAULT_LABEL = 'Hello World';
 
 test('renders a basic toolbar button', () => {
-render(<AtomToolbarButton label={DEFAULT_LABEL}/>);
-const linkElement = screen.getByText(DEFAULT_LABEL);
-expect(linkElement).toBeInTheDocument();
+   render(<AtomToolbarButton label={DEFAULT_LABEL}/>);
+   const linkElement = screen.getByText(DEFAULT_LABEL);
+   expect(linkElement).toBeInTheDocument();
 });
 
 test('should execute callback when toolbar button is clicked', () => {
-const onClick = jest.fn();
-render(<AtomToolbarButton label={DEFAULT_LABEL} onClick={onClick}/>);
-const linkElement = screen.getByText(DEFAULT_LABEL);
-expect(linkElement).toBeInTheDocument();
-linkElement.click();
-expect(onClick).toHaveBeenCalledTimes(1);
+   const onClick = jest.fn();
+   render(<AtomToolbarButton label={DEFAULT_LABEL} onClick={onClick}/>);
+   const linkElement = screen.getByText(DEFAULT_LABEL);
+   expect(linkElement).toBeInTheDocument();
+   linkElement.click();
+   expect(onClick).toHaveBeenCalledTimes(1);
 });
