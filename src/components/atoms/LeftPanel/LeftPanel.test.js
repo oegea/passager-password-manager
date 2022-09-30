@@ -18,30 +18,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Third party dependencies
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-// Constants
-import { DEFAULT_TOOLBAR_HEIGHT, TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
-
-const LeftPanel = styled.div`
-    background: #EDECEC;
-    height: calc(100vh - ${50 + DEFAULT_TOOLBAR_HEIGHT + TOOLBAR_TOP_PADDING}px);
-    padding: 25px;
-    width: 20%;
-
-    @media (max-width: 768px) {
-        display: none;
-    }
-`;
-
-const AtomLeftPanel = ({children}) => {
-    return <LeftPanel data-testid="left-panel-element">{children}</LeftPanel>
-}
-
-AtomLeftPanel.displayName = 'AtomLeftPanel';
-AtomLeftPanel.propTypes = {
-    children: PropTypes.node,
-}
-
-export default AtomLeftPanel;
+ import { render, screen } from '@testing-library/react';
+ import LeftPanel from './index.js';
+ 
+ const DEFAULT_CHILDREN = 'Hello World';
+ 
+ test('renders the left panel', () => {
+   render(<LeftPanel><span>{DEFAULT_CHILDREN}</span></LeftPanel>);
+   const linkElement = screen.getByText(DEFAULT_CHILDREN);
+   expect(linkElement).toBeInTheDocument();
+ });
+ 
+ test('It should have a display with the correct resolution', () => {
+    render(<LeftPanel><span>{DEFAULT_CHILDREN}</span></LeftPanel>);
+    const element = screen.getByTestId('left-panel-element');
+    expect(element).toBeInTheDocument();
+    expect(element).toHaveStyle('display: block');
+ });
+ 
