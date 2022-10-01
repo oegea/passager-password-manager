@@ -41,6 +41,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 import withUser from '../../../providers/WithUser.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
+import AtomLanguageSelector from '../../atoms/LanguageSelector/index.js';
 
 const PageUserSignup = ({user}) => {
     const { t } = useTranslation();
@@ -170,6 +171,7 @@ const PageUserSignup = ({user}) => {
                 </ButtonWrapper>
             </>}
             <AtomButtonLink onClick={logout}>{t('common.Logout')}</AtomButtonLink>
+            <AtomLanguageSelector />
         </NotLogged>
     </>
 
