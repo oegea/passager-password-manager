@@ -22,13 +22,13 @@
 import i18n from 'i18next';
 import styled from 'styled-components';
 import useTranslationHook from '../../../hooks/useTranslation/index.js';
-import AtomButtonLink from '../ButtonLink/index.js';
+import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 
 const LanguageSelector = styled.div`
     margin-top: 40px;
 `;
 
-const AtomLanguageSelector = () => {
+const MoleculeLanguageSelector = () => {
 
     const { t } = useTranslationHook();
 
@@ -47,6 +47,6 @@ const AtomLanguageSelector = () => {
     )
 }
 
-AtomLanguageSelector.displayName = 'AtomLanguageSelector';
+MoleculeLanguageSelector.displayName = 'MoleculeLanguageSelector';
 
-export default AtomLanguageSelector;
+export default MoleculeLanguageSelector;

@@ -41,7 +41,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 import withUser from '../../../providers/WithUser.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
-import AtomLanguageSelector from '../../atoms/LanguageSelector/index.js';
+import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
 const PageUserMasterPasswordValidation = ({user}) => {
     const { t } = useTranslation();
@@ -113,7 +113,7 @@ const PageUserMasterPasswordValidation = ({user}) => {
             </ButtonWrapper>
             
             <AtomButtonLink onClick={logout}>{t('common.Logout')}</AtomButtonLink>
-            <AtomLanguageSelector />
+            <LanguageSelector />
         </NotLogged>
     </>
 

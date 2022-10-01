@@ -31,7 +31,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '@useful-tools/localstorage';
 import { isMobileDevice } from '../../../libs/mobile.js';
-import LanguageSelector from '../../atoms/LanguageSelector/index.js';
+import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
 const PageLogin = () => {
 
