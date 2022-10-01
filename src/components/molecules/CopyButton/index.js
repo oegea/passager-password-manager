@@ -36,7 +36,7 @@ const MoleculesButtonCopy = ({value}) => {
     };
 
     return (
-        <ButtonCopy>
+        <ButtonCopy data-testid="button-copy-element">
             <Button
                 label={t("common.Copy")}
                 onClick={copyHandler}

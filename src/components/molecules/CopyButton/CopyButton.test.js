@@ -19,7 +19,7 @@
  */
 
  import { render, screen, act } from '@testing-library/react';
- import LanguageSelector from './index.js';
+ import CopyButton from './index.js';
  import i18n from 'i18next';
  import {i18nConfig} from '../../../config/i18n.js';
  import {initReactI18next} from 'react-i18next';
@@ -28,23 +28,16 @@ beforeAll(() => {
     i18n.use(initReactI18next).init(i18nConfig);
 });
 
- test('Checks that the main languages are present', () => {
+ test('Checks that the element is present and with the corresponding text', () => {
     
-   render(<LanguageSelector/>);
-   const linkElementEspaniol = screen.getByText("Español");
-   const linkElementIngles = screen.getByText("English");
-   expect(linkElementEspaniol).toBeInTheDocument();
-   expect(linkElementIngles).toBeInTheDocument();
+   render(<CopyButton/>);
+   const ButtonElement = screen.getByText("Copy");
+   expect(ButtonElement).toBeInTheDocument();
  });
  
- test('It should change from one language to other', async () => {
-    render(<LanguageSelector/>);
-    const textExample = screen.getByText('Switch to:');
-    expect(textExample).toBeInTheDocument();
-    const linkElementEspaniol = screen.getByText("Español");
-    act(() => {
-        linkElementEspaniol.click();
-    });
-    expect(await screen.findByText("Cambiar a:")).toBeInTheDocument();
+ test('It should have a padding-left style to have space', () => {
+    render(<CopyButton/>);
+    const ButtonElement = screen.getByTestId("button-copy-element");
+    expect(ButtonElement).toHaveStyle('padding-left: 0.7rem');
  });
  
