@@ -34,8 +34,16 @@ import Profile from './components/pages/Profile/index.js';
 import ProfileBackups from './components/pages/Profile/backups.js';
 // Context
 import withUser from './providers/WithUser.js';
+import { isMobileDevice } from './libs/mobile.js';
+import { enableLocalMode } from '@useful-tools/localstorage';
+import { useEffect } from 'react';
 
 const RoutesConfiguration = ({user}) => {
+
+    useEffect(() => {
+        if (!user && isMobileDevice())
+            enableLocalMode()
+    }, [user])
 
     return (
     <BrowserRouter>
@@ -58,7 +66,7 @@ const RoutesConfiguration = ({user}) => {
             <Route path="*" element={<UserSignup />} />
         </Routes>}
 
-        {user === null &&
+        {user === null && !isMobileDevice() &&
         <Routes>
             <Route path="*" element={<Login />} />
         </Routes>
