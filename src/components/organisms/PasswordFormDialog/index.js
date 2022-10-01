@@ -33,6 +33,7 @@ import InputLabel from "../../atoms/InputLabel/index.js";
 import SectionTitle from "../../molecules/SectionTitle/index.js";
 // Hooks
 import useDialogConfirmation from "../../../hooks/useDialogConfirmation/index.js";
+import MoleculesButtonCopy from "../../molecules/CopyButton/index.js";
 
 const DEFAULT_VALUES = {
   name: "",
@@ -106,10 +107,6 @@ const PasswordFormDialog = ({
     }
   };
 
-  const copyHandler = () => {
-    navigator.clipboard.writeText(state.password.value);
-  };
-
   useDialogConfirmation(onClose, beforeSave);
 
   return (
@@ -168,14 +165,17 @@ const PasswordFormDialog = ({
         <InputLabel htmlFor="username">
           {t("passwordFormDialog.Username")}
         </InputLabel>
-        <Input
-          autoComplete="off"
-          defaultValue={state.username.value}
-          id="username"
-          type="text"
-          placeholder={t("passwordFormDialog.usernameExample")}
-          onChange={(e) => onChangeHandler(e, "username")}
-        />
+        <div style={{display:'flex'}}>
+          <Input
+            autoComplete="off"
+            defaultValue={state.username.value}
+            id="username"
+            type="text"
+            placeholder={t("passwordFormDialog.usernameExample")}
+            onChange={(e) => onChangeHandler(e, "username")}
+          />
+          <MoleculesButtonCopy value={state.username.value} />
+        </div>
         {state.username.error.length > 0 && (
           <span style={{ color: "red" }}>{state.username.error}</span>
         )}
@@ -194,16 +194,11 @@ const PasswordFormDialog = ({
             placeholder={t("passwordFormDialog.Your secret password")}
             onChange={(e) => onChangeHandler(e, "password")}
           />
-          <Button
-            label={t("common.Copy")}
-            onClick={copyHandler}
-            color="black"
-            backgroundColor="white"
-          />
-          {state.password.error.length > 0 && (
+          <MoleculesButtonCopy value={state.password.value} />
+        </div>
+        {state.password.error.length > 0 && (
             <span style={{ color: "red" }}>{state.password.error}</span>
           )}
-        </div>
       </InputWrapper>
 
       <ButtonWrapper>
