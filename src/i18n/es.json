@@ -1,122 +1,124 @@
 {
-    "common": {
-        "Access": "Acceder",
-        "Cancel": "Cancelar",
-        "Close": "Cerrar",
-        "Continue": "Continuar",
-        "Copy": "Copiar",
-        "Create": "Añadir",
-        "Delete": "Eliminar",
-        "Finish": "Finalizar",
-        "Folders": "Carpetas",
-        "Go back": "Ir atrás",
-        "Logout": "Cerrar sesión",
-        "My profile": "Mi perfil",
-        "Remove": "Eliminar",
-        "Save": "Guardar",
-        "Share": "Compartir",
-        "This field is required": "Este campo es obligatorio",
-        "This field must be less than 150 characters": "Este campo no puede contener más de 150 caracteres"
-    },
-    "confirmationDialog": {
-        "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"
-    },
-    "documentsListRightPanel": {
-        "Delete folder": "Eliminar carpeta",
-        "Edit folder": "Editar carpeta",
-        "Please, select a folder to start": "Seleccione una carpeta para empezar",
-        "Share folder": "Compartir carpeta",
-        "Title": "Título",
-        "Username": "Nombre de usuario",
-        "Website": "Sitio web"
-    },
-    "login": {
-        "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
-        "Log in with Google": "Iniciar sesión con Google",
-        "Change to": "Cambiar a:",
-        "Store my passwords locally": "Almacenar mis contraseñas localmente"
-    },
-    "folderFormDialog": {
-        "Edit Folder": "Editar carpeta",
-        "Folder name is required": "El nombre de la carpeta es obligatorio",
-        "New Folder": "Nueva carpeta",
-        "New folder name": "Nombre de la carpeta"
-    },
-    "folderShareDialog": {
-        "Add people by typing their email": "Añada personas escribiendo su correo electrónico",
-        "Email": "Correo electrónico",
-        "Is not possible to share a folder with your own user": "No es posible compartir una carpeta con su propio usuario",
-        "People with access to this folder": "Personas con acceso a esta carpeta",
-        "Share Folder": "Compartir carpeta",
-        "This email does not exist": "Este correo electrónico no existe",
-        "This folder has been already shared with this email": "Esta carpeta ya ha sido compartida con este correo electrónico.",
-        "This folder has not been shared with anyone": "Esta carpeta no ha sido compartida con nadie aún."
-    },
-    "folderShareNotice": {
-        "You will share this folder with": "Va a compartir esta carpeta con ",
-        "This person will be able to access this folder, as well as view and modify contained passwords": "Esta persona podrá acceder a esta carpeta, así como ver y modificar las contraseñas contenidas.",
-        "This person will not be able to delete this folder or share it with additional people": "Esta persona no podrá eliminar esta carpeta o compartirla con otras personas."
-    },
-    "passwordFormDialog": {
-        "Edit password": "Editar contraseña",
-        "My E-mail Account": "Mi cuenta de correo",
-        "New password": "Añadir contraseña",
-        "Password name": "Nombre de la contraseña",
-        "Password": "Contraseña",
-        "Username": "Nombre de usuario",
-        "usernameExample": "Escribe aquí tu nombre de usuario",
-        "Website URL": "Sitio web",
-        "Your secret password": "Tu contraseña secreta",
-        "urlExample": "Escribe aquí la URL del sitio web"
-    },
-    "topbar": {
-        "Search": "Buscar"
-    },
-    "userSignup": {
-        "Define a master password": "Defina una contraseña maestra",
-        "We need to define a master password for your user": "Necesitamos que defina una contraseña maestra para su usuario.",
-        "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "Esta será la única contraseña que deberá recordar de ahora en adelante, dado que mantendrá todas sus otras contraseñas cifradas y seguras.",
-        "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Por favor, elija una contraseña y guárdela en un lugar seguro. Tenga en cuenta que si la olvida, la administración de Passager no podrá recuperar el acceso a su cuenta y perderá toda su información.",
-        "Tips for choosing a safe master password": "Consejos para elegir una contraseña maestra segura:",
-        "Use a password longer than 8 characters": "Utilice una contraseña de longitud superior a los 8 caracteres.",
-        "Use a password that contains at least one capital letter, one number and one special character": "Utilice una contraseña que contenga al menos una letra mayúscula, un número y un caracter especial.",
-        "Avoid using the same password on other services or accounts": "Evite utilizar la misma contraseña en otros servicios o cuentas.",
-        "Master password": "Contraseña maestra",
-        "Type here a safe password": "Escriba aquí una contraseña segura",
-        "Repeat your master password": "Repita su contraseña maestra",
-        "Repeat here your password": "Repita aquí su contraseña",
-        "Passwords must match": "Las contraseñas deben coincidir.",
-        "Password must contain at least one small letter": "La contraseña debe contener al menos una letra minúscula.",
-        "Password must contain at least one special character": "La contraseña debe contener al menos un caracter especial.",
-        "Password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres.",
-        "Password must contain at least one capital letter": "La contraseña debe contener al menos una letra mayúscula.",
-        "Password must contain at least one number": "La contraseña debe contener al menos un número."
-    },
-    "userMasterPasswordValidation": {
-        "The entered password is not valid": "La contraseña introducida no es correcta.",
-        "Please write your master password": "Por favor, escriba su contraseña maestra",
-        "We need your master password to decrypt your passwords": "Necesitamos que introduzca su contraseña maestra para que pueda acceder a sus datos.",
-        "Your data can't be accessed without your master password, not even by Passager administrators": "Nadie puede acceder a sus datos sin su contraseña maestra, siquiera la administración de Passager.",
-        "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "Si pierde su contraseña, no podrá acceder a su cuenta, y nadie podrá recuperarla.",
-        "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "Nunca le pediremos su contraseña maestra por correo electrónico o cualquier otro medio externo. No comparta su contraseña con nadie, bajo ningún concepto.",
-        "Master password": "Contraseña maestra",
-        "Type here your password": "Escriba aquí su contraseña"
-    },
-    "profile": {
-        "Profile options": "Opciones de perfil",
-        "User details": "Detalles del usuario",
-        "Backups": "Copias de seguridad",
-        "Download Backup": "Descargar copia de seguridad",
-        "Import Backup": "Importar copia de seguridad",
-        "Name": "Nombre",
-        "Email": "Correo electrónico",
-        "Id": "Identificador de usuario",
-        "This feature is only available when passwords are stored locally": "Esta funcionalidad sólo se encuentra disponible cuando las contraseñas se almacenan localmente.",
-        "When you store your passwords locally, they are saved in the local storage of your Internet browser": "Cuando almacenas localmente tus contraseñas, éstas se guardan en el almacenamiento local de tu navegador de Internet.",
-        "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "Existen ciertas operaciones de limpieza del navegador que pueden llegar a borrar esta información, y pueden hacerte perder tus contraseñas.",
-        "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "Por ello, se recomienda descargar regularmente copias de seguridad a través de esta página, y guardarlas en un medio seguro de almacenamiento.",
-        "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "En caso de eliminar accidentalmente tus datos, puedes subir una copia de seguridad pulsando el botón \"Importar copia de seguridad\".",
-        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "Además, puedes cargar tus copias de seguridad en otros ordenadores para disponer de tus contraseñas en distintos dispositivos.",
-        "Error importing data. Submitted file is not a valid backup": "Error al importar datos. El archivo enviado no es una copia de seguridad válida."
-    }
+  "common": {
+    "Access": "Acceder",
+    "Cancel": "Cancelar",
+    "Close": "Cerrar",
+    "Continue": "Continuar",
+    "Copy": "Copiar",
+    "Create": "Añadir",
+    "Delete": "Eliminar",
+    "Finish": "Finalizar",
+    "Folders": "Carpetas",
+    "Go back": "Ir atrás",
+    "Logout": "Cerrar sesión",
+    "My profile": "Mi perfil",
+    "Remove": "Eliminar",
+    "Save": "Guardar",
+    "Share": "Compartir",
+    "This field is required": "Este campo es obligatorio",
+    "This field must be less than 150 characters": "Este campo no puede contener más de 150 caracteres"
+  },
+  "confirmationDialog": {
+    "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"
+  },
+  "documentsListRightPanel": {
+    "Delete folder": "Eliminar carpeta",
+    "deleteFolderConfirmationDescription": "Esta carpeta y TODAS LAS CONTRASEÑAS CONTENIDAS SERÁN ELIMINADAS. Esta acción no puede ser revertida. ¿Estás completamente seguro de que quieres eliminar esta carpeta y su contenido?",
+    "deletePasswordConfirmationDescription": "La contraseña seleccionada será eliminada. Esta acción no puede ser revertida. ¿Estás completamente seguro de que quieres eliminar esta contraseña?",
+    "Edit folder": "Editar carpeta",
+    "Please, select a folder to start": "Seleccione una carpeta para empezar",
+    "Share folder": "Compartir carpeta",
+    "Title": "Título",
+    "Username": "Nombre de usuario",
+    "Website": "Sitio web"
+  },
+  "login": {
+    "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
+    "Log in with Google": "Iniciar sesión con Google",
+    "Change to": "Cambiar a:",
+    "Store my passwords locally": "Almacenar mis contraseñas localmente"
+  },
+  "folderFormDialog": {
+    "Edit Folder": "Editar carpeta",
+    "Folder name is required": "El nombre de la carpeta es obligatorio",
+    "New Folder": "Nueva carpeta",
+    "New folder name": "Nombre de la carpeta"
+  },
+  "folderShareDialog": {
+    "Add people by typing their email": "Añada personas escribiendo su correo electrónico",
+    "Email": "Correo electrónico",
+    "Is not possible to share a folder with your own user": "No es posible compartir una carpeta con su propio usuario",
+    "People with access to this folder": "Personas con acceso a esta carpeta",
+    "Share Folder": "Compartir carpeta",
+    "This email does not exist": "Este correo electrónico no existe",
+    "This folder has been already shared with this email": "Esta carpeta ya ha sido compartida con este correo electrónico.",
+    "This folder has not been shared with anyone": "Esta carpeta no ha sido compartida con nadie aún."
+  },
+  "folderShareNotice": {
+    "You will share this folder with": "Va a compartir esta carpeta con ",
+    "This person will be able to access this folder, as well as view and modify contained passwords": "Esta persona podrá acceder a esta carpeta, así como ver y modificar las contraseñas contenidas.",
+    "This person will not be able to delete this folder or share it with additional people": "Esta persona no podrá eliminar esta carpeta o compartirla con otras personas."
+  },
+  "passwordFormDialog": {
+    "Edit password": "Editar contraseña",
+    "My E-mail Account": "Mi cuenta de correo",
+    "New password": "Añadir contraseña",
+    "Password name": "Nombre de la contraseña",
+    "Password": "Contraseña",
+    "Username": "Nombre de usuario",
+    "usernameExample": "Escribe aquí tu nombre de usuario",
+    "Website URL": "Sitio web",
+    "Your secret password": "Tu contraseña secreta",
+    "urlExample": "Escribe aquí la URL del sitio web"
+  },
+  "topbar": {
+    "Search": "Buscar"
+  },
+  "userSignup": {
+    "Define a master password": "Defina una contraseña maestra",
+    "We need to define a master password for your user": "Necesitamos que defina una contraseña maestra para su usuario.",
+    "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "Esta será la única contraseña que deberá recordar de ahora en adelante, dado que mantendrá todas sus otras contraseñas cifradas y seguras.",
+    "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Por favor, elija una contraseña y guárdela en un lugar seguro. Tenga en cuenta que si la olvida, la administración de Passager no podrá recuperar el acceso a su cuenta y perderá toda su información.",
+    "Tips for choosing a safe master password": "Consejos para elegir una contraseña maestra segura:",
+    "Use a password longer than 8 characters": "Utilice una contraseña de longitud superior a los 8 caracteres.",
+    "Use a password that contains at least one capital letter, one number and one special character": "Utilice una contraseña que contenga al menos una letra mayúscula, un número y un caracter especial.",
+    "Avoid using the same password on other services or accounts": "Evite utilizar la misma contraseña en otros servicios o cuentas.",
+    "Master password": "Contraseña maestra",
+    "Type here a safe password": "Escriba aquí una contraseña segura",
+    "Repeat your master password": "Repita su contraseña maestra",
+    "Repeat here your password": "Repita aquí su contraseña",
+    "Passwords must match": "Las contraseñas deben coincidir.",
+    "Password must contain at least one small letter": "La contraseña debe contener al menos una letra minúscula.",
+    "Password must contain at least one special character": "La contraseña debe contener al menos un caracter especial.",
+    "Password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres.",
+    "Password must contain at least one capital letter": "La contraseña debe contener al menos una letra mayúscula.",
+    "Password must contain at least one number": "La contraseña debe contener al menos un número."
+  },
+  "userMasterPasswordValidation": {
+    "The entered password is not valid": "La contraseña introducida no es correcta.",
+    "Please write your master password": "Por favor, escriba su contraseña maestra",
+    "We need your master password to decrypt your passwords": "Necesitamos que introduzca su contraseña maestra para que pueda acceder a sus datos.",
+    "Your data can't be accessed without your master password, not even by Passager administrators": "Nadie puede acceder a sus datos sin su contraseña maestra, siquiera la administración de Passager.",
+    "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "Si pierde su contraseña, no podrá acceder a su cuenta, y nadie podrá recuperarla.",
+    "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "Nunca le pediremos su contraseña maestra por correo electrónico o cualquier otro medio externo. No comparta su contraseña con nadie, bajo ningún concepto.",
+    "Master password": "Contraseña maestra",
+    "Type here your password": "Escriba aquí su contraseña"
+  },
+  "profile": {
+    "Profile options": "Opciones de perfil",
+    "User details": "Detalles del usuario",
+    "Backups": "Copias de seguridad",
+    "Download Backup": "Descargar copia de seguridad",
+    "Import Backup": "Importar copia de seguridad",
+    "Name": "Nombre",
+    "Email": "Correo electrónico",
+    "Id": "Identificador de usuario",
+    "This feature is only available when passwords are stored locally": "Esta funcionalidad sólo se encuentra disponible cuando las contraseñas se almacenan localmente.",
+    "When you store your passwords locally, they are saved in the local storage of your Internet browser": "Cuando almacenas localmente tus contraseñas, éstas se guardan en el almacenamiento local de tu navegador de Internet.",
+    "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "Existen ciertas operaciones de limpieza del navegador que pueden llegar a borrar esta información, y pueden hacerte perder tus contraseñas.",
+    "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "Por ello, se recomienda descargar regularmente copias de seguridad a través de esta página, y guardarlas en un medio seguro de almacenamiento.",
+    "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "En caso de eliminar accidentalmente tus datos, puedes subir una copia de seguridad pulsando el botón \"Importar copia de seguridad\".",
+    "In addition, you can upload your backups to other computers to have your passwords available on different devices": "Además, puedes cargar tus copias de seguridad en otros ordenadores para disponer de tus contraseñas en distintos dispositivos.",
+    "Error importing data. Submitted file is not a valid backup": "Error al importar datos. El archivo enviado no es una copia de seguridad válida."
+  }
 }

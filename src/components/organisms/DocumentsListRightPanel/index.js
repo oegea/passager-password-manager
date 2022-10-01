@@ -164,7 +164,8 @@ const DocumentsListRightPanel = ({ user, folders = [], sharedFolders = [] }) => 
                 showConfirmationDialog && 
                 <ConfirmationDialog 
                     onAccept={() => onDelete()} 
-                    closeDialog={()=>setShowConfirmationDialog(false)} 
+                    closeDialog={()=>setShowConfirmationDialog(false)}
+                    description={t("documentsListRightPanel.deleteFolderConfirmationDescription")} 
                 /> 
             }
             {
@@ -206,6 +207,7 @@ const DocumentsListRightPanel = ({ user, folders = [], sharedFolders = [] }) => 
                 <ConfirmationDialog 
                     onAccept={() => onDeletePassword()} 
                     closeDialog={()=>setDeleteState({showDialog: false, password: null})} 
+                    description={t("documentsListRightPanel.deletePasswordConfirmationDescription")}
                 /> 
             }
 
