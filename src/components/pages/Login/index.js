@@ -20,13 +20,10 @@
 
 // Third party dependencies
 import React from 'react';
-import i18n from 'i18next';
-import styled from 'styled-components';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
-import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
@@ -34,10 +31,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '@useful-tools/localstorage';
 import { isMobileDevice } from '../../../libs/mobile.js';
-
-const LanguageSelector = styled.div`
-    margin-top: 40px;
-`;
+import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
 const PageLogin = () => {
 
@@ -51,13 +45,6 @@ const PageLogin = () => {
         t('login.A safe place to store your passwords'),
     ];
 
-    const changeLanguage = (e, lng) => {
-        e.preventDefault();
-        i18n.changeLanguage(lng);
-        localStorage.setItem('language', lng)
-    };
-
-
     return <>
         <NotLogged>
             <Title>Passager</Title>
@@ -68,11 +55,7 @@ const PageLogin = () => {
             <ButtonWrapper justifyContent='center'>
                 <Button label={t('login.Store my passwords locally')} onClick={enableLocalMode}/>
             </ButtonWrapper>
-            <LanguageSelector>
-                {t('login.Change to')} 
-                <AtomButtonLink onClick={(e)=> changeLanguage(e, 'en')}>English</AtomButtonLink>
-                <AtomButtonLink onClick={(e)=> changeLanguage(e, 'es')}>Español</AtomButtonLink>
-            </LanguageSelector>
+            <LanguageSelector />
         </NotLogged>
     </>
 
