@@ -24,20 +24,23 @@ import PropTypes from 'prop-types';
 // Atoms
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
+import Description from '../../atoms/Description/index.js';
 import Dialog from '../../atoms/Dialog/Dialog.js';
 import Title from '../../atoms/Title/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 
-const ConfirmationDialog = ({onAccept, closeDialog}) => {
+const ConfirmationDialog = ({onAccept, closeDialog, description = ''}) => {
     const {t} = useTranslation();
     useDialogConfirmation(closeDialog, onAccept);
 
     return (
         <Dialog onClose={() => closeDialog()}>
-            <Title marginBottom='75px'>{t('confirmationDialog.Are you sure you want to proceed?')}</Title>
-            
+            <Title marginBottom='25px'>{t('confirmationDialog.Are you sure you want to proceed?')}</Title>
+            {description && (
+                <Description>{description}</Description>
+            )}
             <ButtonWrapper>
                 <Button label={t('common.Cancel')} onClick={() => closeDialog()} color="black" backgroundColor="white"/>
                 <Button label={t('common.Continue')} onClick={() => onAccept()} color="black" backgroundColor="white"/>
@@ -50,6 +53,7 @@ ConfirmationDialog.displayName = 'ConfirmationDialog';
 ConfirmationDialog.propTypes = {
     onAccept: PropTypes.func,
     closeDialog: PropTypes.func,
+    description: PropTypes.string
 }
 
 export default ConfirmationDialog;
