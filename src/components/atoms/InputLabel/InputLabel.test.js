@@ -15,7 +15,6 @@ const setupTest = () => {
     </>
   );
 }
-
  
 describe('<InputLabel />', () => {
   it('should be able to render the label children', () => {
@@ -33,5 +32,4 @@ describe('<InputLabel />', () => {
     expect(input.type).toBe('text')
   });
 })
- 
  
