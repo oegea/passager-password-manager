@@ -24,22 +24,22 @@ import AlertButton from './index.js';
 const DEFAULT_LABEL = 'Click Me';
 
 test('renders a button with the given label', () => {
-  render(<AlertButton label={DEFAULT_LABEL} />);
-  const button = screen.getByText(DEFAULT_LABEL);
-  expect(button).toBeInTheDocument();
+    render(<AlertButton label={DEFAULT_LABEL} />);
+    const button = screen.getByText(DEFAULT_LABEL);
+    expect(button).toBeInTheDocument();
 });
 
 test('renders a red colored button', () => {
-  render(<AlertButton label={DEFAULT_LABEL} />);
-  const button = screen.getByText(DEFAULT_LABEL);
-  expect(button).toHaveStyle('background-color: #d32f2f;');
+    render(<AlertButton label={DEFAULT_LABEL} />);
+    const button = screen.getByText(DEFAULT_LABEL);
+    expect(button).toHaveStyle('background-color: #d32f2f;');
 });
 
 test('should execute callback when button is clicked', () => {
-  const onClick = jest.fn();
-  render(<AlertButton label={DEFAULT_LABEL} onClick={onClick} />);
-  const button = screen.getByText(DEFAULT_LABEL);
-  expect(button).toBeInTheDocument();
-  fireEvent.click(button);
-  expect(onClick).toHaveBeenCalledTimes(1);
+    const onClick = jest.fn();
+    render(<AlertButton label={DEFAULT_LABEL} onClick={onClick} />);
+    const button = screen.getByText(DEFAULT_LABEL);
+    expect(button).toBeInTheDocument();
+    fireEvent.click(button);
+    expect(onClick).toHaveBeenCalledTimes(1);
 });

@@ -29,49 +29,51 @@ import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
 const DEFAULT_PADDING = 20;
 
 const Dialog = styled.div`
-  background: white;
-  min-width: 20%;
-  max-width: 100%;
-  min-height: 150px;
-  max-height: 100vh;
-  border-radius: 10px;
-  padding: ${DEFAULT_PADDING}px;
+    background: white;
+    min-width: 20%;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 100vh;
+    border-radius: 10px;
+    padding: ${DEFAULT_PADDING}px;
 
-  @media (max-width: 768px) {
-    width: calc(100% - 40px);
-    max-width: calc(100% - 40px);
-    height: calc(100vh - 40px);
-    padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
-  }
+    @media (max-width: 768px) {
+        width: calc(100% - 40px);
+        max-width: calc(100% - 40px);
+        height: calc(100vh - 40px);
+        padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
+    }
 `;
 
 const AtomDialog = ({ children, onClose }) => {
-  const _isDialogBackground = (element) => {
-    const isDialogBackground = element.getAttribute('data-isdialogbackground');
-    return isDialogBackground === 'true';
-  };
+    const _isDialogBackground = (element) => {
+        const isDialogBackground = element.getAttribute(
+            'data-isdialogbackground'
+        );
+        return isDialogBackground === 'true';
+    };
 
-  return (
-    <>
-      <OverlayBackground
-        data-testid="dialog-background"
-        data-isdialogbackground="true"
-        onClick={(event) => {
-          if (_isDialogBackground(event.target)) {
-            onClose();
-          }
-        }}
-      >
-        <Dialog>{children}</Dialog>
-      </OverlayBackground>
-    </>
-  );
+    return (
+        <>
+            <OverlayBackground
+                data-testid="dialog-background"
+                data-isdialogbackground="true"
+                onClick={(event) => {
+                    if (_isDialogBackground(event.target)) {
+                        onClose();
+                    }
+                }}
+            >
+                <Dialog>{children}</Dialog>
+            </OverlayBackground>
+        </>
+    );
 };
 
 AtomDialog.displayName = 'AtomDialog';
 AtomDialog.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func,
+    children: PropTypes.node,
+    onClose: PropTypes.func,
 };
 
 export default AtomDialog;

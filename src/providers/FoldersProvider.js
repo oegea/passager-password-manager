@@ -1,19 +1,19 @@
-/** 
+/**
  * This file is part of Passager Password Manager.
  * https://github.com/oegea/passager-password-manager
- * 
+ *
  * Copyright (C) 2022 Oriol Egea Carvajal
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,65 +28,73 @@ import domain from '../domain/index.js';
 export const FoldersContext = createContext();
 
 class FoldersProvider extends Component {
-	state = { folders: [], sharedFolders: [] };
+    state = { folders: [], sharedFolders: [] };
 
-	unsubscribeFromFolders = null;
-	unsubscribeFromSharedFolders = null;
+    unsubscribeFromFolders = null;
+    unsubscribeFromSharedFolders = null;
 
-	componentDidMount = () => {
-		this.subscribeToFolders();
-		this.subscribeToSharedFolders();
-	}
+    componentDidMount = () => {
+        this.subscribeToFolders();
+        this.subscribeToSharedFolders();
+    };
 
-	componentDidUpdate = () => {
-		this.subscribeToFolders();
-		this.subscribeToSharedFolders();
-	}
-	
-	componentWillUnmount = () => {
-        if (this.unsubscribeFromFolders !== null)
-		    this.unsubscribeFromFolders();
-		
-		if (this.unsubscribeFromSharedFolders !== null)
-		    this.unsubscribeFromSharedFolders();
-	}
+    componentDidUpdate = () => {
+        this.subscribeToFolders();
+        this.subscribeToSharedFolders();
+    };
 
-	subscribeToFolders = async () => {
-		const {user} = this.props;
-		if (user === null || this.unsubscribeFromFolders !== null )
-			return;
+    componentWillUnmount = () => {
+        if (this.unsubscribeFromFolders !== null) this.unsubscribeFromFolders();
 
-		const unsubscribe = await domain.useCases.folders['subscribe_to_folders_use_case'].execute({
-			userId: user.uid,
-			onSubscriptionChanges: (folders) => {this.setState({folders})}
-		});
+        if (this.unsubscribeFromSharedFolders !== null)
+            this.unsubscribeFromSharedFolders();
+    };
 
-		this.unsubscribeFromFolders = unsubscribe;
-	}
+    subscribeToFolders = async () => {
+        const { user } = this.props;
+        if (user === null || this.unsubscribeFromFolders !== null) return;
 
-	subscribeToSharedFolders = async () => {
-		const {user} = this.props;
-		
-		if (user === null || this.unsubscribeFromSharedFolders !== null )
-			return;
+        const unsubscribe = await domain.useCases.folders[
+            'subscribe_to_folders_use_case'
+        ].execute({
+            userId: user.uid,
+            onSubscriptionChanges: (folders) => {
+                this.setState({ folders });
+            },
+        });
 
-		this.unsubscribeFromSharedFolders = await domain.useCases.folders['subscribe_to_shared_folders_use_case'].execute({
-			userId: user.uid,
-			onSubscriptionChanges: (sharedFolders) => this.setState({sharedFolders})
-		});
-	}
+        this.unsubscribeFromFolders = unsubscribe;
+    };
 
-	render() {
-		const { folders, sharedFolders } = this.state;
-		const { children } = this.props;
+    subscribeToSharedFolders = async () => {
+        const { user } = this.props;
 
-		return (
-			<FoldersContext.Provider value={{
-				folders, sharedFolders
-			}}>{ children }</FoldersContext.Provider>
-		);
-	}
+        if (user === null || this.unsubscribeFromSharedFolders !== null) return;
 
+        this.unsubscribeFromSharedFolders = await domain.useCases.folders[
+            'subscribe_to_shared_folders_use_case'
+        ].execute({
+            userId: user.uid,
+            onSubscriptionChanges: (sharedFolders) =>
+                this.setState({ sharedFolders }),
+        });
+    };
+
+    render() {
+        const { folders, sharedFolders } = this.state;
+        const { children } = this.props;
+
+        return (
+            <FoldersContext.Provider
+                value={{
+                    folders,
+                    sharedFolders,
+                }}
+            >
+                {children}
+            </FoldersContext.Provider>
+        );
+    }
 }
 
 export default withUser(FoldersProvider);
