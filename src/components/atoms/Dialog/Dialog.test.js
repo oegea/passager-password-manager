@@ -18,14 +18,9 @@ test('dialog should close when the background is clicked', () => {
   const handleClose = jest.fn();
 
   // Arrange
-  render(
-    <div data-isdialogbackground="true">
-      background
-      <AtomDialog onClose={handleClose}>{DIALOG_CHILDREN}</AtomDialog>
-    </div>
-  );
+  render(<AtomDialog onClose={handleClose}>{DIALOG_CHILDREN}</AtomDialog>);
 
-  const dialogBackground = screen.getByText('background');
+  const dialogBackground = screen.getByTestId('dialog-background');
   expect(dialogBackground).toBeInTheDocument();
 
   // Act
