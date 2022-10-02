@@ -41,16 +41,16 @@ export class PasswordsRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-            case config.get('FIREBASE_STORE_MODE'):
-                return PasswordsRepositoriesFactory.firebasePasswordsRepository(
-                    { config }
-                );
-            case config.get('LOCAL_STORE_MODE'):
-                return PasswordsRepositoriesFactory.localPasswordsRepository({
-                    config,
-                });
-            default:
-                throw new Error(`Unknown store mode: ${storeMode}`);
+        case config.get('FIREBASE_STORE_MODE'):
+            return PasswordsRepositoriesFactory.firebasePasswordsRepository(
+                { config }
+            );
+        case config.get('LOCAL_STORE_MODE'):
+            return PasswordsRepositoriesFactory.localPasswordsRepository({
+                config,
+            });
+        default:
+            throw new Error(`Unknown store mode: ${storeMode}`);
         }
     };
 }

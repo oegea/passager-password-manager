@@ -44,16 +44,16 @@ export class UsersRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-            case config.get('FIREBASE_STORE_MODE'):
-                return UsersRepositoriesFactory.firebaseUsersRepository({
-                    config,
-                });
-            case config.get('LOCAL_STORE_MODE'):
-                return UsersRepositoriesFactory.localUsersRepository({
-                    config,
-                });
-            default:
-                throw new Error(`Unknown store mode: ${storeMode}`);
+        case config.get('FIREBASE_STORE_MODE'):
+            return UsersRepositoriesFactory.firebaseUsersRepository({
+                config,
+            });
+        case config.get('LOCAL_STORE_MODE'):
+            return UsersRepositoriesFactory.localUsersRepository({
+                config,
+            });
+        default:
+            throw new Error(`Unknown store mode: ${storeMode}`);
         }
     };
 }

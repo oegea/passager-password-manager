@@ -41,16 +41,16 @@ export class FoldersRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-            case config.get('FIREBASE_STORE_MODE'):
-                return FoldersRepositoriesFactory.firebaseFoldersRepository({
-                    config,
-                });
-            case config.get('LOCAL_STORE_MODE'):
-                return FoldersRepositoriesFactory.localFoldersRepository({
-                    config,
-                });
-            default:
-                throw new Error(`Unknown store mode: ${storeMode}`);
+        case config.get('FIREBASE_STORE_MODE'):
+            return FoldersRepositoriesFactory.firebaseFoldersRepository({
+                config,
+            });
+        case config.get('LOCAL_STORE_MODE'):
+            return FoldersRepositoriesFactory.localFoldersRepository({
+                config,
+            });
+        default:
+            throw new Error(`Unknown store mode: ${storeMode}`);
         }
     };
 }

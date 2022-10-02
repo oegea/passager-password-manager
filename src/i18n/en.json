@@ -1,124 +1,124 @@
 {
-  "common": {
-    "Access": "Access",
-    "Cancel": "Cancel",
-    "Close": "Close",
-    "Continue": "Continue",
-    "Copy": "Copy",
-    "Create": "Create",
-    "Delete": "Delete",
-    "Finish": "Finish",
-    "Folders": "Folders",
-    "Go back": "Go back",
-    "Logout": "Logout",
-    "My profile": "My Profile",
-    "Remove": "Remove",
-    "Save": "Save",
-    "Share": "Share",
-    "This field is required": "This field is required",
-    "This field must be less than 150 characters": "This field must be less than 150 characters"
-  },
-  "confirmationDialog": {
-    "Are you sure you want to proceed?": "Are you sure you want to proceed?"
-  },
-  "documentsListRightPanel": {
-    "Delete folder": "Delete folder",
-    "deleteFolderConfirmationDescription": "This folder and ALL CONTAINED PASSWORDS WILL BE DELETED. This action cannot be undone. Are you completely sure that you want to delete this folder and its content?",
-    "deletePasswordConfirmationDescription": "The selected password will be deleted. This action cannot be undone. Are you completely sure that you want to delete it?",
-    "Edit folder": "Edit folder",
-    "Please, select a folder to start": "Please, select a folder to start",
-    "Share folder": "Share folder",
-    "Title": "Title",
-    "Username": "Username",
-    "Website": "Website"
-  },
-  "login": {
-    "A safe place to store your passwords": "A safe place to store your passwords",
-    "Log in with Google": "Log in with Google",
-    "Change to": "Switch to:",
-    "Store my passwords locally": "Store my passwords locally"
-  },
-  "folderFormDialog": {
-    "Edit Folder": "Edit Folder",
-    "Folder name is required": "Folder name is required",
-    "New Folder": "New Folder",
-    "New folder name": "New folder name"
-  },
-  "folderShareDialog": {
-    "Add people by typing their email": "Add people by typing their email",
-    "Email": "Email",
-    "Is not possible to share a folder with your own user": "Is not possible to share a folder with your own user.",
-    "People with access to this folder": "People with access to this folder",
-    "Share Folder": "Share Folder",
-    "This email does not exist": "This email does not exist.",
-    "This folder has been already shared with this email": "This folder has been already shared with this email.",
-    "This folder has not been shared with anyone": "This folder has not been shared with anyone."
-  },
-  "folderShareNotice": {
-    "You will share this folder with": "You will share this folder with ",
-    "This person will be able to access this folder, as well as view and modify contained passwords": "This person will be able to access this folder, as well as view and modify contained passwords.",
-    "This person will not be able to delete this folder or share it with additional people": "This person will not be able to delete this folder or share it with additional people."
-  },
-  "passwordFormDialog": {
-    "Edit password": "Edit password",
-    "My E-mail Account": "My E-mail Account",
-    "New password": "New password",
-    "Password name": "Password name",
-    "Password": "Password",
-    "Username": "Username",
-    "usernameExample": "Type here your username",
-    "Website URL": "Website URL",
-    "Your secret password": "Your secret password",
-    "urlExample": "Type here the website URL"
-  },
-  "topbar": {
-    "Search": "Search"
-  },
-  "userSignup": {
-    "Define a master password": "Define a master password",
-    "We need to define a master password for your user": "We need to define a master password for your user.",
-    "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured.",
-    "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information.",
-    "Tips for choosing a safe master password": "Tips for choosing a safe master password:",
-    "Use a password longer than 8 characters": "Use a password longer than 8 characters.",
-    "Use a password that contains at least one capital letter, one number and one special character": "Use a password that contains at least one capital letter, one number and one special character.",
-    "Avoid using the same password on other services or accounts": "Avoid using the same password on other services or accounts.",
-    "Master password": "Master password",
-    "Type here a safe password": "Type here a safe password",
-    "Repeat your master password": "Repeat your master password",
-    "Repeat here your password": "Repeat here your password",
-    "Passwords must match": "Passwords must match.",
-    "Password must contain at least one small letter": "Password must contain at least one small letter.",
-    "Password must contain at least one special character": "Password must contain at least one special character.",
-    "Password must be at least 8 characters long": "Password must be at least 8 characters long.",
-    "Password must contain at least one capital letter": "Password must contain at least one capital letter.",
-    "Password must contain at least one number": "Password must contain at least one number."
-  },
-  "userMasterPasswordValidation": {
-    "The entered password is not valid": "The entered password is not valid.",
-    "Please write your master password": "Please write your master password",
-    "We need your master password to decrypt your passwords": "We need your master password to decrypt your passwords.",
-    "Your data can't be accessed without your master password, not even by Passager administrators": "Your data can't be accessed without your master password, not even by Passager administrators.",
-    "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "If you lose your password, you won't be able to access your account. And nobody would be able to recover it.",
-    "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances.",
-    "Master password": "Master password",
-    "Type here your password": "Type here your password"
-  },
-  "profile": {
-    "Profile options": "Profile options",
-    "User details": "User details",
-    "Backups": "Backups",
-    "Download Backup": "Download Backup",
-    "Import Backup": "Import Backup",
-    "Name": "Name",
-    "Email": "Email",
-    "Id": "User Identifier",
-    "This feature is only available when passwords are stored locally": "This feature is only available when passwords are stored locally",
-    "When you store your passwords locally, they are saved in the local storage of your Internet browser": "When you store your passwords locally, they are saved in the local storage of your Internet browser.",
-    "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords.",
-    "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "It is therefore recommended to regularly download backups via this page and store them on a secure storage device.",
-    "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup\" button.",
-    "In addition, you can upload your backups to other computers to have your passwords available on different devices": "In addition, you can upload your backups to other computers to have your passwords available on different devices.",
-    "Error importing data. Submitted file is not a valid backup": "Error importing data. Submitted file is not a valid backup."
-  }
+    "common": {
+        "Access": "Access",
+        "Cancel": "Cancel",
+        "Close": "Close",
+        "Continue": "Continue",
+        "Copy": "Copy",
+        "Create": "Create",
+        "Delete": "Delete",
+        "Finish": "Finish",
+        "Folders": "Folders",
+        "Go back": "Go back",
+        "Logout": "Logout",
+        "My profile": "My Profile",
+        "Remove": "Remove",
+        "Save": "Save",
+        "Share": "Share",
+        "This field is required": "This field is required",
+        "This field must be less than 150 characters": "This field must be less than 150 characters"
+    },
+    "confirmationDialog": {
+        "Are you sure you want to proceed?": "Are you sure you want to proceed?"
+    },
+    "documentsListRightPanel": {
+        "Delete folder": "Delete folder",
+        "deleteFolderConfirmationDescription": "This folder and ALL CONTAINED PASSWORDS WILL BE DELETED. This action cannot be undone. Are you completely sure that you want to delete this folder and its content?",
+        "deletePasswordConfirmationDescription": "The selected password will be deleted. This action cannot be undone. Are you completely sure that you want to delete it?",
+        "Edit folder": "Edit folder",
+        "Please, select a folder to start": "Please, select a folder to start",
+        "Share folder": "Share folder",
+        "Title": "Title",
+        "Username": "Username",
+        "Website": "Website"
+    },
+    "login": {
+        "A safe place to store your passwords": "A safe place to store your passwords",
+        "Log in with Google": "Log in with Google",
+        "Change to": "Switch to:",
+        "Store my passwords locally": "Store my passwords locally"
+    },
+    "folderFormDialog": {
+        "Edit Folder": "Edit Folder",
+        "Folder name is required": "Folder name is required",
+        "New Folder": "New Folder",
+        "New folder name": "New folder name"
+    },
+    "folderShareDialog": {
+        "Add people by typing their email": "Add people by typing their email",
+        "Email": "Email",
+        "Is not possible to share a folder with your own user": "Is not possible to share a folder with your own user.",
+        "People with access to this folder": "People with access to this folder",
+        "Share Folder": "Share Folder",
+        "This email does not exist": "This email does not exist.",
+        "This folder has been already shared with this email": "This folder has been already shared with this email.",
+        "This folder has not been shared with anyone": "This folder has not been shared with anyone."
+    },
+    "folderShareNotice": {
+        "You will share this folder with": "You will share this folder with ",
+        "This person will be able to access this folder, as well as view and modify contained passwords": "This person will be able to access this folder, as well as view and modify contained passwords.",
+        "This person will not be able to delete this folder or share it with additional people": "This person will not be able to delete this folder or share it with additional people."
+    },
+    "passwordFormDialog": {
+        "Edit password": "Edit password",
+        "My E-mail Account": "My E-mail Account",
+        "New password": "New password",
+        "Password name": "Password name",
+        "Password": "Password",
+        "Username": "Username",
+        "usernameExample": "Type here your username",
+        "Website URL": "Website URL",
+        "Your secret password": "Your secret password",
+        "urlExample": "Type here the website URL"
+    },
+    "topbar": {
+        "Search": "Search"
+    },
+    "userSignup": {
+        "Define a master password": "Define a master password",
+        "We need to define a master password for your user": "We need to define a master password for your user.",
+        "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured": "This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured.",
+        "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information": "Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information.",
+        "Tips for choosing a safe master password": "Tips for choosing a safe master password:",
+        "Use a password longer than 8 characters": "Use a password longer than 8 characters.",
+        "Use a password that contains at least one capital letter, one number and one special character": "Use a password that contains at least one capital letter, one number and one special character.",
+        "Avoid using the same password on other services or accounts": "Avoid using the same password on other services or accounts.",
+        "Master password": "Master password",
+        "Type here a safe password": "Type here a safe password",
+        "Repeat your master password": "Repeat your master password",
+        "Repeat here your password": "Repeat here your password",
+        "Passwords must match": "Passwords must match.",
+        "Password must contain at least one small letter": "Password must contain at least one small letter.",
+        "Password must contain at least one special character": "Password must contain at least one special character.",
+        "Password must be at least 8 characters long": "Password must be at least 8 characters long.",
+        "Password must contain at least one capital letter": "Password must contain at least one capital letter.",
+        "Password must contain at least one number": "Password must contain at least one number."
+    },
+    "userMasterPasswordValidation": {
+        "The entered password is not valid": "The entered password is not valid.",
+        "Please write your master password": "Please write your master password",
+        "We need your master password to decrypt your passwords": "We need your master password to decrypt your passwords.",
+        "Your data can't be accessed without your master password, not even by Passager administrators": "Your data can't be accessed without your master password, not even by Passager administrators.",
+        "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "If you lose your password, you won't be able to access your account. And nobody would be able to recover it.",
+        "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances.",
+        "Master password": "Master password",
+        "Type here your password": "Type here your password"
+    },
+    "profile": {
+        "Profile options": "Profile options",
+        "User details": "User details",
+        "Backups": "Backups",
+        "Download Backup": "Download Backup",
+        "Import Backup": "Import Backup",
+        "Name": "Name",
+        "Email": "Email",
+        "Id": "User Identifier",
+        "This feature is only available when passwords are stored locally": "This feature is only available when passwords are stored locally",
+        "When you store your passwords locally, they are saved in the local storage of your Internet browser": "When you store your passwords locally, they are saved in the local storage of your Internet browser.",
+        "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords": "There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords.",
+        "It is therefore recommended to regularly download backups via this page and store them on a secure storage device": "It is therefore recommended to regularly download backups via this page and store them on a secure storage device.",
+        "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup\" button.",
+        "In addition, you can upload your backups to other computers to have your passwords available on different devices": "In addition, you can upload your backups to other computers to have your passwords available on different devices.",
+        "Error importing data. Submitted file is not a valid backup": "Error importing data. Submitted file is not a valid backup."
+    }
 }

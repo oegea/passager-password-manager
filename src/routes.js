@@ -44,27 +44,27 @@ const RoutesConfiguration = ({ user }) => {
             {user !== null &&
                 user.initialized === true &&
                 user.decryptedPrivateKey === false && (
-                    <Routes>
-                        <Route
-                            path="*"
-                            element={<UserMasterPasswordValidation />}
-                        />
-                    </Routes>
-                )}
+                <Routes>
+                    <Route
+                        path="*"
+                        element={<UserMasterPasswordValidation />}
+                    />
+                </Routes>
+            )}
 
             {user !== null &&
                 user.initialized === true &&
                 user.decryptedPrivateKey === true && (
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/:folderId" element={<Home />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route
-                            path="/profile/backups"
-                            element={<ProfileBackups />}
-                        />
-                    </Routes>
-                )}
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/:folderId" element={<Home />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route
+                        path="/profile/backups"
+                        element={<ProfileBackups />}
+                    />
+                </Routes>
+            )}
 
             {user !== null && !user.initialized && (
                 <Routes>

@@ -36,16 +36,16 @@ export class BackupsRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-            case config.get('FIREBASE_STORE_MODE'):
-                return BackupsRepositoriesFactory.firebaseBackupsRepository({
-                    config,
-                });
-            case config.get('LOCAL_STORE_MODE'):
-                return BackupsRepositoriesFactory.localBackupsRepository({
-                    config,
-                });
-            default:
-                throw new Error(`Unknown store mode: ${storeMode}`);
+        case config.get('FIREBASE_STORE_MODE'):
+            return BackupsRepositoriesFactory.firebaseBackupsRepository({
+                config,
+            });
+        case config.get('LOCAL_STORE_MODE'):
+            return BackupsRepositoriesFactory.localBackupsRepository({
+                config,
+            });
+        default:
+            throw new Error(`Unknown store mode: ${storeMode}`);
         }
     };
 }

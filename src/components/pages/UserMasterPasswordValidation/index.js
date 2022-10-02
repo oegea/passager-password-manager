@@ -113,12 +113,12 @@ const PageUserMasterPasswordValidation = ({ user }) => {
                 <ul>
                     <li>
                         {t(
-                            "userMasterPasswordValidation.Your data can't be accessed without your master password, not even by Passager administrators"
+                            'userMasterPasswordValidation.Your data can\'t be accessed without your master password, not even by Passager administrators'
                         )}
                     </li>
                     <li>
                         {t(
-                            "userMasterPasswordValidation.If you lose your password, you won't be able to access your account. And nobody would be able to recover it"
+                            'userMasterPasswordValidation.If you lose your password, you won\'t be able to access your account. And nobody would be able to recover it'
                         )}
                     </li>
                     <li>

@@ -160,12 +160,12 @@ const PageUserSignup = ({ user }) => {
                         </p>
                         <p>
                             {t(
-                                "userSignup.This will be the only password you'll have to remember from now on, and it will maintain all your other passwords encrypted and secured"
+                                'userSignup.This will be the only password you\'ll have to remember from now on, and it will maintain all your other passwords encrypted and secured'
                             )}
                         </p>
                         <p>
                             {t(
-                                "userSignup.Please, choose a password and save it safely. Note that if you forget it, Passager administrators won't be able to recover your account and you'll lose all your information"
+                                'userSignup.Please, choose a password and save it safely. Note that if you forget it, Passager administrators won\'t be able to recover your account and you\'ll lose all your information'
                             )}
                         </p>
                         <ButtonWrapper justifyContent="center">
