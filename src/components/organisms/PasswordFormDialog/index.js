@@ -47,6 +47,7 @@ const PasswordFormDialog = ({
     onClose,
     onDelete,
     onSave,
+    editMode = false,
 }) => {
     const { name, url, username, password } = defaultValues;
 
@@ -132,7 +133,7 @@ const PasswordFormDialog = ({
                 </InputLabel>
                 <Input
                     autoComplete="off"
-                    autoFocus
+                    autoFocus={!editMode}
                     defaultValue={state.name.value}
                     id="name"
                     onChange={(e) => onChangeHandler(e, 'name')}
@@ -227,6 +228,7 @@ PasswordFormDialog.propTypes = {
     onClose: PropTypes.func,
     onDelete: PropTypes.func,
     onSave: PropTypes.func,
+    editMode: PropTypes.boolean,
 };
 
 export default PasswordFormDialog;
