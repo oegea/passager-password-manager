@@ -266,6 +266,7 @@ const DocumentsListRightPanel = ({
                     onSave={(password, passwordId) =>
                         onEditPassword(password, passwordId)
                     }
+                    editMode
                 />
             )}
             {deleteState.showDialog && (
