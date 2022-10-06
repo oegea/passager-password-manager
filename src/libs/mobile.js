@@ -14,6 +14,16 @@ export const isMobileDevice = () => {
     );
 };
 
+export const writeClipboard = (string) => {
+    if (isMobileDevice()) {
+        return Share.share({
+            text: string
+        });
+    }
+
+    return navigator.clipboard.writeText(string);
+};
+
 // Tricky thing: https://stackoverflow.com/questions/63304390/share-files-with-capacitor-share-plugin
 export const writeFile = (fileName, data) => {
     const path = fileName;

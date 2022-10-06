@@ -23,7 +23,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import Button from '../../atoms/Button/index.js';
-
+// Own libs
+import {writeClipboard} from '../../../libs/mobile.js';
 const ButtonCopy = styled.div`
     padding-left: 0.7rem;
 `;
@@ -32,7 +33,7 @@ const MoleculesButtonCopy = ({ value }) => {
     const { t } = useTranslation();
 
     const copyHandler = () => {
-        navigator.clipboard.writeText(value);
+        writeClipboard(value);
     };
 
     return (
