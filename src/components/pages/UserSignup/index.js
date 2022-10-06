@@ -28,6 +28,7 @@ import {
     checkPassword,
     setUserMasterPassword,
 } from '../../../libs/masterPassword.js';
+import { isMobileDevice } from '../../../libs/mobile.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -258,9 +259,12 @@ const PageUserSignup = ({ user }) => {
                         </ButtonWrapper>
                     </>
                 )}
-                <AtomButtonLink onClick={logout}>
-                    {t('common.Logout')}
-                </AtomButtonLink>
+                {
+                    !isMobileDevice() && 
+                    <AtomButtonLink onClick={logout}>
+                        {t('common.Logout')}
+                    </AtomButtonLink>
+                }
                 <LanguageSelector />
             </NotLogged>
         </>

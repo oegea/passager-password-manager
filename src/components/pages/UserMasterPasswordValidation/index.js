@@ -28,6 +28,7 @@ import {
     loginWithCredentialsIfAvailable,
     setCredentials,
 } from '../../../libs/biometric.js';
+import { isMobileDevice } from '../../../libs/mobile.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -153,9 +154,12 @@ const PageUserMasterPasswordValidation = ({ user }) => {
                     />
                 </ButtonWrapper>
 
-                <AtomButtonLink onClick={logout}>
-                    {t('common.Logout')}
-                </AtomButtonLink>
+                {
+                    !isMobileDevice() && 
+                    <AtomButtonLink onClick={logout}>
+                        {t('common.Logout')}
+                    </AtomButtonLink>
+                }
                 <LanguageSelector />
             </NotLogged>
         </>
