@@ -21,6 +21,7 @@ WORKDIR /usr/src/app
 COPY ./authentication-service ./authentication-service
 COPY ./documents-service ./documents-service
 COPY ./.env ./.env
+COPY ./run.sh ./run.sh
 
 WORKDIR /usr/src/app/authentication-service
 RUN export TERM=linux && npm run build
@@ -38,4 +39,6 @@ RUN npm install -g forever
 
 # Now run npm run start:background on both folders
 WORKDIR /usr/src/app/
-CMD cd ./authentication-service/;npm run start;cd ../documents-service/;npm run start
+
+# execute run.sh
+CMD ["/bin/bash", "./run.sh"]
