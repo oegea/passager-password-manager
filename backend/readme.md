@@ -2,7 +2,35 @@
 
 This project is a set of web services to use Passager Password Manager within an organization, enabling password sharing capabilities and other features which are available only when Passager doesn't run in local mode.
 
-## Reasons to build this
+# How to quick start
+
+You can quickly build and run the backend docker image by:
+
+1. Clone the repository.
+2. Copy `.env_template` to `.env` and complete it with real configuration parameters.
+3. Run `npm run build` to build the docker image.
+4. Run `npm run start` to start the docker container.
+
+While the container is up, you will be able to access the service at `http://localhost:3001` (authentication service) and `http://localhost:3002` (documents service).
+
+# Developing in local
+
+If you prefer to run this project without using containers, you can run each service in local. Note that these services need to be configured before running.
+
+Configuration needs to be stored in a file named `.env`, a template is provided (`.env_template`), please copy it and rename to `.env` and then complete it with real configuration parameters.
+
+Do not forget to install dependencies by running `npm i` inside the `documents-service` and `authentication-service` directories.
+
+Both services can be run with the `npm run start` command.
+
+# Available services
+
+This backend project relies on `docky` to provide a frontend-first developing experience. If you have doubts about how `docky` works, feel free to refer to its [documentation](https://github.com/oegea/docky).
+
+-   `authentication-service`: Completes the login process by sending a code via e-mail, and generating a jwt token once the e-mail is validated.
+-   `documents-service`: Allows to perform basic CRUD operations to a set of database schemas while ensuring that specific permission rules are meet.
+
+# Reasons to build this
 
 This project's unique mission is to replace firebase as the default backend for Passager Password Manager.
 
@@ -13,20 +41,3 @@ Unfortunatelly, Firebase was not the ideal solution when compiling Passager as a
 This set of basic web services offer a way to use Passager remotely, even when it is compiled as a mobile app.
 
 Additionally, with this new approach each organization is able to serve these services and maintain their own database and infrastructure, so maintainers of Passager does not need to maintain and be responsible for a set of centralized systems, which allow the maintainers to focus their efforts in Passager's Open Source development, instead of focusing them on offering a high-available service and comply with data processing laws and regulations.
-
-## Required configuration
-
-These services need to be configured before running.
-
-Configuration is stored in a file named `.env`.
-
-A template is provided (`.env_template`), please rename it to `.env` and complete it with real configuration parameters.
-
-Do not forget to install dependencies by running `npm i` inside the `documents-service` and `authentication-service` directories.
-
-Both services can be run with the `npm run start` command.
-
-## Available services
-
--   `authentication-service`: Completes the login process by sending a code via e-mail, and generating a jwt token once the e-mail is validated.
--   `documents-service`: Allows to perform basic CRUD operations to a set of database schemas while ensuring that specific permission rules are meet.
