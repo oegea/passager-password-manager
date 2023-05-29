@@ -1,5 +1,12 @@
 #!/bin/bash
 
+_term() { 
+  echo "Caught SIGTERM signal!" 
+  pkill node
+}
+
+trap _term SIGTERM
+
 # Start the first process
 npm --prefix ./authentication-service start &
 

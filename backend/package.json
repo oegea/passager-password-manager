@@ -1,0 +1,14 @@
+{
+    "name": "passager-backend",
+    "version": "1.0.0",
+    "description": "This project is a set of web services to use Passager Password Manager within an organization, enabling password sharing capabilities and other features which are available only when Passager doesn't run in local mode.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "docker build . -t 'passager-backend'",
+        "start": "docker run -p 3001-3002:3001-3002 'passager-backend'",
+        "start:rm": "docker run --rm -p 3001-3002:3001-3002 'passager-backend'"
+    },
+    "author": "",
+    "license": "ISC"
+}
