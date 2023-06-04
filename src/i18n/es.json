@@ -21,6 +21,11 @@
     "confirmationDialog": {
         "Are you sure you want to proceed?": "¿Está seguro de que desea continuar?"
     },
+    "configureBackend": {
+        "Please introduce your organization's URL": "Por favor, introduzca la URL de su organización",
+        "Service URL": "URL del servicio",
+        "Type here the URL provided by your organization": "Escriba aquí la URL proporcionada por su organización"
+    },
     "documentsListRightPanel": {
         "Delete folder": "Eliminar carpeta",
         "deleteFolderConfirmationDescription": "Esta carpeta y TODAS LAS CONTRASEÑAS CONTENIDAS SERÁN ELIMINADAS. Esta acción no puede ser revertida. ¿Estás completamente seguro de que quieres eliminar esta carpeta y su contenido?",
@@ -36,7 +41,8 @@
         "A safe place to store your passwords": "Un lugar seguro en el que almacenar tus contraseñas",
         "Log in with Google": "Iniciar sesión con Google",
         "Change to": "Cambiar a:",
-        "Store my passwords locally": "Almacenar mis contraseñas localmente"
+        "Use Passager in my organization": "Utilizar Passager en mi organización",
+        "Use Passager locally for personal purposes": "Utilizar Passager localmente para fines personales"
     },
     "folderFormDialog": {
         "Edit Folder": "Editar carpeta",

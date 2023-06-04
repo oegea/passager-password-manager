@@ -18,7 +18,7 @@ eventBusRepository.subscribe(TYPE_QUERY, 'GET_OPERATION_PERMISSIONS', onGetOpera
 
 const app = getExpressApp()
 
-app.get('/services/url', function(req, res) {
+app.get('/services-url', function(req, res) {
     res.json({
         authenticationUrl: process.env.AUTH_PUBLIC_URL,
         documentsUrl: process.env.DOCS_PUBLIC_URL

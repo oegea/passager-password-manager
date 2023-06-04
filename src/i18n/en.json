@@ -21,6 +21,11 @@
     "confirmationDialog": {
         "Are you sure you want to proceed?": "Are you sure you want to proceed?"
     },
+    "configureBackend": {
+        "Please introduce your organization's URL": "Please introduce your organization's URL",
+        "Service URL": "Service URL",
+        "Type here the URL provided by your organization": "Type here the URL provided by your organization"
+    },
     "documentsListRightPanel": {
         "Delete folder": "Delete folder",
         "deleteFolderConfirmationDescription": "This folder and ALL CONTAINED PASSWORDS WILL BE DELETED. This action cannot be undone. Are you completely sure that you want to delete this folder and its content?",
@@ -36,7 +41,8 @@
         "A safe place to store your passwords": "A safe place to store your passwords",
         "Log in with Google": "Log in with Google",
         "Change to": "Switch to:",
-        "Store my passwords locally": "Store my passwords locally"
+        "Use Passager in my organization": "Use Passager in my organization",
+        "Use Passager locally for personal purposes": "Use Passager locally for personal purposes"
     },
     "folderFormDialog": {
         "Edit Folder": "Edit Folder",

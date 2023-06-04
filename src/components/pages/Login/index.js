@@ -30,6 +30,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '@useful-tools/localstorage';
+import { enableBackendMode } from '../../../libs/backend.js';
 import { isMobileDevice } from '../../../libs/mobile.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
@@ -71,12 +72,20 @@ const PageLogin = () => {
                         />
                     </ButtonWrapper>
                 ) : null}
+
                 <ButtonWrapper justifyContent="center">
                     <Button
-                        label={t('login.Store my passwords locally')}
+                        label={t('login.Use Passager locally for personal purposes')}
                         onClick={enableLocalMode}
                     />
                 </ButtonWrapper>
+
+                {/*<ButtonWrapper justifyContent="center">
+                    <Button
+                        label={t('login.Use Passager in my organization')}
+                        onClick={enableBackendMode}
+                    />
+                </ButtonWrapper>*/}
                 <LanguageSelector />
             </NotLogged>
         </>
