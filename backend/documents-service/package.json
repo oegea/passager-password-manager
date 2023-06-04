@@ -14,9 +14,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@useful-tools/docky-documents-service": "^1.0.2",
-        "dotenv": "^16.0.2",
+        "@useful-tools/docky-documents-service": "^1.0.6",
         "debug": "^4.3.4",
+        "dotenv": "^16.0.2",
         "morgan": "^1.10.0",
         "tslint": "^6.1.3"
     },
