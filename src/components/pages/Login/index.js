@@ -39,11 +39,6 @@ const PageLogin = () => {
     useEffect(() => {
         if (isMobileDevice() && localStorage.getItem('storeMode') !== 'LOCAL')
             enableLocalMode();
-
-        // If already selected backend mode
-        if (isBackendMode()) 
-            enableBackendMode();
-
     }, []);
     
     const { t } = useTranslation();
