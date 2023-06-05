@@ -24,6 +24,7 @@ import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
 import { FirebasePasswordsRepository } from './FirebasePasswordsRepository.js';
 import { LocalPasswordsRepository } from './LocalPasswordsRepository.js';
+import { BackendPasswordsRepository } from './BackendPasswordsRepository.js';
 
 export class PasswordsRepositoriesFactory {
     static firebasePasswordsRepository = ({ config }) =>
@@ -38,6 +39,11 @@ export class PasswordsRepositoriesFactory {
             LocalStorageDatabase,
         });
 
+    static backendPasswordsRepository = ({ config }) =>
+        new BackendPasswordsRepository({
+            config,
+        });
+
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
@@ -50,7 +56,7 @@ export class PasswordsRepositoriesFactory {
                 config,
             });
         case config.get('BACKEND_STORE_MODE'):
-            return PasswordsRepositoriesFactory.localPasswordsRepository({
+            return PasswordsRepositoriesFactory.backendPasswordsRepository({
                 config,
             });
         default:

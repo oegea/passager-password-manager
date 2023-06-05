@@ -19,7 +19,7 @@ const _canAccessFolder = async ({
   })
   folderDocument = folderDocument[0]
 
-  if (folderDocument.owner === currentUserId)
+  if (folderDocument?.owner === currentUserId)
     return true
 
   // Or our userSharingSettings/sharedFolders should contain a record for this folder
@@ -41,7 +41,7 @@ const _canAccessFolder = async ({
   })
   sharedFolder = sharedFolder[0][0]
 
-  if (!sharedFolder.shared) {
+  if (sharedFolder?.shared !== true) {
     console.log('Trying to access a folder not owned by nor shared with the current user')
     return false
   }
@@ -151,11 +151,6 @@ export const patchSubDocument = async (currentResult: boolean, payloadObject: an
 
   // Check that it has the expected fields: Iterate payload keys
   const receivedFields = Object.keys(payload)
-  const hasAllFields = PASSWORDS_FIELDS.every((field) => receivedFields.includes(field))
-  if (!hasAllFields) {
-    console.log('Trying to update a password record with missing fields')
-    return false
-  }
 
   // No other fields are allowed
   const hasOnlyAllowedFields = receivedFields.every((field) => PASSWORDS_FIELDS.includes(field))
@@ -173,13 +168,13 @@ export const patchSubDocument = async (currentResult: boolean, payloadObject: an
   })
   existingRecord = existingRecord[0]
 
-  if (payload.owner !== existingRecord.owner) {
+  if (payload?.owner !== undefined && payload.owner !== existingRecord.owner) {
     console.log('Trying to update a password record modyfing the owner field')
     return false
   }
 
   // Name must be a string with length between 1 and 50
-  if (payload.name.length === 0 || payload.name.length > 50) {
+  if (payload?.name !== undefined && (payload.name.length === 0 || payload.name.length > 50)) {
     console.log('Trying to create a password record with an invalid name')
     return false
   }

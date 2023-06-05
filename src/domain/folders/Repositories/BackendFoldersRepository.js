@@ -26,10 +26,7 @@ import {
     deleteSubdocument,
     findDocument, 
     findSubdocument,
-    getDocument, 
     retrieveServiceData, 
-    setDocument, 
-    setSubdocument,
     updateDocument
 } from '../../../libs/backend.js';
 
@@ -138,8 +135,11 @@ export default class BackendFoldersRepository extends FoldersRepository {
 
         // Retrieve all shared folders
         const sharedFolders = await findSubdocument('userSharingSettings', userSharingSettings[0].id, 'sharedFolders', {});
-
-        onSubscriptionChanges(sharedFolders);
+        const parsedSharedFolders = sharedFolders.map((sharedFolder) => ({
+            ...sharedFolder,
+            id: sharedFolder.folder
+        }));
+        onSubscriptionChanges(parsedSharedFolders);
 
         // Real-time updates not available
         return () => null; // eslint-disable-line

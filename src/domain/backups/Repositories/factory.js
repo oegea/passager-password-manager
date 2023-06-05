@@ -31,13 +31,13 @@ export class BackupsRepositoriesFactory {
             LocalStorageDatabase,
         });
 
-    static firebaseBackupsRepository = () => new BackupsRepository();
+    static genericBackupsRepository = () => new BackupsRepository();
 
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
         case config.get('FIREBASE_STORE_MODE'):
-            return BackupsRepositoriesFactory.firebaseBackupsRepository({
+            return BackupsRepositoriesFactory.genericBackupsRepository({
                 config,
             });
         case config.get('LOCAL_STORE_MODE'):
@@ -45,7 +45,7 @@ export class BackupsRepositoriesFactory {
                 config,
             });
         case config.get('BACKEND_STORE_MODE'):
-            return BackupsRepositoriesFactory.localBackupsRepository({
+            return BackupsRepositoriesFactory.genericBackupsRepository({
                 config,
             });
         default:
