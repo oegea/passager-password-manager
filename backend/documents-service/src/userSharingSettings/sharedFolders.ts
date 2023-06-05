@@ -139,10 +139,27 @@ export const findSubDocument = async (currentResult: boolean, payloadObject: any
     collection,
     currentUserId,
     subCollection,
-    parentId
+    parentId,
+    payload
   } = payloadObject
 
   if (collection !== USER_SHARING_SETTINGS_COLLECTION_NAME || subCollection !== SHARED_FOLDERS_COLLECTION_NAME) { return currentResult }
+
+  // If payload is only filtering by folder
+  if (Object.keys(payload).length === 1 && payload.folder) {
+
+    //Get the folder
+    let folderDocument = await eventBusRepository.query('GET_DOCUMENT', {
+      collection: 'folders',
+      id: payload.folder
+    })
+
+    folderDocument = folderDocument[0]
+
+    // If we are the owner, then we can see it
+    if (folderDocument.owner === currentUserId) { return true }
+  }
+
 
   if (!await _canAccessUserSharingSettings({ currentUserId, parentId })) { return false }
 

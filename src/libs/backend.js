@@ -119,6 +119,37 @@ export const setDocument = async (collection, document, findCriteria) => {
     return result;
 };
 
+export const setSubdocument = async (collection, parentId, subcollection, subdocument, findCriteria) => {
+    // First check if document exists
+    const searchResult = await findSubdocument(collection, parentId, subcollection, findCriteria);
+
+    // If document exists, update it
+    if (searchResult !== null && searchResult.length > 0) {
+        const existingDocument = searchResult[0];
+
+        const updatedDocument = {
+            ...subdocument
+        };
+
+        const result = await updateSubdocument(
+            collection,
+            parentId,
+            subcollection,
+            existingDocument.id,
+            updatedDocument
+        );
+
+        return result;
+    }
+
+    // If document doesn't exist, create it
+    const result = await createSubdocument(collection, parentId, subcollection, subdocument);
+
+    return result;
+};
+
+      
+
 export const createDocument = async (collection, document) => {
     
     const serviceData = retrieveServiceData();
@@ -140,6 +171,27 @@ export const createDocument = async (collection, document) => {
     return documents;
 };
 
+export const createSubdocument = async (collection, parentId, subcollection, subdocument) => {
+
+    const serviceData = retrieveServiceData();
+
+    if (serviceData === null) {
+        return null;
+    }
+
+    const { documentsUrl, jwtToken } = serviceData;
+
+    const url = `${documentsUrl}documents/${collection}/${parentId}/${subcollection}`;
+    const method = 'POST';
+    const body = {
+        ...subdocument
+    };
+
+    const documents = await queryDocumentsService(url, method, jwtToken, body);
+
+    return documents;
+};
+
 export const updateDocument = async (collection, id, document) => {
     const serviceData = retrieveServiceData();
 
@@ -153,6 +205,26 @@ export const updateDocument = async (collection, id, document) => {
     const method = 'PATCH';
     const body = {
         ...document
+    };
+
+    const documents = await queryDocumentsService(url, method, jwtToken, body);
+
+    return documents;
+};
+
+export const updateSubdocument = async (collection, parentId, subcollection, id, subdocument) => {
+    const serviceData = retrieveServiceData();
+
+    if (serviceData === null) {
+        return null;
+    }
+
+    const { documentsUrl, jwtToken } = serviceData;
+
+    const url = `${documentsUrl}documents/${collection}/${parentId}/${subcollection}/${id}`;
+    const method = 'PATCH';
+    const body = {
+        ...subdocument
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);

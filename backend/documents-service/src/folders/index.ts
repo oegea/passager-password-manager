@@ -1,7 +1,7 @@
 import { NativeEventBusRepository } from '@useful-tools/docky-documents-service/dist'
 
 const FOLDERS_COLLECTION_NAME = 'folders'
-const FOLDERS_FIELDS = ['id', 'key', 'name', 'owner']
+const FOLDERS_FIELDS = ['id', 'key', 'name', 'owner', 'sharedWith']
 const eventBusRepository = new NativeEventBusRepository()
 export const createDocument = async (currentResult: boolean, payloadObject: any): Promise<boolean> => {
   const {
@@ -110,15 +110,10 @@ export const patchDocument = async (currentResult: boolean, payloadObject: any):
 
   if (existingDocument[0]?.owner !== currentUserId) { return false }
 
-  if (payload.owner !== currentUserId) { return false }
+  if (payload.owner !== undefined && payload.owner !== currentUserId) { return false }
 
   // Check that it has the expected fields: Iterate payload keys
   const receivedFields = Object.keys(payload)
-  const hasAllFields = FOLDERS_FIELDS.every((field) => receivedFields.includes(field))
-  if (!hasAllFields) {
-    console.log('Trying to update a folder record with missing fields')
-    return false
-  }
 
   // No other fields are allowed
   const hasOnlyAllowedFields = receivedFields.every((field) => FOLDERS_FIELDS.includes(field))
@@ -127,7 +122,7 @@ export const patchDocument = async (currentResult: boolean, payloadObject: any):
     return false
   }
 
-  if (payload.name.length === 0 || payload.name.length > 50) {
+  if (payload?.name !== undefined && (payload.name.length === 0 || payload.name.length > 50)) {
     console.log('Trying to create a folder record with an invalid name')
     return false
   }

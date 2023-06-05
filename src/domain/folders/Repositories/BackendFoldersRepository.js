@@ -21,6 +21,7 @@
 import FoldersRepository from './FoldersRepository.js';
 import { 
     createDocument, 
+    createSubdocument, 
     deleteDocument,
     deleteSubdocument,
     findDocument, 
@@ -28,6 +29,7 @@ import {
     getDocument, 
     retrieveServiceData, 
     setDocument, 
+    setSubdocument,
     updateDocument
 } from '../../../libs/backend.js';
 
@@ -113,7 +115,6 @@ export default class BackendFoldersRepository extends FoldersRepository {
 
         BackendFoldersRepository.foldersSubscription = async () => {
             const {decodedJwtToken} = retrieveServiceData();
-            console.log(decodedJwtToken);
             // Retrieve all folders
             const folders = await findDocument('folders', {
                 owner: decodedJwtToken.email
@@ -125,31 +126,88 @@ export default class BackendFoldersRepository extends FoldersRepository {
         return () => BackendFoldersRepository.foldersSubscription = null;
     }
 
-    async subscribeToSharedFolders() {
-        // Not available in local mode
+    async subscribeToSharedFolders({ folderSubscriptionRequest }) {
+        const userId = folderSubscriptionRequest.getUserId();
+        const onSubscriptionChanges =
+            folderSubscriptionRequest.getOnSubscriptionChanges();
+
+        // Retrieve current userSharingSettings
+        const userSharingSettings = await findDocument('userSharingSettings', {
+            email: userId
+        });
+
+        // Retrieve all shared folders
+        const sharedFolders = await findSubdocument('userSharingSettings', userSharingSettings[0].id, 'sharedFolders', {});
+
+        onSubscriptionChanges(sharedFolders);
+
+        // Real-time updates not available
         return () => null; // eslint-disable-line
     }
 
-    _parseSharedWithParam(folder) {
-        try {
-            folder.sharedWith = JSON.parse(folder.sharedWith);
-        } catch (error) {
-            folder.sharedWith = [];
-        }
+    async shareFolder({ userPublicDetails, folderShareRequest }) {
+        const { uid } = userPublicDetails;
+        const folderName = folderShareRequest.getFolderName();
+        const encryptedFolderKey = folderShareRequest.getEncryptedFolderKey();
+        const folderId = folderShareRequest.getFolderId();
+        const email = folderShareRequest.getEmail();
+        const emailList = folderShareRequest.getEmailList();
 
-        return folder;
-    }
+        // Recover the userSharingSettings document
+        const userSharingSettings = await findDocument('userSharingSettings', {
+            email
+        });
 
-    async shareFolder() {
-        // Not available in local mode
+        // Create a new document inside sharedFolders subcollection
+        const sharedFolder = {
+            name: folderName,
+            key: encryptedFolderKey,
+            shared: true,
+            folder: folderId,
+        };
+
+        await createSubdocument('userSharingSettings', userSharingSettings[0].id, 'sharedFolders', sharedFolder);
+        
+        // Add email to the shared list
+        emailList.push(email);
+
+        await updateDocument('folders', folderId, {
+            sharedWith: emailList,
+        });
+
+        BackendFoldersRepository.foldersSubscription();
+
         return true;
     }
 
-    async updateFolderSharedWith() {
-        // Not available in local mode
+    async updateFolderSharedWith({ folderShareRequest }) {
+        // Load firebase library
+        const folderId = folderShareRequest.getFolderId();
+        const emailList = folderShareRequest.getEmailList();
+
+        // Save the new email list updating the folder in firebase
+        await updateDocument('folders', folderId, {
+            sharedWith: emailList,
+        });
+
+        BackendFoldersRepository.foldersSubscription();
     }
 
-    async unshareFolder() {
-        // Not available in local mode
+    async unshareFolder({ folderShareRequest, userPublicDetails }) {
+        // Load firebase library
+        const { uid } = userPublicDetails;
+        const folderId = folderShareRequest.getFolderId();
+
+        // Recover the userSharingSettings document
+        const userSharingSettings = await findDocument('userSharingSettings', {
+            email: uid
+        });
+
+        // Recover the sharedFolder document
+        const sharedFolder = await findSubdocument('userSharingSettings', userSharingSettings[0].id, 'sharedFolders', {
+            folder: folderId
+        });
+
+        await deleteSubdocument('userSharingSettings', userSharingSettings[0].id, 'sharedFolders', sharedFolder[0].id);
     }
 }
