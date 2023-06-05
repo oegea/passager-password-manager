@@ -18,27 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Config files
-import firebase from './firebase.js';
-import local from './local.js';
-import backend from './backend.js';
-
-export let config = {
-    FIREBASE_STORE_MODE: 'FIREBASE',
-    LOCAL_STORE_MODE: 'LOCAL',
-    BACKEND_STORE_MODE: 'BACKEND'
-};
-
-switch(localStorage.getItem('storeMode')) {
-case config.LOCAL_STORE_MODE:
-    config = { ...config, ...local };
-    break;
-case config.BACKEND_STORE_MODE:
-    config = { ...config, ...backend };
-    break;
-default:
-    config = { ...config, ...firebase };
-    break;
+const config = {
+    storeMode: 'BACKEND',
 };
 
 export default config;

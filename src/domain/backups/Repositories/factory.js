@@ -44,6 +44,10 @@ export class BackupsRepositoriesFactory {
             return BackupsRepositoriesFactory.localBackupsRepository({
                 config,
             });
+        case config.get('BACKEND_STORE_MODE'):
+            return BackupsRepositoriesFactory.localBackupsRepository({
+                config,
+            });
         default:
             throw new Error(`Unknown store mode: ${storeMode}`);
         }

@@ -24,6 +24,7 @@ import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
 import FirebaseUsersRepository from './FirebaseUsersRepository.js';
 import LocalUsersRepository from './LocalUsersRepository.js';
+import BackendUsersRepository from './BackendUsersRepository.js';
 // Factories
 import { UsersEntitiesFactory } from '../Entities/factory.js';
 
@@ -41,6 +42,12 @@ export class UsersRepositoriesFactory {
             userDocumentEntity: UsersEntitiesFactory.userDocumentEntity,
         });
 
+    static backendUsersRepository = ({ config }) =>
+        new BackendUsersRepository({
+            config,
+            userDocumentEntity: UsersEntitiesFactory.userDocumentEntity,
+        });
+
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
@@ -50,6 +57,10 @@ export class UsersRepositoriesFactory {
             });
         case config.get('LOCAL_STORE_MODE'):
             return UsersRepositoriesFactory.localUsersRepository({
+                config,
+            });
+        case config.get('BACKEND_STORE_MODE'):
+            return UsersRepositoriesFactory.backendUsersRepository({
                 config,
             });
         default:

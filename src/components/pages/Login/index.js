@@ -41,8 +41,8 @@ const PageLogin = () => {
             enableLocalMode();
 
         // If already selected backend mode
-        if (isBackendMode()) 
-            enableBackendMode();
+        /*if (isBackendMode()) 
+            enableBackendMode();*/
 
     }, []);
     

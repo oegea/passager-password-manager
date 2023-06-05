@@ -49,6 +49,10 @@ export class FoldersRepositoriesFactory {
             return FoldersRepositoriesFactory.localFoldersRepository({
                 config,
             });
+        case config.get('BACKEND_STORE_MODE'):
+            return FoldersRepositoriesFactory.localFoldersRepository({
+                config,
+            });
         default:
             throw new Error(`Unknown store mode: ${storeMode}`);
         }

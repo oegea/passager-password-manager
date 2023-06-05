@@ -49,6 +49,10 @@ export class PasswordsRepositoriesFactory {
             return PasswordsRepositoriesFactory.localPasswordsRepository({
                 config,
             });
+        case config.get('BACKEND_STORE_MODE'):
+            return PasswordsRepositoriesFactory.localPasswordsRepository({
+                config,
+            });
         default:
             throw new Error(`Unknown store mode: ${storeMode}`);
         }

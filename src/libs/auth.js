@@ -37,7 +37,6 @@ export const logout = () => {
 
 export const getUserDocument = async (user) => {
     if (user === null) return null;
-
     const { uid, email, displayName, photoURL } = user;
 
     const userDocument = await domain.useCases.users[
