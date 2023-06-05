@@ -30,8 +30,7 @@ export const logout = () => {
     const auth = getAuth();
     signOut(auth);
     localStorage.setItem('storeMode', 'FIREBASE');
-    localStorage.removeItem('documentsUrl');
-    localStorage.removeItem('authenticationUrl');
+
     localStorage.removeItem('jwtToken');
     window.location.href = '/';
 };

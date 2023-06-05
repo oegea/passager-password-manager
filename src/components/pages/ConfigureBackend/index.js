@@ -72,20 +72,18 @@ const PageConfigureBackend = () => {
                         }
                     />
                     {serviceUrl.error.length > 0 && (
-                        <span style={{ color: 'red' }}>{serviceUrl.error}</span>
+                        <span style={{ color: 'red' }}>{t(serviceUrl.error)}</span>
                     )}
                 </InputWrapper>
                 <ButtonWrapper justifyContent="center">
                     <Button
-                        label={t('common.Access')}
+                        label={t('common.Continue')}
                         onClick={async () => {
                             const retrievedServiceUrls = await getServiceUrls(serviceUrl.value);
                             if (retrievedServiceUrls === null) {
                                 setServiceUrl({
                                     ...serviceUrl,
-                                    error: t(
-                                        'configureBackend.The URL introduced is not valid'
-                                    ),
+                                    error: 'configureBackend.The URL introduced is not valid',
                                 });
                                 return;
                             }

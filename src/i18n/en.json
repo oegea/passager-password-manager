@@ -24,7 +24,20 @@
     "configureBackend": {
         "Please introduce your organization's URL": "Please introduce your organization's URL",
         "Service URL": "Service URL",
-        "Type here the URL provided by your organization": "Type here the URL provided by your organization"
+        "Type here the URL provided by your organization": "Type here the URL provided by your organization",
+        "The URL introduced is not valid": "The URL introduced is not valid."
+    },
+    "loginBackend": {
+        "Please introduce your e-mail address": "Please introduce your e-mail address",
+        "E-mail address": "E-mail address",
+        "Type here your e-mail address": "Type here your e-mail address",
+        "You are logging in your organization through the following url": "You are logging in your organization through the following url:",
+        "Click here to connect to another organization": "Click here to connect to another organization",
+        "The entered e-mail is not valid": "The entered e-mail is not valid.",
+        "A validation code has been sent to your e-mail address. Please, type it below to continue.": "A validation code has been sent to your e-mail address. Please, type it below to continue.",
+        "Validation code": "Validation code",
+        "Type here the validation code": "Type here the validation code",
+        "The entered code is not valid": "The entered code is not valid."
     },
     "documentsListRightPanel": {
         "Delete folder": "Delete folder",

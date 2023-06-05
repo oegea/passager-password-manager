@@ -48,3 +48,43 @@ export const setServiceUrls = ({authenticationUrl, documentsUrl}) => {
     localStorage.setItem('documentsUrl', documentsUrl);
     window.location.reload();
 };
+
+export const removeServiceUrls = () => {
+    localStorage.removeItem('authenticationUrl');
+    localStorage.removeItem('documentsUrl');
+    window.location.reload();
+};
+
+export const startLoginProcess = (authenticationUrl, email) => {
+    return fetch(authenticationUrl + 'login/' + email)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data?.success === true) {
+                return true;
+            }
+
+            return false;
+            
+        })
+        .catch(() => false);
+};
+
+export const finishLoginProcess = (authenticationUrl, email, token) => {
+    return fetch(authenticationUrl + 'login/' + email + '/validate/' + token)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data?.success === true) {
+                setJwtToken(data.message);
+                return data?.message;
+            }
+
+            return false;
+            
+        })
+        .catch(() => false);
+};
+
+export const setJwtToken = (jwtToken) => {
+    localStorage.setItem('jwtToken', jwtToken);
+    window.location.href = '/';
+};

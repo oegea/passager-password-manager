@@ -25,10 +25,11 @@ import PropTypes from 'prop-types';
 import ConfigureBackend from './components/pages/ConfigureBackend/index.js';
 import Home from './components/pages/Home/index.js';
 import Login from './components/pages/Login/index.js';
-import UserSignup from './components/pages/UserSignup/index.js';
-import UserMasterPasswordValidation from './components/pages/UserMasterPasswordValidation/index.js';
+import LoginBackend from './components/pages/LoginBackend/index.js';
 import Profile from './components/pages/Profile/index.js';
 import ProfileBackups from './components/pages/Profile/backups.js';
+import UserMasterPasswordValidation from './components/pages/UserMasterPasswordValidation/index.js';
+import UserSignup from './components/pages/UserSignup/index.js';
 // Context
 import withUser from './providers/WithUser.js';
 // Libs
@@ -72,6 +73,7 @@ const RoutesConfiguration = ({ user }) => {
                 <Routes>
                     <Route path="*" element={<Login />} />
                     <Route path="/configure-backend" element={<ConfigureBackend />} />
+                    <Route path="/login-backend" element={<LoginBackend />} />
                 </Routes>
             )}
         </BrowserRouter>
