@@ -33,7 +33,18 @@ export const getServiceUrls = (baseUrl) => {
     return fetch(baseUrl + '/services-url')
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-            return data;
-        });
+            if (data?.authenticationUrl && data?.documentsUrl) {
+                return data;
+            }
+
+            return null;
+            
+        })
+        .catch(() => null);
+};
+
+export const setServiceUrls = ({authenticationUrl, documentsUrl}) => {
+    localStorage.setItem('authenticationUrl', authenticationUrl);
+    localStorage.setItem('documentsUrl', documentsUrl);
+    window.location.reload();
 };

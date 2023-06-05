@@ -50,6 +50,11 @@ const PageLogin = () => {
 
     const RANDOM_SENTENCES = [t('login.A safe place to store your passwords')];
 
+    const qaModeEnabledFromUrl = new URLSearchParams(
+        window.location.search
+    ).get('qaMode');
+
+
     return (
         <>
             <NotLogged>
@@ -80,12 +85,12 @@ const PageLogin = () => {
                     />
                 </ButtonWrapper>
 
-                {/*<ButtonWrapper justifyContent="center">
+                {qaModeEnabledFromUrl && <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('login.Use Passager in my organization')}
                         onClick={enableBackendMode}
                     />
-                </ButtonWrapper>*/}
+                </ButtonWrapper> }
                 <LanguageSelector />
             </NotLogged>
         </>

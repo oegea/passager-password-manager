@@ -35,7 +35,7 @@ import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { logout } from '../../../libs/auth.js';
-import {getServiceUrls} from '../../../libs/backend.js';
+import {getServiceUrls, setServiceUrls} from '../../../libs/backend.js';
 // Hooks
 import { useCheckBackendConfigAndRedirectEffect } from './useCheckBackendConfigAndRedirectEffect.js';
 
@@ -78,8 +78,19 @@ const PageConfigureBackend = () => {
                 <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('common.Access')}
-                        onClick={() => {
-                            getServiceUrls(serviceUrl.value);
+                        onClick={async () => {
+                            const retrievedServiceUrls = await getServiceUrls(serviceUrl.value);
+                            if (retrievedServiceUrls === null) {
+                                setServiceUrl({
+                                    ...serviceUrl,
+                                    error: t(
+                                        'configureBackend.The URL introduced is not valid'
+                                    ),
+                                });
+                                return;
+                            }
+
+                            setServiceUrls(retrievedServiceUrls);
                         }}
                     />
                 </ButtonWrapper>

@@ -6,6 +6,7 @@ dotenv.config({ path: '../.env' })
 
 loadConfig({
     commonAppName: process.env.COMMON_APP_NAME,
+    commonDisableCors: false,
     commonOrganizationName: process.env.COMMON_ORGANIZATION_NAME,
     commonMongoDbConnectionString: process.env.COMMON_MONGODB_CONNECTION_STRING,
     commonTokenSecret: process.env.COMMON_TOKEN_SECRET,
