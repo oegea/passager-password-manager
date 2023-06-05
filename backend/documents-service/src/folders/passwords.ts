@@ -19,6 +19,9 @@ const _canAccessFolder = async ({
   })
   folderDocument = folderDocument[0]
 
+  if (folderDocument.owner === currentUserId)
+    return true
+
   // Or our userSharingSettings/sharedFolders should contain a record for this folder
   let userSharingSettings = await eventBusRepository.query('FIND_DOCUMENT', {
     collection: 'userSharingSettings',
@@ -38,7 +41,7 @@ const _canAccessFolder = async ({
   })
   sharedFolder = sharedFolder[0][0]
 
-  if (!sharedFolder.shared && folderDocument.owner !== currentUserId) {
+  if (!sharedFolder.shared) {
     console.log('Trying to access a folder not owned by nor shared with the current user')
     return false
   }

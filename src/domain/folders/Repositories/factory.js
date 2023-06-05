@@ -22,6 +22,7 @@
 import firebaseUtils from '../../../libs/firebase.js';
 import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
+import BackendFoldersRepository from './BackendFoldersRepository.js';
 import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
 import LocalFoldersRepository from './LocalFoldersRepository.js';
 
@@ -38,6 +39,11 @@ export class FoldersRepositoriesFactory {
             LocalStorageDatabase,
         });
 
+    static backendFoldersRepository = ({ config }) =>
+        new BackendFoldersRepository({
+            config,
+        });
+
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
@@ -50,7 +56,7 @@ export class FoldersRepositoriesFactory {
                 config,
             });
         case config.get('BACKEND_STORE_MODE'):
-            return FoldersRepositoriesFactory.localFoldersRepository({
+            return FoldersRepositoriesFactory.backendFoldersRepository({
                 config,
             });
         default:

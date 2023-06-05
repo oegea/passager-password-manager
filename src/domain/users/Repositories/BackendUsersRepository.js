@@ -19,12 +19,19 @@
  */
 
 import UsersRepository from './UsersRepository.js';
+import { 
+    createDocument, 
+    findDocument, 
+    getDocument, 
+    retrieveServiceData, 
+    setDocument, 
+    updateDocument
+} from '../../../libs/backend.js';
 
 export default class BackendUsersRepository extends UsersRepository {
-    constructor({ config, LocalStorageDatabase, userDocumentEntity }) {
+    constructor({ config, userDocumentEntity }) {
         super({});
         this._config = config;
-        this._LocalStorageDatabase = LocalStorageDatabase;
         this._userDocumentEntity = userDocumentEntity;
     }
 
@@ -154,165 +161,3 @@ export default class BackendUsersRepository extends UsersRepository {
     }
 }
 
-const setDocument = async (collection, document, findCriteria) => {
-    // First check if document exists
-    const searchResult = await findDocument(collection, findCriteria);
-
-    // If document exists, update it
-    if (searchResult !== null && searchResult.length > 0) {
-        const existingDocument = searchResult[0];
-
-        const updatedDocument = {
-            ...document
-        };
-
-        const result = await updateDocument(
-            collection,
-            existingDocument.id,
-            updatedDocument
-        );
-
-        return result;
-    }
-
-    // If document doesn't exist, create it
-    const result = await createDocument(collection, document);
-
-    return result;
-};
-
-const createDocument = async (collection, document) => {
-    
-    const serviceData = retrieveServiceData();
-
-    if (serviceData === null) {
-        return null;
-    }
-
-    const { documentsUrl, jwtToken } = serviceData;
-
-    const url = `${documentsUrl}documents/${collection}`;
-    const method = 'POST';
-    const body = {
-        ...document
-    };
-
-    const documents = await queryDocumentsService(url, method, jwtToken, body);
-
-    return documents;
-};
-
-const updateDocument = async (collection, id, document) => {
-    const serviceData = retrieveServiceData();
-
-    if (serviceData === null) {
-        return null;
-    }
-
-    const { documentsUrl, jwtToken } = serviceData;
-
-    const url = `${documentsUrl}documents/${collection}/${id}`;
-    const method = 'PATCH';
-    const body = {
-        ...document
-    };
-
-    const documents = await queryDocumentsService(url, method, jwtToken, body);
-
-    return documents;
-};
-
-const getDocument = async (collection, id) => {
-    const serviceData = retrieveServiceData();
-
-    if (serviceData === null) {
-        return null;
-    }
-
-    const { documentsUrl, jwtToken } = serviceData;
-
-    const url = `${documentsUrl}documents/${collection}/${id}`;
-    const method = 'GET';
-
-    const document = await queryDocumentsService(url, method, jwtToken);
-
-    return document;
-};
-
-const findDocument = async (collection, criteria) => {
-
-    const serviceData = retrieveServiceData();
-
-    if (serviceData === null) {
-        return null;
-    }
-
-    const { documentsUrl, jwtToken } = serviceData;
-
-    const url = `${documentsUrl}documents/${collection}/find`;
-    const method = 'POST';
-    const body = {
-        ...criteria
-    };
-
-    const documents = await queryDocumentsService(url, method, jwtToken, body);
-
-    return documents;
-};
-
-const queryDocumentsService = async (url, method, jwtToken, body) => {
-    const response = await fetch(url, {
-        method,
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwtToken}`,
-        },
-        body: method === 'GET' ? undefined : JSON.stringify(body),
-    });
-
-    const responseJson = await response.json();
-
-    // If success prop is not true, return null
-    if (responseJson?.success !== true) {
-        return null;
-    }
-
-    return responseJson.message;
-};
-
-const retrieveServiceData = () => {
-    const documentsUrl = localStorage.getItem('documentsUrl');
-    const jwtToken = localStorage.getItem('jwtToken');
-
-    // If there is a missing parameter, return null
-    if (documentsUrl === null || jwtToken === null) {
-        return null;
-    }
-
-    // If jwt token is expired
-    if (isJwtTokenExpired(jwtToken)) {
-        return null;
-    }
-
-    const decodedJwtToken = decodeJwt(jwtToken);
-
-    return {
-        documentsUrl,
-        jwtToken,
-        decodedJwtToken
-    };
-};
-
-const decodeJwt = (jwtToken) => {
-    const base64Url = jwtToken.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    const jwtTokenDecoded = JSON.parse(window.atob(base64));
-    return jwtTokenDecoded;
-};
-
-const isJwtTokenExpired = (jwtToken) => {
-    const jwtTokenDecoded = decodeJwt(jwtToken);
-    const expirationDate = new Date(jwtTokenDecoded.exp * 1000);
-    const currentDate = new Date();
-    return currentDate > expirationDate;
-};
