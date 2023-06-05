@@ -41,8 +41,8 @@ const PageLogin = () => {
             enableLocalMode();
 
         // If already selected backend mode
-        /*if (isBackendMode()) 
-            enableBackendMode();*/
+        if (isBackendMode()) 
+            enableBackendMode();
 
     }, []);
     
@@ -54,12 +54,6 @@ const PageLogin = () => {
     }
 
     const RANDOM_SENTENCES = [t('login.A safe place to store your passwords')];
-
-    const qaModeEnabledFromUrl = new URLSearchParams(
-        window.location.search
-    ).get('qaMode');
-
-
     return (
         <>
             <NotLogged>
@@ -90,12 +84,12 @@ const PageLogin = () => {
                     />
                 </ButtonWrapper>
 
-                {qaModeEnabledFromUrl && <ButtonWrapper justifyContent="center">
+                <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('login.Use Passager in my organization')}
                         onClick={enableBackendMode}
                     />
-                </ButtonWrapper> }
+                </ButtonWrapper>
                 <LanguageSelector />
             </NotLogged>
         </>

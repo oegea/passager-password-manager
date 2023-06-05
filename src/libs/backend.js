@@ -1,3 +1,5 @@
+import {logout} from './auth.js';
+
 export const enableBackendMode = () => {
     localStorage.setItem('storeMode', 'BACKEND');
     window.location.href = '/configure-backend';
@@ -22,6 +24,10 @@ export const isBackendFullyLogged = () => {
     const jwtToken = localStorage.getItem('jwtToken');
 
     if (areBackendUrlsConfigured() === false || !jwtToken) {
+        return false;
+    }
+
+    if (isJwtTokenExpired(jwtToken)) {
         return false;
     }
 
@@ -379,5 +385,10 @@ const isJwtTokenExpired = (jwtToken) => {
     const jwtTokenDecoded = decodeJwt(jwtToken);
     const expirationDate = new Date(jwtTokenDecoded.exp * 1000);
     const currentDate = new Date();
-    return currentDate > expirationDate;
+    if (currentDate > expirationDate) {
+        logout();
+        return true;
+    }
+
+    return false;
 };
