@@ -31,7 +31,10 @@
     },
     "scripts": {
         "start": "react-scripts start",
+        "start:docker": "docker run -p 8000:80 passager-frontend",
         "build": "react-scripts build&&npx cap sync",
+        "build:web": "react-scripts build",
+        "build:docker": "docker build . -t 'passager-frontend'",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "prepare": "husky install",
