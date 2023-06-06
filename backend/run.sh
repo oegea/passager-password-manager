@@ -8,10 +8,10 @@ _term() {
 trap _term SIGTERM
 
 # Start the first process
-npm --prefix ./authentication-service start &
+npm run --prefix ./authentication-service start:dist &
 
 # Start the second process
-npm --prefix ./documents-service start &
+npm run --prefix ./documents-service start:dist &
 
 # Wait for any process to exit
 wait -n

@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "tsc && node dist/index.js",
+        "start:dist": "node dist/index.js",
         "start:background": "npx forever start dist/index.js",
         "build": "clear && echo ⌛️ Compiling code... && tsc && echo ✅ Build completed successfully! && echo 💻 Start it by running npm run start:background",
         "test": "jest",

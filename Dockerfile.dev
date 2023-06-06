@@ -1,0 +1,16 @@
+FROM node:16 AS build
+
+# Copy package.json and package-lock.json
+WORKDIR /usr/src/app
+COPY ./package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the code
+COPY . .
+
+EXPOSE 3000
+
+# Start the app with npm start
+CMD ["npm", "start"]
