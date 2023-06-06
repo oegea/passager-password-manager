@@ -1,20 +1,59 @@
 # Passager Password Manager
-![Build](https://github.com/oegea/passager-password-manager/actions/workflows/firebase-hosting-merge.yml/badge.svg) 
+
+![Build](https://github.com/oegea/passager-password-manager/actions/workflows/firebase-hosting-merge.yml/badge.svg)
 [![License](https://shields.io/badge/license-AGPL-green)](LICENSE.md)
-![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager) 
+![Code Size](https://shields.io/github/languages/code-size/oegea/passager-password-manager)
 ![Last Commit](https://shields.io/github/last-commit/oegea/passager-password-manager)
 <a href="https://play.google.com/store/apps/details?id=im.oriol.passager" target="_blank">
-    <img height="20" src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Available on Google Play Store"/>
+<img height="20" src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Available on Google Play Store"/>
 </a>
 <a href="https://apps.apple.com/es/app/passager-password-manager/id1631897662" target="_blank">
-    <img height="20" src="https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"/>
+<img height="20" src="https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"/>
 </a>
-
-
 
 Passager Password Manager is an open-source and easy-to-use password manager.
 
-## Why?
+# Quick Start
+
+## Run a production-ready build
+
+Build the docker image with the following command:
+
+```bash
+npm run build:docker
+```
+
+Then start the container with:
+
+```bash
+npm run start:docker
+```
+
+A production-ready build will be available on the port `8000` under an apache server.
+
+## Start developing locally with docker
+
+Build the docker image with the following command:
+
+```bash
+npm run build:docker:dev
+```
+
+Then start the container with:
+
+```bash
+npm run start:docker:dev
+```
+
+A development build will be available on the port `3000`. Changes on the code will be reflected on the container.
+
+## Starting a new Passager Backend instance
+
+Passager has its own REST service to handle authentication and data storage. It can be easily started by building and starting its corresponding docker image.
+
+Please refer to the [Passager Backend directory](/backend/) for more information.
+
+## Reasons to create Passager
 
 You could be wondering why the world needs another password manager.
 
@@ -22,9 +61,9 @@ The answer is that the world doesn't really need more password managers, but I u
 
 This is the reason to create `passager`. To bring to the world a password manager that is:
 
-* Simple to use and maintain, both for users and sys admins.
-* Secure by design.
-* Usable by teams.
+-   Simple to use and maintain, both for users and sys admins.
+-   Secure by design.
+-   Usable by teams.
 
 These are the three topics around the value-proposition of `passager`, and these points should be the foundation to define its vision and goals.
 
@@ -39,31 +78,31 @@ If you find any security issue or possible improvement, feel free to submit a PR
 
 ## Nice features
 
-* DDD architecture: Which allows to use `passager` in local mode, or in the cloud using firebase.
-* Password sharing capabilities when using `passager` in cloud mode.
-* Screen lock after ten minutes of inactivity.
+-   DDD architecture: Which allows to use `passager` in local mode, or in the cloud using firebase.
+-   Password sharing capabilities when using `passager` in cloud mode.
+-   Screen lock after ten minutes of inactivity.
 
 ## Technical decisions
 
 To achieve simplicity, security and usability for teams, the following technical decisions have been adopted:
 
-* Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
-* Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
-* Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed on a future.
-* Handle encryption of data on the client's browser, using native APIs to perform crypto operations.
-* Ensure that team sharing features do not reduce software security.
+-   Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
+-   Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
+-   Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed on a future.
+-   Handle encryption of data on the client's browser, using native APIs to perform crypto operations.
+-   Ensure that team sharing features do not reduce software security.
 
 ## Most relevant dependencies
 
-* `@mdi/js` and `@mdi/react`, to require and render material design icons.
-* `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
-* `react-i18next` and `i18next`, to translate the app to different languages.
-* `styled-components`, is used to style components.
-* `@capacitor/android`, `@capacitor/cli`, `@capacitor/core`, `@capacitor/ios`, `@capacitor/status-bar` and `capacitor-native-biometric` are used to compile the app for mobile devices.
+-   `@mdi/js` and `@mdi/react`, to require and render material design icons.
+-   `create-react-app`, and all dependencies included in the default template are used to build the project foundation and scaffolding.
+-   `react-i18next` and `i18next`, to translate the app to different languages.
+-   `styled-components`, is used to style components.
+-   `@capacitor/android`, `@capacitor/cli`, `@capacitor/core`, `@capacitor/ios`, `@capacitor/status-bar` and `capacitor-native-biometric` are used to compile the app for mobile devices.
 
 ## Development dependencies
 
-* `husky`, to run tests before commiting changes to the repository.
+-   `husky`, to run tests before commiting changes to the repository.
 
 ## About cryptography
 
@@ -79,8 +118,8 @@ These are the techniques followed to protect user passwords:
 
 ## Attributions
 
-* **Favicon**: Safe box icons created by Freepik - Flaticon - https://www.flaticon.com/free-icons/safe-box
-* Google Play and the Google Play logo are trademarks of Google LLC.
+-   **Favicon**: Safe box icons created by Freepik - Flaticon - https://www.flaticon.com/free-icons/safe-box
+-   Google Play and the Google Play logo are trademarks of Google LLC.
 
 ## Available Scripts
 
