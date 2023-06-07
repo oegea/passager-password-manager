@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // Third party dependencies
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 // Atoms
 import Input from '../../../atoms/Input/index.js';
@@ -25,6 +26,8 @@ import InputWrapper from '../../../atoms/Dialog/DialogInputWrapper.js';
 import InputLabel from '../../../atoms/InputLabel/index.js';
 import Button from '../../../atoms/Button/index.js';
 import ButtonWrapper from '../../../atoms/Dialog/DialogButtonWrapper.js';
+// Molecules
+import GlobalSpinner from '../../../molecules/GlobalSpinner/index.js';
 // Own libs
 import { startLoginProcess } from '../../../../libs/backend.js';
 
@@ -35,8 +38,11 @@ const IntroduceEmailStage = ({
     onSuccess
 }) => {
 
+    const [displaySpinner, setDisplaySpinner] = useState(false);
+
     return (
         <>
+            {displaySpinner && <GlobalSpinner />}
             <InputWrapper marginBottom="25px">
                 <InputLabel htmlFor="email">
                     {t('loginBackend.E-mail address')}
@@ -61,11 +67,12 @@ const IntroduceEmailStage = ({
                 <Button
                     label={t('common.Continue')}
                     onClick={async () => {
+                        setDisplaySpinner(true);
                         const result = await startLoginProcess(
                             localStorage.getItem('authenticationUrl'), 
                             email.value
                         );
-
+                        setDisplaySpinner(false);
                         if (result === false) {
                             setEmail({
                                 value: email.value,

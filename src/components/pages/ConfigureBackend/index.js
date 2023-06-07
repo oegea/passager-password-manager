@@ -31,6 +31,7 @@ import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Molecules
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
+import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
@@ -45,9 +46,11 @@ const PageConfigureBackend = () => {
         value: '',
         error: '',
     });
+    const [displaySpinner, setDisplaySpinner] = useState(false);
     useCheckBackendConfigAndRedirectEffect();
     return (
         <>
+            {displaySpinner && <GlobalSpinner />}
             <NotLogged>
                 <Title>Passager</Title>
                 <p>
@@ -79,8 +82,11 @@ const PageConfigureBackend = () => {
                     <Button
                         label={t('common.Continue')}
                         onClick={async () => {
+                            setDisplaySpinner(true);
                             const retrievedServiceUrls = await getServiceUrls(serviceUrl.value);
+                            
                             if (retrievedServiceUrls === null) {
+                                setDisplaySpinner(false);
                                 setServiceUrl({
                                     ...serviceUrl,
                                     error: 'configureBackend.The URL introduced is not valid',

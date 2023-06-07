@@ -55,7 +55,9 @@
         "Log in with Google": "Log in with Google",
         "Change to": "Switch to:",
         "Use Passager in my organization": "Use Passager in my organization",
-        "Use Passager locally for personal purposes": "Use Passager locally for personal purposes"
+        "Use Passager locally for personal purposes": "Use Passager locally for personal purposes",
+        "Login with Google will be removed soon! Please start using Passager locally or": "Login with Google will be removed soon! Please start using Passager locally or",
+        "in your own server": "in your own server"
     },
     "folderFormDialog": {
         "Edit Folder": "Edit Folder",

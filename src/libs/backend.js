@@ -35,10 +35,13 @@ export const isBackendFullyLogged = () => {
 };
 
 export const getServiceUrls = (baseUrl) => {
+
+    const withHttpBaseUrl = (baseUrl.includes('http://') || baseUrl.includes('https://')) ? baseUrl : 'https://' + baseUrl;
     // Perform a get request to the baseUrl and make a console log of the response
-    return fetch(baseUrl + '/services-url')
+    return fetch(withHttpBaseUrl + '/services-url')
         .then((response) => response.json())
         .then((data) => {
+
             if (data?.authenticationUrl && data?.documentsUrl) {
                 return data;
             }

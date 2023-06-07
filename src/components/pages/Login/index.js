@@ -63,6 +63,9 @@ const PageLogin = () => {
                         ]
                     }
                 </p>
+                <p style={{color: 'red'}}>
+                    {t('login.Login with Google will be removed soon! Please start using Passager locally or')} <a href="https://github.com/oegea/passager-password-manager/blob/main/backend/readme.md" rel="noreferrer" target="_blank">{t('login.in your own server')}.</a>
+                </p>
                 {!isMobileDevice() ? (
                     <ButtonWrapper justifyContent="center">
                         <Button
