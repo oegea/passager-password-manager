@@ -55,6 +55,7 @@ export default class BackendFoldersRepository extends FoldersRepository {
             name,
             key,
             owner,
+            sharedWith: []
         });
 
         BackendFoldersRepository.foldersSubscription();
