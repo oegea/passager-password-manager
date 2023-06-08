@@ -13,11 +13,28 @@
 
 Passager Password Manager is an open-source and easy-to-use password manager.
 
-# Quick Start
+## Nice features
 
-## Run a production-ready build
+-   Possibility to use it in local mode or in cloud mode by connecting to a remote backend.
+-   Password sharing capabilities when using `passager` in cloud mode.
+-   Screen lock after ten minutes of inactivity.
+-   E2E encryption relies on the WebCrypto API. No third-party crypto libraries are used, which warranties that crypto code is up-to-date as long as the browser is.
 
-Build the docker image with the following command:
+## Try Passager now
+
+Passager can be used in local mode, which means that all data is stored in the browser's local storage. This is the recommended mode if you want to be sure that your data is not stored in any server.
+
+Just download the mobile app or directly access from your browser:
+
+-   [Try the latest web app version](https://cloud.passager.app)
+-   [Download from Google Play](https://play.google.com/store/apps/details?id=im.oriol.passager)
+-   [Download from App Store](https://apps.apple.com/es/app/passager-password-manager/id1631897662)
+
+## Installing Passager in a production environment
+
+### Run a production-ready build
+
+It's possible to build the docker image with the following command:
 
 ```bash
 npm run build:docker
@@ -29,9 +46,20 @@ Then start the container with:
 npm run start:docker
 ```
 
-A production-ready build will be available on the port `8000` under an apache server.
+A production-ready build will be available on the port `8000` served by a basic apache server.
 
-## Start developing locally with docker
+### Starting a new Passager Backend instance
+
+Passager has its own REST service to handle authentication and data storage.
+It works great for organizations that need to keep synchronized their passwords between different devices. Additionally, sharing capabilities are available when connecting Passager to a remote backend.
+
+A new backend instance can be easily started by building and running its corresponding docker image.
+
+Please refer to the [Passager Backend directory](/backend/) for more information.
+
+## Starting developing
+
+### Quick start with docker
 
 Build the docker image with the following command:
 
@@ -47,11 +75,26 @@ npm run start:docker:dev
 
 A development build will be available on the port `3000`. Changes on the code will be reflected on the container.
 
-## Starting a new Passager Backend instance
+### Available Scripts
 
-Passager has its own REST service to handle authentication and data storage. It can be easily started by building and starting its corresponding docker image.
+`create-react-app` is the `passager`'s scaffolding engine.
 
-Please refer to the [Passager Backend directory](/backend/) for more information.
+In the project directory, you can run:
+
+-   `npm run prepare`
+-   `npm start`
+-   `npm test`
+-   `npm run build`
+
+## Technical decisions
+
+To achieve simplicity, security and usability for teams, the following technical decisions have been adopted:
+
+-   Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
+-   Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
+-   Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed on a future.
+-   Handle encryption of data on the client's browser, using native APIs to perform crypto operations.
+-   Ensure that team sharing features do not reduce software security.
 
 ## Reasons to create Passager
 
@@ -75,22 +118,6 @@ Please understand that I can't be responsible for any direct or indirect damage 
 I've developed this software with all my 💛, but as you know there are evil people outside in the network. Take care, install always all available updates, and use `passager` at your own risk.
 
 If you find any security issue or possible improvement, feel free to submit a PR and I would try to do my best to handle it.
-
-## Nice features
-
--   DDD architecture: Which allows to use `passager` in local mode, or in the cloud using firebase.
--   Password sharing capabilities when using `passager` in cloud mode.
--   Screen lock after ten minutes of inactivity.
-
-## Technical decisions
-
-To achieve simplicity, security and usability for teams, the following technical decisions have been adopted:
-
--   Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
--   Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
--   Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed on a future.
--   Handle encryption of data on the client's browser, using native APIs to perform crypto operations.
--   Ensure that team sharing features do not reduce software security.
 
 ## Most relevant dependencies
 
@@ -120,35 +147,3 @@ These are the techniques followed to protect user passwords:
 
 -   **Favicon**: Safe box icons created by Freepik - Flaticon - https://www.flaticon.com/free-icons/safe-box
 -   Google Play and the Google Play logo are trademarks of Google LLC.
-
-## Available Scripts
-
-`create-react-app` is the `passager`'s scaffolding engine.
-In the project directory, you can run:
-
-### `npm run prepare`
-
-Set up husky git hooks to run before a commit is submited.
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
