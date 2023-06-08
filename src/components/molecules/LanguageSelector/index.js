@@ -19,16 +19,17 @@
  */
 
 // Third party dependencies
+import PropTypes from 'prop-types';
 import i18n from 'i18next';
 import styled from 'styled-components';
 import useTranslationHook from '../../../hooks/useTranslation/index.js';
 import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 
 const LanguageSelector = styled.div`
-    margin-top: 40px;
+    margin-top: ${props => props.marginTop};
 `;
 
-const MoleculeLanguageSelector = () => {
+const MoleculeLanguageSelector = ({marginTop = '40px'}) => {
     const { t } = useTranslationHook();
 
     const changeLanguage = (e, lng) => {
@@ -38,7 +39,7 @@ const MoleculeLanguageSelector = () => {
     };
 
     return (
-        <LanguageSelector data-testid="language-selector-element">
+        <LanguageSelector marginTop={marginTop} data-testid="language-selector-element">
             {t('login.Change to')}
             <AtomButtonLink onClick={(e) => changeLanguage(e, 'en')}>
                 English
@@ -51,5 +52,8 @@ const MoleculeLanguageSelector = () => {
 };
 
 MoleculeLanguageSelector.displayName = 'MoleculeLanguageSelector';
+MoleculeLanguageSelector.propTypes = {
+    marginTop: PropTypes.string,
+};
 
 export default MoleculeLanguageSelector;

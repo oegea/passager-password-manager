@@ -30,10 +30,9 @@ import Profile from './components/pages/Profile/index.js';
 import ProfileBackups from './components/pages/Profile/backups.js';
 import UserMasterPasswordValidation from './components/pages/UserMasterPasswordValidation/index.js';
 import UserSignup from './components/pages/UserSignup/index.js';
+import Privacy from './components/pages/Privacy/index.js';
 // Context
 import withUser from './providers/WithUser.js';
-// Libs
-import {isBackendMode, isBackendConfigured} from './libs/backend.js';
 const RoutesConfiguration = ({ user }) => {
 
     return (
@@ -74,6 +73,7 @@ const RoutesConfiguration = ({ user }) => {
                     <Route path="*" element={<Login />} />
                     <Route path="/configure-backend" element={<ConfigureBackend />} />
                     <Route path="/login-backend" element={<LoginBackend />} />
+                    <Route path="/privacy" element={<Privacy />} />
                 </Routes>
             )}
         </BrowserRouter>

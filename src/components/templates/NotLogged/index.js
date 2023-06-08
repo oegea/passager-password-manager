@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
 const Wrapper = styled.div`
     align-items: center;
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     justify-content: center;
     background: grey;
 `;

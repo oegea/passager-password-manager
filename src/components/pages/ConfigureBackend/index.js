@@ -99,10 +99,13 @@ const PageConfigureBackend = () => {
                     />
                 </ButtonWrapper>
 
-                <AtomButtonLink onClick={logout}>
+                <AtomButtonLink onClick={logout} noPaddingLeft>
                     {t('common.Logout')}
+                </AtomButtonLink> - &nbsp;
+                <AtomButtonLink onClick={() => location.href = '/privacy'} noPaddingLeft marginTop={'25px'}>
+                    {t('privacy.Important privacy information')}
                 </AtomButtonLink>
-                <LanguageSelector />
+                <LanguageSelector marginTop='15px' />
             </NotLogged>
         </>
     );

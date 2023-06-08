@@ -11,6 +11,12 @@ export const useCheckBackendConfigAndRedirectEffect = () => {
             return;
         }
 
+        // If privacy policy has not been accepted, redirect to the privacy policy page
+        if (localStorage.getItem('privacyAccepted') !== 'true') {
+            window.location.href = '/privacy';
+            return;
+        }
+
         // If everything is fully configured, return to login page
         if (isBackendFullyLogged()) {
             window.location.href = '/';
@@ -22,6 +28,8 @@ export const useCheckBackendConfigAndRedirectEffect = () => {
             window.location.href = '/login-backend';
             return;
         }
+
+
 
     }, []);
 

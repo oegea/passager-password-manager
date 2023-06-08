@@ -31,7 +31,7 @@
         "Please introduce your e-mail address": "Please introduce your e-mail address",
         "E-mail address": "E-mail address",
         "Type here your e-mail address": "Type here your e-mail address",
-        "You are logging in your organization through the following url": "You are logging in your organization through the following url:",
+        "You are logging in your organization through the following url": "You are logging in your organization through the following url",
         "Click here to connect to another organization": "Click here to connect to another organization",
         "The entered e-mail is not valid": "The entered e-mail is not valid.",
         "A validation code has been sent to your e-mail address. Please, type it below to continue.": "A validation code has been sent to your e-mail address. Please, type it below to continue.",
@@ -141,5 +141,30 @@
         "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup\" button.",
         "In addition, you can upload your backups to other computers to have your passwords available on different devices": "In addition, you can upload your backups to other computers to have your passwords available on different devices.",
         "Error importing data. Submitted file is not a valid backup": "Error importing data. Submitted file is not a valid backup."
+    },
+    "privacy": {
+        "Important privacy information": "Important privacy information",
+        "You are going to use Passager by connecting to an external server that belongs to your organization.": "You are going to use Passager by connecting to an external server that belongs to your organization.",
+        "This will allow you to access your passwords from any device, as well as share these passwords with other people from your organization.": "This will allow you to access your passwords from any device, as well as share these passwords with other people from your organization.",
+        "We want you to understand precisely what data your organization will receive, and what aspects you should pay special attention to. Please read this notice carefully.": "We want you to understand precisely what data your organization will receive, and what aspects you should pay special attention to. Please read this notice carefully.",
+        "Precautions before starting": "Precautions before starting",
+        "Never connect Passager to an unknown service URL or that does not belong to your organization.": "Never connect Passager to an unknown service URL or that does not belong to your organization.",
+        "Always check that the URL you are connecting to belongs to the one provided by your organization, distrust in case of doubt.": "Always check that the URL you are connecting to belongs to the one provided by your organization, distrust in case of doubt.",
+        "Never, under any circumstances, access Passager through a URL you do not know who is the owner.": "Never, under any circumstances, access Passager through a URL you do not know who is the owner.",
+        "What data will be sent to your organization": "What data will be sent to your organization",
+        "While you use Passager with your organization, the data you enter in Passager will be received and stored by your organization.": "While you use Passager with your organization, the data you enter in Passager will be received and stored by your organization.",
+        "This includes data such as Email, folder names, and your passwords.": "This includes data such as Email, folder names, and your passwords.",
+        "Your master key will NOT be stored by your organization and you should NEVER share it with ANYONE.": "Your master key will NOT be stored by your organization and you should NEVER share it with ANYONE.",
+        "What data your organization will not be able to read": "What data your organization will not be able to read",
+        "Although your organization stores all the data you enter in Passager, your usernames and passwords are encrypted with your master key so that only you can read them.": "Although your organization stores all the data you enter in Passager, your usernames and passwords are encrypted with your master key so that only you can read them.",
+        "That means that although your organization will save your usernames and passwords, if they try to read them they will only see a set of illegible characters.": "That means that although your organization will save your usernames and passwords, if they try to read them they will only see a set of illegible characters.",
+        "Only you with your master password and the people with whom you have shared a folder, will be able to read the usernames and passwords.": "Only you with your master password and the people with whom you have shared a folder, will be able to read the usernames and passwords.",
+        "What other privacy aspects should you know": "What other privacy aspects should you know",
+        "Contact your organization to clarify the legal basis of the data processing, the retention period, and other details regarding the privacy policy.": "Contact your organization to clarify the legal basis of the data processing, the retention period, and other details regarding the privacy policy.",
+        "Keep in mind that depending on the applicable legislation in your jurisdiction, you may have data protection rights.": "Keep in mind that depending on the applicable legislation in your jurisdiction, you may have data protection rights.",
+        "The creators of Passager do not receive any type of personal data from you when you use Passager. Please contact your organization if you have any questions about the privacy policy.": "The creators of Passager do not receive any type of personal data from you when you use Passager. Please contact your organization if you have any questions about the privacy policy.",
+
+        "I understand and accept this privacy notice": "I understand and accept this privacy notice",
+        "I reject this privacy notice": "I reject this privacy notice"
     }
 }

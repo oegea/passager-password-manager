@@ -32,20 +32,23 @@ const ButtonLink = styled.button`
     font-size: 16px;
     margin: 0 2px;
     text-decoration: underline;
-
+    ${(props) => props.noPaddingLeft ?  'padding-left: 0;': ''}
+    margin-top: ${(props) => props.marginTop};
     &:hover {
         font-weight: bold;
     }
 `;
 
-const AtomButtonLink = ({ children, onClick }) => {
-    return <ButtonLink onClick={onClick}>{children}</ButtonLink>;
+const AtomButtonLink = ({ children, onClick, noPaddingLeft = false, marginTop = '0' }) => {
+    return <ButtonLink onClick={onClick} noPaddingLeft={noPaddingLeft} marginTop={marginTop}>{children}</ButtonLink>;
 };
 
 AtomButtonLink.displayName = 'AtomButtonLink';
 AtomButtonLink.propTypes = {
     children: PropTypes.node,
     onClick: PropTypes.func,
+    noPaddingLeft: PropTypes.bool,
+    marginTop: PropTypes.string,
 };
 
 export default AtomButtonLink;

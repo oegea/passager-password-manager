@@ -141,5 +141,30 @@
         "In case you accidentally delete your data, you can upload a backup copy by clicking on the \"Import backup copy\" button": "En caso de eliminar accidentalmente tus datos, puedes subir una copia de seguridad pulsando el botón \"Importar copia de seguridad\".",
         "In addition, you can upload your backups to other computers to have your passwords available on different devices": "Además, puedes cargar tus copias de seguridad en otros ordenadores para disponer de tus contraseñas en distintos dispositivos.",
         "Error importing data. Submitted file is not a valid backup": "Error al importar datos. El archivo enviado no es una copia de seguridad válida."
+    },
+    "privacy": {
+        "Important privacy information": "Información importante de privacidad",
+        "You are going to use Passager by connecting to an external server that belongs to your organization.": "Vas a utilizar Passager conectándote a un servidor externo que pertenece a tu organización.",
+        "This will allow you to access your passwords from any device, as well as share these passwords with other people from your organization.": "Esto te permitirá acceder a tus contraseñas desde cualquier dispositivo, así como compartir estas contraseñas con otras personas de tu organización.",
+        "We want you to understand precisely what data your organization will receive, and what aspects you should pay special attention to. Please read this notice carefully.": "Queremos que entiendas con precisión qué datos va a recibir tu organización, y a qué aspectos debes prestar especial atención. Por favor lee este aviso con detenimiento.",
+        "Precautions before starting": "Precauciones antes de empezar",
+        "Never connect Passager to an unknown service URL or that does not belong to your organization.": "Nunca utilices Passager conectándote a una URL de servicio desconocida o que no pertenezca a tu organización.",
+        "Always check that the URL you are connecting to belongs to the one provided by your organization, distrust in case of doubt.": "Comprueba siempre que la URL a la que te estás conectando pertenece a la que tu organización te ha proveído, desconfía en caso de duda.",
+        "Never, under any circumstances, access Passager through a URL you do not know who is the owner.": "Nunca, bajo ningún concepto, te identifiques en una URL de la que desconozcas la propiedad.",
+        "What data will be sent to your organization": "Qué datos van a enviarse a tu organización",
+        "While you use Passager with your organization, the data you enter in Passager will be received and stored by your organization.": "Mientras uses Passager con tu organización, los datos que introduzcas en Passager serán recibidos y almacenados por tu organización.",
+        "This includes data such as Email, folder names, and your passwords.": "Esto incluye datos como Correo electrónico, nombres de carpetas, y tus contraseñas.",
+        "Your master key will NOT be stored by your organization and you should NEVER share it with ANYONE.": "Tu clave maestra NO será almacenada por tu organización y NUNCA debes compartirla con NADIE.",
+        "What data your organization will not be able to read": "Qué datos no va a poder leer tu organización",
+        "Although your organization stores all the data you enter in Passager, your usernames and passwords are encrypted with your master key so that only you can read them.": "Aunque tu organización almacena todos los datos que introduces en Passager, tus nombres de usuario y contraseñas están cifradas con tu clave maestra de forma que sólo tú puedes leerlas.",
+        "That means that although your organization will save your usernames and passwords, if they try to read them they will only see a set of illegible characters.": "Eso significa, que aunque tu organización va a guardar tus nombres de usuario y contraseñas, si intentan leerlos sólo podrán ver un conjunto de caracteres ilegible.",
+        "Only you with your master password and the people with whom you have shared a folder, will be able to read the usernames and passwords.": "Sólo tú con tu contraseña maestra y las personas con quien hayas compartido una carpeta, podrán leer los nombres de usuario y contraseñas.",
+        "What other privacy aspects should you know": "Qué otros aspectos de privacidad debes conocer",
+        "Contact your organization to clarify the legal basis of the data processing, the retention period, and other details regarding the privacy policy.": "Contacta con tu organización para que te clarifique la base legal del tratamiento de los datos, el periodo de conservación, y otros detalles respecto a la política de privacidad.",
+        "Keep in mind that depending on the applicable legislation in your jurisdiction, you may have data protection rights.": "Ten en cuenta que dependiendo de la legislación aplicable en tu jurisdicción, pueden asistirte derechos en materia de protección de datos.",
+        "The creators of Passager do not receive any type of personal data from you when you use Passager. Please contact your organization if you have any questions about the privacy policy.": "Los creadores de Passager no reciben ningún tipo de datos personales de tu persona cuando usas Passager. Por favor contacta a tu organización en caso de tener dudas sobre la política de privacidad.",
+
+        "I understand and accept this privacy notice": "Entiendo y acepto este aviso de privacidad",
+        "I reject this privacy notice": "Rechazo este aviso de privacidad"
     }
 }
