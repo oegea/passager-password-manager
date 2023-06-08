@@ -28,6 +28,8 @@ import Button from '../../../atoms/Button/index.js';
 import ButtonWrapper from '../../../atoms/Dialog/DialogButtonWrapper.js';
 // Molecules
 import GlobalSpinner from '../../../molecules/GlobalSpinner/index.js';
+// Hooks
+import useDialogConfirmation from '../../../../hooks/useDialogConfirmation/index.js';
 // Own libs
 import { startLoginProcess } from '../../../../libs/backend.js';
 
@@ -40,6 +42,25 @@ const IntroduceEmailStage = ({
 
     const [displaySpinner, setDisplaySpinner] = useState(false);
 
+    const submitEmail = async () => {
+        setDisplaySpinner(true);
+        const result = await startLoginProcess(
+            localStorage.getItem('authenticationUrl'), 
+            email.value
+        );
+        setDisplaySpinner(false);
+        if (result === false) {
+            setEmail({
+                value: email.value,
+                error: 'loginBackend.The entered e-mail is not valid',
+            });
+            return;
+        }
+
+        onSuccess();
+    };
+
+    useDialogConfirmation(() => null, submitEmail);
     return (
         <>
             {displaySpinner && <GlobalSpinner />}
@@ -66,23 +87,7 @@ const IntroduceEmailStage = ({
             <ButtonWrapper justifyContent="center">
                 <Button
                     label={t('common.Continue')}
-                    onClick={async () => {
-                        setDisplaySpinner(true);
-                        const result = await startLoginProcess(
-                            localStorage.getItem('authenticationUrl'), 
-                            email.value
-                        );
-                        setDisplaySpinner(false);
-                        if (result === false) {
-                            setEmail({
-                                value: email.value,
-                                error: 'loginBackend.The entered e-mail is not valid',
-                            });
-                            return;
-                        }
-
-                        onSuccess();
-                    }}
+                    onClick={submitEmail}
                 />
             </ButtonWrapper>
         </>

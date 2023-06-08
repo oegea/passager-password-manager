@@ -29,6 +29,8 @@ import Button from '../../../atoms/Button/index.js';
 import ButtonWrapper from '../../../atoms/Dialog/DialogButtonWrapper.js';
 // Molecules
 import GlobalSpinner from '../../../molecules/GlobalSpinner/index.js';
+// Hooks
+import useDialogConfirmation from '../../../../hooks/useDialogConfirmation/index.js';
 // Own libs
 import { finishLoginProcess } from '../../../../libs/backend.js';
 
@@ -43,6 +45,24 @@ const ValidateCodeStage = ({
         error: ''
     });
 
+    const onAccess = async () => {
+        setDisplaySpinner(true);
+        const result = await finishLoginProcess(
+            localStorage.getItem('authenticationUrl'), 
+            email.value,
+            code.value
+        );
+        setDisplaySpinner(false);
+        if (result === false) {
+            setCode({
+                value: email.value,
+                error: 'loginBackend.The entered code is not valid',
+            });
+            return;
+        }
+    };
+
+    useDialogConfirmation(() => null, onAccess);
     return (
         <>
             {displaySpinner && <GlobalSpinner />}
@@ -74,22 +94,7 @@ const ValidateCodeStage = ({
             <ButtonWrapper justifyContent="center">
                 <Button
                     label={t('common.Access')}
-                    onClick={async () => {
-                        setDisplaySpinner(true);
-                        const result = await finishLoginProcess(
-                            localStorage.getItem('authenticationUrl'), 
-                            email.value,
-                            code.value
-                        );
-                        setDisplaySpinner(false);
-                        if (result === false) {
-                            setCode({
-                                value: email.value,
-                                error: 'loginBackend.The entered code is not valid',
-                            });
-                            return;
-                        }
-                    }}
+                    onClick={onAccess}
                 />
             </ButtonWrapper>
         </>

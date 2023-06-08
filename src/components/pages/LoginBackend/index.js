@@ -45,7 +45,6 @@ const PageLoginBackend = () => {
     const [stage, setStage] = useState('INTRODUCE_EMAIL');
 
     useCheckBackendConfigAndRedirectEffect();
-
     return (
         <>
             <NotLogged>

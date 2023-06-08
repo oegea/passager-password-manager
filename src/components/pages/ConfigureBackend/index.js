@@ -39,6 +39,7 @@ import { logout } from '../../../libs/auth.js';
 import {getServiceUrls, setServiceUrls} from '../../../libs/backend.js';
 // Hooks
 import { useCheckBackendConfigAndRedirectEffect } from './useCheckBackendConfigAndRedirectEffect.js';
+import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 
 const PageConfigureBackend = () => {
     const { t } = useTranslation();
@@ -48,6 +49,24 @@ const PageConfigureBackend = () => {
     });
     const [displaySpinner, setDisplaySpinner] = useState(false);
     useCheckBackendConfigAndRedirectEffect();
+
+    const onSubmitUrl = async () => {
+        setDisplaySpinner(true);
+        const retrievedServiceUrls = await getServiceUrls(serviceUrl.value);
+        
+        if (retrievedServiceUrls === null) {
+            setDisplaySpinner(false);
+            setServiceUrl({
+                ...serviceUrl,
+                error: 'configureBackend.The URL introduced is not valid',
+            });
+            return;
+        }
+
+        setServiceUrls(retrievedServiceUrls);
+    };
+
+    useDialogConfirmation(() => null, onSubmitUrl);
     return (
         <>
             {displaySpinner && <GlobalSpinner />}
@@ -81,21 +100,7 @@ const PageConfigureBackend = () => {
                 <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('common.Continue')}
-                        onClick={async () => {
-                            setDisplaySpinner(true);
-                            const retrievedServiceUrls = await getServiceUrls(serviceUrl.value);
-                            
-                            if (retrievedServiceUrls === null) {
-                                setDisplaySpinner(false);
-                                setServiceUrl({
-                                    ...serviceUrl,
-                                    error: 'configureBackend.The URL introduced is not valid',
-                                });
-                                return;
-                            }
-
-                            setServiceUrls(retrievedServiceUrls);
-                        }}
+                        onClick={onSubmitUrl}
                     />
                 </ButtonWrapper>
 
