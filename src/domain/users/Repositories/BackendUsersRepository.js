@@ -67,7 +67,7 @@ export default class BackendUsersRepository extends UsersRepository {
             email,
         };
 
-        setDocument('userSharingSettings', document, {
+        await setDocument('userSharingSettings', document, {
             email: uid
         });
     }

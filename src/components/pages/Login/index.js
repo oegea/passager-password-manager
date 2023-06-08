@@ -19,7 +19,7 @@
  */
 
 // Third party dependencies
-import React, {useEffect} from 'react';
+import React from 'react';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
@@ -35,11 +35,6 @@ import { isMobileDevice } from '../../../libs/mobile.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
 const PageLogin = () => {
-    // Avoid asking for login type when there is only one type
-    useEffect(() => {
-        if (isMobileDevice() && localStorage.getItem('storeMode') !== 'LOCAL')
-            enableLocalMode();
-    }, []);
     
     const { t } = useTranslation();
 
