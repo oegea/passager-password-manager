@@ -51,6 +51,15 @@ const PageConfigureBackend = () => {
     useCheckBackendConfigAndRedirectEffect();
 
     const onSubmitUrl = async () => {
+
+        if (serviceUrl.value === 'testing.passager.app') {
+            setServiceUrls({
+                authenticationUrl: 'https://testing.passager.app/api/v1/auth',
+                documentsUrl: 'https://testing.passager.app/api/v1/documents',
+            });
+            return;
+        }
+
         setDisplaySpinner(true);
         const retrievedServiceUrls = await getServiceUrls(serviceUrl.value);
         

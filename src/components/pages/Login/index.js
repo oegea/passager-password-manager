@@ -30,7 +30,7 @@ import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '@useful-tools/localstorage';
-import { isBackendMode, enableBackendMode } from '../../../libs/backend.js';
+import { enableBackendMode } from '../../../libs/backend.js';
 import { isMobileDevice } from '../../../libs/mobile.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 

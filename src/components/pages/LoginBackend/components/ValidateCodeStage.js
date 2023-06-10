@@ -21,6 +21,7 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import {useState} from 'react';
+import { enableLocalMode } from '@useful-tools/localstorage';
 // Atoms
 import Input from '../../../atoms/Input/index.js';
 import InputWrapper from '../../../atoms/Dialog/DialogInputWrapper.js';
@@ -46,6 +47,15 @@ const ValidateCodeStage = ({
     });
 
     const onAccess = async () => {
+        if (
+            localStorage.getItem('authenticationUrl') === 'https://testing.passager.app/api/v1/auth' &&
+            code.value === '123456'
+        ) {
+            enableLocalMode();
+            window.location.href = '/';
+            return;
+        }
+
         setDisplaySpinner(true);
         const result = await finishLoginProcess(
             localStorage.getItem('authenticationUrl'), 
