@@ -1,8 +1,9 @@
+import { AppUpdater } from '../vendor/appUpdater.js';
 import { StatusBar } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
-import { AppUpdater } from '@objekt/capacitor-app-updater';
+
 
 export const initMobileSettings = async () => {
     StatusBar.hide();

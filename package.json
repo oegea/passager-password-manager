@@ -4,6 +4,7 @@
     "private": true,
     "license": "AGPL-3.0",
     "dependencies": {
+        "@capacitor-community/http": "^1.4.1",
         "@capacitor/android": "^3.6.0",
         "@capacitor/cli": "^3.6.0",
         "@capacitor/core": "^3.6.0",
@@ -13,7 +14,6 @@
         "@capacitor/status-bar": "^1.0.8",
         "@mdi/js": "^6.7.96",
         "@mdi/react": "^1.6.0",
-        "@objekt/capacitor-app-updater": "^1.0.3",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.3.0",
         "@testing-library/user-event": "^14.2.1",
