@@ -219,7 +219,7 @@ async function activateRelease(releaseName) {
     // Saves app release summary file.
     await setCurrentRelease(releaseName, new Date());
     // Point the app web view to the new release folder. only if current base path is different
-    if ((await WebView.getServerBasePath()).path !== releasePath.uri) {
+    if (releasePath.uri.includes((await WebView.getServerBasePath()).path) === false){
         await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
     }
 
