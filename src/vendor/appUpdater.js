@@ -69,12 +69,9 @@ export const AppUpdater = {
         try {
             // Get the currently installed release version.
             let activeRelease = await getCurrentRelease();
-            console.debug('activeRelease', activeRelease);
             // Check that enough time has elapsed before we can check for an update again.
             const lastUpdated = activeRelease.updated;
             const nextUpdateDue = new Date(lastUpdated.getTime() + checkDelay);
-            console.debug('lastUpdated', lastUpdated);
-            console.debug('nextUpdateDue', nextUpdateDue);
             if (new Date() < nextUpdateDue) {
                 throw new Error(`Last update was run at '${lastUpdated.toJSON()}'. Next update check only due at '${nextUpdateDue.toJSON()}'`);
             }
@@ -237,6 +234,7 @@ async function activateRelease(releaseName) {
     }
     // Ensure the new base path persists across sessions.
     await WebView.persistServerBasePath();
+    console.debug('Persist web view base path');
 }
 // ----------------
 // HELPER FUNCTIONS
