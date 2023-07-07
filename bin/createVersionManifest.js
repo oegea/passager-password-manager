@@ -3,24 +3,12 @@
 /*{
   "id":"9d307fdcafb3f6f2fbcd47899df78652936cea00",
   "timestamp":"2022-04-10T15:21:08.406Z",
-  "files":[
-    {
-      "path":"index.html",
-      "hash":"064c47308009992f133a44e368cf1dcfdaa9d85e"
-    },
-    {
-      "path":"app.39b812d9.js",
-      "hash":"1bd6e3344fbc3363b1faa00d1115378135aac5ce"
-    },
-    {
-      "path":"vendors.70682963.js",
-      "hash":"5b055ca612c8e6883decd76258261d85da3de644"
-    }
-  ]
+  "files":["index.html", "app.39b812d9.js", "vendors.70682963.js"]
 }*/
 
 // It will contain all files from the directory ../build, recurisively
 
+const packageInfo = require('../package.json');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -39,7 +27,9 @@ const checksum = {
 };
 
 // Generate id and timestamp
-checksum.id = crypto.createHash('sha1').update(Date.now().toString()).digest('hex');
+const pseudoRandomHash = crypto.createHash('sha1').update(Date.now().toString()).digest('hex')
+// Version + 6 latest chars from the hash
+checksum.id = `${packageInfo.version}.${pseudoRandomHash.substr(pseudoRandomHash.length - 6)}`;
 checksum.timestamp = new Date().toISOString();
 
 function getFiles(dir) {
@@ -52,15 +42,12 @@ function getFiles(dir) {
         if (fileStat.isDirectory()) {
             getFiles(filePath);
         } else {
-            checksum.files.push({
-                path: filePath.replace(buildDir + '/', ''),
-                hash: crypto.createHash('sha1').update(fs.readFileSync(filePath)).digest('hex')
-            });
+            checksum.files.push(filePath.replace(buildDir + '/', ''));
         }
     }
 }
 
 getFiles(buildDir);
 
-// Now save the result into a checksum.json inside the build folder
-fs.writeFileSync(path.join(buildDir, 'checksum.json'), JSON.stringify(checksum, null, 2));
+// Now save the result into a version.manifest.json inside the build folder
+fs.writeFileSync(path.join(buildDir, 'version.manifest.json'), JSON.stringify(checksum, null, 2));

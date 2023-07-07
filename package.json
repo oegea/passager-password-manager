@@ -1,6 +1,6 @@
 {
     "name": "passager-password-manager",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "license": "AGPL-3.0",
     "dependencies": {
@@ -34,11 +34,11 @@
         "start": "react-scripts start",
         "start:docker": "docker run -p 8000:80 passager-frontend",
         "start:docker:dev": "docker run -p 3000:3000 --mount src=`pwd`/src,target=/usr/src/app/src,type=bind passager-frontend-dev",
-        "build": "react-scripts build&&npm run build:checksum&&npx cap sync",
+        "build": "react-scripts build&&npm run build:manifest&&npx cap sync",
         "build:web": "react-scripts build",
         "build:docker": "docker build . -t 'passager-frontend'",
         "build:docker:dev": "docker build . -t 'passager-frontend-dev' -f Dockerfile.dev",
-        "build:checksum": "node bin/createChecksum.js",
+        "build:manifest": "node bin/createVersionManifest.js",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "prepare": "husky install",

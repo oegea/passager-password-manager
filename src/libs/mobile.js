@@ -7,8 +7,9 @@ import { Share } from '@capacitor/share';
 
 export const initMobileSettings = async () => {
     StatusBar.hide();
-    // Check for app updates - only if the app has not been launched in the last 60 minutes.
-    const didUpdate = await AppUpdater.sync('https://cloud.passager.app', 1000*60*60);
+    // Check for app updates - only if the app has not been launched in the last 60 minutes. 1000*60*60
+    // For testin purposes we'll check every minute: 1000*60
+    const didUpdate = await AppUpdater.sync('https://cloud.passager.app', 1000*60);
 
     return didUpdate;
 };

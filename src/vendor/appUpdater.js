@@ -69,66 +69,54 @@ export const AppUpdater = {
         try {
             // Get the currently installed release version.
             let activeRelease = await getCurrentRelease();
-            // Build the initial release from the app bundle if no release has been installed.
-            if (!activeRelease) {
-                activeRelease = await buildReleaseFromBundle();
-            }
+            console.debug('activeRelease', activeRelease);
             // Check that enough time has elapsed before we can check for an update again.
             const lastUpdated = activeRelease.updated;
             const nextUpdateDue = new Date(lastUpdated.getTime() + checkDelay);
+            console.debug('lastUpdated', lastUpdated);
+            console.debug('nextUpdateDue', nextUpdateDue);
             if (new Date() < nextUpdateDue) {
-                throw `Last update was run at '${lastUpdated.toJSON()}'. Next update check only due at '${nextUpdateDue.toJSON()}'`;
+                throw new Error(`Last update was run at '${lastUpdated.toJSON()}'. Next update check only due at '${nextUpdateDue.toJSON()}'`);
             }
             // Go online to check what the latest app release is.
-            const checksum = await getServerChecksum(webServerURL + '/checksum.json');
-            if (!checksum) {
-                throw 'Unable to get checksum from server';
+            const manifest = await getServerManifest(webServerURL + '/version.manifest.json');
+            if (!manifest) {
+                throw new Error('Unable to get manifest from server');
             }
             // Check that latest release is not already installed.
-            if (activeRelease.checksum.id === checksum.id) {
+            if (activeRelease.manifest.id === manifest.id) {
                 // Nothing changed, reset the update check timestamp so that we don't check again unnecessarily.
-                await setCurrentRelease(checksum.id, new Date());
-                throw `Latest release already installed (${checksum.id})`;
+                await setCurrentRelease(manifest.id, new Date());
+                throw new Error( `Latest release already installed (${manifest.id})`);
             }
+
             // Prepare to download a new release.
+            await removeDir('releases', Directory.Data);
             await createDir('releases', Directory.Data);
-            await removeDir('releases/next', Directory.Data);
+
             // Create the empty directory structure for each of the files in the new release package.
-            const paths = [...new Set(checksum.files.map(file => file.path.substring(0, file.path.lastIndexOf('/'))))];
+            const paths = [...new Set(manifest.files.map(file => file.substring(0, file.lastIndexOf('/'))))];
             for (const path of paths) {
-                await createDir(`releases/next/${path}`, Directory.Data);
+                await createDir(`releases/${path}`, Directory.Data);
             }
+
             // Download the new release files from the web server.
             const downloadTasks = [];
-            for (const file of checksum.files) {
-                if (activeRelease.checksum.files.find(item => item.path === file.path && item.hash === file.hash)) {
-                    // Copy the file from the previous release if an exact checksum hash match exists for the server file.
-                    downloadTasks.push(copyFromPreviousRelease(`releases/${activeRelease.checksum.id}/${file.path}`, `releases/next/${file.path}`, Directory.Data));
-                }
-                else {
-                    // Otherwise just download the file fresh from the web server.
-                    downloadTasks.push(downloadFileFromWebServer(`${webServerURL}/${file.path}`, `releases/next/${file.path}`, Directory.Data));
-                }
+            for (const file of manifest.files) {
+                // Just download the file fresh from the web server.
+                downloadTasks.push(downloadFileFromWebServer(`${webServerURL}/${file}`, `releases/${file}`, Directory.Data));
             }
             await Promise.all(downloadTasks);
-            // Save the release checksum.
+            // Save the release manifest.
             await Filesystem.writeFile({
-                path: 'releases/next/checksum.json',
+                path: 'releases/version.manifest.json',
                 directory: Directory.Data,
-                data: JSON.stringify(checksum),
+                data: JSON.stringify(manifest),
                 encoding: Encoding.UTF8,
                 recursive: true
             });
-            // Install the downloaded release package.
-            await Filesystem.rename({
-                from: 'releases/next',
-                to: `releases/${checksum.id}`,
-                directory: Directory.Data
-            });
-            // Delete any old release packages.
-            await deleteOldReleases(checksum.id);
             // Activate the downloaded release.
-            await activateRelease(checksum.id);
+            await activateRelease(manifest.id);
             // Report that the app was successfully updated.
             return true;
         }
@@ -161,9 +149,9 @@ async function getCurrentRelease() {
         if (result.data) {
             // Get the active release summary details.
             const data = JSON.parse(result.data);
-            // Get the checksum for the active release.
-            const checksum = JSON.parse((await Filesystem.readFile({
-                path: `releases/${data.id}/checksum.json`,
+            // Get the manifest for the active release.
+            const manifest = JSON.parse((await Filesystem.readFile({
+                path: 'releases/version.manifest.json',
                 directory: Directory.Data,
                 encoding: Encoding.UTF8
             })).data);
@@ -172,68 +160,23 @@ async function getCurrentRelease() {
             return {
                 id: data.id,
                 updated: new Date(data.updated),
-                checksum: checksum
+                manifest
             };
         }
     }
     catch (ignore) {
-        console.debug('AppUpdater: Could not find "version.json", must be a new app install.');
-    }
+        console.debug('AppUpdater: Could not find "version.json", must be a new app install!');
+        return {
+            updated: new Date(0),
+            manifest: {
+                id: 'initial',
+                files: []
+            }
+        };
+    } 
     return null;
 }
-/**
- * Builds an initial release from the bundled app content.
- *
- * @throws If the release could not be built from the app bundle.
- *
- * @returns The built release details.
- */
-async function buildReleaseFromBundle() {
-    console.debug('AppUpdater: Building initial release from app bundle.');
-    try {
-        // Get the bundled release checksum.
-        const response = await fetch('http://localhost/checksum.json');
-        const checksum = await response.json();
-        // Prepare to download a new release.
-        await createDir('releases', Directory.Data);
-        // Create the empty directory structure for each of the files in the new release package.
-        const paths = [...new Set(checksum.files.map(file => file.path.substring(0, file.path.lastIndexOf('/'))))];
-        for (const path of paths) {
-            await createDir(`releases/${checksum.id}/${path}`, Directory.Data);
-        }
-        // Download the release files from the app bundle local web server.
-        const downloadTasks = [];
-        for (const file of checksum.files) {
-            downloadTasks.push(downloadFileFromAppBundle(`http://localhost/${file.path}`, `releases/${checksum.id}/${file.path}`, Directory.Data));
-        }
-        await Promise.all(downloadTasks);
-        // Save the release checksum.
-        await Filesystem.writeFile({
-            path: `releases/${checksum.id}/checksum.json`,
-            directory: Directory.Data,
-            data: JSON.stringify(checksum),
-            encoding: Encoding.UTF8,
-            recursive: true
-        });
-        // Saves app release summary file.
-        const releaseID = checksum.id;
-        const releaseDate = new Date(checksum.timestamp);
-        await setCurrentRelease(releaseID, releaseDate);
-        // Return the release version details.
-        return {
-            id: releaseID,
-            updated: releaseDate,
-            checksum: checksum
-        };
-    }
-    catch (error) {
-        console.error(error);
-        // Clean-up the job output when things go wrong.
-        await removeDir('releases', Directory.Data);
-        // Throw the error to break the update process.
-        throw 'AppUpdater: Could not build release from bundled.';
-    }
-}
+
 /**
  * Set the meta data for the currently installed app release.
  *
@@ -254,31 +197,7 @@ async function setCurrentRelease(releaseName, timestamp = new Date()) {
         recursive: true
     });
 }
-/**
- * Deletes all old release directories from the app container.
- *
- * @param activeReleaseName - The active release not to delete.
- */
-async function deleteOldReleases(activeReleaseName) {
-    console.debug('AppUpdater: Deleting old releases.');
-    // Get a list of all the release directories.
-    const installedReleases = (await Filesystem.readdir({
-        path: 'releases',
-        directory: Directory.Data
-    })).files;
-    // Delete all the directories except for the active release.
-    if (installedReleases.length > 0) {
-        for (const oldReleaseName of installedReleases) {
-            if (oldReleaseName !== activeReleaseName) {
-                await Filesystem.rmdir({
-                    path: `releases/${oldReleaseName}`,
-                    directory: Directory.Data,
-                    recursive: true
-                });
-            }
-        }
-    }
-}
+
 /**
  * Activates a downloaded app release package.
  *
@@ -288,7 +207,7 @@ async function activateRelease(releaseName) {
     console.debug(`AppUpdater: Reloading app to release '${releaseName}'.`);
     // Get the URI path to the app release directory.
     const releasePath = await Filesystem.getUri({
-        path: `releases/${releaseName}`,
+        path: 'releases',
         directory: Directory.Data
     });
     // Saves app release summary file.
@@ -298,7 +217,23 @@ async function activateRelease(releaseName) {
         await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
     }
     else {
-        await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') }); // TODO - test if ios works the same as android, this line might have to change to their file storage convention.
+        // Copy from data to library folder including "Library/NoCloud/"
+        const libraryPath = await Filesystem.getUri({
+            path: 'NoCloud',
+            directory: Directory.Library
+        });
+        await Filesystem.copy({
+            from: releasePath.uri.replace('file://', ''),
+            to: libraryPath.uri.replace('file://', ''),
+            directory: Directory.Library,
+        });
+        console.debug('ios new path', { path: releasePath.uri.replace('file://', '') });
+        console.debug('copied to library', {
+            from: releasePath.uri.replace('file://', ''),
+            to: libraryPath.uri.replace('file://', ''),
+            directory: Directory.Library,
+        });
+        await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
     }
     // Ensure the new base path persists across sessions.
     await WebView.persistServerBasePath();
@@ -307,14 +242,14 @@ async function activateRelease(releaseName) {
 // HELPER FUNCTIONS
 // ----------------
 /**
- * Downloads a checksum for a given web app.
+ * Downloads a manifest for a given web app.
  *
  * @param url - The url to the web app.
  *
- * @returns The web app checksum data.
+ * @returns The web app manifest data.
  */
-async function getServerChecksum(url) {
-    console.debug(`AppUpdater: Getting latest release checksum from '${url}'`);
+async function getServerManifest(url) {
+    console.debug(`AppUpdater: Getting latest release manifest from '${url}'`);
     try {
         return (await Http.request({
             url: url,
@@ -325,7 +260,7 @@ async function getServerChecksum(url) {
         })).data;
     }
     catch (error) {
-        console.debug('AppUpdater: Could not download and parse server checksum.\n\n', error);
+        console.debug('AppUpdater: Could not download and parse server manifest.\n\n', error);
     }
     return null;
 }
@@ -364,90 +299,7 @@ async function downloadFileFromWebServer(url, path, directory) {
         readTimeout: 10 * 1000
     });
 }
-/**
- * Downloads a file from app bundle (localhost) to a given directory.
- *
- * @param url - The URL of the file to download.
- * @param path - The path to save the file to.
- * @param directory - The base directory to work in.
- *
- * @returns True if the file cold be downloaded, otherwise false.
- */
-async function downloadFileFromAppBundle(url, path, directory) {
-    console.debug(`AppUpdater: Download from Bundle: '${path}'`);
-    /*
-        This is a complex issue to solve without writing native code. But the below workaround works perfectly well
-        for copying small files from the bundled app content to another folder on disk.
 
-        A couple of things to note:
-
-          1) The web assets that is bundled with the native app when it is packaged gets hosted by Capacitor locally
-             on a webserver in app the runs on 'http://localhost'.
-
-          2) These files cannot be read by the Http plugin, as it sits outside of the webview and thus has no direct
-             contact. So instead we have to get to those files as blobs using fetch requests in the webview.
-
-          3) All files are served statically as bundled by the web server, except for the *.html files which Capacitor
-             injects about 2000 lines of Javascript for the framework in the <head>. Thus we need to strip out this
-             content before we cache HTML files, otherwise it will cause conflicts when that same file is served again
-             and Capacitor tries to inject the framework again at runtime, i.e. global var naming conflicts occur.
-
-          4) Capacitor had no official way of writing binary data to the disk. The Filesystem plugin however allows
-             for Base64 strings to be passed which it then internally decodes and writes as binary. This is because
-             the Capacitor bridge only allows for strings to be passed.
-
-          5) Beware that sending large strings through the bridge my end up crashing the web view, so it's not
-             feasible to attempt to write large media such as videos to the app container. For that purpose consider
-             building a native plugin that downloads and stores the file instead.
-    
-        For more info on the issue, see these links:
-
-          - Issue discussion: {@link https://github.com/ionic-team/capacitor/issues/31}
-          - Workaround: {@link https://stackoverflow.com/questions/56644178/how-can-i-save-a-downloaded-file-with-capacitor-in-ionic4-angular}
-          - Official feature request: {@link https://github.com/ionic-team/capacitor/issues/974}
-    */
-    // Attempt to copy a file from the app bundle to the specified path.
-    try {
-        // Get the file from the app bundle local web server.
-        const response = await fetch(url);
-        // Parse the file response into a base64 string that can be sent through the Capacitor bridge.
-        let base64Data;
-        if (path.endsWith('.html')) {
-            // Read the HTML file out as text.
-            let text = await response.text();
-            // Strip the injected Capacitor framework code out of the <head> tag.
-            const stripStart = text.indexOf('<head>') + 6;
-            const stripEnd = text.indexOf('</script>') + 9;
-            text = text.substring(0, stripStart) + text.substring(stripEnd);
-            // Convert the clean-up text to a base64 string.
-            base64Data = btoa(text);
-        }
-        else {
-            // Get a blob (binary) of the local file.
-            const blob = await response.blob();
-            // Convert the blob to a base64 string.
-            base64Data = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onerror = reject;
-                reader.onload = () => {
-                    resolve(reader.result);
-                };
-                reader.readAsDataURL(blob);
-            });
-        }
-        // Save the base64 data to disk. Capacitor will parse this back to a binary file type internally.
-        await Filesystem.appendFile({
-            path: path,
-            directory: directory,
-            data: base64Data
-        });
-    }
-    catch (error) {
-        console.debug(`AppUpdater: Could not copy '${path}' from app bundle`, error);
-        return false;
-    }
-    return true;
-}
 // -------------------
 // FILE SYSTEM HELPERS
 // -------------------
