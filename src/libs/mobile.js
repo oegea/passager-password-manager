@@ -2,9 +2,14 @@ import { StatusBar } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
+import { AppUpdater } from '@objekt/capacitor-app-updater';
 
-export const initMobileSettings = () => {
+export const initMobileSettings = async () => {
     StatusBar.hide();
+    // Check for app updates - only if the app has not been launched in the last 60 minutes.
+    const didUpdate = await AppUpdater.sync('https://cloud.passager.app', 1000*60*60);
+
+    return didUpdate;
 };
 
 export const isMobileDevice = () => {

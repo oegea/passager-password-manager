@@ -22,7 +22,7 @@
 import './index.css';
 // Third party dependencies
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -40,18 +40,24 @@ import { i18nConfig } from './config/i18n.js';
 i18n.use(initReactI18next).init(i18nConfig);
 
 // Init things if we're running on mobile...
-initMobileSettings();
+initMobileSettings().then((hasUpdatedMobileApp) => {
+    
+    if (!hasUpdatedMobileApp) {
+        const container = document.getElementById('root');
+        const root = createRoot(container);
+        root.render(
+            <React.StrictMode>
+                <UserProvider>
+                    <FoldersProvider>
+                        <Routes />
+                    </FoldersProvider>
+                </UserProvider>
+            </React.StrictMode>
+        );
+    }
+    
+});
 
-ReactDOM.render(
-    <React.StrictMode>
-        <UserProvider>
-            <FoldersProvider>
-                <Routes />
-            </FoldersProvider>
-        </UserProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
