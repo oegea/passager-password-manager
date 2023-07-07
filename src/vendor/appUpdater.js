@@ -88,7 +88,6 @@ export const AppUpdater = {
             // Check that latest release is not already installed.
             if (activeRelease.manifest.id === manifest.id) {
                 // Nothing changed, reset the update check timestamp so that we don't check again unnecessarily.
-                await setCurrentRelease(manifest.id, new Date());
                 console.debug(`AppUpdater: Latest release already installed (${manifest.id}). Staying on current version.`);
                 await activateRelease(activeRelease.id);
                 throw new Error(`Latest release already installed (${manifest.id})`);
@@ -214,10 +213,15 @@ async function activateRelease(releaseName) {
         path: 'releases',
         directory: Directory.Data
     });
+    console.debug('PATHS COMPARISION');
+    console.debug((await WebView.getServerBasePath()).path);
+    console.debug(releasePath.uri);
     // Saves app release summary file.
     await setCurrentRelease(releaseName, new Date());
-    // Point the app web view to the new release folder.
-    await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
+    // Point the app web view to the new release folder. only if current base path is different
+    if ((await WebView.getServerBasePath()).path !== releasePath.uri) {
+        await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
+    }
 
     // Ensure the new base path persists across sessions.
     // await WebView.persistServerBasePath();
