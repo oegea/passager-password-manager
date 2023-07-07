@@ -73,18 +73,25 @@ export const AppUpdater = {
             const lastUpdated = activeRelease.updated;
             const nextUpdateDue = new Date(lastUpdated.getTime() + checkDelay);
             if (new Date() < nextUpdateDue) {
-                throw new Error(`Last update was run at '${lastUpdated.toJSON()}'. Next update check only due at '${nextUpdateDue.toJSON()}'`);
+                console.debug(`Last update was run at '${lastUpdated.toJSON()}'. Next update check only due at '${nextUpdateDue.toJSON()}'`);
+                await  activateRelease(activeRelease.id);
+                throw new Error('No need to check for updates yet.');
             }
+
             // Go online to check what the latest app release is.
             const manifest = await getServerManifest(webServerURL + '/version.manifest.json');
             if (!manifest) {
+                console.debug('AppUpdater: No manifest found on server. Staying on current version.');
+                await  activateRelease(activeRelease.id);
                 throw new Error('Unable to get manifest from server');
             }
             // Check that latest release is not already installed.
             if (activeRelease.manifest.id === manifest.id) {
                 // Nothing changed, reset the update check timestamp so that we don't check again unnecessarily.
                 await setCurrentRelease(manifest.id, new Date());
-                throw new Error( `Latest release already installed (${manifest.id})`);
+                console.debug(`AppUpdater: Latest release already installed (${manifest.id}). Staying on current version.`);
+                await activateRelease(activeRelease.id);
+                throw new Error(`Latest release already installed (${manifest.id})`);
             }
 
             // Prepare to download a new release.
@@ -118,7 +125,7 @@ export const AppUpdater = {
             return true;
         }
         catch (error) {
-            console.log('AppUpdater: Staying on current version.\n\n', error);
+            console.log('AppUpdater: Error. Staying on current version??.\n\n', error);
             // Report that the app did not update.
             return false;
         }
@@ -210,31 +217,11 @@ async function activateRelease(releaseName) {
     // Saves app release summary file.
     await setCurrentRelease(releaseName, new Date());
     // Point the app web view to the new release folder.
-    if (Capacitor.getPlatform() === 'android') {
-        await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
-    }
-    else {
-        // Copy from data to library folder including "Library/NoCloud/"
-        const libraryPath = await Filesystem.getUri({
-            path: 'NoCloud',
-            directory: Directory.Library
-        });
-        await Filesystem.copy({
-            from: releasePath.uri.replace('file://', ''),
-            to: libraryPath.uri.replace('file://', ''),
-            directory: Directory.Library,
-        });
-        console.debug('ios new path', { path: releasePath.uri.replace('file://', '') });
-        console.debug('copied to library', {
-            from: releasePath.uri.replace('file://', ''),
-            to: libraryPath.uri.replace('file://', ''),
-            directory: Directory.Library,
-        });
-        await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
-    }
+    await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
+
     // Ensure the new base path persists across sessions.
-    await WebView.persistServerBasePath();
-    console.debug('Persist web view base path');
+    // await WebView.persistServerBasePath();
+    // console.debug('Persist web view base path');
 }
 // ----------------
 // HELPER FUNCTIONS
