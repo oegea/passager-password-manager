@@ -347,4 +347,3 @@ async function removeDir(path, directory) {
         console.debug(`AppUpdater: Directory '${path}' already removed`);
     }
 }
-//# sourceMappingURL=AppUpdater.js.map
