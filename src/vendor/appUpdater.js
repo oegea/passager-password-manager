@@ -74,7 +74,7 @@ export const AppUpdater = {
             const nextUpdateDue = new Date(lastUpdated.getTime() + checkDelay);
             if (new Date() < nextUpdateDue) {
                 console.debug(`Last update was run at '${lastUpdated.toJSON()}'. Next update check only due at '${nextUpdateDue.toJSON()}'`);
-                await  activateRelease(activeRelease.id);
+                await  activateRelease(activeRelease.id, false);
                 throw new Error('No need to check for updates yet.');
             }
 
@@ -206,18 +206,19 @@ async function setCurrentRelease(releaseName, timestamp = new Date()) {
  *
  * @param releaseName - The name to the new release.
  */
-async function activateRelease(releaseName) {
-    console.debug(`AppUpdater: Reloading app to release '${releaseName}'.`);
+async function activateRelease(releaseName, needsSavingLastUpdate = true) {
+    console.debug(`AppUpdater.activateRelease - Reloading app to release '${releaseName}'.`);
     // Get the URI path to the app release directory.
     const releasePath = await Filesystem.getUri({
         path: 'releases',
         directory: Directory.Data
     });
-    console.debug('PATHS COMPARISION');
-    console.debug((await WebView.getServerBasePath()).path);
-    console.debug(releasePath.uri);
+
     // Saves app release summary file.
-    await setCurrentRelease(releaseName, new Date());
+    if (needsSavingLastUpdate) {
+        await setCurrentRelease(releaseName, new Date());
+    }
+    
     // Point the app web view to the new release folder. only if current base path is different
     if (releasePath.uri.includes((await WebView.getServerBasePath()).path) === false){
         await WebView.setServerBasePath({ path: releasePath.uri.replace('file://', '') });
