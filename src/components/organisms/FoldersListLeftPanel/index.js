@@ -58,7 +58,7 @@ const FoldersListLeftPanel = ({
         <>
             <SectionTitle
                 title={t('common.Folders')}
-                buttons={[
+                buttons={localStorage.getItem('storeMode') === 'FIREBASE' ? [] : [
                     {
                         label: t('common.Create'),
                         onClick: () => setShowNewFolderDialog(true),
