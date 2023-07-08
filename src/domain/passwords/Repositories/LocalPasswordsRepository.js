@@ -86,6 +86,7 @@ export class LocalPasswordsRepository extends PasswordsRepository {
      * @returns {function} Function to call to unsubscribe
      */
     async subscribeToPasswords({ passwordSubscriptionRequest }) {
+        
         const folderId = passwordSubscriptionRequest.getFolderId();
         const onSubscriptionChanges =
             passwordSubscriptionRequest.getOnSubscriptionChanges();

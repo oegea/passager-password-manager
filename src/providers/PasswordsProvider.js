@@ -41,7 +41,10 @@ class PasswordsProvider extends Component {
     };
 
     componentWillUnmount = () => {
-        if (this.unsubscribe !== null) this.unsubscribe();
+        if (this.unsubscribe !== null) {
+            this.unsubscribe();
+            this.unsubscribe = null;
+        } 
     };
 
     subscribe = async () => {
@@ -49,12 +52,16 @@ class PasswordsProvider extends Component {
 
         if (user === null || this.unsubscribe !== null) return;
 
+        this.unsubscribe = () => null; // Avoid race conditions: Once we start subscribing, avoid subscribing again while the domain use case is executed
+
         this.unsubscribe = await domain.useCases.passwords[
             'subscribe_to_passwords_use_case'
         ].execute({
             folderId,
             userId: user.uid,
-            onSubscriptionChanges: (passwords) => this.setState({ passwords }),
+            onSubscriptionChanges: (passwords) => {
+                this.setState({ passwords });
+            },
         });
     };
 
