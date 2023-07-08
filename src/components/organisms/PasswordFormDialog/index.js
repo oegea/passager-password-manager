@@ -206,7 +206,7 @@ const PasswordFormDialog = ({
 
             <ButtonWrapper>
                 <Button
-                    label={t('common.Cancel')}
+                    label={defaultValues.id ? t('common.Close') : t('common.Cancel')}
                     onClick={() => onClose()}
                     color="black"
                     backgroundColor="white"

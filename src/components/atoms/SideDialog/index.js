@@ -24,7 +24,14 @@ import styled from 'styled-components';
 // Constants
 import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
 
-const DialogBackground = styled.div``;
+const DialogBackground = styled.div`
+    width: 100%;
+    background: rgba(1,1,1,0.28);
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+`;
 
 const DEFAULT_PADDING = 25;
 
