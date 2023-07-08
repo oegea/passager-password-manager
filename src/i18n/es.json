@@ -113,7 +113,10 @@
         "Password must contain at least one special character": "La contraseña debe contener al menos un caracter especial.",
         "Password must be at least 8 characters long": "La contraseña debe tener al menos 8 caracteres.",
         "Password must contain at least one capital letter": "La contraseña debe contener al menos una letra mayúscula.",
-        "Password must contain at least one number": "La contraseña debe contener al menos un número."
+        "Password must contain at least one number": "La contraseña debe contener al menos un número.",
+        "Please use Passager locally": "Por favor, utilice Passager localmente",
+        "Passager can no longer be used with a Google account for new users": "Passager ya no puede ser utilizado con una cuenta de Google para nuevos usuarios.",
+        "Please logout and select a different login method": "Por favor, cierre sesión y seleccione un método de inicio de sesión diferente."
     },
     "userMasterPasswordValidation": {
         "The entered password is not valid": "La contraseña introducida no es correcta.",

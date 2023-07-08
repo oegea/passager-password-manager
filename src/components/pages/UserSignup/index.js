@@ -147,6 +147,32 @@ const PageUserSignup = ({ user }) => {
         }
     );
 
+    if (localStorage.getItem('storeMode') === 'FIREBASE') {
+        return (
+            <>
+                <NotLogged>
+                    <Title>{t('userSignup.Please use Passager locally')}</Title>
+                    <p>
+                        {t(
+                            'userSignup.Passager can no longer be used with a Google account for new users'
+                        )}
+                    </p>
+                    <p>
+                        {t(
+                            'userSignup.Please logout and select a different login method'
+                        )}
+                    </p>
+
+                    <AtomButtonLink onClick={logout}>
+                        {t('common.Logout')}
+                    </AtomButtonLink>
+                
+                    <LanguageSelector />
+                </NotLogged>
+            </>
+        );
+    }
+
     return (
         <>
             <NotLogged>
@@ -259,12 +285,11 @@ const PageUserSignup = ({ user }) => {
                         </ButtonWrapper>
                     </>
                 )}
-                {
-                    !isMobileDevice() && 
-                    <AtomButtonLink onClick={logout}>
-                        {t('common.Logout')}
-                    </AtomButtonLink>
-                }
+
+                <AtomButtonLink onClick={logout}>
+                    {t('common.Logout')}
+                </AtomButtonLink>
+            
                 <LanguageSelector />
             </NotLogged>
         </>
