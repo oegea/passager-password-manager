@@ -28,6 +28,7 @@ import useTranslation from '../../../hooks/useTranslation/index.js';
 import withUser from '../../../providers/WithUser.js';
 // Libs
 import {isBackendMode} from '../../../libs/backend.js';
+import {createExportableFragment} from '../../../libs/privateKey.js';
 // Vendor
 import QRCode from 'react-qr-code';
 import {printElementById} from '../../../vendor/print.js';
@@ -90,7 +91,7 @@ const UserDetailsRightPanel = ({ user }) => {
                             This is the access kit for <strong>{user.email || '-'}</strong>.
                         </p>
                         <p>
-                            You will need to provide your user private key the first time you login on a new device. Please store this access kit on a safe place.
+                            You will need your user private key when logging in on a new device. Store this document on a safe place.
                         </p>
                         <p>
                             <strong>QR codes:</strong>
@@ -99,18 +100,28 @@ const UserDetailsRightPanel = ({ user }) => {
                             When accessing from a mobile phone, you can scan the following QR codes to provide your private key. Please scan them in the same order as they appear below (from left to right).
                         </p>
                         <div style={{border: '5px dashed #ccc', display: 'flex', justifyContent: 'space-around', padding: '20px'}}>
-                            <QRCode value={user.encryptedPrivateKey.slice(0, user.encryptedPrivateKey.length / 2)} />
+                            <QRCode value={createExportableFragment({
+                                content: user.encryptedPrivateKey, 
+                                ownerIdentifier: user.email, 
+                                totalFragments: 2, 
+                                fragmentNumber: 1
+                            })} />
 
-                            <QRCode value={user.encryptedPrivateKey.slice(user.encryptedPrivateKey.length / 2)} />
+                            <QRCode value={createExportableFragment({
+                                content: user.encryptedPrivateKey, 
+                                ownerIdentifier: user.email, 
+                                totalFragments: 2, 
+                                fragmentNumber: 2
+                            })} />
                         </div>
 
                         <p>
                             <strong>Private key:</strong>
                         </p>
                         <p>
-                            If accessing Passager from a computer, you can directly copy and paste the following text:
+                            If you prefer to not print this file, you can directly copy and paste the following text:
                         </p>
-                        <p style={{wordBreak: 'break-all', border: '5px dashed #ccc', padding: '20px'}}>
+                        <p style={{wordBreak: 'break-all', border: '5px dashed #ccc', padding: '20px', fontSize: '5px'}}>
                             {user.encryptedPrivateKey}
                         </p>
 
@@ -118,7 +129,7 @@ const UserDetailsRightPanel = ({ user }) => {
                             <strong>Master password:</strong>
                         </p>
                         <p>
-                            It is recommended to remember the master password and not to write it down anywhere. However, in case you need to write it down to ensure that you do not lose access to your account, you can use the following space once you have printed this access kit.
+                            It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:
                         </p>
 
                         <div style={{border: '5px dashed #ccc', padding: '50px'}}>

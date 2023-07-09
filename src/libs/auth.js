@@ -32,6 +32,7 @@ export const logout = () => {
     localStorage.setItem('storeMode', 'FIREBASE');
 
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('privateUserKey');
     window.location.href = '/';
 };
 

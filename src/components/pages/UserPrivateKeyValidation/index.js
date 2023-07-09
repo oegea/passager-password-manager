@@ -19,22 +19,20 @@
  */
 
 // Third party dependencies
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
 import { logout } from '../../../libs/auth.js';
-import { isMobileDevice } from '../../../libs/mobile.js';
+import {storePrivateKey, getPrivateKeyFragment} from '../../../libs/privateKey.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
-import Input from '../../atoms/Input/index.js';
+import TextArea from '../../atoms/TextArea/index.js';
 import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
 import InputLabel from '../../atoms/InputLabel/index.js';
-// Molecules
-import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Context
@@ -42,106 +40,170 @@ import withUser from '../../../providers/WithUser.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
-// Vendor
-import {Html5QrcodeScanner} from 'html5-qrcode';
 
 const PageUserPrivateKeyValidation = ({ user }) => {
     const { t } = useTranslation();
-    const [password, setPassword] = useState({
+    const [privateKey, setPrivateKey] = useState({
         value: '',
         error: '',
     });
-    const qrScanner = useRef(null);
 
-    const [displaySpinner, setDisplaySpinner] = useState(false);
+    const [inputMode, setInputMode] = useState(null);
+    const [currentQRContent, setCurrentQRContent] = useState({
+        value: '',
+        error: '',
+    });
+    const [qrCodes, setQrCodes] = useState([]);
 
-    const onLogin = useCallback(
-        async (overridedPassword) => {
-            if (overridedPassword) password.value = overridedPassword;
-
-            if (displaySpinner) {
-                return;
-            }
-            setDisplaySpinner(true);
-            const decryptResult = await user.decryptPrivateKey(password.value);
-            let error = '';
-
-            if (decryptResult === false) {
-                error = t(
-                    'userMasterPasswordValidation.The entered password is not valid'
-                );
-            }
-
-            setDisplaySpinner(false);
-            setPassword({
-                value: password.value,
-                error,
-            });
-        },
-        [displaySpinner, password, t, user]
-    );
-
-    const onScanSuccess = (decodedText, decodedResult) => {
-        // Handle on success condition with the decoded text or result.
-        console.log(`Scan result: ${decodedText}`, decodedResult);
-        setPassword({ value: password.value+decodedText, error: '' });
+    const onLogin = () => {
+        storePrivateKey(privateKey.value, user.email);
     };
 
-    useEffect(() => {
-        qrScanner.current = new Html5QrcodeScanner(
-            'reader', { fps: 10, qrbox: 250 });
-        qrScanner.current.render(onScanSuccess);
-    });
-
     useDialogConfirmation(() => null, onLogin);
+
+    const onQRInput = () => {
+
+        const fragment = getPrivateKeyFragment(currentQRContent.value);
+
+        if (fragment.ownerIdentifier !== user.email) {
+            setCurrentQRContent({
+                value: '',
+                error: 'The provided QR code does not belong to your access kit.',
+            });
+            return;
+        }
+
+        if (fragment.fragmentNumber !== qrCodes.length + 1) {
+            setCurrentQRContent({
+                value: '',
+                error: 'You have scanned the QR code number ' + fragment.fragmentNumber + ' but you should scan the QR code number ' + (qrCodes.length + 1),
+            });
+            return;
+        }
+
+        if (fragment.totalFragments === qrCodes.length + 1) {
+            storePrivateKey(qrCodes.join(''), user.email);
+            return;
+        }
+
+        setQrCodes([...qrCodes, fragment.fragmentContent]);
+        setCurrentQRContent({
+            value: '',
+            error: '',
+        });
+    };
+
+    const textInputMode = (
+        <>
+            <p>
+                Please copy your private key from your access kit PDF. <string>Do not manipulate</string> or modify the key.
+            </p>
+            <InputWrapper marginBottom="25px">
+                <InputLabel htmlFor="private-key">
+                    Private key
+                </InputLabel>
+                <TextArea
+                    defaultValue={privateKey.value}
+                    id="private-key"
+                    placeholder={t(
+                        'Type here your private key'
+                    )}
+                    onChange={(e) =>
+                        setPrivateKey({ value: e.target.value, error: '' })
+                    }
+                    value={privateKey.value}
+                />
+                {privateKey.error.length > 0 && (
+                    <span style={{ color: 'red' }}>{privateKey.error}</span>
+                )}
+            </InputWrapper>
+            <ButtonWrapper justifyContent="center">
+                <Button
+                    label={t('common.Access')}
+                    onClick={() => onLogin()}
+                />
+            </ButtonWrapper>
+        </>
+    );
+
+    const qrInputMode = (
+        <>
+            <p>
+                Copy here the content of the <strong>QR code number {qrCodes.length + 1}</strong> from your access kit PDF.
+            </p>
+            <p>
+                Please note that you need to scan QR codes by using your camera app or any other third-party app.
+            </p>
+            <InputWrapper marginBottom="25px">
+                <InputLabel htmlFor="qr-content">
+                    QR Code Content
+                </InputLabel>
+                <TextArea
+                    defaultValue={privateKey.value}
+                    id="qr-content"
+                    placeholder={t(
+                        'Type here the content of the QR number '+ (qrCodes.length + 1)
+                    )}
+                    onChange={(e) =>
+                        setCurrentQRContent({ value: e.target.value, error: '' })
+                    }
+                    value={currentQRContent.value}
+                />
+                {currentQRContent.error.length > 0 && (
+                    <span style={{ color: 'red' }}>{currentQRContent.error}</span>
+                )}
+            </InputWrapper>
+            <ButtonWrapper justifyContent="center">
+                <Button
+                    label={t('common.Access')}
+                    onClick={() => onQRInput()}
+                />
+            </ButtonWrapper>
+        </>
+    );
+
+    const inputSelector = (
+        <>
+            <p>
+                You need to provide your private key the first time you login on a new device.
+            </p>
+            <p>
+                Please select how do you want to provide your private key:
+            </p>
+            <ButtonWrapper justifyContent="center">
+                <Button
+                    label={t('Using QR codes')}
+                    onClick={() => setInputMode('QR')}
+                />
+                <Button
+                    label={t('Copying and pasting your entire private key')}
+                    onClick={() => setInputMode('TEXT')}
+                />
+            </ButtonWrapper>
+        </>
+    );
 
     return (
         <>
             <NotLogged>
-                {displaySpinner && <GlobalSpinner />}
                 <Title>
                     Please provide your private key to continue
                 </Title>
-
-                <p>
-                    You need to provide your private key the first time you login on a new device.
-                </p>
-                <p>
-                    Please copy it manually, or by scanning it from the two QR codes from your access kit.
-                </p>
-                <div id="reader"></div>
-                <InputWrapper marginBottom="25px">
-                    <InputLabel htmlFor="password">
-                        Private key
-                    </InputLabel>
-                    <Input
-                        defaultValue={password.value}
-                        id="password"
-                        type="password"
-                        placeholder={t(
-                            'userMasterPasswordValidation.Type here your private key'
-                        )}
-                        onChange={(e) =>
-                            setPassword({ value: e.target.value, error: '' })
-                        }
-                    />
-                    {password.error.length > 0 && (
-                        <span style={{ color: 'red' }}>{password.error}</span>
-                    )}
-                </InputWrapper>
-                <ButtonWrapper justifyContent="center">
-                    <Button
-                        label={t('common.Access')}
-                        onClick={() => onLogin()}
-                    />
-                </ButtonWrapper>
-
+                
                 {
-                    !isMobileDevice() && 
-                    <AtomButtonLink onClick={logout}>
-                        {t('common.Logout')}
-                    </AtomButtonLink>
+                    inputMode === null ? (inputSelector) : null
                 }
+                {
+                    inputMode === 'TEXT' ? textInputMode : null
+                }
+                {
+                    inputMode === 'QR' ? qrInputMode : null
+                }
+
+                <AtomButtonLink onClick={logout}>
+                    {t('common.Logout')}
+                </AtomButtonLink>
+            
                 <LanguageSelector />
             </NotLogged>
         </>
