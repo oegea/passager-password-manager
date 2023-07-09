@@ -49,7 +49,7 @@ class UserProvider extends Component {
                 userDocument.reloadAuthDetails =
                     this.onSubscriptionChanges.bind(this, user);
             }
-
+            userDocument.privateKey = null; // Temp change to test local stored private keys
             await this.asyncSetState({ user: userDocument });
         };
 
