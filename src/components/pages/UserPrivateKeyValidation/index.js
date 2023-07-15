@@ -81,16 +81,17 @@ const PageUserPrivateKeyValidation = ({ user }) => {
             return;
         }
 
-        if (fragment.totalFragments === qrCodes.length + 1) {
-            storePrivateKey(qrCodes.join(''), user.email);
-            return;
-        }
-
-        setQrCodes([...qrCodes, fragment.fragmentContent]);
+        const newQrCodesValue = [...qrCodes, fragment.fragmentContent];
+        setQrCodes(newQrCodesValue);
         setCurrentQRContent({
             value: '',
             error: '',
         });
+
+        if (fragment.totalFragments === qrCodes.length + 1) {
+            storePrivateKey(newQrCodesValue.join(''), user.email);
+            return;
+        }
     };
 
     const textInputMode = (

@@ -29,12 +29,16 @@ import withUser from '../../../providers/WithUser.js';
 // Libs
 import {isBackendMode} from '../../../libs/backend.js';
 import {createExportableFragment} from '../../../libs/privateKey.js';
+import {storePrivateKey} from '../../../libs/privateKey.js';
 // Vendor
 import QRCode from 'react-qr-code';
 import {printElementById} from '../../../vendor/print.js';
+// Domain
+import domain from '../../../domain/index.js';
 
 const UserDetailsRightPanel = ({ user }) => {
     const { t } = useTranslation();
+
     return (
         <>
             <SectionTitle title={t('profile.User details')} buttons={[]} />
@@ -45,9 +49,23 @@ const UserDetailsRightPanel = ({ user }) => {
             </p>
 
 
-            {!isBackendMode() && 
+            {isBackendMode() && user.isPrivateKeyStoredLocally === false && 
                 <>
-                    <SectionTitle title={'Increased security mode'} buttons={[]} />
+                    <SectionTitle title={'Increased security mode'} buttons={[{
+                        label: 'Enable',
+                        onClick: () => {
+
+                            domain.useCases.users[
+                                'update_user_private_key_use_case'
+                            ].execute({
+                                email: user.email,
+                                privateKey: '',
+                                uid: user.uid
+                            }).then(() => {
+                                storePrivateKey(user.encryptedPrivateKey, user.email);
+                            });
+                        },
+                    }]} />
                     <p>
                         Passager encrypts all your data before sending it to your organization servers (this include passwords, and any other sensible data you store in Passager). By doing this, you can be sure that only you and the people with whom you may have shared your folders, can have access to your data.
                     </p>
@@ -80,62 +98,104 @@ const UserDetailsRightPanel = ({ user }) => {
                 </>
             }
 
-            {isBackendMode() && 
+            {isBackendMode() && user.isPrivateKeyStoredLocally && 
                 <div>
-                    <SectionTitle title={'Passager Access Kit'} buttons={[{
-                        label: 'Print',
+                    <SectionTitle title={'Increased security mode'} buttons={[{
+                        label: 'Print access kit',
                         onClick: () => printElementById('access-kit', 'Passager Access Kit'),
+                    }, {
+                        label: 'Disable increased security mode',
+                        onClick: () => {
+                            domain.useCases.users[
+                                'update_user_private_key_use_case'
+                            ].execute({
+                                email: user.email,
+                                privateKey: user.encryptedPrivateKey,
+                                uid: user.uid
+                            }).then(() => {
+                                document.location.reload();
+                            });
+                        },
                     }]}/> 
-                    <div id="access-kit">
-                        <p>
-                            This is the access kit for <strong>{user.email || '-'}</strong>.
-                        </p>
-                        <p>
-                            You will need your user private key when logging in on a new device. Store this document on a safe place.
-                        </p>
-                        <p>
-                            <strong>QR codes:</strong>
-                        </p>
-                        <p>
-                            When accessing from a mobile phone, you can scan the following QR codes to provide your private key. Please scan them in the same order as they appear below (from left to right).
-                        </p>
-                        <div style={{border: '5px dashed #ccc', display: 'flex', justifyContent: 'space-around', padding: '20px'}}>
-                            <QRCode value={createExportableFragment({
-                                content: user.encryptedPrivateKey, 
-                                ownerIdentifier: user.email, 
-                                totalFragments: 2, 
-                                fragmentNumber: 1
-                            })} />
+                    <div style={{'display': 'none'}}>
+                        <div id="access-kit">
+                            <p>
+                                This access key belongs to <strong>{user.email || '-'}</strong> ({localStorage.getItem('documentsUrl')}).
+                            </p>
+                            <p>
+                                You will need your user private key when logging in on a new device. Store this document on a safe place.
+                            </p>
+                            <p>
+                                <strong>QR codes:</strong>
+                            </p>
+                            <p>
+                                When accessing from a mobile phone, you can scan the following QR codes to provide your private key.
+                            </p>
+                            <div style={{border: '5px dashed #ccc'}}>
+                                <div style={{display: 'flex', justifyContent: 'space-around', padding: '20px'}}>
+                                    <div style={{'display': 'flex', 'flexDirection': 'column', 'gap': '10px', 'textAlign': 'center', 'fontWeight': 'bold'}}>
+                                        <QRCode value={createExportableFragment({
+                                            content: user.encryptedPrivateKey, 
+                                            ownerIdentifier: user.email, 
+                                            totalFragments: 4, 
+                                            fragmentNumber: 1
+                                        })} />
+                                        QR Number 1 of 4
+                                    </div>
 
-                            <QRCode value={createExportableFragment({
-                                content: user.encryptedPrivateKey, 
-                                ownerIdentifier: user.email, 
-                                totalFragments: 2, 
-                                fragmentNumber: 2
-                            })} />
-                        </div>
+                                    <div style={{'display': 'flex', 'flexDirection': 'column', 'gap': '10px', 'textAlign': 'center', 'fontWeight': 'bold'}}>
+                                        <QRCode value={createExportableFragment({
+                                            content: user.encryptedPrivateKey, 
+                                            ownerIdentifier: user.email, 
+                                            totalFragments: 4, 
+                                            fragmentNumber: 2
+                                        })} />
+                                        QR Number 2 of 4
+                                    </div>
+                                </div>
+                                <div style={{display: 'flex', justifyContent: 'space-around', padding: '20px'}}>
+                                    <div style={{'display': 'flex', 'flexDirection': 'column', 'gap': '10px', 'textAlign': 'center', 'fontWeight': 'bold'}}>
+                                        <QRCode value={createExportableFragment({
+                                            content: user.encryptedPrivateKey, 
+                                            ownerIdentifier: user.email, 
+                                            totalFragments: 4, 
+                                            fragmentNumber: 3
+                                        })} />
+                                        QR Number 3 of 4
+                                    </div>
+                                    <div style={{'display': 'flex', 'flexDirection': 'column', 'gap': '10px', 'textAlign': 'center', 'fontWeight': 'bold'}}>
+                                        <QRCode value={createExportableFragment({
+                                            content: user.encryptedPrivateKey, 
+                                            ownerIdentifier: user.email, 
+                                            totalFragments: 4, 
+                                            fragmentNumber: 4
+                                        })} />
+                                        QR Number 4 of 4
+                                    </div>
+                                </div>
+                            </div>
 
-                        <p>
-                            <strong>Private key:</strong>
-                        </p>
-                        <p>
-                            If you prefer to not print this file, you can directly copy and paste the following text:
-                        </p>
-                        <p style={{wordBreak: 'break-all', border: '5px dashed #ccc', padding: '20px', fontSize: '5px'}}>
-                            {user.encryptedPrivateKey}
-                        </p>
+                            <p>
+                                <strong>Master password:</strong>
+                            </p>
+                            <p>
+                                It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:
+                            </p>
 
-                        <p>
-                            <strong>Master password:</strong>
-                        </p>
-                        <p>
-                            It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:
-                        </p>
+                            <div style={{border: '5px dashed #ccc', padding: '25px'}}>
+                                
+                            </div>
 
-                        <div style={{border: '5px dashed #ccc', padding: '50px'}}>
-                            
+                            <h1>Passager Private Key</h1>
+                            <p>
+                                If you prefer to not print this file, you can directly copy and paste the following text. In case of printing this document (which is recommended), you can skip this page.
+                            </p>
+                            <p style={{wordBreak: 'break-all', border: '5px dashed #ccc', padding: '20px', fontSize: '12px'}}>
+                                {user.encryptedPrivateKey}
+                            </p>
                         </div>
                     </div>
+
                 </div>
             }
         </>

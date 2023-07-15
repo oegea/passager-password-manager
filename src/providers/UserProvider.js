@@ -53,9 +53,12 @@ class UserProvider extends Component {
             }
 
             // TODO: Always reading from localStorage for testing purposes
-            //if (userDocument.privateKey === null) 
-            if (localStorage.getItem('storeMode') === 'BACKEND')
+            if (userDocument.privateKey.length === 0) {
+                userDocument.isPrivateKeyStoredLocally = true;
                 userDocument.privateKey = readPrivateKeyFromLocalStorage(userDocument);
+            } else {
+                userDocument.isPrivateKeyStoredLocally = false;
+            }
 
             await this.asyncSetState({ user: userDocument });
         };

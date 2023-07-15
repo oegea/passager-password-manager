@@ -110,7 +110,9 @@ export const setDocument = async (collection, document, findCriteria) => {
         const existingDocument = searchResult[0];
 
         const updatedDocument = {
-            ...document
+            ...existingDocument,
+            ...document,
+            id: undefined
         };
 
         const result = await updateDocument(

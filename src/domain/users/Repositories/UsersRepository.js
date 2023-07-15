@@ -38,6 +38,15 @@ export default class UsersRepository {
     }
 
     /**
+     * Updates private key of a user
+     */
+    async updateUserPrivateKey() {
+        throw new Error(
+            '[UsersRepository][updateUserPrivateKey] is not implemented yet'
+        );
+    }
+
+    /**
      * Gets the user document by uid
      */
     async getUserDocumentByUid() {

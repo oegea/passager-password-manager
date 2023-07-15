@@ -72,6 +72,20 @@ export default class BackendUsersRepository extends UsersRepository {
         });
     }
 
+    async updateUserPrivateKey({ userOperationRequest }) {
+        // Retrieve data
+        const uid = userOperationRequest.getUid();
+        const privateKey = userOperationRequest.getPrivateKey();
+
+        const document = {
+            privateKey
+        };
+
+        await setDocument('users', document, {
+            email: uid
+        });
+    }
+
     async getUserDocumentByUid({ userOperationRequest }) {
         // Retrieve uid
         const uid = userOperationRequest.getUid();

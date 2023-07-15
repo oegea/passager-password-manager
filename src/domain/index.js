@@ -63,6 +63,8 @@ const useCases = {
     users: {
         update_user_public_key_use_case:
             UsersUseCasesFactory.updateUserPublicKeyUseCase({ config }),
+        update_user_private_key_use_case:
+            UsersUseCasesFactory.updateUserPrivateKeyUseCase({ config }),
         get_user_public_key_use_case:
             UsersUseCasesFactory.getUserPublicKeyUseCase({ config }),
         get_and_create_user_document_use_case:

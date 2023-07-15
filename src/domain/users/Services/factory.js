@@ -28,6 +28,7 @@ import { GetAndCreateUserDocumentService } from './GetAndCreateUserDocumentServi
 import { UpdateUserDocumentService } from './UpdateUserDocumentService.js';
 import { SetUserMasterPasswordService } from './SetUserMasterPasswordService.js';
 import { SubscribeToAuthStateChangeService } from './SubscribeToAuthStateChangeService.js';
+import { UpdateUserPrivateKeyService } from './UpdateUserPrivateKeyService.js';
 // Factories
 import { UsersRepositoriesFactory } from '../Repositories/factory.js';
 import { UsersEntitiesFactory } from '../Entities/factory.js';
@@ -45,6 +46,11 @@ export class UsersServicesFactory {
 
     static updateUserPublicKeyService = ({ config }) =>
         new UpdateUserPublicKeyService({
+            repository: UsersRepositoriesFactory.getRepository({ config }),
+        });
+
+    static updateUserPrivateKeyService = ({ config }) =>
+        new UpdateUserPrivateKeyService({
             repository: UsersRepositoriesFactory.getRepository({ config }),
         });
 
