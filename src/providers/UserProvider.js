@@ -52,7 +52,6 @@ class UserProvider extends Component {
                     this.onSubscriptionChanges.bind(this, user);
             }
 
-            // TODO: Always reading from localStorage for testing purposes
             if (userDocument.privateKey.length === 0) {
                 userDocument.isPrivateKeyStoredLocally = true;
                 userDocument.privateKey = readPrivateKeyFromLocalStorage(userDocument);

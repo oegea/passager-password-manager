@@ -8,7 +8,7 @@ import { Share } from '@capacitor/share';
 export const initMobileSettings = async () => {
     StatusBar.hide();
     // Check for app updates - only if the app has not been launched in the last 60 minutes. 
-    const didUpdate = await AppUpdater.sync('https://passager-password-manager-git-feat-private-key-loc-12f65a-oegea.vercel.app', 1000*60*60);
+    const didUpdate = await AppUpdater.sync('https://cloud.passager.app', 1000*60*60);
 
     return didUpdate;
 };
