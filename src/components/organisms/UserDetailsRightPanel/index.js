@@ -100,9 +100,9 @@ const UserDetailsRightPanel = ({ user }) => {
 
             {isBackendMode() && user.isPrivateKeyStoredLocally && 
                 <div>
-                    <SectionTitle title={'Increased security mode'} buttons={[{
+                    <SectionTitle title={t('profile.Increased security mode')} buttons={[{
                         label: t('profile.Print access kit'),
-                        onClick: () => printElementById('access-kit', 'Passager Access Kit'),
+                        onClick: () => printElementById('access-kit', t('profile.Passager access kit')),
                     }, {
                         label: t('profile.Disable improved security mode'),
                         onClick: () => {
@@ -126,16 +126,16 @@ const UserDetailsRightPanel = ({ user }) => {
                     <div style={{'display': 'none'}}>
                         <div id="access-kit">
                             <p>
-                                This access key belongs to <strong>{user.email || '-'}</strong> ({localStorage.getItem('documentsUrl')}).
+                                {t('profile.This access kit belongs to')} <strong>{user.email || '-'}</strong> ({localStorage.getItem('documentsUrl')}).
                             </p>
                             <p>
-                                You will need your user private key when logging in on a new device. Store this document on a safe place.
+                                {t('profile.You will need your user private key when logging in on a new device. Store this document on a safe place')}
                             </p>
                             <p>
-                                <strong>QR codes:</strong>
+                                <strong>{t('profile.QR codes')}:</strong>
                             </p>
                             <p>
-                                When accessing from a mobile phone, you can scan the following QR codes to provide your private key.
+                                {t('profile.When accessing from a mobile phone, you can scan the following QR codes to provide your private key')}
                             </p>
                             <div style={{border: '5px dashed #ccc'}}>
                                 <div style={{display: 'flex', justifyContent: 'space-around', padding: '20px'}}>
@@ -146,7 +146,7 @@ const UserDetailsRightPanel = ({ user }) => {
                                             totalFragments: 4, 
                                             fragmentNumber: 1
                                         })} />
-                                        QR Number 1 of 4
+                                        {t('profile.QR number')} 1
                                     </div>
 
                                     <div style={{'display': 'flex', 'flexDirection': 'column', 'gap': '10px', 'textAlign': 'center', 'fontWeight': 'bold'}}>
@@ -156,7 +156,7 @@ const UserDetailsRightPanel = ({ user }) => {
                                             totalFragments: 4, 
                                             fragmentNumber: 2
                                         })} />
-                                        QR Number 2 of 4
+                                        {t('profile.QR number')} 2
                                     </div>
                                 </div>
                                 <div style={{display: 'flex', justifyContent: 'space-around', padding: '20px'}}>
@@ -167,7 +167,7 @@ const UserDetailsRightPanel = ({ user }) => {
                                             totalFragments: 4, 
                                             fragmentNumber: 3
                                         })} />
-                                        QR Number 3 of 4
+                                        {t('profile.QR number')} 3
                                     </div>
                                     <div style={{'display': 'flex', 'flexDirection': 'column', 'gap': '10px', 'textAlign': 'center', 'fontWeight': 'bold'}}>
                                         <QRCode value={createExportableFragment({
@@ -176,25 +176,25 @@ const UserDetailsRightPanel = ({ user }) => {
                                             totalFragments: 4, 
                                             fragmentNumber: 4
                                         })} />
-                                        QR Number 4 of 4
+                                        {t('profile.QR number')} 4
                                     </div>
                                 </div>
                             </div>
 
                             <p>
-                                <strong>Master password:</strong>
+                                <strong>{t('profile.Master password')}:</strong>
                             </p>
                             <p>
-                                It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:
+                                {t('profile.It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:')}
                             </p>
 
                             <div style={{border: '5px dashed #ccc', padding: '25px'}}>
                                 
                             </div>
 
-                            <h1>Passager Private Key</h1>
+                            <h1>{t('profile.Private key')}</h1>
                             <p>
-                                If you prefer to not print this file, you can directly copy and paste the following text. In case of printing this document (which is recommended), you can skip this page.
+                                {t('profile.If you prefer to not print this file, you can directly copy and paste the following text. In case of printing this document (which is recommended), you can skip this page')}
                             </p>
                             <p style={{wordBreak: 'break-all', border: '5px dashed #ccc', padding: '20px', fontSize: '12px'}}>
                                 {user.encryptedPrivateKey}

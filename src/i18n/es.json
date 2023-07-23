@@ -159,7 +159,17 @@
         "The improved security mode is enabled. You will need to provide your private key when logging in on a new device": "El modo de seguridad avanzada está habilitado. Necesitarás proporcionar tu clave privada cuando inicies sesión en un nuevo dispositivo.",
         "Please download and print your access kit to be sure you do not lose access to your data": "Por favor, descarga e imprime tu kit de acceso para asegurarte de que no pierdes el acceso a tus datos.",
         "Print access kit": "Imprimir kit de acceso",
-        "Disable improved security mode": "Desactivar modo de seguridad avanzada"
+        "Disable improved security mode": "Desactivar modo de seguridad avanzada",
+        "Passager access kit": "Kit de acceso de Passager",
+        "This access kit belongs to": "Este kit de acceso pertenece a",
+        "You will need your user private key when logging in on a new device. Store this document on a safe place": "Necesitarás tu clave privada de usuario cuando inicies sesión en un nuevo dispositivo. Almacena este documento en un lugar seguro.",
+        "QR codes": "Códigos QR",
+        "When accessing from a mobile phone, you can scan the following QR codes to provide your private key": "Cuando accedas desde un teléfono móvil, puedes escanear los siguientes códigos QR para proporcionar tu clave privada.",
+        "QR number": "QR número",
+        "Master password": "Contraseña maestra",
+        "It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:": "Se recomienda recordar la contraseña maestra y no escribirla en ningún sitio. Sin embargo, en caso de que te sientas más cómodo escribiéndola, puedes hacerlo aquí:",
+        "Private key": "Clave privada",
+        "If you prefer to not print this file, you can directly copy and paste the following text. In case of printing this document (which is recommended), you can skip this page": "Si prefieres no imprimir este archivo, puedes copiar y pegar directamente el siguiente texto. En caso de imprimir este documento (lo cual se recomienda), puedes saltarte esta página."
     },
     "privacy": {
         "Important privacy information": "Información importante de privacidad",

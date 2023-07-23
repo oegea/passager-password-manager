@@ -159,7 +159,17 @@
         "The improved security mode is enabled. You will need to provide your private key when logging in on a new device": "The improved security mode is enabled. You will need to provide your private key when logging in on a new device.",
         "Please download and print your access kit to be sure you do not lose access to your data": "Please download and print your access kit to be sure you do not lose access to your data.",
         "Print access kit": "Print access kit",
-        "Disable improved security mode": "Disable improved security mode"
+        "Disable improved security mode": "Disable improved security mode",
+        "Passager access kit": "Passager access kit",
+        "This access kit belongs to": "This access kit belongs to",
+        "You will need your user private key when logging in on a new device. Store this document on a safe place": "You will need your user private key when logging in on a new device. Store this document on a safe place.",
+        "QR codes": "QR codes",
+        "When accessing from a mobile phone, you can scan the following QR codes to provide your private key": "When accessing from a mobile phone, you can scan the following QR codes to provide your private key.",
+        "QR number": "QR number",
+        "Master password": "Master password",
+        "It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:": "It is recommended to remember the master password and not writting it down anywhere. However, in case you feel more comfortable writting it down, you can do it here:",
+        "Private key": "Private key",
+        "If you prefer to not print this file, you can directly copy and paste the following text. In case of printing this document (which is recommended), you can skip this page": "If you prefer to not print this file, you can directly copy and paste the following text. In case of printing this document (which is recommended), you can skip this page."
     },
     "privacy": {
         "Important privacy information": "Important privacy information",
