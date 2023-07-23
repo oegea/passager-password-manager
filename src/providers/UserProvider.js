@@ -24,6 +24,8 @@ import { importRSAKeyPair } from '@useful-tools/crypto';
 
 // Domain
 import domain from '../domain/index.js';
+// Libs
+import {readPrivateKeyFromLocalStorage} from '../libs/privateKey.js';
 
 export const UserContext = createContext();
 
@@ -48,6 +50,13 @@ class UserProvider extends Component {
                     this.decryptPrivateKey.bind(this);
                 userDocument.reloadAuthDetails =
                     this.onSubscriptionChanges.bind(this, user);
+            }
+
+            if (userDocument.privateKey.length === 0) {
+                userDocument.isPrivateKeyStoredLocally = true;
+                userDocument.privateKey = readPrivateKeyFromLocalStorage(userDocument);
+            } else {
+                userDocument.isPrivateKeyStoredLocally = false;
             }
 
             await this.asyncSetState({ user: userDocument });

@@ -30,6 +30,7 @@ import Profile from './components/pages/Profile/index.js';
 import ProfileBackups from './components/pages/Profile/backups.js';
 import UserMasterPasswordValidation from './components/pages/UserMasterPasswordValidation/index.js';
 import UserSignup from './components/pages/UserSignup/index.js';
+import UserPrivateKeyValidation from './components/pages/UserPrivateKeyValidation/index.js';
 import Privacy from './components/pages/Privacy/index.js';
 // Context
 import withUser from './providers/WithUser.js';
@@ -39,11 +40,24 @@ const RoutesConfiguration = ({ user }) => {
         <BrowserRouter>
             {user !== null &&
                 user.initialized === true &&
-                user.decryptedPrivateKey === false && (
+                user.decryptedPrivateKey === false && 
+                user.privateKey !== null && (
                 <Routes>
                     <Route
                         path="*"
                         element={<UserMasterPasswordValidation />}
+                    />
+                </Routes>
+            )}
+
+            {user !== null &&
+                user.initialized === true &&
+                user.decryptedPrivateKey === false &&
+                user.privateKey === null && (
+                <Routes>
+                    <Route
+                        path="*"
+                        element={<UserPrivateKeyValidation />}
                     />
                 </Routes>
             )}

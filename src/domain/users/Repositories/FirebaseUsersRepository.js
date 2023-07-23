@@ -27,6 +27,10 @@ export default class FirebaseUsersRepository extends UsersRepository {
         this._firebaseUtils = firebaseUtils;
     }
 
+    async updateUserPrivateKey() {
+        throw new Error('Not implemented');
+    }
+
     async getUserPublicDetails({ userOperationRequest }) {
         const email = userOperationRequest.getEmail();
 

@@ -25,6 +25,7 @@ export class UserOperationRequest {
         password = '',
         photoURL = '',
         publicKey = '',
+        privateKey = '',
         uid = '',
     }) {
         this._displayName = displayName;
@@ -32,6 +33,7 @@ export class UserOperationRequest {
         this._password = password;
         this._photoURL = photoURL;
         this._publicKey = publicKey;
+        this._privateKey = privateKey;
         this._uid = uid;
     }
 
@@ -57,6 +59,10 @@ export class UserOperationRequest {
 
     setPublicKey(publicKey) {
         this._publicKey = publicKey;
+    }
+
+    getPrivateKey() {
+        return this._privateKey;
     }
 
     getUid() {

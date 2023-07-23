@@ -18,31 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { UserOperationRequest } from './UserOperationRequest.js';
-import { UserSubscriptionRequest } from './UserSubscriptionRequest.js';
+// Third party dependencies
+import styled from 'styled-components';
 
-export class UsersRequestsFactory {
-    static userOperationRequest = ({
-        displayName,
-        email,
-        password,
-        photoURL,
-        publicKey,
-        privateKey,
-        uid,
-    }) => {
-        return new UserOperationRequest({
-            displayName,
-            email,
-            password,
-            photoURL,
-            publicKey,
-            privateKey,
-            uid,
-        });
-    };
+const TextArea = styled.textarea`
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 100px;
+    padding: 5px;
+    width: 100%;
 
-    static userSubscriptionRequest = ({ onSubscriptionChanges }) => {
-        return new UserSubscriptionRequest({ onSubscriptionChanges });
-    };
-}
+    &::placeholder {
+        font-size: 16px;
+    }
+`;
+const AtomTextArea = (props) => {
+    return <TextArea {...props} />;
+};
+
+AtomTextArea.displayName = 'AtomTextArea';
+
+export default AtomTextArea;

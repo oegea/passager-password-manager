@@ -72,6 +72,26 @@ export default class LocalUsersRepository extends UsersRepository {
         );
     }
 
+    async updateUserPrivateKey({ userOperationRequest }) {
+        // Retrieve data
+        const uid = userOperationRequest.getUid();
+        const privateKey = userOperationRequest.getPrivateKey();
+        const email = userOperationRequest.getEmail();
+
+        const document = {
+            uid,
+            privateKey,
+            email,
+        };
+
+        this._LocalStorageDatabase.setDocument(
+            'userSharingSettings',
+            document,
+            'uid',
+            uid
+        );
+    }
+
     async getUserDocumentByUid({ userOperationRequest }) {
         // Retrieve uid
         const uid = userOperationRequest.getUid();

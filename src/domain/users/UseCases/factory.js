@@ -27,11 +27,20 @@ import { GetUserPublicKeyUseCase } from './GetUserPublicKeyUseCase.js';
 import { GetAndCreateUserDocumentUseCase } from './/GetAndCreateUserDocumentUseCase.js';
 import { SetUserMasterPasswordUseCase } from './SetUserMasterPasswordUseCase.js';
 import { SubscribeToAuthStateChangeUseCase } from './SubscribeToAuthStateChangeUseCase.js';
+import { UpdateUserPrivateKeyUseCase } from './UpdateUserPrivateKeyUseCase.js';
 
 export class UsersUseCasesFactory {
     static updateUserPublicKeyUseCase = ({ config }) =>
         new UpdateUserPublicKeyUseCase({
             service: UsersServicesFactory.updateUserPublicKeyService({
+                config,
+            }),
+            userOperationRequest: UsersRequestsFactory.userOperationRequest,
+        });
+
+    static updateUserPrivateKeyUseCase = ({ config }) =>
+        new UpdateUserPrivateKeyUseCase({
+            service: UsersServicesFactory.updateUserPrivateKeyService({
                 config,
             }),
             userOperationRequest: UsersRequestsFactory.userOperationRequest,
