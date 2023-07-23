@@ -51,8 +51,8 @@ const UserDetailsRightPanel = ({ user }) => {
 
             {isBackendMode() && user.isPrivateKeyStoredLocally === false && 
                 <>
-                    <SectionTitle title={'Increased security mode'} buttons={[{
-                        label: 'Enable',
+                    <SectionTitle title={t('profile.Increased security mode')} buttons={[{
+                        label: t('common.Enable'),
                         onClick: () => {
 
                             domain.useCases.users[
@@ -67,33 +67,33 @@ const UserDetailsRightPanel = ({ user }) => {
                         },
                     }]} />
                     <p>
-                        Passager encrypts all your data before sending it to your organization servers (this include passwords, and any other sensible data you store in Passager). By doing this, you can be sure that only you and the people with whom you may have shared your folders, can have access to your data.
+                        {t('profile.Passager encrypts all your data before sending it to your organization servers (this include passwords, and any other sensible data you store in Passager). By doing this, you can be sure that only you and the people with whom you may have shared your folders, can have access to your data')}
                     </p>
                     <p>
-                        In order to achieve this high security level, Passager relies in two main components:
+                        {t('profile.In order to achieve this high security level, Passager relies in two main components:')}
                     </p>
                     <ol>
                         <li>
-                            The first one, is your user encryption key (also referred as &quot;private key&quot;). This key is randomly generated when you login for the first time, and it is the unique key that can decrypt your data. By default this key is managed by Passager, and is stored in your organization servers.
+                            {t('profile.The first one, is your user encryption key (also referred as &quot;private key&quot;). This key is randomly generated when you login for the first time, and it is the unique key that can decrypt your data. By default this key is managed by Passager, and is stored in your organization servers')}
                         </li>
                         <li>
-                            The second one, is your master password. It&apos;s a password you choose when you login for the first time, and it is used to encrypt your private key in order to ensure that nobody from your organization or any hypothetical attacker can read your private key, which will enable them to decrypt your information.
+                            {t('profile.The second one, is your master password. It&apos;s a password you choose when you login for the first time, and it is used to encrypt your private key in order to ensure that nobody from your organization or any hypothetical attacker can read your private key, which will enable them to decrypt your information')}
                         </li>
                     </ol>
                     <p>
-                        This system guarantees the safety of your data, as long as your master password is strong-enough.
+                        {t('profile.This system guarantees the safety of your data, as long as your master password is strong-enough')}
                     </p>
                     <p>
-                        However, in case an additional level of security is required, you can opt to manage your user private key by yourself. This means that, once you enable this mode, your private key will no-longer be stored by your organization, and you will be in charge of storing it in a safe place.
+                        {t('profile.However, in case an additional level of security is required, you can opt to manage your user private key by yourself. This means that, once you enable this mode, your private key will no-longer be stored by your organization, and you will be in charge of storing it in a safe place')}
                     </p>
                     <p>
-                        As Passager needs your private key to work, you will need to provide it the first time you login on a new device. After logging in, your private key will be stored in your device and you will not be asked for it again unless you remove Passager&apos;s data, or you login on a new device.
+                        {t('profile.As Passager needs your private key to work, you will need to provide it the first time you login on a new device. After logging in, your private key will be stored in your device and you will not be asked for it again unless you remove Passager&apos;s data, or you login on a new device')}
                     </p>
                     <p>
-                        Please note, the same way as your master password, you will not be able to recover your private key if you lose it. So, please, make sure you store it in a safe place <strong>or you can lose access to your data forever</strong>.
+                        {t('profile.Please note, the same way as your master password, you will not be able to recover your private key if you lose it. So, please, make sure you store it in a safe place')} <strong>{t('profile.or you can lose access to your data forever')}</strong>
                     </p>
                     <p>
-                        To help you store your private key, once you enable the advanced security mode, Passager will allow you to download and print an access kit, which will contain your private key splitted in two QR codes that you will be able to directly scan with your phone when you need to login on a new device.
+                        {t('profile.To help you store your private key, once you enable the advanced security mode, Passager will allow you to download and print an access kit, which will contain your private key splitted in two QR codes that you will be able to directly scan with your phone when you need to login on a new device')}
                     </p>
                 </>
             }
@@ -101,10 +101,10 @@ const UserDetailsRightPanel = ({ user }) => {
             {isBackendMode() && user.isPrivateKeyStoredLocally && 
                 <div>
                     <SectionTitle title={'Increased security mode'} buttons={[{
-                        label: 'Print access kit',
+                        label: t('profile.Print access kit'),
                         onClick: () => printElementById('access-kit', 'Passager Access Kit'),
                     }, {
-                        label: 'Disable increased security mode',
+                        label: t('profile.Disable improved security mode'),
                         onClick: () => {
                             domain.useCases.users[
                                 'update_user_private_key_use_case'
@@ -117,6 +117,12 @@ const UserDetailsRightPanel = ({ user }) => {
                             });
                         },
                     }]}/> 
+                    <p>
+                        {t('profile.The improved security mode is enabled. You will need to provide your private key when logging in on a new device')}
+                    </p>
+                    <p>
+                        {t('profile.Please download and print your access kit to be sure you do not lose access to your data')}
+                    </p>
                     <div style={{'display': 'none'}}>
                         <div id="access-kit">
                             <p>
