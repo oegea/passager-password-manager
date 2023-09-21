@@ -28,10 +28,8 @@ import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
-import { signInWithGoogle } from '../../../libs/firebase.js';
 import { enableLocalMode } from '@useful-tools/localstorage';
 import { enableBackendMode } from '../../../libs/backend.js';
-import { isMobileDevice } from '../../../libs/mobile.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
 const PageLogin = () => {
@@ -58,19 +56,6 @@ const PageLogin = () => {
                         ]
                     }
                 </p>
-                {!isMobileDevice() ? (
-                    <p style={{color: 'red'}}>
-                        {t('login.Login with Google will be removed soon! Please start using Passager locally or')} <a href="https://github.com/oegea/passager-password-manager/blob/main/backend/readme.md" rel="noreferrer" target="_blank">{t('login.in your own server')}.</a>
-                    </p>
-                ) : null}
-                {!isMobileDevice() ? (
-                    <ButtonWrapper justifyContent="center">
-                        <Button
-                            label={t('login.Log in with Google')}
-                            onClick={signInWithGoogle}
-                        />
-                    </ButtonWrapper>
-                ) : null}
 
                 <ButtonWrapper justifyContent="center">
                     <Button
