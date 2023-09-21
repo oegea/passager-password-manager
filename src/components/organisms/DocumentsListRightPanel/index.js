@@ -146,7 +146,7 @@ const DocumentsListRightPanel = ({
             </h1>
         );
 
-    let sectionButtons = localStorage.getItem('storeMode') === 'FIREBASE' ? [] : [
+    let sectionButtons = [
         {
             label: t('common.Create'),
             onClick: () => {

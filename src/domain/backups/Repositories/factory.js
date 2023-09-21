@@ -36,10 +36,6 @@ export class BackupsRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-        case config.get('FIREBASE_STORE_MODE'):
-            return BackupsRepositoriesFactory.genericBackupsRepository({
-                config,
-            });
         case config.get('LOCAL_STORE_MODE'):
             return BackupsRepositoriesFactory.localBackupsRepository({
                 config,

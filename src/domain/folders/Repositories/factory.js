@@ -19,19 +19,12 @@
  */
 
 // Third party dependencies
-import firebaseUtils from '../../../libs/firebase.js';
 import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
 import BackendFoldersRepository from './BackendFoldersRepository.js';
-import FirebaseFoldersRepository from './FirebaseFoldersRepository.js';
 import LocalFoldersRepository from './LocalFoldersRepository.js';
 
 export class FoldersRepositoriesFactory {
-    static firebaseFoldersRepository = ({ config }) =>
-        new FirebaseFoldersRepository({
-            config,
-            firebaseUtils,
-        });
 
     static localFoldersRepository = ({ config }) =>
         new LocalFoldersRepository({
@@ -47,10 +40,6 @@ export class FoldersRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-        case config.get('FIREBASE_STORE_MODE'):
-            return FoldersRepositoriesFactory.firebaseFoldersRepository({
-                config,
-            });
         case config.get('LOCAL_STORE_MODE'):
             return FoldersRepositoriesFactory.localFoldersRepository({
                 config,

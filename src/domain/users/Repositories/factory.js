@@ -19,21 +19,14 @@
  */
 
 // Third party dependencies
-import firebaseUtils from '../../../libs/firebase.js';
 import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
-import FirebaseUsersRepository from './FirebaseUsersRepository.js';
 import LocalUsersRepository from './LocalUsersRepository.js';
 import BackendUsersRepository from './BackendUsersRepository.js';
 // Factories
 import { UsersEntitiesFactory } from '../Entities/factory.js';
 
 export class UsersRepositoriesFactory {
-    static firebaseUsersRepository = ({ config }) =>
-        new FirebaseUsersRepository({
-            config,
-            firebaseUtils,
-        });
 
     static localUsersRepository = ({ config }) =>
         new LocalUsersRepository({
@@ -51,10 +44,6 @@ export class UsersRepositoriesFactory {
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
         switch (storeMode) {
-        case config.get('FIREBASE_STORE_MODE'):
-            return UsersRepositoriesFactory.firebaseUsersRepository({
-                config,
-            });
         case config.get('LOCAL_STORE_MODE'):
             return UsersRepositoriesFactory.localUsersRepository({
                 config,

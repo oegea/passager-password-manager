@@ -19,7 +19,7 @@
  */
 
 import React, { Component, createContext } from 'react';
-import { getUserDocument, getUserPublicKey } from '../libs/auth.js';
+import { getUserDocument, getUserPublicKey, isUserLoggedIn } from '../libs/auth.js';
 import { importRSAKeyPair } from '@useful-tools/crypto';
 
 // Domain
@@ -40,6 +40,7 @@ class UserProvider extends Component {
     LOGOUT_TIME = this.TEN_MINUTES;
 
     componentDidMount = async () => {
+        if (isUserLoggedIn() === false) return;
         this.onSubscriptionChanges = async (user, onFinish) => {
             let userDocument = null;
             if (user !== null) {

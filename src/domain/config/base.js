@@ -19,12 +19,10 @@
  */
 
 // Config files
-import firebase from './firebase.js';
 import local from './local.js';
 import backend from './backend.js';
 
 export let config = {
-    FIREBASE_STORE_MODE: 'FIREBASE',
     LOCAL_STORE_MODE: 'LOCAL',
     BACKEND_STORE_MODE: 'BACKEND'
 };
@@ -37,7 +35,7 @@ case config.BACKEND_STORE_MODE:
     config = { ...config, ...backend };
     break;
 default:
-    config = { ...config, ...firebase };
+    config = { ...config, ...local };
     break;
 };
 

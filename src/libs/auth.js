@@ -21,15 +21,10 @@
 // Domain
 import domain from '../domain/index.js';
 
-//Own libraries
-import { fireAuth } from './firebase.js';
-
-const { getAuth, signOut } = fireAuth;
+export const isUserLoggedIn = () => localStorage.getItem('storeMode') !== 'NONE';
 
 export const logout = () => {
-    const auth = getAuth();
-    signOut(auth);
-    localStorage.setItem('storeMode', 'FIREBASE');
+    localStorage.setItem('storeMode', 'NONE');
 
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('privateUserKey');

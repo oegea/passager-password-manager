@@ -41,7 +41,7 @@ export class RemoveSharedEmailService {
 
         folderShareRequest.setEmailList(emailList);
 
-        // Save the new email list updating the folder in firebase
+        // Save the new email list updating the folder
         await this._repository.updateFolderSharedWith({ folderShareRequest });
 
         // Gets the user public details

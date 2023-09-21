@@ -28,7 +28,7 @@ export default class LocalFoldersRepository extends FoldersRepository {
     }
 
     /**
-     * Creates a folder in firebase and returns a FolderEntity
+     * Creates a folder and returns a FolderEntity
      * @param {FolderOperationRequest} folderOperationRequest Request with data to create the folder
      * @returns FolderEntity that represents the new folder
      */

@@ -20,7 +20,7 @@
 
 export default class FoldersRepository {
     /**
-     * Creates a folder in firebase and returns a FolderEntity
+     * Creates a folder and returns a FolderEntity
      */
     async createFolder() {
         throw new Error(

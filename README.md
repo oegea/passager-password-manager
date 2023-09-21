@@ -91,8 +91,8 @@ In the project directory, you can run:
 To achieve simplicity, security and usability for teams, the following technical decisions have been adopted:
 
 -   Get inspiration, without just copying them, from services like Google Drive, or apps like Finder. A password manager should be as easy-to-use as a file explorer is.
--   Use third-party services (firebase) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
--   Decouple the application as much as possible from firebase, to reduce efforts if a service provider change is needed on a future.
+-   Use third-party services (docky) for authentication and database, to reduce the risk of implementing a property login system or administrating a database system.
+-   Decouple the application as much as possible from docky, to reduce efforts if a service provider change is needed on a future.
 -   Handle encryption of data on the client's browser, using native APIs to perform crypto operations.
 -   Ensure that team sharing features do not reduce software security.
 

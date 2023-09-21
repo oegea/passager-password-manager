@@ -40,7 +40,7 @@ export default class BackendFoldersRepository extends FoldersRepository {
     static foldersSubscription = null;
 
     /**
-     * Creates a folder in firebase and returns a FolderEntity
+     * Creates a folder and returns a FolderEntity
      * @param {FolderOperationRequest} folderOperationRequest Request with data to create the folder
      * @returns FolderEntity that represents the new folder
      */
@@ -182,11 +182,10 @@ export default class BackendFoldersRepository extends FoldersRepository {
     }
 
     async updateFolderSharedWith({ folderShareRequest }) {
-        // Load firebase library
         const folderId = folderShareRequest.getFolderId();
         const emailList = folderShareRequest.getEmailList();
 
-        // Save the new email list updating the folder in firebase
+        // Save the new email list updating the folder
         await updateDocument('folders', folderId, {
             sharedWith: emailList,
         });
@@ -195,7 +194,6 @@ export default class BackendFoldersRepository extends FoldersRepository {
     }
 
     async unshareFolder({ folderShareRequest, userPublicDetails }) {
-        // Load firebase library
         const { uid } = userPublicDetails;
         const folderId = folderShareRequest.getFolderId();
 
