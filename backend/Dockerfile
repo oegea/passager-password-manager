@@ -17,7 +17,6 @@ RUN npm install
 WORKDIR /usr/src/app
 COPY ./authentication-service ./authentication-service
 COPY ./documents-service ./documents-service
-COPY ./.env ./.env
 COPY ./run.sh ./run.sh
 
 # Build the bundle

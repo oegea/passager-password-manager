@@ -17,7 +17,6 @@
     "dependencies": {
         "@useful-tools/docky-documents-service": "^1.0.9",
         "debug": "^4.3.4",
-        "dotenv": "^16.0.2",
         "morgan": "^1.10.0",
         "tslint": "^6.1.3"
     },

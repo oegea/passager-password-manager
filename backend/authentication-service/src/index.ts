@@ -1,7 +1,4 @@
-import * as dotenv from 'dotenv'
 import {loadConfig, startAuthenticationService} from '@useful-tools/docky-authentication-service/dist'
-
-dotenv.config({ path: '../.env' })
 
 loadConfig({
     commonAppName: process.env.COMMON_APP_NAME,

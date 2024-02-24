@@ -1,0 +1,33 @@
+name: Deploy on Server
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker image"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Remove all containers using the old image
+      run: |
+        docker container ls -q --filter ancestor=oriolegea/passager-backend:latest | xargs -r docker container stop
+        docker container ls -aq --filter ancestor=oriolegea/passager-backend:latest | xargs -r docker container rm
+
+    - name: Remove old images
+      run: |
+        docker image prune -af --filter "label=oriolegea/passager-backend"
+
+    - name: Pull latest Docker image
+      run: docker pull oriolegea/passager-backend:latest
+
+    - name: Run container with the latest image
+      run: docker run -d --restart=always --env-file /root/passager-config/.env -p 3001-3002:3001-3002 oriolegea/passager-backend:latest

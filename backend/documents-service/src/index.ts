@@ -1,8 +1,5 @@
-import * as dotenv from 'dotenv'
 import {getExpressApp, loadConfig, startDocumentsService, NativeEventBusRepository, TYPE_QUERY} from '@useful-tools/docky-documents-service/dist'
 import {onGetOperationPermissions} from './onGetOperationPermissions'
-
-dotenv.config({ path: '../.env' })
 
 loadConfig({
     commonAppName: process.env.COMMON_APP_NAME,
