@@ -1,4 +1,4 @@
-FROM node:16 AS build
+FROM node:18 AS build
 
 WORKDIR /usr/src/app
 RUN mkdir -p /usr/src/app/authentication-service&&mkdir -p /usr/src/app/documents-service
@@ -26,7 +26,7 @@ RUN export TERM=linux && npm run build
 WORKDIR /usr/src/app/documents-service
 RUN export TERM=linux && npm run build
 
-FROM node:16 AS production
+FROM node:18 AS production
 
 # Copy the bundle from the build stage
 WORKDIR /usr/src/app
