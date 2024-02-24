@@ -6,10 +6,8 @@ This project is a set of web services to use Passager Password Manager within an
 
 You can quickly build and run the backend docker image by:
 
-1. Clone the repository.
-2. Copy `.env_template` to `.env` and complete it with real configuration parameters.
-3. Run `npm run build` to build the docker image.
-4. Run `npm run start` to start the docker container.
+1. Copy the content of `.env_template` to a file named `.env` and complete it with real configuration parameters.
+2. Run `docker run -d --restart=always --env-file /path/to/your/.env -p 3001-3002:3001-3002 oriolegea/passager-backend:latest` to start the docker container. It will restart automatically in case something goes wrong and the app crashes.
 
 While the container is up, you will be able to access the service at `http://localhost:3001` (authentication service) and `http://localhost:3002` (documents service).
 
@@ -17,7 +15,7 @@ While the container is up, you will be able to access the service at `http://loc
 
 If you prefer to run this project without using containers, you can run each service in local. Note that these services need to be configured before running.
 
-Configuration needs to be stored in a file named `.env`, a template is provided (`.env_template`), please copy it and rename to `.env` and then complete it with real configuration parameters.
+Configuration params need to be defined on environment variables.
 
 Do not forget to install dependencies by running `npm i` inside the `documents-service` and `authentication-service` directories.
 
