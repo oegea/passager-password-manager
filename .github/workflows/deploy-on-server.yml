@@ -53,6 +53,7 @@ jobs:
           --env COMMON_MONGODB_CONNECTION_STRING="${{ secrets.COMMON_MONGODB_CONNECTION_STRING }}"
           --env COMMON_MONGODB_DATABASE="${{ secrets.COMMON_MONGODB_DATABASE }}"
           --env COMMON_ORGANIZATION_NAME="${{ secrets.COMMON_ORGANIZATION_NAME }}"
+          --env COMMON_TOKEN_SECRET="${{ secrets.COMMON_TOKEN_SECRET }}"
           --env DOCS_PORT="${{ secrets.DOCS_PORT }}"
           --env DOCS_PUBLIC_URL="${{ secrets.DOCS_PUBLIC_URL }}"
           -p ${{ env.PORT_RANGE }}:${{ env.PORT_RANGE }}
