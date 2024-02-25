@@ -49,6 +49,8 @@ jobs:
           --env AUTH_SMTP_PORT="${{ secrets.AUTH_SMTP_PORT }}"
           --env AUTH_SMTP_SENDER="${{ secrets.AUTH_SMTP_SENDER }}"
           --env AUTH_SMTP_USER="${{ secrets.AUTH_SMTP_USER }}"
+          --env AUTH_LIMIT_ATTEMPTS_PER_IP_WAIT_TIME="${{ secrets.AUTH_LIMIT_ATTEMPTS_PER_IP_WAIT_TIME }}"
+          --env AUTH_LIMIT_ATTEMPTS_PER_IP="${{ secrets.AUTH_LIMIT_ATTEMPTS_PER_IP }}"
           --env COMMON_APP_NAME="${{ secrets.COMMON_APP_NAME }}"
           --env COMMON_MONGODB_CONNECTION_STRING="${{ secrets.COMMON_MONGODB_CONNECTION_STRING }}"
           --env COMMON_MONGODB_DATABASE="${{ secrets.COMMON_MONGODB_DATABASE }}"
