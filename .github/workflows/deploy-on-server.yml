@@ -1,6 +1,7 @@
 name: Deploy on Server
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Build and Push Docker image"]
     branches: [main]
@@ -9,6 +10,7 @@ on:
 
 jobs:
   deploy:
+    environment: Backend production
     runs-on: self-hosted
     steps:
     - name: Login to Docker Hub
@@ -29,5 +31,30 @@ jobs:
     - name: Pull latest Docker image
       run: docker pull oriolegea/passager-backend:latest
 
+    - name: Calculate ports
+      run: |
+        echo "PORT_RANGE=${{ secrets.AUTH_PORT }}-${{ secrets.DOCS_PORT }}" >> $GITHUB_ENV
+
     - name: Run container with the latest image
-      run: docker run -d --restart=always --env-file /root/passager-config/.env -p 3001-3002:3001-3002 oriolegea/passager-backend:latest
+      run: '
+         docker run -d --restart=always
+          --env AUTH_ALLOWED_DOMAINS="${{ secrets.AUTH_ALLOWED_DOMAINS }}"
+          --env AUTH_ALLOWED_EMAILS="${{ secrets.AUTH_ALLOWED_EMAILS }}"
+          --env AUTH_COLLECTION="${{ secrets.AUTH_COLLECTION }}"
+          --env AUTH_LIMIT_ACCESS_BY_EMAIL="${{ secrets.AUTH_LIMIT_ACCESS_BY_EMAIL }}"
+          --env AUTH_PORT="${{ secrets.AUTH_PORT }}"
+          --env AUTH_PUBLIC_URL="${{ secrets.AUTH_PUBLIC_URL }}"
+          --env AUTH_SMTP_HOST="${{ secrets.AUTH_SMTP_HOST }}"
+          --env AUTH_SMTP_PASSWORD="${{ secrets.AUTH_SMTP_PASSWORD }}"
+          --env AUTH_SMTP_PORT="${{ secrets.AUTH_SMTP_PORT }}"
+          --env AUTH_SMTP_SENDER="${{ secrets.AUTH_SMTP_SENDER }}"
+          --env AUTH_SMTP_USER="${{ secrets.AUTH_SMTP_USER }}"
+          --env COMMON_APP_NAME="${{ secrets.COMMON_APP_NAME }}"
+          --env COMMON_MONGODB_CONNECTION_STRING="${{ secrets.COMMON_MONGODB_CONNECTION_STRING }}"
+          --env COMMON_MONGODB_DATABASE="${{ secrets.COMMON_MONGODB_DATABASE }}"
+          --env COMMON_ORGANIZATION_NAME="${{ secrets.COMMON_ORGANIZATION_NAME }}"
+          --env DOCS_PORT="${{ secrets.DOCS_PORT }}"
+          --env DOCS_PUBLIC_URL="${{ secrets.DOCS_PUBLIC_URL }}"
+          -p ${{ env.PORT_RANGE }}:${{ env.PORT_RANGE }}
+          oriolegea/passager-backend:latest'
+
