@@ -1,3 +1,13 @@
+**Important Notice for Users in Spain:**
+
+If you're experiencing intermittent issues accessing Passager from Spain, it may be due to the blocking of certain Cloudflare IPs by major internet providers during football matches. This situation stems from a court ruling that allows LaLiga to block any internet IP address at its discretion. We believe this decision is a serious concern, as it allows a private entity to limit freedom of expression on the internet, which goes against the principles of an open and neutral web. Unfortunately, this issue is beyond our control.
+
+As a recommendation, we suggest using a VPN to access the internet during football matches to avoid potential access issues. We recommend using Mullvad VPN ([https://mullvad.net/en](https://mullvad.net/en)) or Cloudflare's Warp ([https://one.one.one.one/](https://one.one.one.one/)).
+
+You can read more about this situation at [https://tebas.tv](https://tebas.tv).
+
+---
+
 # Passager Password Manager
 
 ![Build](https://github.com/oegea/passager-password-manager/actions/workflows/main-tests.yml/badge.svg)
