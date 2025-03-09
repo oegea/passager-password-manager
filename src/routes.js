@@ -35,6 +35,7 @@ import Privacy from './components/pages/Privacy/index.js';
 // Context
 import withUser from './providers/WithUser.js';
 const RoutesConfiguration = ({ user }) => {
+    console.log('user', user);
     return (
         <BrowserRouter>
             {user !== null &&

@@ -15,6 +15,14 @@ Passager Password Manager is an open-source and easy-to-use password manager.
 
 ## ‍⚖️ Important Notice for Users in Spain
 
+Si experimentas problemas intermitentes para acceder a Passager desde España, puede deberse al bloqueo de ciertas IPs de Cloudflare por parte de los principales proveedores de internet durante la celebración de partidos de fútbol. Esta situación se deriva de una resolución judicial que permite a LaLiga bloquear cualquier dirección IP de internet a su discreción. Creemos que esta decisión es un motivo de seria preocupación, ya que permite a una entidad privada limitar la libertad de expresión en internet, lo cual va en contra de los principios de una web abierta y neutral. Desafortunadamente, este problema está fuera de nuestro control.
+
+Como recomendación, sugerimos utilizar una VPN para acceder a internet durante los partidos de fútbol para evitar posibles problemas de acceso. Recomendamos utilizar Mullvad VPN ([https://mullvad.net/en](https://mullvad.net/en)) o Warp de Cloudflare ([https://one.one.one.one/](https://one.one.one.one/)).
+
+Puedes leer más sobre esta situación en [https://tebas.tv](https://tebas.tv).
+
+---
+
 If you're experiencing intermittent issues accessing Passager from Spain, it may be due to the blocking of certain Cloudflare IPs by major internet providers during football matches. This situation stems from a court ruling that allows LaLiga to block any internet IP address at its discretion. We believe this decision is a serious concern, as it allows a private entity to limit freedom of expression on the internet, which goes against the principles of an open and neutral web. Unfortunately, this issue is beyond our control.
 
 As a recommendation, we suggest using a VPN to access the internet during football matches to avoid potential access issues. We recommend using Mullvad VPN ([https://mullvad.net/en](https://mullvad.net/en)) or Cloudflare's Warp ([https://one.one.one.one/](https://one.one.one.one/)).

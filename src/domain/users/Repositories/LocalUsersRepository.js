@@ -149,9 +149,12 @@ export default class LocalUsersRepository extends UsersRepository {
             });
             const userDocument = {
                 ...user.toJSON(),
-                uid: this._LocalStorageDatabase.getRandomId(),
+                uid: this._LocalStorageDatabase.getRandomId()
             };
-            this._LocalStorageDatabase.setCollection('auth', userDocument);
+            // Directly using localStorage to avoid altering the current login status
+            localStorage.setItem('auth', JSON.stringify(userDocument));
+            localStorage.setItem('storeMode', 'NONE');
+            window.document.reload();
         }
     }
 }

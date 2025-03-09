@@ -25,6 +25,7 @@ import useTranslation from '../../../hooks/useTranslation/index.js';
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
+import LicenseNotice from '../../atoms/LicenseNotice/index.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
@@ -72,6 +73,7 @@ const PageLogin = () => {
                 </ButtonWrapper>
                 <LanguageSelector />
             </NotLogged>
+            <LicenseNotice/>
         </>
     );
 };
