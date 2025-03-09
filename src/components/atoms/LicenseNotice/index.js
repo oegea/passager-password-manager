@@ -33,11 +33,13 @@ const LicenseNoticeDiv = styled.div`
     bottom: 10px;
     flex-direction: column;
     padding: 20px;
+    font-weight: 500;
+    font-size: x-small;
 `;
 
 const LicenseNotice = () => {
     return <LicenseNoticeDiv>
-        <span> Made with ❤️ from Barcelona. <a href="https://github.com/oegea/passager-password-manager/" target="_blank" rel="noreferrer">Released under AGPLv3.</a></span> <br /> <a href="https://www.passager.app/#%EF%B8%8F-important-notice-for-users-in-spain" target="_blank" rel="noreferrer">Pulsa aquí estás experimentando problemas para acceder desde España.</a>
+        <span> Made with ❤️ from Barcelona. <a href="https://github.com/oegea/passager-password-manager/" target="_blank" rel="noreferrer">Passager is Open Source. Released under AGPLv3.</a></span> <br /> <a href="https://www.passager.app/#%EF%B8%8F-important-notice-for-users-in-spain" target="_blank" rel="noreferrer">Pulsa aquí estás experimentando problemas para acceder desde España.</a>
     </LicenseNoticeDiv>;
 };
 
