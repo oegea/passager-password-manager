@@ -18,24 +18,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import CopyButton from './index.js';
 import i18n from 'i18next';
 import { i18nConfig } from '../../../config/i18n.js';
 import { initReactI18next } from 'react-i18next';
 
+// Mock mobile lib
+jest.mock('../../../libs/mobile.js', () => ({
+    writeClipboard: jest.fn(),
+    isMobileDevice: jest.fn(() => false),
+}));
+
 beforeAll(() => {
     i18n.use(initReactI18next).init(i18nConfig);
 });
 
-test('Checks that the element is present and with the corresponding text', () => {
-    render(<CopyButton />);
-    const ButtonElement = screen.getByText('Copy');
+test('Checks that the element is present with copy icon', () => {
+    render(<CopyButton value="test" />);
+    const ButtonElement = screen.getByTestId('button-copy-element');
     expect(ButtonElement).toBeInTheDocument();
+    expect(ButtonElement).toHaveAttribute('title', 'Copy');
 });
 
-test('It should have a padding-left style to have space', () => {
-    render(<CopyButton />);
+test('It should have a margin-left style to have space', () => {
+    render(<CopyButton value="test" />);
     const ButtonElement = screen.getByTestId('button-copy-element');
-    expect(ButtonElement).toHaveStyle('padding-left: 0.7rem');
+    expect(ButtonElement).toHaveStyle('margin-left: 0.7rem');
+});
+
+test('It should call writeClipboard when clicked', () => {
+    const { writeClipboard } = require('../../../libs/mobile.js');
+    render(<CopyButton value="test-value" />);
+    const ButtonElement = screen.getByTestId('button-copy-element');
+    
+    fireEvent.click(ButtonElement);
+    
+    expect(writeClipboard).toHaveBeenCalledWith('test-value');
 });

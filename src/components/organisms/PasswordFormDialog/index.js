@@ -31,9 +31,10 @@ import InputWrapper from '../../atoms/Dialog/DialogInputWrapper.js';
 import InputLabel from '../../atoms/InputLabel/index.js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
+import PasswordActionsDropdown from '../../molecules/PasswordActionsDropdown/index.js';
+import MoleculesButtonCopy from '../../molecules/CopyButton/index.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
-import MoleculesButtonCopy from '../../molecules/CopyButton/index.js';
 
 const DEFAULT_VALUES = {
     name: '',
@@ -64,6 +65,12 @@ const PasswordFormDialog = ({
         let error = checkFieldErrors(value);
         const newState = { ...state };
         newState[field] = { value, error };
+        setState(newState);
+    };
+
+    const onPasswordGenerated = (generatedPassword) => {
+        const newState = { ...state };
+        newState.password = { value: generatedPassword, error: '' };
         setState(newState);
     };
 
@@ -189,7 +196,7 @@ const PasswordFormDialog = ({
                 <div style={{ display: 'flex' }}>
                     <Input
                         autoComplete="off"
-                        defaultValue={state.password.value}
+                        value={state.password.value}
                         id="password"
                         type="text"
                         placeholder={t(
@@ -197,7 +204,11 @@ const PasswordFormDialog = ({
                         )}
                         onChange={(e) => onChangeHandler(e, 'password')}
                     />
-                    <MoleculesButtonCopy value={state.password.value} />
+                    <PasswordActionsDropdown 
+                        value={state.password.value}
+                        onGenerate={onPasswordGenerated}
+                        currentPassword={state.password.value}
+                    />
                 </div>
                 {state.password.error.length > 0 && (
                     <span style={{ color: 'red' }}>{state.password.error}</span>

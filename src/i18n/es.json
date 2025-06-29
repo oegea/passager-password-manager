@@ -5,6 +5,7 @@
         "Close": "Cerrar",
         "Continue": "Continuar",
         "Copy": "Copiar",
+        "Copied to clipboard": "Copiado al portapapeles",
         "Create": "Añadir",
         "Delete": "Eliminar",
         "Enable": "Activar",
@@ -16,6 +17,8 @@
         "Remove": "Eliminar",
         "Save": "Guardar",
         "Share": "Compartir",
+        "Show": "Mostrar",
+        "Hide": "Ocultar",
         "This field is required": "Este campo es obligatorio",
         "This field must be less than 150 characters": "Este campo no puede contener más de 150 caracteres"
     },
@@ -90,6 +93,19 @@
         "Website URL": "Sitio web",
         "Your secret password": "Tu contraseña secreta",
         "urlExample": "Escribe aquí la URL del sitio web"
+    },
+    "passwordGenerator": {
+        "Password Generator": "Generador de Contraseñas",
+        "Length": "Longitud",
+        "Include uppercase letters": "Incluir letras mayúsculas (A-Z)",
+        "Include lowercase letters": "Incluir letras minúsculas (a-z)",
+        "Include numbers": "Incluir números (0-9)",
+        "Include symbols": "Incluir símbolos (!@#$%^&*)",
+        "Generate": "Generar",
+        "Generated Password": "Contraseña Generada",
+        "Regenerate": "Regenerar",
+        "Use this password": "Usar esta contraseña",
+        "Replace password confirmation": "Esto reemplazará la contraseña actual. ¿Estás seguro de que quieres continuar?"
     },
     "topbar": {
         "Search": "Buscar"

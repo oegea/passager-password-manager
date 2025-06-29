@@ -19,32 +19,68 @@
  */
 
 // Third party dependencies
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import Button from '../../atoms/Button/index.js';
+import { mdiContentCopy } from '@mdi/js';
+import Icon from '@mdi/react';
+import Toast from '../Toast/index.js';
+import useToast from '../../../hooks/useToast/index.js';
 // Own libs
-import {writeClipboard} from '../../../libs/mobile.js';
-const ButtonCopy = styled.div`
-    padding-left: 0.7rem;
+import {writeClipboard, isMobileDevice} from '../../../libs/mobile.js';
+const CopyIconButton = styled.div`
+    margin-left: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    
+    &:hover {
+        background-color: #f5f5f5;
+    }
+    
+    &:active {
+        background-color: #e0e0e0;
+    }
 `;
 
 const MoleculesButtonCopy = ({ value }) => {
     const { t } = useTranslation();
+    const { toasts, showToast, removeToast } = useToast();
 
     const copyHandler = () => {
         writeClipboard(value);
+        
+        // Show toast only on desktop
+        if (!isMobileDevice()) {
+            showToast(t('common.Copied to clipboard'));
+        }
     };
 
     return (
-        <ButtonCopy data-testid="button-copy-element">
-            <Button
-                label={t('common.Copy')}
+        <>
+            <CopyIconButton 
+                data-testid="button-copy-element"
                 onClick={copyHandler}
-                color="black"
-                backgroundColor="white"
-            />
-        </ButtonCopy>
+                title={t('common.Copy')}
+            >
+                <Icon path={mdiContentCopy} size={0.8} />
+            </CopyIconButton>
+            
+            {toasts.map(toast => (
+                <Toast
+                    key={toast.id}
+                    message={toast.message}
+                    duration={toast.duration}
+                    onClose={() => removeToast(toast.id)}
+                />
+            ))}
+        </>
     );
 };
 

@@ -5,6 +5,7 @@
         "Close": "Close",
         "Continue": "Continue",
         "Copy": "Copy",
+        "Copied to clipboard": "Copied to clipboard",
         "Create": "Create",
         "Delete": "Delete",
         "Enable": "Enable",
@@ -16,6 +17,8 @@
         "Remove": "Remove",
         "Save": "Save",
         "Share": "Share",
+        "Show": "Show",
+        "Hide": "Hide",
         "This field is required": "This field is required",
         "This field must be less than 150 characters": "This field must be less than 150 characters"
     },
@@ -90,6 +93,19 @@
         "Website URL": "Website URL",
         "Your secret password": "Your secret password",
         "urlExample": "Type here the website URL"
+    },
+    "passwordGenerator": {
+        "Password Generator": "Password Generator",
+        "Length": "Length",
+        "Include uppercase letters": "Include uppercase letters (A-Z)",
+        "Include lowercase letters": "Include lowercase letters (a-z)",
+        "Include numbers": "Include numbers (0-9)",
+        "Include symbols": "Include symbols (!@#$%^&*)",
+        "Generate": "Generate",
+        "Generated Password": "Generated Password",
+        "Regenerate": "Regenerate",
+        "Use this password": "Use this password",
+        "Replace password confirmation": "This will replace the current password. Are you sure you want to continue?"
     },
     "topbar": {
         "Search": "Search"
