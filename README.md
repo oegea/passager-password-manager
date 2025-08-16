@@ -13,20 +13,6 @@
 
 Passager Password Manager is an open-source and easy-to-use password manager.
 
-## ‍⚖️ Important Notice for Users in Spain
-
-Si experimentas problemas intermitentes para acceder a Passager desde España, puede deberse al bloqueo de ciertas IPs de Cloudflare por parte de los principales proveedores de internet durante la celebración de partidos de fútbol. Esta situación se deriva de una resolución judicial que permite a LaLiga bloquear cualquier dirección IP de internet desde la que se distribuya contenido de forma no autorizada, cuya propiedad intelectual y/o derechos de distribución sean titularidad de LaLiga.
-
-Creemos que esta decisión es un motivo de seria preocupación, ya que permite a una entidad privada limitar el acceso a páginas web lícitas que no distribuyen contenido de forma contraria a la ley, sin tan siquiera notificar a los titulares de dichos sitios web ni permitirles realizar alegación alguna.
-
-Nuestra opinión es que esto podría suponer una vulneración de diferentes derechos fundamentales recogidos en la Constitución Española (Derecho a la libertad de empresa, Derecho a la libertad de expresión, Derecho a la tutela judicial efectiva, entre otros), y del Artículo 76 de la Ley 11/2022, de 28 de junio, General de Telecomunicaciones, lo cual va en contra de los principios de una web abierta y neutral, y va en detrimento de los intereses de terceros que utilizan la capa gratuíta de Cloudflare para fines legítimos.
-
-Aunque algunas organizaciones han presentado incidentes de nulidad para tratar de revertir esta situación, desafortunadamente, este problema está fuera de nuestro control.
-
-Como recomendación, sugerimos utilizar una VPN para acceder a internet durante los partidos de fútbol para evitar posibles problemas de acceso. Recomendamos utilizar Mullvad VPN ([https://mullvad.net/en](https://mullvad.net/en)) o Warp de Cloudflare ([https://one.one.one.one/](https://one.one.one.one/)).
-
-Puedes leer más sobre esta situación en [https://tebas.tv](https://tebas.tv).
-
 ---
 
 ## Nice features
