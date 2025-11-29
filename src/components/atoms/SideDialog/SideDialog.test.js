@@ -31,3 +31,51 @@ test('side dialog should close when the background is clicked', () => {
     // Assert
     expect(handleClose).toHaveBeenCalledTimes(1);
 });
+
+test('side dialog should NOT close when the background is clicked with text selected', () => {
+    const handleClose = jest.fn();
+
+    // Arrange
+    render(
+        <AtomSideDialog onClose={handleClose}>{DIALOG_CHILDREN}</AtomSideDialog>
+    );
+
+    const sideDialogBackground = screen.getByTestId('side-dialog-background');
+    expect(sideDialogBackground).toBeInTheDocument();
+
+    // Mock text selection
+    const mockSelection = {
+        toString: () => 'selected text',
+    };
+    window.getSelection = jest.fn(() => mockSelection);
+
+    // Act
+    fireEvent.click(sideDialogBackground);
+
+    // Assert
+    expect(handleClose).not.toHaveBeenCalled();
+});
+
+test('side dialog should NOT close when the background is clicked with an input focused', () => {
+    const handleClose = jest.fn();
+
+    // Arrange
+    render(
+        <AtomSideDialog onClose={handleClose}>
+            <input data-testid="test-input" type="text" />
+        </AtomSideDialog>
+    );
+
+    const sideDialogBackground = screen.getByTestId('side-dialog-background');
+    const input = screen.getByTestId('test-input');
+
+    // Focus the input
+    input.focus();
+    expect(document.activeElement).toBe(input);
+
+    // Act
+    fireEvent.click(sideDialogBackground);
+
+    // Assert
+    expect(handleClose).not.toHaveBeenCalled();
+});

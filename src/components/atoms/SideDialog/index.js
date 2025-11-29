@@ -64,13 +64,26 @@ const AtomSideDialog = ({ children, onClose }) => {
         return isDialogBackground === 'true';
     };
 
+    const _hasTextSelection = () => {
+        const selection = window.getSelection();
+        return selection && selection.toString().length > 0;
+    };
+
+    const _hasInputFocused = () => {
+        const activeElement = document.activeElement;
+        return activeElement && (
+            activeElement.tagName === 'INPUT' ||
+            activeElement.tagName === 'TEXTAREA'
+        );
+    };
+
     return (
         <>
             <DialogBackground
                 data-testid="side-dialog-background"
                 data-isdialogbackground="true"
                 onClick={(event) => {
-                    if (_isDialogBackground(event.target)) {
+                    if (_isDialogBackground(event.target) && !_hasTextSelection() && !_hasInputFocused()) {
                         onClose();
                     }
                 }}
