@@ -110,6 +110,17 @@
     "topbar": {
         "Search": "Search"
     },
+    "searchResults": {
+        "Search": "Search Results",
+        "Searching": "Searching for",
+        "No results found": "No results found for",
+        "Folder": "Folder",
+        "result": "result",
+        "results": "results",
+        "in": "in",
+        "folder": "folder",
+        "folders": "folders"
+    },
     "userSignup": {
         "Define a master password": "Define a master password",
         "We need to define a master password for your user": "We need to define a master password for your user.",

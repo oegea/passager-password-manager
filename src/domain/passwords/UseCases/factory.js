@@ -20,12 +20,14 @@
 
 // Factories
 import { PasswordsServicesFactory } from '../Services/factory.js';
+import { FoldersServicesFactory } from '../../folders/Services/factory.js';
 // Use cases
 import { CreatePasswordUseCase } from './CreatePasswordUseCase.js';
 import { DecryptPasswordUseCase } from './DecryptPasswordUseCase.js';
 import { DeletePasswordUseCase } from './DeletePasswordUseCase.js';
 import { EditPasswordUseCase } from './EditPasswordUseCase.js';
 import { SubscribeToPasswordsUseCase } from './SubscribeToPasswordsUseCase.js';
+import { SearchPasswordsUseCase } from './SearchPasswordsUseCase.js';
 
 export class PasswordsUseCasesFactory {
     static createPasswordUseCase = ({ config }) =>
@@ -55,5 +57,21 @@ export class PasswordsUseCasesFactory {
             service: PasswordsServicesFactory.subscribeToPasswordsService({
                 config,
             }),
+        });
+
+    static searchPasswordsUseCase = ({ config }) =>
+        new SearchPasswordsUseCase({
+            service: PasswordsServicesFactory.subscribeToPasswordsService({
+                config,
+            }),
+            decryptService: PasswordsServicesFactory.decryptPasswordService({
+                config,
+            }),
+            subscribeToFoldersService:
+                FoldersServicesFactory.subscribeToFoldersService({ config }),
+            subscribeToPasswordsService:
+                PasswordsServicesFactory.subscribeToPasswordsService({
+                    config,
+                }),
         });
 }

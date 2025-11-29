@@ -21,6 +21,7 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Icon from '@mdi/react';
 
 const Button = styled.div`
     background-color: transparent;
@@ -29,21 +30,50 @@ const Button = styled.div`
     cursor: pointer;
     padding: 7px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
     &:hover {
         border: 2px solid white;
         padding: 5px;
     }
+
+    @media (max-width: 768px) {
+        padding: 5px;
+
+        &:hover {
+            padding: 3px;
+        }
+    }
 `;
 
-const AtomToolbarButton = ({ label, onClick }) => {
-    return <Button onClick={onClick}>{label}</Button>;
+const ButtonLabel = styled.span`
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
+
+const ButtonIcon = styled(Icon)`
+    @media (min-width: 769px) {
+        display: none;
+    }
+`;
+
+const AtomToolbarButton = ({ label, onClick, icon }) => {
+    return (
+        <Button onClick={onClick}>
+            {icon && <ButtonIcon path={icon} size={0.9} />}
+            <ButtonLabel>{label}</ButtonLabel>
+        </Button>
+    );
 };
 
 AtomToolbarButton.displayName = 'AtomToolbarButton';
 AtomToolbarButton.propTypes = {
     label: PropTypes.string,
     onClick: PropTypes.func,
+    icon: PropTypes.string,
 };
 
 export default AtomToolbarButton;

@@ -27,7 +27,7 @@ const checksum = {
 };
 
 // Generate id and timestamp
-const pseudoRandomHash = crypto.createHash('sha1').update(Date.now().toString()).digest('hex')
+const pseudoRandomHash = crypto.createHash('sha1').update(Date.now().toString()).digest('hex');
 // Version + 6 latest chars from the hash
 checksum.id = `${packageInfo.version}.${pseudoRandomHash.substr(pseudoRandomHash.length - 6)}`;
 checksum.timestamp = new Date().toISOString();

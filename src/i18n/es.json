@@ -110,6 +110,17 @@
     "topbar": {
         "Search": "Buscar"
     },
+    "searchResults": {
+        "Search": "Resultados de Búsqueda",
+        "Searching": "Buscando",
+        "No results found": "No se encontraron resultados para",
+        "Folder": "Carpeta",
+        "result": "resultado",
+        "results": "resultados",
+        "in": "en",
+        "folder": "carpeta",
+        "folders": "carpetas"
+    },
     "userSignup": {
         "Define a master password": "Defina una contraseña maestra",
         "We need to define a master password for your user": "Necesitamos que defina una contraseña maestra para su usuario.",
