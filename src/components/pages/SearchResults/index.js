@@ -24,6 +24,8 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '@mdi/react';
 import { mdiFolder } from '@mdi/js';
+// Atoms
+import LinearProgress from '../../atoms/LinearProgress/index.js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
@@ -277,7 +279,7 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
                     )}
                 </SearchHeader>
 
-                {isSearching && <GlobalSpinner />}
+                {isSearching && <LinearProgress />}
 
                 {!isSearching && results.length === 0 && (
                     <NoResults>
