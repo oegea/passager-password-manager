@@ -9,5 +9,6 @@
         "strictNullChecks": true
     },
     "include": ["src/**/*"],
+    "exclude": ["src/**/*.test.ts"],
     "lib": ["es2015"]
 }
