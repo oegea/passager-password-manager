@@ -20,7 +20,7 @@
 
 // Third party dependencies
 import React, { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '@mdi/react';
 import { mdiFolder } from '@mdi/js';
@@ -112,6 +112,12 @@ const FolderTitle = styled.h2`
     margin: 0;
     color: #2c3e50;
     font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #1a1a1a;
+    }
 `;
 
 const ResultCount = styled.span`
@@ -139,6 +145,7 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('q');
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const [results, setResults] = useState([]);
     const [isSearching, setIsSearching] = useState(true);
@@ -299,7 +306,9 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
                             <FolderHeader>
                                 <FolderTitleWrapper>
                                     <Icon path={mdiFolder} size={0.8} color="#2c3e50" />
-                                    <FolderTitle>{folderData?.name || t('searchResults.Folder')}</FolderTitle>
+                                    <FolderTitle onClick={() => navigate(`/${folder.id}`)}>
+                                        {folderData?.name || t('searchResults.Folder')}
+                                    </FolderTitle>
                                 </FolderTitleWrapper>
                                 <ResultCount>{passwords.length}</ResultCount>
                             </FolderHeader>

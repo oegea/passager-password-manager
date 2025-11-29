@@ -22,7 +22,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import Icon from '@mdi/react';
 import { mdiMagnify } from '@mdi/js';
 // Hooks
@@ -130,12 +130,25 @@ const SearchIcon = styled(Icon)`
 `;
 
 const MoleculeSearchBar = ({ onFocusChange }) => {
+    const [searchParams] = useSearchParams();
+    const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const { t } = useTranslation();
     const navigate = useNavigate();
     const inputRef = useRef(null);
     const containerRef = useRef(null);
+
+    // Sincronizar el input con el parámetro de búsqueda de la URL
+    useEffect(() => {
+        const queryParam = searchParams.get('q');
+        if (queryParam) {
+            setSearchQuery(queryParam);
+        } else if (location.pathname !== '/search') {
+            // Solo limpiar el input si no estamos en la página de búsqueda
+            setSearchQuery('');
+        }
+    }, [searchParams, location.pathname]);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
