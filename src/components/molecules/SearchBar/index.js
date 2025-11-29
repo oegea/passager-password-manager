@@ -52,17 +52,29 @@ const SearchInput = styled.input`
     padding: 0 15px 0 40px;
     width: 300px;
     max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
     &:focus {
         outline: none;
-        background-color: rgba(255, 255, 255, 1);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-1px);
+        color: #333;
     }
 
     &::placeholder {
         font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    &:focus::placeholder {
         color: #888;
     }
 
@@ -72,6 +84,8 @@ const SearchInput = styled.input`
         padding-left: 40px;
         background-color: transparent;
         color: transparent;
+        border: none;
+        backdrop-filter: none;
 
         &::placeholder {
             opacity: 0;
@@ -79,9 +93,12 @@ const SearchInput = styled.input`
 
         &:focus {
             width: 100%;
-            background-color: rgba(255, 255, 255, 1);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding-right: 15px;
             color: #333;
+            border: 1px solid rgba(255, 255, 255, 0.18);
 
             &::placeholder {
                 opacity: 1;

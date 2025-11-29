@@ -23,7 +23,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Atoms
-import SideDialog from '../../atoms/SideDialog/index.js';
+import SideDialog, { useSideDialogClose } from '../../atoms/SideDialog/index.js';
 import Button from '../../atoms/Button/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 import Input from '../../atoms/Input/index.js';
@@ -43,14 +43,15 @@ const DEFAULT_VALUES = {
     password: '',
 };
 
-const PasswordFormDialog = ({
-    defaultValues = DEFAULT_VALUES,
+const PasswordFormDialogContent = ({
+    defaultValues,
     onClose,
     onDelete,
     onSave,
-    editMode = false,
+    editMode,
 }) => {
     const { name, url, username, password } = defaultValues;
+    const handleClose = useSideDialogClose();
 
     const [state, setState] = useState({
         name: { value: name, error: '' },
@@ -115,10 +116,10 @@ const PasswordFormDialog = ({
         }
     };
 
-    useDialogConfirmation(onClose, beforeSave);
+    useDialogConfirmation(handleClose, beforeSave);
 
     return (
-        <SideDialog onClose={() => onClose()}>
+        <>
             {defaultValues.id ? (
                 <SectionTitle
                     title={t('passwordFormDialog.Edit password')}
@@ -218,7 +219,7 @@ const PasswordFormDialog = ({
             <ButtonWrapper>
                 <Button
                     label={defaultValues.id ? t('common.Close') : t('common.Cancel')}
-                    onClick={() => onClose()}
+                    onClick={handleClose}
                     color="black"
                     backgroundColor="white"
                 />
@@ -229,6 +230,23 @@ const PasswordFormDialog = ({
                     backgroundColor="white"
                 />
             </ButtonWrapper>
+        </>
+    );
+};
+
+PasswordFormDialogContent.displayName = 'PasswordFormDialogContent';
+PasswordFormDialogContent.propTypes = {
+    defaultValues: PropTypes.object,
+    onClose: PropTypes.func,
+    onDelete: PropTypes.func,
+    onSave: PropTypes.func,
+    editMode: PropTypes.bool,
+};
+
+const PasswordFormDialog = (props) => {
+    return (
+        <SideDialog onClose={props.onClose}>
+            <PasswordFormDialogContent {...props} />
         </SideDialog>
     );
 };
@@ -239,7 +257,7 @@ PasswordFormDialog.propTypes = {
     onClose: PropTypes.func,
     onDelete: PropTypes.func,
     onSave: PropTypes.func,
-    editMode: PropTypes.boolean,
+    editMode: PropTypes.bool,
 };
 
 export default PasswordFormDialog;

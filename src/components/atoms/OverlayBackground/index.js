@@ -19,7 +19,25 @@
  */
 
 // Third party dependencies
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOut = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
 
 export default styled.div`
     position: absolute;
@@ -31,4 +49,5 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     background: rgba(1, 1, 1, 0.28);
+    animation: ${props => props.$isClosing ? fadeOut : fadeIn} 0.25s ease-out forwards;
 `;

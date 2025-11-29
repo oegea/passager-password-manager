@@ -19,10 +19,51 @@
  */
 
 // Third party dependencies
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 // Constants
 import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOut = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
+
+const slideIn = keyframes`
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+`;
+
+const slideOut = keyframes`
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+`;
 
 const DialogBackground = styled.div`
     width: 100%;
@@ -31,14 +72,19 @@ const DialogBackground = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+    animation: ${props => props.$isClosing ? fadeOut : fadeIn} 0.25s ease-out forwards;
 `;
 
 const DEFAULT_PADDING = 25;
 
 const SideDialog = styled.div`
-    background: white;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(30px) saturate(120%);
+    -webkit-backdrop-filter: blur(30px) saturate(120%);
+    border-radius: 16px 0 0 16px;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08),
+                0 0 1px rgba(0, 0, 0, 0.05);
     max-height: 100vh;
     max-width: 400px;
     min-height: 100vh;
@@ -48,15 +94,30 @@ const SideDialog = styled.div`
     top: 0;
     right: 0;
     width: 400px;
+    animation: ${props => props.$isClosing ? slideOut : slideIn} 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 
     @media (max-width: 768px) {
         width: calc(100% - 50px);
         max-width: calc(100% - 50px);
         padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
+        border-radius: 16px 0 0 0;
     }
 `;
 
+const SideDialogContext = React.createContext(null);
+
+export const useSideDialogClose = () => {
+    const context = React.useContext(SideDialogContext);
+    if (!context) {
+        throw new Error('useSideDialogClose must be used within a SideDialog');
+    }
+    return context.handleClose;
+};
+
 const AtomSideDialog = ({ children, onClose }) => {
+    const [isClosing, setIsClosing] = React.useState(false);
+    const closeRequestedRef = React.useRef(false);
+
     const _isDialogBackground = (element) => {
         const isDialogBackground = element.getAttribute(
             'data-isdialogbackground'
@@ -77,20 +138,31 @@ const AtomSideDialog = ({ children, onClose }) => {
         );
     };
 
+    const handleClose = React.useCallback(() => {
+        if (closeRequestedRef.current) return;
+
+        closeRequestedRef.current = true;
+        setIsClosing(true);
+        setTimeout(() => {
+            onClose();
+        }, 350);
+    }, [onClose]);
+
     return (
-        <>
+        <SideDialogContext.Provider value={{ handleClose }}>
             <DialogBackground
                 data-testid="side-dialog-background"
                 data-isdialogbackground="true"
+                $isClosing={isClosing}
                 onClick={(event) => {
                     if (_isDialogBackground(event.target) && !_hasTextSelection() && !_hasInputFocused()) {
-                        onClose();
+                        handleClose();
                     }
                 }}
             >
-                <SideDialog>{children}</SideDialog>
+                <SideDialog $isClosing={isClosing}>{children}</SideDialog>
             </DialogBackground>
-        </>
+        </SideDialogContext.Provider>
     );
 };
 
