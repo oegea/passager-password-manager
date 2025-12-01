@@ -44,7 +44,7 @@ const DEFAULT_VALUES = {
 };
 
 const PasswordFormDialogContent = ({
-    defaultValues,
+    defaultValues = DEFAULT_VALUES,
     onClose,
     onDelete,
     onSave,
