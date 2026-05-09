@@ -69,6 +69,10 @@ export class PasswordsUseCasesFactory {
             }),
             subscribeToFoldersService:
                 FoldersServicesFactory.subscribeToFoldersService({ config }),
+            subscribeToSharedFoldersService:
+                FoldersServicesFactory.subscribeToSharedFoldersService({
+                    config,
+                }),
             subscribeToPasswordsService:
                 PasswordsServicesFactory.subscribeToPasswordsService({
                     config,

@@ -22,10 +22,11 @@ import { PasswordsRequestsFactory } from '../Requests/factory.js';
 import { FoldersRequestsFactory } from '../../folders/Requests/factory.js';
 
 export class SearchPasswordsUseCase {
-    constructor({ service, decryptService, subscribeToFoldersService, subscribeToPasswordsService }) {
+    constructor({ service, decryptService, subscribeToFoldersService, subscribeToSharedFoldersService, subscribeToPasswordsService }) {
         this._service = service;
         this._decryptService = decryptService;
         this._subscribeToFoldersService = subscribeToFoldersService;
+        this._subscribeToSharedFoldersService = subscribeToSharedFoldersService;
         this._subscribeToPasswordsService = subscribeToPasswordsService;
         this._abortController = null;
     }
@@ -48,17 +49,33 @@ export class SearchPasswordsUseCase {
         }
 
         try {
-            // Primero obtenemos todas las carpetas
-            const folders = await new Promise((resolve) => {
-                this._subscribeToFoldersService.execute({
+            // Primero obtenemos todas las carpetas (propias y compartidas)
+            const fetchFolders = (service) => new Promise((resolve) => {
+                let called = false;
+                const subscription = service.execute({
                     folderSubscriptionRequest: FoldersRequestsFactory.folderSubscriptionRequest({
                         userId,
                         onSubscriptionChanges: (folders) => {
+                            called = true;
                             resolve(folders);
                         },
                     }),
                 });
+                Promise.resolve(subscription).then(() => {
+                    if (!called) resolve([]);
+                }).catch(() => resolve([]));
             });
+
+            const [ownFolders, sharedFolders] = await Promise.all([
+                fetchFolders(this._subscribeToFoldersService),
+                fetchFolders(this._subscribeToSharedFoldersService),
+            ]);
+
+            const foldersById = new Map();
+            for (const folder of [...ownFolders, ...sharedFolders]) {
+                if (!foldersById.has(folder.id)) foldersById.set(folder.id, folder);
+            }
+            const folders = Array.from(foldersById.values());
 
             // Procesamos cada carpeta
             for (const folder of folders) {
