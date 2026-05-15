@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS build
+FROM node:22-bookworm-slim AS build
 
 # Enable pnpm via corepack
 RUN corepack enable && corepack prepare pnpm@11.1.2 --activate
@@ -29,7 +29,7 @@ RUN export TERM=linux && pnpm run build
 WORKDIR /usr/src/app/documents-service
 RUN export TERM=linux && pnpm run build
 
-FROM node:20-bookworm-slim AS production
+FROM node:22-bookworm-slim AS production
 
 # Enable pnpm via corepack (needed for start:background → pnpm dlx)
 RUN corepack enable && corepack prepare pnpm@11.1.2 --activate
