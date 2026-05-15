@@ -10,11 +10,9 @@ jobs:
       # Checkout the Repo
       - uses: actions/checkout@v4
 
-      # Install pnpm 11
+      # Install pnpm (version from package.json packageManager)
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       # Install Node 20 with pnpm cache
       - name: Setup Node
