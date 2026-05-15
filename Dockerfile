@@ -1,17 +1,21 @@
-FROM node:16 AS build
+FROM node:20-bookworm-slim AS build
 
-# Copy package.json and package-lock.json
 WORKDIR /usr/src/app
-COPY ./package*.json ./
 
-# Install dependencies
-RUN npm install
+# Enable pnpm via corepack
+RUN corepack enable && corepack prepare pnpm@11.1.2 --activate
+
+# Copy manifest and lockfile
+COPY ./package.json ./pnpm-lock.yaml ./pnpm-workspace.yaml ./
+
+# Install dependencies (frozen lockfile for reproducibility)
+RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the code
 COPY . .
 
 # Build the bundle
-RUN npm run build:web
+RUN pnpm run build:web
 
 FROM ubuntu:22.04 AS production
 

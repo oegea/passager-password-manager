@@ -3,6 +3,11 @@
     "version": "1.1.0",
     "private": true,
     "license": "AGPL-3.0",
+    "packageManager": "pnpm@11.1.2",
+    "engines": {
+        "node": ">=20",
+        "pnpm": ">=11"
+    },
     "dependencies": {
         "@capacitor-community/http": "^1.4.1",
         "@capacitor/android": "^3.6.0",
@@ -34,7 +39,7 @@
         "start": "react-scripts start",
         "start:docker": "docker run -p 8000:80 passager-frontend",
         "start:docker:dev": "docker run -p 3000:3000 --mount src=`pwd`/src,target=/usr/src/app/src,type=bind passager-frontend-dev",
-        "build": "react-scripts build&&npm run build:manifest&&npx cap sync",
+        "build": "react-scripts build&&pnpm run build:manifest&&pnpm exec cap sync",
         "build:web": "react-scripts build",
         "build:docker": "docker build . -t 'passager-frontend'",
         "build:docker:dev": "docker build . -t 'passager-frontend-dev' -f Dockerfile.dev",
@@ -42,8 +47,8 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "prepare": "husky install",
-        "start:android": "npm run build&&npx cap run android",
-        "start:ios": "npm run build&&npx cap run ios",
+        "start:android": "pnpm run build&&pnpm exec cap run android",
+        "start:ios": "pnpm run build&&pnpm exec cap run ios",
         "build:icons": "cordova-res ios --skip-config --copy&&cordova-res android --skip-config --copy",
         "lint": "eslint . --fix --max-warnings=0",
         "format": "prettier . --write"

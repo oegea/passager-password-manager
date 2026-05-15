@@ -6,14 +6,19 @@
     "scripts": {
         "start": "tsc && node dist/index.js",
         "start:dist": "node dist/index.js",
-        "start:background": "npx forever start dist/index.js",
-        "build": "clear && echo ⌛️ Compiling code... && tsc && echo ✅ Build completed successfully! && echo 💻 Start it by running npm run start:background",
+        "start:background": "pnpm dlx forever start dist/index.js",
+        "build": "clear && echo ⌛️ Compiling code... && tsc && echo ✅ Build completed successfully! && echo 💻 Start it by running pnpm run start:background",
         "test": "jest",
         "lint": "eslint src/**/*.ts",
         "lint:fix": "eslint src/**/*.ts --fix"
     },
     "author": "",
     "license": "ISC",
+    "packageManager": "pnpm@11.1.2",
+    "engines": {
+        "node": ">=20",
+        "pnpm": ">=11"
+    },
     "dependencies": {
         "@useful-tools/docky-documents-service": "^1.0.55",
         "debug": "^4.3.4",

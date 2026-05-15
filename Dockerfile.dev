@@ -1,16 +1,20 @@
-FROM node:16 AS build
+FROM node:20-bookworm-slim AS build
 
-# Copy package.json and package-lock.json
 WORKDIR /usr/src/app
-COPY ./package*.json ./
+
+# Enable pnpm via corepack
+RUN corepack enable && corepack prepare pnpm@11.1.2 --activate
+
+# Copy manifest and lockfile
+COPY ./package.json ./pnpm-lock.yaml ./pnpm-workspace.yaml ./
 
 # Install dependencies
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the code
 COPY . .
 
 EXPOSE 3000
 
-# Start the app with npm start
-CMD ["npm", "start"]
+# Start the dev server
+CMD ["pnpm", "start"]
