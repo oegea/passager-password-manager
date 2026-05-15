@@ -81,5 +81,11 @@
     "lint-staged": {
         "*.js,jsx": "eslint --fix ",
         "*.{css,md,json}": "prettier --cache --write"
+    },
+    "pnpm": {
+        "ignoredBuiltDependencies": [
+            "core-js",
+            "core-js-pure"
+        ]
     }
 }
