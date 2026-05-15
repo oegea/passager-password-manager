@@ -24,8 +24,11 @@ import styled from 'styled-components';
 
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
+import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
+import Toast from '../../molecules/Toast/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import useToast from '../../../hooks/useToast/index.js';
 // Own libs
 import { downloadBackup, importBackup } from '../../../libs/backups.js';
 
@@ -43,6 +46,9 @@ const UserDetailsRightPanel = () => {
     const { t } = useTranslation();
     const uploadBackupRef = useRef(null);
     const [backupImportError, setBackupImportError] = useState(false);
+    const [isDownloadingBackup, setIsDownloadingBackup] = useState(false);
+    const [backupDownloadError, setBackupDownloadError] = useState(false);
+    const { toasts, showToast, removeToast } = useToast();
 
     const isLocalMode = localStorage.getItem('storeMode') === 'LOCAL';
 
@@ -63,6 +69,20 @@ const UserDetailsRightPanel = () => {
         else setBackupImportError(true);
     };
 
+    const handleDownloadBackup = async () => {
+        if (isDownloadingBackup) return;
+        setBackupDownloadError(false);
+        setIsDownloadingBackup(true);
+        try {
+            await downloadBackup();
+            showToast(t('profile.Backup downloaded successfully'));
+        } catch (error) {
+            setBackupDownloadError(true);
+        } finally {
+            setIsDownloadingBackup(false);
+        }
+    };
+
     return (
         <>
             <SectionTitle
@@ -71,8 +91,10 @@ const UserDetailsRightPanel = () => {
                     isLocalMode
                         ? [
                             {
-                                label: t('profile.Download Backup'),
-                                onClick: () => downloadBackup(),
+                                label: isDownloadingBackup
+                                    ? t('profile.Downloading backup...')
+                                    : t('profile.Download Backup'),
+                                onClick: handleDownloadBackup,
                             },
                             {
                                 label: t('profile.Import Backup'),
@@ -85,8 +107,10 @@ const UserDetailsRightPanel = () => {
                         ]
                         : [
                             {
-                                label: t('profile.Download Backup'),
-                                onClick: () => downloadBackup(),
+                                label: isDownloadingBackup
+                                    ? t('profile.Downloading backup...')
+                                    : t('profile.Download Backup'),
+                                onClick: handleDownloadBackup,
                             },
                         ]
                 }
@@ -108,6 +132,20 @@ const UserDetailsRightPanel = () => {
                     )}
                 </ErrorMessage>
             ) : null}
+            {backupDownloadError ? (
+                <ErrorMessage>
+                    {t('profile.Error downloading backup. Please try again')}
+                </ErrorMessage>
+            ) : null}
+            {isDownloadingBackup && <GlobalSpinner />}
+            {toasts.map((toast) => (
+                <Toast
+                    key={toast.id}
+                    message={toast.message}
+                    duration={toast.duration}
+                    onClose={() => removeToast(toast.id)}
+                />
+            ))}
             {isLocalMode ? (
                 <>
                     <p>
