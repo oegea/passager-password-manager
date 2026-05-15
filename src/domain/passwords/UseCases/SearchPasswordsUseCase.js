@@ -51,19 +51,18 @@ export class SearchPasswordsUseCase {
         try {
             // Primero obtenemos todas las carpetas (propias y compartidas)
             const fetchFolders = (service) => new Promise((resolve) => {
-                let called = false;
-                const subscription = service.execute({
+                let settled = false;
+                const settle = (folders) => {
+                    if (settled) return;
+                    settled = true;
+                    resolve(folders);
+                };
+                service.execute({
                     folderSubscriptionRequest: FoldersRequestsFactory.folderSubscriptionRequest({
                         userId,
-                        onSubscriptionChanges: (folders) => {
-                            called = true;
-                            resolve(folders);
-                        },
+                        onSubscriptionChanges: settle,
                     }),
-                });
-                Promise.resolve(subscription).then(() => {
-                    if (!called) resolve([]);
-                }).catch(() => resolve([]));
+                }).catch(() => settle([]));
             });
 
             const [ownFolders, sharedFolders] = await Promise.all([

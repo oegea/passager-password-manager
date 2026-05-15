@@ -112,8 +112,12 @@ export default class LocalFoldersRepository extends FoldersRepository {
         return subscription;
     }
 
-    async subscribeToSharedFolders() {
-        // Not available in local mode
+    async subscribeToSharedFolders({ folderSubscriptionRequest }) {
+        // Not available in local mode, notify with empty list so consumers awaiting
+        // the first callback (e.g. SearchPasswordsUseCase) don't hang.
+        const onSubscriptionChanges =
+            folderSubscriptionRequest.getOnSubscriptionChanges();
+        setTimeout(() => onSubscriptionChanges([]), 0);
         return () => null; // eslint-disable-line
     }
 
