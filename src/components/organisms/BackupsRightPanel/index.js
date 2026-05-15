@@ -44,18 +44,7 @@ const UserDetailsRightPanel = () => {
     const uploadBackupRef = useRef(null);
     const [backupImportError, setBackupImportError] = useState(false);
 
-    if (localStorage.getItem('storeMode') !== 'LOCAL') {
-        return (
-            <>
-                <SectionTitle title={t('profile.Backups')} buttons={[]} />
-                <p>
-                    {t(
-                        'profile.This feature is only available when passwords are stored locally'
-                    )}
-                </p>
-            </>
-        );
-    }
+    const isLocalMode = localStorage.getItem('storeMode') === 'LOCAL';
 
     const showFile = async (e) => {
         e.preventDefault();
@@ -78,25 +67,39 @@ const UserDetailsRightPanel = () => {
         <>
             <SectionTitle
                 title={t('profile.Backups')}
-                buttons={[
-                    {
-                        label: t('profile.Download Backup'),
-                        onClick: () => downloadBackup(),
-                    },
-                    {
-                        label: t('profile.Import Backup'),
-                        onClick: () => uploadBackupRef.current.click(),
-                        type: backupImportError ? 'alert' : 'button',
-                    },
-                ]}
+                buttons={
+                    isLocalMode
+                        ? [
+                            {
+                                label: t('profile.Download Backup'),
+                                onClick: () => downloadBackup(),
+                            },
+                            {
+                                label: t('profile.Import Backup'),
+                                onClick: () =>
+                                    uploadBackupRef.current.click(),
+                                type: backupImportError
+                                    ? 'alert'
+                                    : 'button',
+                            },
+                        ]
+                        : [
+                            {
+                                label: t('profile.Download Backup'),
+                                onClick: () => downloadBackup(),
+                            },
+                        ]
+                }
             />
 
-            <FileSelector
-                ref={uploadBackupRef}
-                type="file"
-                accept="application/JSON"
-                onChange={(e) => showFile(e)}
-            />
+            {isLocalMode ? (
+                <FileSelector
+                    ref={uploadBackupRef}
+                    type="file"
+                    accept="application/JSON"
+                    onChange={(e) => showFile(e)}
+                />
+            ) : null}
 
             {backupImportError ? (
                 <ErrorMessage>
@@ -105,33 +108,50 @@ const UserDetailsRightPanel = () => {
                     )}
                 </ErrorMessage>
             ) : null}
-            <p>
-                {t(
-                    'profile.When you store your passwords locally, they are saved in the local storage of your Internet browser'
-                )}
-            </p>
-            <p>
-                {t(
-                    'profile.There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords'
-                )}
-            </p>
-            <p>
-                {t(
-                    'profile.It is therefore recommended to regularly download backups via this page and store them on a secure storage device'
-                )}
-            </p>
-            <p>
-                <strong>
-                    {t(
-                        'profile.In case you accidentally delete your data, you can upload a backup copy by clicking on the "Import backup copy" button'
-                    )}
-                </strong>
-            </p>
-            <p>
-                {t(
-                    'profile.In addition, you can upload your backups to other computers to have your passwords available on different devices'
-                )}
-            </p>
+            {isLocalMode ? (
+                <>
+                    <p>
+                        {t(
+                            'profile.When you store your passwords locally, they are saved in the local storage of your Internet browser'
+                        )}
+                    </p>
+                    <p>
+                        {t(
+                            'profile.There are certain browser cleaning operations that may delete this information, and may cause you to lose your passwords'
+                        )}
+                    </p>
+                    <p>
+                        {t(
+                            'profile.It is therefore recommended to regularly download backups via this page and store them on a secure storage device'
+                        )}
+                    </p>
+                    <p>
+                        <strong>
+                            {t(
+                                'profile.In case you accidentally delete your data, you can upload a backup copy by clicking on the "Import backup copy" button'
+                            )}
+                        </strong>
+                    </p>
+                    <p>
+                        {t(
+                            'profile.In addition, you can upload your backups to other computers to have your passwords available on different devices'
+                        )}
+                    </p>
+                </>
+            ) : (
+                <>
+                    <p>
+                        {t(
+                            'profile.The backup includes only folders you own. Folders shared with you are excluded'
+                        )}
+                    </p>
+                    <p>
+                        {t(
+                            'profile.Importing this backup back into a backend instance is not supported yet, but the file can be imported in local mode'
+                        )}
+                    </p>
+                </>
+            )}
         </>
     );
 };

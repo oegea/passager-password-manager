@@ -22,7 +22,7 @@
 import LocalStorageDatabase from '@useful-tools/localstorage';
 // Repositories
 import LocalBackupsRepository from './LocalBackupsRepository.js';
-import BackupsRepository from './BackupsRepository.js';
+import BackendBackupsRepository from './BackendBackupsRepository.js';
 
 export class BackupsRepositoriesFactory {
     static localBackupsRepository = ({ config }) =>
@@ -31,7 +31,8 @@ export class BackupsRepositoriesFactory {
             LocalStorageDatabase,
         });
 
-    static genericBackupsRepository = () => new BackupsRepository();
+    static backendBackupsRepository = ({ config }) =>
+        new BackendBackupsRepository({ config });
 
     static getRepository = ({ config }) => {
         const storeMode = config.get('storeMode');
@@ -41,7 +42,7 @@ export class BackupsRepositoriesFactory {
                 config,
             });
         case config.get('BACKEND_STORE_MODE'):
-            return BackupsRepositoriesFactory.genericBackupsRepository({
+            return BackupsRepositoriesFactory.backendBackupsRepository({
                 config,
             });
         default:
