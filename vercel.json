@@ -1,4 +1,4 @@
 {
-    "installCommand": "corepack enable && corepack prepare pnpm@11.1.2 --activate && pnpm install --frozen-lockfile",
-    "buildCommand": "pnpm run build:web"
+    "installCommand": "npx -y pnpm@11.1.2 install --frozen-lockfile",
+    "buildCommand": "npx -y pnpm@11.1.2 run build:web"
 }
