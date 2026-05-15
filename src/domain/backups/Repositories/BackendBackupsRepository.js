@@ -43,7 +43,8 @@ export default class BackendBackupsRepository extends BackupsRepository {
         const usersDocuments = (await findDocument('users', { email })) || [];
         const sharingDocuments =
             (await findDocument('userSharingSettings', { email })) || [];
-        const ownedFolders = (await findDocument('folders', { email })) || [];
+        const ownedFolders =
+            (await findDocument('folders', { owner: email })) || [];
 
         const userDoc = usersDocuments[0] || {};
         const sharingDoc = sharingDocuments[0] || {};
