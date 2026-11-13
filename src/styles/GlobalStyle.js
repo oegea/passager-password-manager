@@ -168,6 +168,19 @@ const GlobalStyle = createGlobalStyle`
         outline-offset: 2px;
     }
 
+    /*
+     * iOS zooms the page when a field with text smaller than 16px gets the
+     * focus. Fields are 16px on touch screens so that never happens, and
+     * people can still zoom by themselves.
+     */
+    @media (max-width: 768px), (pointer: coarse) {
+        input,
+        textarea,
+        select {
+            font-size: 16px !important;
+        }
+    }
+
     /* Thin, unobtrusive scrollbars */
     * {
         scrollbar-width: thin;
