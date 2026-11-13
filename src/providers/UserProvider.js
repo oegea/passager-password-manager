@@ -44,6 +44,7 @@ import {
     declineBiometric,
     enrollBiometric,
     getBiometricAvailability,
+    getBiometricSupport,
     hasDeclinedBiometric,
     hasEnrollment,
     removeEnrollment,
@@ -97,13 +98,17 @@ class UserProvider extends Component {
             }
 
             userDocument.biometricAvailability = 'no';
+            userDocument.biometricUnavailableReason = null;
             userDocument.biometricEnrolled = hasEnrollment(userDocument.uid);
             userDocument.biometricOffer = false;
 
             await this.asyncSetState({ user: userDocument });
 
-            getBiometricAvailability().then((biometricAvailability) => {
-                this.updateUser({ biometricAvailability });
+            getBiometricSupport().then(({ availability, reason }) => {
+                this.updateUser({
+                    biometricAvailability: availability,
+                    biometricUnavailableReason: reason,
+                });
             });
         };
 

@@ -246,7 +246,12 @@
         "It is no longer valid, please use your master password": "El desbloqueo biométrico ya no es válido en este dispositivo. Por favor, use su contraseña maestra.",
         "It did not work, please use your master password": "El desbloqueo biométrico no ha funcionado. Por favor, use su contraseña maestra.",
         "On": "Activado",
-        "Confirm with your master password": "Escriba su contraseña maestra para confirmar. No se guarda: solo se usa ahora para proteger su clave con este dispositivo."
+        "Confirm with your master password": "Escriba su contraseña maestra para confirmar. No se guarda: solo se usa ahora para proteger su clave con este dispositivo.",
+        "unavailable": {
+            "insecure-context": "No disponible: esta página no se sirve por una conexión segura (HTTPS).",
+            "no-webauthn": "No disponible: este navegador no admite llaves de acceso (passkeys).",
+            "no-authenticator": "No disponible: este dispositivo no informa de ningún sensor de huella o rostro listo para usar. Compruebe que Touch ID, Face ID o el bloqueo de pantalla están configurados y que este navegador puede usarlos."
+        }
     },
     "pwa": {
         "A new version of Passager is available": "Hay una nueva versión de Passager disponible",

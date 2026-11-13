@@ -246,7 +246,12 @@
         "It is no longer valid, please use your master password": "The biometric unlock is no longer valid on this device. Please use your master password.",
         "It did not work, please use your master password": "The biometric unlock did not work. Please use your master password.",
         "On": "On",
-        "Confirm with your master password": "Type your master password to confirm. It is not stored: it is only used now to protect your key with this device."
+        "Confirm with your master password": "Type your master password to confirm. It is not stored: it is only used now to protect your key with this device.",
+        "unavailable": {
+            "insecure-context": "Not available: this page is not served over a secure connection (HTTPS).",
+            "no-webauthn": "Not available: this browser does not support passkeys.",
+            "no-authenticator": "Not available: this device reports no fingerprint or face sensor ready to use. Check that Touch ID, Face ID or your screen lock is set up, and that this browser is allowed to use it."
+        }
     },
     "pwa": {
         "A new version of Passager is available": "A new version of Passager is available",

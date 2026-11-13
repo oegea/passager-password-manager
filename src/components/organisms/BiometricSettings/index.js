@@ -160,6 +160,26 @@ const OrganismBiometricSettings = ({ user }) => {
 
     return (
         <>
+            {!isBiometricAvailable &&
+                !user.biometricEnrolled &&
+                user.biometricUnavailableReason && (
+                <Panel data-testid="biometric-unavailable">
+                    <IconCircle style={{ opacity: 0.5 }}>
+                        <Icon path={mdiFingerprint} size={1} />
+                    </IconCircle>
+                    <Text>
+                        <Heading>
+                            {t('biometric.Biometric unlock', { method })}
+                        </Heading>
+                        <Description>
+                            {t(
+                                `biometric.unavailable.${user.biometricUnavailableReason}`
+                            )}
+                        </Description>
+                    </Text>
+                </Panel>
+            )}
+
             {(isBiometricAvailable || user.biometricEnrolled) && (
                 <Panel data-testid="biometric-settings">
                     <IconCircle>

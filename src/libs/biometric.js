@@ -264,35 +264,48 @@ export const getBiometricMethodName = () => {
 };
 
 /**
- * Whether this browser can offer the biometric unlock.
+ * Whether this browser can offer the biometric unlock, and why not.
+ *
  * - 'yes': secure context, platform authenticator with user verification and
- *   PRF support declared by the browser.
- * - 'maybe': same, but the browser can not declare PRF support (older
- *   versions). It is checked when the credential is created.
- * - 'no': it can not be offered.
+ *   PRF support declared by the browser. It is offered after signing in.
+ * - 'maybe': there is a platform authenticator, but the browser does not
+ *   declare PRF support (older versions do not say, and some say "no" while
+ *   supporting it). It is not offered automatically; it can be tried from
+ *   the profile, and it is checked when the credential is created.
+ * - 'no': it can not work here. `reason` says why:
+ *   'insecure-context', 'no-webauthn' or 'no-authenticator'.
  */
-export const getBiometricAvailability = async () => {
-    if (
-        typeof window === 'undefined' ||
-        !window.isSecureContext ||
-        !('PublicKeyCredential' in window) ||
-        !navigator.credentials
-    )
-        return 'no';
+export const getBiometricSupport = async () => {
+    if (typeof window === 'undefined' || !window.isSecureContext)
+        return { availability: 'no', reason: 'insecure-context' };
+    if (!('PublicKeyCredential' in window) || !navigator.credentials)
+        return { availability: 'no', reason: 'no-webauthn' };
+
     const PublicKeyCredential = window.PublicKeyCredential;
     try {
         if (
             !(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())
         )
-            return 'no';
-        if (typeof PublicKeyCredential.getClientCapabilities !== 'function')
-            return 'maybe';
-        const capabilities = await PublicKeyCredential.getClientCapabilities();
-        return capabilities['extension:prf'] === true ? 'yes' : 'no';
+            return { availability: 'no', reason: 'no-authenticator' };
     } catch (e) {
-        return 'no';
+        return { availability: 'no', reason: 'no-authenticator' };
     }
+
+    try {
+        if (typeof PublicKeyCredential.getClientCapabilities === 'function') {
+            const capabilities =
+                await PublicKeyCredential.getClientCapabilities();
+            if (capabilities && capabilities['extension:prf'] === true)
+                return { availability: 'yes', reason: null };
+        }
+    } catch (e) {
+        // Not being able to ask is the same as not being told
+    }
+    return { availability: 'maybe', reason: 'prf-not-declared' };
 };
+
+export const getBiometricAvailability = async () =>
+    (await getBiometricSupport()).availability;
 
 const isCancellation = (error) =>
     error && (error.name === 'NotAllowedError' || error.name === 'AbortError');

@@ -27,6 +27,7 @@ import {
     enrollBiometric,
     fromBase64Url,
     getBiometricAvailability,
+    getBiometricSupport,
     getEnrollment,
     hasDeclinedBiometric,
     hasEnrollment,
@@ -111,6 +112,10 @@ beforeEach(() => {
 
 afterEach(() => {
     delete window.PublicKeyCredential;
+    Object.defineProperty(window, 'isSecureContext', {
+        value: false,
+        configurable: true,
+    });
 });
 
 describe('wrapping the private key', () => {
@@ -191,11 +196,33 @@ describe('availability', () => {
         installFakeAuthenticator();
         expect(await getBiometricAvailability()).toBe('yes');
 
+        // Not declared, or declared as unsupported: it can still be tried
         installFakeAuthenticator({ capabilities: { 'extension:prf': false } });
-        expect(await getBiometricAvailability()).toBe('no');
+        expect(await getBiometricSupport()).toEqual({
+            availability: 'maybe',
+            reason: 'prf-not-declared',
+        });
 
         installFakeAuthenticator({ capabilities: null });
         expect(await getBiometricAvailability()).toBe('maybe');
+    });
+
+    test('explains why it can not work', async () => {
+        expect((await getBiometricSupport()).reason).toBe('insecure-context');
+
+        Object.defineProperty(window, 'isSecureContext', {
+            value: true,
+            configurable: true,
+        });
+        expect((await getBiometricSupport()).reason).toBe('no-webauthn');
+
+        installFakeAuthenticator();
+        window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable =
+            async () => false;
+        expect(await getBiometricSupport()).toEqual({
+            availability: 'no',
+            reason: 'no-authenticator',
+        });
     });
 });
 
