@@ -1,0 +1,3118 @@
+[
+  {
+    "name": "services url",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "authenticationUrl": "http://localhost:3001/",
+        "documentsUrl": "http://localhost:3002/"
+      }
+    }
+  },
+  {
+    "name": "services url with HEAD",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": ""
+    }
+  },
+  {
+    "name": "services url ignoring case, trailing slash and query",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "authenticationUrl": "http://localhost:3001/",
+        "documentsUrl": "http://localhost:3002/"
+      }
+    }
+  },
+  {
+    "name": "preflight with requested headers",
+    "response": {
+      "status": 204,
+      "headers": {
+        "access-control-allow-origin": "*",
+        "access-control-allow-methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "access-control-allow-headers": "authorization,content-type",
+        "vary": "Access-Control-Request-Headers"
+      },
+      "body": ""
+    }
+  },
+  {
+    "name": "preflight without requested headers",
+    "response": {
+      "status": 204,
+      "headers": {
+        "access-control-allow-origin": "*",
+        "access-control-allow-methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "vary": "Access-Control-Request-Headers"
+      },
+      "body": ""
+    }
+  },
+  {
+    "name": "preflight of an unknown route",
+    "response": {
+      "status": 204,
+      "headers": {
+        "access-control-allow-origin": "*",
+        "access-control-allow-methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "vary": "Access-Control-Request-Headers"
+      },
+      "body": ""
+    }
+  },
+  {
+    "name": "unknown route",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /unknown</pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "unknown route with special characters",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /unknown/%3Cb%3E%22x%22%3C/b%3E</pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "root",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /</pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "unsupported method",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot PUT /documents/users/<id:1></pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "documents without collection",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /documents</pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "collection without id",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /documents/users</pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "too many segments",
+    "response": {
+      "status": 404,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /documents/a/<id:1>/b/<id:1>/c</pre>\n</body>\n</html>\n"
+    }
+  },
+  {
+    "name": "param that cannot be decoded",
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "malformed json",
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "json string instead of object",
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "json number instead of object",
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "json null instead of object",
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "empty json body",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "whitespace json body",
+    "response": {
+      "status": 400,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "body without content type is ignored",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "text body is ignored",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "json with charset parameter",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "json with upper case content type",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "json with unsupported charset",
+    "response": {
+      "status": 415,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "json with unsupported content encoding",
+    "response": {
+      "status": 415,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "body over 100kb",
+    "response": {
+      "status": 413,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*",
+        "content-security-policy": "default-src 'none'",
+        "x-content-type-options": "nosniff"
+      },
+      "body": "<error page>"
+    }
+  },
+  {
+    "name": "body just under 100kb",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "array body",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "no token",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "garbage token",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "expired token",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "token signed with another secret",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "unsigned token (alg none)",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "token with tampered payload",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "token without bearer prefix",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "token with any scheme",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "token issued by the original service",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "HS512 token issued with jsonwebtoken",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "expired token issued by the original service",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: find her user before it exists",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a user for somebody else",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a user with missing fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a user with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a user with an id",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DocumentEntity: document contains invalid field names"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a user with internal fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DocumentEntity: document contains invalid field names"
+      }
+    }
+  },
+  {
+    "name": "alice: create her user",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:2>",
+          "email": "alice@example.com",
+          "displayName": "alice@example.com",
+          "photoURL": "",
+          "initialized": false,
+          "privateKey": ""
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create her user twice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: find her user",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:2>",
+            "email": "alice@example.com",
+            "displayName": "alice@example.com",
+            "photoURL": "",
+            "initialized": false,
+            "privateKey": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: cannot find other users",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot list users",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: get her user",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:2>",
+          "email": "alice@example.com",
+          "displayName": "alice@example.com",
+          "photoURL": "",
+          "initialized": false,
+          "privateKey": ""
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: get her user with HEAD",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": ""
+    }
+  },
+  {
+    "name": "alice: get her user ignoring case and trailing slash",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:2>",
+          "email": "alice@example.com",
+          "displayName": "alice@example.com",
+          "photoURL": "",
+          "initialized": false,
+          "privateKey": ""
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: collection names are case sensitive",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot get the user of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "anonymous: cannot get the user of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: get a user with an invalid id",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: get a user with a 12 characters id",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: get a user that does not exist",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: set her master password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:2>",
+          "email": "alice@example.com",
+          "displayName": "alice@example.com",
+          "photoURL": "",
+          "initialized": true,
+          "privateKey": "c2FsdC1pdi1lbmNyeXB0ZWQtcHJpdmF0ZS1rZXk="
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: store her private key in a newer format",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:2>",
+          "email": "alice@example.com",
+          "displayName": "alice@example.com",
+          "photoURL": "",
+          "initialized": true,
+          "privateKey": "v2.600000.c2FsdC1pdi1lbmNyeXB0ZWQtcHJpdmF0ZS1rZXk="
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot update her user partially",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot update her user with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot change the email of her user",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot update her user with an empty document",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot update the user of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot update a user that does not exist",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot delete her user",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: get her user after the updates",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:2>",
+          "email": "alice@example.com",
+          "displayName": "alice@example.com",
+          "photoURL": "",
+          "initialized": true,
+          "privateKey": "v2.600000.c2FsdC1pdi1lbmNyeXB0ZWQtcHJpdmF0ZS1rZXk="
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: create his user",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:3>",
+          "email": "bob@example.com",
+          "displayName": "bob@example.com",
+          "photoURL": "",
+          "initialized": false,
+          "privateKey": ""
+        }
+      }
+    }
+  },
+  {
+    "name": "carol: create her user",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:4>",
+          "email": "carol@example.com",
+          "displayName": "carol@example.com",
+          "photoURL": "",
+          "initialized": false,
+          "privateKey": ""
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: find her sharing settings before they exist",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create sharing settings for somebody else",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create sharing settings with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create sharing settings with missing fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: create her sharing settings",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:5>",
+          "publicKey": "ALICE-PUBLIC-KEY",
+          "email": "alice@example.com"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create her sharing settings twice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: update her public key",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:5>",
+          "publicKey": "ALICE-PUBLIC-KEY-2",
+          "email": "alice@example.com"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot update her sharing settings partially",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot update the public key of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: can find the public key of alice",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:5>",
+            "publicKey": "ALICE-PUBLIC-KEY-2",
+            "email": "alice@example.com"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "bob: can get the sharing settings of alice",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:5>",
+          "publicKey": "ALICE-PUBLIC-KEY-2",
+          "email": "alice@example.com"
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: cannot list sharing settings",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot use operators to list sharing settings",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "anonymous: cannot find sharing settings",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot delete her sharing settings",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: create his sharing settings",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:6>",
+          "publicKey": "BOB-PUBLIC-KEY",
+          "email": "bob@example.com"
+        }
+      }
+    }
+  },
+  {
+    "name": "carol: create her sharing settings",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:7>",
+          "publicKey": "CAROL-PUBLIC-KEY",
+          "email": "carol@example.com"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: find the settings of a user that does not exist",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: find her folders before they exist",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a folder for somebody else",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a folder with missing fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a folder with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a folder without name",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a folder with a long name",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: create a folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:8>",
+          "name": "Work",
+          "key": "ALICE-FOLDER-KEY",
+          "owner": "alice@example.com",
+          "sharedWith": []
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: create a second folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:9>",
+          "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "key": "ALICE-FOLDER-KEY-2",
+          "owner": "alice@example.com",
+          "sharedWith": []
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: find her folders",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:8>",
+            "name": "Work",
+            "key": "ALICE-FOLDER-KEY",
+            "owner": "alice@example.com",
+            "sharedWith": []
+          },
+          {
+            "id": "<id:9>",
+            "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "key": "ALICE-FOLDER-KEY-2",
+            "owner": "alice@example.com",
+            "sharedWith": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: find her folders by name",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:8>",
+            "name": "Work",
+            "key": "ALICE-FOLDER-KEY",
+            "owner": "alice@example.com",
+            "sharedWith": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: cannot find folders of bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot list folders",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: get her folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:8>",
+          "name": "Work",
+          "key": "ALICE-FOLDER-KEY",
+          "owner": "alice@example.com",
+          "sharedWith": []
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: cannot get the folder of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: rename her folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:8>",
+          "name": "Work stuff",
+          "key": "ALICE-FOLDER-KEY",
+          "owner": "alice@example.com",
+          "sharedWith": []
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot rename her folder with an empty name",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot give her folder away",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot add unknown fields to her folder",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot rename the folder of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot delete the folder of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: delete a folder that does not exist",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: delete a folder with an invalid id",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: list passwords of an empty folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password with missing fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password owned by somebody else",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password without name",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password with a long name",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password in a folder that does not exist",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create a password in a folder with an invalid id",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: create a password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:10>",
+          "name": "My bank",
+          "owner": "alice@example.com",
+          "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+          "url": "https://bank.example.com",
+          "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: create a second password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:11>",
+          "name": "My email",
+          "owner": "alice@example.com",
+          "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+          "url": "",
+          "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: create a password in her second folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:12>",
+          "name": "Other",
+          "owner": "alice@example.com",
+          "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+          "url": "https://bank.example.com",
+          "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: list passwords",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:10>",
+            "name": "My bank",
+            "owner": "alice@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "https://bank.example.com",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          },
+          {
+            "id": "<id:11>",
+            "name": "My email",
+            "owner": "alice@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: list passwords without body",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:10>",
+            "name": "My bank",
+            "owner": "alice@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "https://bank.example.com",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          },
+          {
+            "id": "<id:11>",
+            "name": "My email",
+            "owner": "alice@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: find passwords by name",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:11>",
+            "name": "My email",
+            "owner": "alice@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: find passwords with no match",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: get a password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:10>",
+          "name": "My bank",
+          "owner": "alice@example.com",
+          "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+          "url": "https://bank.example.com",
+          "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: get a password that does not exist",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetSubDocumentService: error while getting a document"
+      }
+    }
+  },
+  {
+    "name": "alice: get a password with an invalid id",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetSubDocumentService: error while getting a document"
+      }
+    }
+  },
+  {
+    "name": "alice: folders do not expose their passwords",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:8>",
+          "name": "Work stuff",
+          "key": "ALICE-FOLDER-KEY",
+          "owner": "alice@example.com",
+          "sharedWith": []
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: unknown subcollections are not accessible",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: edit a password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:10>",
+          "name": "My bank (new)",
+          "password": "bmV3LXBhc3N3b3Jk",
+          "url": "https://bank.example.com/login",
+          "username": "bmV3LXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: get the edited password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:10>",
+          "name": "My bank (new)",
+          "password": "bmV3LXBhc3N3b3Jk",
+          "url": "https://bank.example.com/login",
+          "username": "bmV3LXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot edit a password with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot change the owner of a password",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot edit a password with an empty name",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: editing a password that does not exist changes nothing",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:1>",
+          "name": "x"
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: cannot list passwords of a folder not shared with him",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot get a password of a folder not shared with him",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot create a password in a folder not shared with him",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot edit a password of a folder not shared with him",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot delete a password of a folder not shared with him",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "anonymous: cannot list passwords",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: list his shared folders before sharing",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: check if her folder is already shared with bob",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "alice: cannot list the shared folders of bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot share with himself a folder of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot share a folder with herself",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot share a folder with missing fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot share a folder with extra fields",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot share a folder that does not exist",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: share her folder with bob",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:13>",
+          "name": "Work stuff",
+          "key": "FOLDER-KEY-FOR-BOB",
+          "shared": true,
+          "folder": "<id:8>"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: add bob to the shared list of her folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:8>",
+          "name": "Work stuff",
+          "key": "ALICE-FOLDER-KEY",
+          "owner": "alice@example.com",
+          "sharedWith": [
+            "bob@example.com"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: cannot share her folder with bob twice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: find her folders after sharing",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:8>",
+            "name": "Work stuff",
+            "key": "ALICE-FOLDER-KEY",
+            "owner": "alice@example.com",
+            "sharedWith": [
+              "bob@example.com"
+            ]
+          },
+          {
+            "id": "<id:9>",
+            "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "key": "ALICE-FOLDER-KEY-2",
+            "owner": "alice@example.com",
+            "sharedWith": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "bob: list his shared folders",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:13>",
+            "name": "Work stuff",
+            "key": "FOLDER-KEY-FOR-BOB",
+            "shared": true,
+            "folder": "<id:8>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "bob: get his shared folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:13>",
+          "name": "Work stuff",
+          "key": "FOLDER-KEY-FOR-BOB",
+          "shared": true,
+          "folder": "<id:8>"
+        }
+      }
+    }
+  },
+  {
+    "name": "carol: cannot list the shared folders of bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "carol: cannot get the shared folder of bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot get the shared folder of bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot modify his shared folder",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot modify the shared folder of bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot remove himself from a shared folder",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: sharing settings do not expose shared folders",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:6>",
+            "publicKey": "BOB-PUBLIC-KEY",
+            "email": "bob@example.com"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "bob: list passwords of the shared folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:10>",
+            "name": "My bank (new)",
+            "password": "bmV3LXBhc3N3b3Jk",
+            "url": "https://bank.example.com/login",
+            "username": "bmV3LXVzZXJuYW1l"
+          },
+          {
+            "id": "<id:11>",
+            "name": "My email",
+            "owner": "alice@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "bob: get a password of the shared folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:10>",
+          "name": "My bank (new)",
+          "password": "bmV3LXBhc3N3b3Jk",
+          "url": "https://bank.example.com/login",
+          "username": "bmV3LXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: create a password in the shared folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:14>",
+          "name": "From bob",
+          "owner": "bob@example.com",
+          "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+          "url": "https://bank.example.com",
+          "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: edit a password of alice in the shared folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:11>",
+          "name": "My email (bob)",
+          "password": "Ym9i",
+          "url": "",
+          "username": "Ym9i"
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: the password edited by bob lost its owner",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:11>",
+          "name": "My email (bob)",
+          "password": "Ym9i",
+          "url": "",
+          "username": "Ym9i"
+        }
+      }
+    }
+  },
+  {
+    "name": "bob: delete a password of the shared folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": true
+      }
+    }
+  },
+  {
+    "name": "bob: cannot get the folder document",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot rename the shared folder",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "PatchDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot access the other folder of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "carol: cannot list passwords of the folder shared with bob",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: list passwords after bob changes",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:10>",
+            "name": "My bank (new)",
+            "password": "bmV3LXBhc3N3b3Jk",
+            "url": "https://bank.example.com/login",
+            "username": "bmV3LXVzZXJuYW1l"
+          },
+          {
+            "id": "<id:14>",
+            "name": "From bob",
+            "owner": "bob@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "https://bank.example.com",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: find the shared folder record of bob",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:13>",
+            "name": "Work stuff",
+            "key": "FOLDER-KEY-FOR-BOB",
+            "shared": true,
+            "folder": "<id:8>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "carol: cannot unshare the folder of alice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: unshare her folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": true
+      }
+    }
+  },
+  {
+    "name": "alice: remove bob from the shared list of her folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": {
+          "id": "<id:8>",
+          "name": "Work stuff",
+          "key": "ALICE-FOLDER-KEY",
+          "owner": "alice@example.com",
+          "sharedWith": []
+        }
+      }
+    }
+  },
+  {
+    "name": "alice: unshare her folder again",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: list his shared folders after unsharing",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": []
+      }
+    }
+  },
+  {
+    "name": "bob: cannot list passwords after unsharing",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "bob: cannot delete his password after unsharing",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: delete a password",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": true
+      }
+    }
+  },
+  {
+    "name": "alice: delete a password twice",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": true
+      }
+    }
+  },
+  {
+    "name": "alice: delete a password with an invalid id",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": false
+      }
+    }
+  },
+  {
+    "name": "alice: list passwords after deleting",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:14>",
+            "name": "From bob",
+            "owner": "bob@example.com",
+            "password": "ZW5jcnlwdGVkLXBhc3N3b3Jk",
+            "url": "https://bank.example.com",
+            "username": "ZW5jcnlwdGVkLXVzZXJuYW1l"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: delete her folder",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": true
+      }
+    }
+  },
+  {
+    "name": "alice: delete her folder twice",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "DeleteDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot list passwords of a deleted folder",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindSubDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: find her folders after deleting",
+    "response": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": true,
+        "message": [
+          {
+            "id": "<id:9>",
+            "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "key": "ALICE-FOLDER-KEY-2",
+            "owner": "alice@example.com",
+            "sharedWith": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "alice: cannot create documents in unknown collections",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "CreateDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot find documents in unknown collections",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot read the login codes",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot get documents of unknown collections",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "GetDocumentService: insufficient permissions to perform this operation"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot inject operators in a search",
+    "hardening": "Search criteria with MongoDB operators are rejected instead of being executed",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: error while finding documents"
+      }
+    }
+  },
+  {
+    "name": "alice: cannot use nested conditions in a search",
+    "hardening": "Search criteria with non-primitive values are rejected instead of being executed",
+    "response": {
+      "status": 500,
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "access-control-allow-origin": "*"
+      },
+      "body": {
+        "success": false,
+        "message": "FindDocumentService: error while finding documents"
+      }
+    }
+  }
+]

@@ -1,0 +1,7 @@
+**/node_modules
+**/dist
+**/test
+shared/testing
+.env
+.env.*
+!.env_template

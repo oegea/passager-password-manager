@@ -14,7 +14,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      # Install Node 20 with pnpm cache
+      # Install Node 22 with pnpm cache
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -24,5 +24,18 @@ jobs:
       # Install dependencies
       - run: pnpm install --frozen-lockfile
 
+      # Lint
+      - run: pnpm exec eslint . --max-warnings=0
+
       # Run tests
-      - run: pnpm test --watchAll=false
+      - run: pnpm test
+
+      # Build the production bundle
+      - run: pnpm run build
+
+      # Backend tests (no database needed)
+      - name: Backend tests
+        run: |
+          for service in authentication-service documents-service; do
+            (cd backend/$service && pnpm install --frozen-lockfile --ignore-workspace && pnpm test)
+          done

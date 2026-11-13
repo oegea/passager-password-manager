@@ -1,0 +1,600 @@
+[
+  {
+    "group": "default configuration",
+    "results": [
+      {
+        "name": "unknown route",
+        "response": {
+          "status": 404,
+          "headers": {
+            "content-type": "text/html; charset=utf-8",
+            "access-control-allow-origin": "*",
+            "content-security-policy": "default-src 'none'",
+            "x-content-type-options": "nosniff"
+          },
+          "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /unknown</pre>\n</body>\n</html>\n"
+        }
+      },
+      {
+        "name": "login without email",
+        "response": {
+          "status": 404,
+          "headers": {
+            "content-type": "text/html; charset=utf-8",
+            "access-control-allow-origin": "*",
+            "content-security-policy": "default-src 'none'",
+            "x-content-type-options": "nosniff"
+          },
+          "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /login/</pre>\n</body>\n</html>\n"
+        }
+      },
+      {
+        "name": "preflight",
+        "response": {
+          "status": 204,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "access-control-allow-methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+            "vary": "Access-Control-Request-Headers"
+          },
+          "body": ""
+        }
+      },
+      {
+        "name": "post is not supported",
+        "response": {
+          "status": 404,
+          "headers": {
+            "content-type": "text/html; charset=utf-8",
+            "access-control-allow-origin": "*",
+            "content-security-policy": "default-src 'none'",
+            "x-content-type-options": "nosniff"
+          },
+          "body": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /login/alice@example.com</pre>\n</body>\n</html>\n"
+        }
+      },
+      {
+        "name": "invalid email",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "EmailValueObject: email format is not valid"
+          }
+        },
+        "storedCodeType": "undefined",
+        "storedCodeDigits": 0,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "invalid email with HEAD",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": ""
+        },
+        "storedCodeType": "undefined",
+        "storedCodeDigits": 0,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "email longer than 255 characters",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "EmailValueObject: email property could not be larger than 255 characters."
+          }
+        },
+        "storedCodeType": "undefined",
+        "storedCodeDigits": 0,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "validate with an invalid email",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "EmailValueObject: email format is not valid"
+          }
+        }
+      },
+      {
+        "name": "validate an email that never started a login",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "ValidateLoginService: received code is not valid"
+          }
+        }
+      },
+      {
+        "name": "start login",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "wrong code",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "ValidateLoginService: received code is not valid"
+          }
+        }
+      },
+      {
+        "name": "right code after a wrong attempt is no longer valid",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "ValidateLoginService: received code is not valid"
+          }
+        }
+      },
+      {
+        "name": "start login with an encoded email",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "code that is not a number",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "ValidateLoginService: received code is not valid"
+          }
+        }
+      },
+      {
+        "name": "start login again",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "a new login replaces the previous code",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "right code",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true,
+            "message": "<jwt>"
+          }
+        },
+        "token": {
+          "header": {
+            "alg": "HS256",
+            "typ": "JWT"
+          },
+          "claims": [
+            "email",
+            "iat",
+            "exp"
+          ],
+          "email": "alice@example.com",
+          "durationInSeconds": 2592000
+        }
+      },
+      {
+        "name": "a code cannot be used twice",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "ValidateLoginService: received code is not valid"
+          }
+        }
+      },
+      {
+        "name": "start login ignoring case and trailing slash",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "code followed by text",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true,
+            "message": "<jwt>"
+          }
+        },
+        "token": {
+          "header": {
+            "alg": "HS256",
+            "typ": "JWT"
+          },
+          "claims": [
+            "email",
+            "iat",
+            "exp"
+          ],
+          "email": "alice@example.com",
+          "durationInSeconds": 2592000
+        }
+      },
+      {
+        "name": "start login for a session with details",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "right code with session details",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true,
+            "message": "<jwt>"
+          }
+        },
+        "token": {
+          "header": {
+            "alg": "HS256",
+            "typ": "JWT"
+          },
+          "claims": [
+            "email",
+            "sessionDetails",
+            "iat",
+            "exp"
+          ],
+          "email": "alice@example.com",
+          "sessionDetails": {
+            "device": "laptop"
+          },
+          "durationInSeconds": 2592000
+        }
+      }
+    ]
+  },
+  {
+    "group": "access limited by email",
+    "results": [
+      {
+        "name": "email of a domain that is not allowed",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "StartLoginRequestValueObject: email is not authorized to login"
+          }
+        },
+        "storedCodeType": "undefined",
+        "storedCodeDigits": 0,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "email of a subdomain of an allowed domain",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "StartLoginRequestValueObject: email is not authorized to login"
+          }
+        },
+        "storedCodeType": "undefined",
+        "storedCodeDigits": 0,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "specifically allowed email",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "vip2@other.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "email of an allowed domain",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "bob@example.org",
+            "subject": "Please verify your e-mail to use Passager",
+            "text": "\n          Hello,\n  \n          Your code to identify on Passager is <code>.\n  \n          Thank you for using Passager.\n  \n          This e-mail has been sent by Test Org.\n  \n          --\n  \n          Hola,\n  \n          Tu código para identificarte en Passager es <code>.\n  \n          Gracias por usar Passager.\n  \n          Este correo electrónico ha sido enviado por Test Org.\n      "
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      },
+      {
+        "name": "validation does not depend on the allowed list",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "ValidateLoginService: received code is not valid"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "group": "access limited by email with any non-empty value and no lists",
+    "results": [
+      {
+        "name": "nobody is allowed",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "StartLoginRequestValueObject: email is not authorized to login"
+          }
+        },
+        "storedCodeType": "undefined",
+        "storedCodeDigits": 0,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      }
+    ]
+  },
+  {
+    "group": "smtp server not reachable",
+    "results": [
+      {
+        "name": "email cannot be sent",
+        "response": {
+          "status": 500,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": false,
+            "message": "StartLoginService: error while sending verification email"
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [],
+        "everyMailContainsTheStoredCode": true
+      }
+    ]
+  },
+  {
+    "group": "html email template",
+    "results": [
+      {
+        "name": "start login",
+        "response": {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "access-control-allow-origin": "*"
+          },
+          "body": {
+            "success": true
+          }
+        },
+        "storedCodeType": "number",
+        "storedCodeDigits": 7,
+        "mails": [
+          {
+            "from": "passager@example.com",
+            "to": "alice@example.com",
+            "subject": "Please verify your e-mail to use Passager",
+            "html": "<p>Your code is <b><code></b>. Do not share [code].</p>"
+          }
+        ],
+        "everyMailContainsTheStoredCode": true
+      }
+    ]
+  }
+]
