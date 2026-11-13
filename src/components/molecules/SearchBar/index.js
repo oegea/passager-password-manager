@@ -135,16 +135,19 @@ const MoleculeSearchBar = ({ onFocusChange }) => {
     const inputRef = useRef(null);
     const containerRef = useRef(null);
 
-    // Sincronizar el input con el parámetro de búsqueda de la URL
+    // Sincronizar el input con el parámetro de búsqueda de la URL.
+    // Depends on the value of the query, not on the `searchParams` object:
+    // that one is new on every render, and what is being typed would be
+    // replaced by the previous search.
+    const queryParam = searchParams.get('q');
     useEffect(() => {
-        const queryParam = searchParams.get('q');
         if (queryParam) {
             setSearchQuery(queryParam);
         } else if (location.pathname !== '/search') {
             // Solo limpiar el input si no estamos en la página de búsqueda
             setSearchQuery('');
         }
-    }, [searchParams, location.pathname]);
+    }, [queryParam, location.pathname]);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {

@@ -1,7 +1,8 @@
-# GitHub Pages (https://www.passager.app) publishes README.md as the
-# information site. The files below belong to the web application, not to
-# that site. `index.html` in particular must be excluded: it is the entry
-# point Vite needs in the repository root, and it would replace the README.
+# GitHub Pages (https://www.passager.app) publishes the information site
+# that lives in `website/` (its index.html declares `permalink: /`).
+# The files below belong to the web application, not to that site.
+# `index.html` in particular must be excluded: it is the entry point Vite
+# needs in the repository root, and it would replace the site.
 exclude:
   - index.html
   - src
@@ -21,3 +22,7 @@ exclude:
   - Dockerfile.dev
   - CLAUDE.md
   - remoteconfig.template.json
+  - README.md
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
+  - LICENSE.md

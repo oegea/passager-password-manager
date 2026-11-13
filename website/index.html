@@ -1,0 +1,438 @@
+---
+permalink: /
+layout: null
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Passager — The open source password manager you actually own</title>
+    <meta
+      name="description"
+      content="Passager is an open source, end-to-end encrypted password manager. Passwords, cards, keys, files and notes, encrypted in your browser. Use it alone with no account, or self-host it for your team."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b0d11" />
+    <link rel="icon" href="/website/favicon.ico" />
+    <link rel="canonical" href="https://www.passager.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.passager.app/" />
+    <meta property="og:title" content="Passager — The open source password manager you actually own" />
+    <meta
+      property="og:description"
+      content="Passwords, cards, keys, files and notes, encrypted in your browser. No account needed. Open source."
+    />
+    <meta property="og:image" content="https://www.passager.app/website/img/social.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/website/styles.css" />
+    <script>
+      // Before the first paint: theme (saved choice, else the system's) and
+      // the flag that enables scroll animations.
+      (function () {
+        var root = document.documentElement;
+        var saved = null;
+        try {
+          saved = localStorage.getItem('site-theme');
+        } catch (e) {}
+        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        root.classList.add('js');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+    <header class="nav" id="top">
+      <div class="container nav__inner">
+        <a class="brand" href="#top" aria-label="Passager">
+          <img src="/website/img/logo.png" alt="" width="30" height="30" />
+          <span>Passager</span>
+        </a>
+        <nav class="nav__links" aria-label="Sections">
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#security" data-i18n="nav.security">Security</a>
+          <a href="#teams" data-i18n="nav.teams">For teams</a>
+          <a href="#story" data-i18n="nav.story">Story</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        </nav>
+        <div class="nav__actions">
+          <button class="icon-btn" id="lang-toggle" type="button" aria-label="Cambiar a español">ES</button>
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path class="icon-moon" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95Z" /><path class="icon-sun" d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M3.34,7L7.5,6.65C6.9,7.16 6.36,7.78 5.94,8.5C5.5,9.24 5.25,10 5.11,10.79L3.34,7M3.36,17L5.12,13.23C5.26,14 5.53,14.78 5.95,15.5C6.37,16.24 6.91,16.86 7.5,17.37L3.36,17M20.65,7L18.88,10.79C18.74,10 18.47,9.23 18.05,8.5C17.63,7.78 17.1,7.15 16.5,6.64L20.65,7M20.64,17L16.5,17.36C17.09,16.85 17.62,16.22 18.04,15.5C18.46,14.77 18.73,14 18.87,13.21L20.64,17M12,22L9.59,18.56C10.33,18.83 11.14,19 12,19C12.82,19 13.63,18.83 14.37,18.56L12,22Z" /></svg>
+          </button>
+          <a class="btn btn--primary btn--sm" href="https://cloud.passager.app" data-i18n="cta.open">Open Passager</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__copy">
+            <a class="pill reveal" href="https://github.com/oegea/passager-password-manager" target="_blank" rel="noreferrer">
+              <span class="pill__dot"></span>
+              <span data-i18n="hero.pill">Open source · AGPL-3.0 · Free forever</span>
+            </a>
+            <h1 class="reveal">
+              <span data-i18n="hero.title1">Your secrets.</span>
+              <span class="gradient-text" data-i18n="hero.title2">Your keys.</span>
+              <span data-i18n="hero.title3">Nobody else's.</span>
+            </h1>
+            <p class="lead reveal" data-i18n="hero.lead">
+              Passager is the password manager that encrypts everything in your browser before it goes anywhere. Use it on your own with no account at all, or run it on your own server for your whole team.
+            </p>
+            <div class="hero__cta reveal">
+              <a class="btn btn--primary btn--lg" href="https://cloud.passager.app">
+                <span data-i18n="hero.cta1">Start now — it's free</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="https://github.com/oegea/passager-password-manager" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" /></svg>
+                <span data-i18n="hero.cta2">View the source</span>
+              </a>
+            </div>
+            <ul class="hero__facts reveal">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg><span data-i18n="hero.fact1">No sign-up, no e-mail, no tracking</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg><span data-i18n="hero.fact2">Works offline, installs like an app</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg><span data-i18n="hero.fact3">Unlock with Face ID or your fingerprint</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual reveal" aria-hidden="true">
+            <div class="window tilt" id="hero-window">
+              <div class="window__bar"><i></i><i></i><i></i><span>cloud.passager.app</span></div>
+              <img class="only-light" src="/website/img/vault-desktop-light.webp" alt="" width="1280" height="800" />
+              <img class="only-dark" src="/website/img/vault-desktop-dark.webp" alt="" width="1280" height="800" />
+            </div>
+            <div class="float float--a"><span class="chip chip--pw"></span><b data-i18n="float.pw">Password</b></div>
+            <div class="float float--b"><span class="chip chip--card"></span><b data-i18n="float.card">Card</b></div>
+            <div class="float float--c"><span class="chip chip--key"></span><b data-i18n="float.key">Key pair</b></div>
+            <div class="float float--d"><span class="chip chip--file"></span><b data-i18n="float.file">File</b></div>
+            <div class="float float--e"><span class="chip chip--note"></span><b data-i18n="float.note">Note</b></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Numbers -->
+      <section class="stats">
+        <div class="container stats__grid">
+          <div class="stat reveal"><strong>AES-256</strong><span data-i18n="stats.1">encryption for everything you store</span></div>
+          <div class="stat reveal"><strong data-count="600000">600,000</strong><span data-i18n="stats.2">key derivation rounds on your master password</span></div>
+          <div class="stat reveal"><strong>0</strong><span data-i18n="stats.3">third-party crypto libraries. Only your browser's own</span></div>
+          <div class="stat reveal"><strong>100%</strong><span data-i18n="stats.4">open source. Read every line</span></div>
+        </div>
+      </section>
+
+      <!-- Live demo -->
+      <section class="section demo" id="demo">
+        <div class="container">
+          <p class="eyebrow reveal" data-i18n="demo.eyebrow">Try it right here</p>
+          <h2 class="reveal" data-i18n="demo.title">This is all a server ever sees.</h2>
+          <p class="section__lead reveal" data-i18n="demo.lead">
+            Type anything on the left. It is encrypted in your browser with real AES-256-GCM, exactly like Passager does it. Nothing you type leaves this page.
+          </p>
+          <div class="demo__grid reveal">
+            <div class="demo__card">
+              <label for="demo-input" data-i18n="demo.you">What you type</label>
+              <input id="demo-input" type="text" autocomplete="off" spellcheck="false" value="correct horse battery staple" />
+              <span class="demo__hint" data-i18n="demo.hint1">Stays in your device</span>
+            </div>
+            <div class="demo__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" /></svg>
+            </div>
+            <div class="demo__card demo__card--dark">
+              <label data-i18n="demo.server">What gets stored</label>
+              <output id="demo-output" for="demo-input">…</output>
+              <span class="demo__hint" data-i18n="demo.hint2">Unreadable without your key — even for us</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="section" id="features">
+        <div class="container">
+          <p class="eyebrow reveal" data-i18n="features.eyebrow">Everything in one vault</p>
+          <h2 class="reveal" data-i18n="features.title">Far more than passwords.</h2>
+          <p class="section__lead reveal" data-i18n="features.lead">
+            The things you can't afford to lose, and can't afford to leak, finally in the same place.
+          </p>
+
+          <div class="bento">
+            <article class="card card--wide reveal">
+              <div class="card__text">
+                <h3 data-i18n="f1.title">Five kinds of secrets</h3>
+                <p data-i18n="f1.text">Logins, payment cards, SSH and API key pairs, files and free-form secure notes. Each with the fields it needs and one-tap copy.</p>
+                <ul class="types">
+                  <li><span class="chip chip--pw"></span><span data-i18n="float.pw">Password</span></li>
+                  <li><span class="chip chip--card"></span><span data-i18n="float.card">Card</span></li>
+                  <li><span class="chip chip--key"></span><span data-i18n="float.key">Key pair</span></li>
+                  <li><span class="chip chip--file"></span><span data-i18n="float.file">File</span></li>
+                  <li><span class="chip chip--note"></span><span data-i18n="float.note">Note</span></li>
+                </ul>
+              </div>
+              <div class="card__shot">
+                <img class="only-light" src="/website/img/card-desktop-light.webp" alt="" loading="lazy" width="1280" height="800" />
+                <img class="only-dark" src="/website/img/card-desktop-dark.webp" alt="" loading="lazy" width="1280" height="800" />
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M17.81,4.47C17.73,4.47 17.65,4.45 17.58,4.41C15.66,3.42 14,3 12,3C10.03,3 8.15,3.47 6.44,4.41C6.2,4.54 5.9,4.45 5.76,4.21C5.63,3.97 5.72,3.66 5.96,3.53C7.82,2.5 9.86,2 12,2C14.14,2 16,2.47 18.04,3.5C18.29,3.65 18.38,3.95 18.25,4.19C18.16,4.37 18,4.47 17.81,4.47M3.5,9.72C3.4,9.72 3.3,9.69 3.21,9.63C3,9.47 2.93,9.16 3.09,8.93C4.08,7.53 5.34,6.43 6.84,5.66C10,4.04 14,4.03 17.15,5.65C18.65,6.42 19.91,7.5 20.9,8.9C21.06,9.12 21,9.44 20.78,9.6C20.55,9.76 20.24,9.71 20.08,9.5C19.18,8.22 18.04,7.23 16.69,6.54C13.82,5.07 10.15,5.07 7.29,6.55C5.93,7.25 4.79,8.25 3.89,9.5C3.81,9.65 3.66,9.72 3.5,9.72M9.75,21.79C9.62,21.79 9.5,21.74 9.4,21.64C8.53,20.77 8.06,20.21 7.39,19C6.7,17.77 6.34,16.27 6.34,14.66C6.34,11.69 8.88,9.27 12,9.27C15.12,9.27 17.66,11.69 17.66,14.66A0.5,0.5 0 0,1 17.16,15.16A0.5,0.5 0 0,1 16.66,14.66C16.66,12.24 14.57,10.27 12,10.27C9.43,10.27 7.34,12.24 7.34,14.66C7.34,16.1 7.66,17.43 8.27,18.5C8.91,19.66 9.35,20.15 10.12,20.93C10.31,21.13 10.31,21.44 10.12,21.64C10,21.74 9.88,21.79 9.75,21.79M16.92,19.94C15.73,19.94 14.68,19.64 13.82,19.05C12.33,18.04 11.44,16.4 11.44,14.66A0.5,0.5 0 0,1 11.94,14.16A0.5,0.5 0 0,1 12.44,14.66C12.44,16.07 13.16,17.4 14.38,18.22C15.09,18.7 15.92,18.93 16.92,18.93C17.16,18.93 17.56,18.9 17.96,18.83C18.23,18.78 18.5,18.96 18.54,19.24C18.59,19.5 18.41,19.77 18.13,19.82C17.56,19.93 17.06,19.94 16.92,19.94M14.91,22C14.87,22 14.82,22 14.78,22C13.19,21.54 12.15,20.95 11.06,19.88C9.66,18.5 8.89,16.64 8.89,14.66C8.89,13.04 10.27,11.72 11.97,11.72C13.67,11.72 15.05,13.04 15.05,14.66C15.05,15.73 16,16.6 17.13,16.6C18.28,16.6 19.21,15.73 19.21,14.66C19.21,10.89 15.96,7.83 11.96,7.83C9.12,7.83 6.5,9.41 5.35,11.86C4.96,12.67 4.76,13.62 4.76,14.66C4.76,15.44 4.83,16.67 5.43,18.27C5.53,18.53 5.4,18.82 5.14,18.91C4.88,19 4.59,18.87 4.5,18.62C4,17.31 3.77,16 3.77,14.66C3.77,13.46 4,12.37 4.45,11.42C5.78,8.63 8.73,6.82 11.96,6.82C16.5,6.82 20.21,10.33 20.21,14.65C20.21,16.27 18.83,17.59 17.13,17.59C15.43,17.59 14.05,16.27 14.05,14.65C14.05,13.58 13.12,12.71 11.97,12.71C10.82,12.71 9.89,13.58 9.89,14.65C9.89,16.36 10.55,17.96 11.76,19.16C12.71,20.1 13.62,20.62 15.03,21C15.3,21.08 15.45,21.36 15.38,21.62C15.33,21.85 15.12,22 14.91,22Z" /></svg></div>
+              <h3 data-i18n="f2.title">Face ID, Touch ID, fingerprint</h3>
+              <p data-i18n="f2.text">Unlock in a glance. Your master password is never stored: the key is protected by your device's own secure hardware.</p>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M17,18H7V6H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1M12,16L16,12H13V8H11V12H8L12,16Z" /></svg></div>
+              <h3 data-i18n="f3.title">Installs everywhere, works offline</h3>
+              <p data-i18n="f3.text">One click to add it to your phone, tablet or desktop. No app store, no updates to chase, and your personal vault opens without a connection.</p>
+            </article>
+
+            <article class="card card--phone reveal">
+              <div class="card__text">
+                <h3 data-i18n="f4.title">At home on any screen</h3>
+                <p data-i18n="f4.text">Designed for the phone in your hand and the monitor on your desk, in light and in dark.</p>
+              </div>
+              <div class="phone">
+                <img class="only-light" src="/website/img/vault-mobile-light.webp" alt="" loading="lazy" width="390" height="780" />
+                <img class="only-dark" src="/website/img/vault-mobile-dark.webp" alt="" loading="lazy" width="390" height="780" />
+              </div>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,15V12H9V15H6V17H9V20H11V17H14V15H11Z" /></svg></div>
+              <h3 data-i18n="f5.title">Files up to 50 MB</h3>
+              <p data-i18n="f5.text">Passport scans, certificates, recovery codes. Encrypted on your device and stored in pieces nobody else can put together.</p>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" /></svg></div>
+              <h3 data-i18n="f6.title">Locks itself</h3>
+              <p data-i18n="f6.text">Ten minutes without activity and the vault closes. Step away from your desk without thinking about it.</p>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" /></svg></div>
+              <h3 data-i18n="f7.title">Strong passwords on tap</h3>
+              <p data-i18n="f7.text">A built-in generator with the length and characters you choose. Stop reusing that one password.</p>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg></div>
+              <h3 data-i18n="f8.title">Find anything instantly</h3>
+              <p data-i18n="f8.text">Search across every folder, your own and the ones shared with you, and jump straight to what you need.</p>
+            </article>
+
+            <article class="card reveal">
+              <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z" /></svg></div>
+              <h3 data-i18n="f9.title">Your data, portable</h3>
+              <p data-i18n="f9.text">Download a full encrypted backup whenever you want and restore it on another device. No lock-in, ever.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Security -->
+      <section class="section section--alt" id="security">
+        <div class="container">
+          <p class="eyebrow reveal" data-i18n="sec.eyebrow">Security you can verify</p>
+          <h2 class="reveal" data-i18n="sec.title">We can't read your data. By design.</h2>
+          <p class="section__lead reveal" data-i18n="sec.lead">
+            No "trust us". Encryption happens in your browser, with your browser's native cryptography, and the code is public.
+          </p>
+
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="step__n">1</span>
+              <h3 data-i18n="s1.title">A master password only you know</h3>
+              <p data-i18n="s1.text">It is turned into an encryption key with PBKDF2 and 600,000 rounds, which makes guessing it painfully slow. It never leaves your device.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__n">2</span>
+              <h3 data-i18n="s2.title">A personal key pair</h3>
+              <p data-i18n="s2.text">Each person gets an RSA-4096 key pair. The private half is locked with your master key before it is stored anywhere.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__n">3</span>
+              <h3 data-i18n="s3.title">One key per folder</h3>
+              <p data-i18n="s3.text">Every folder has its own AES-256 key. What you save is encrypted with it, on your device, before it is sent.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__n">4</span>
+              <h3 data-i18n="s4.title">Sharing without exposing</h3>
+              <p data-i18n="s4.text">To share a folder, its key is encrypted with your teammate's public key. Only they can open it. The server just passes along a sealed envelope.</p>
+            </li>
+          </ol>
+
+          <div class="callouts">
+            <div class="callout reveal">
+              <h3 data-i18n="c1.title">What the server stores</h3>
+              <p data-i18n="c1.text">Encrypted blobs, the names you give to folders and items, your e-mail, and who a folder is shared with. Never a password, never a key it can use.</p>
+            </div>
+            <div class="callout reveal">
+              <h3 data-i18n="c2.title">What nobody can do</h3>
+              <p data-i18n="c2.text">Recover your master password. Not us, not your administrator. If you lose it, your data stays locked — that is the point.</p>
+            </div>
+            <div class="callout reveal">
+              <h3 data-i18n="c3.title">What you can check</h3>
+              <p data-i18n="c3.text">All of it. The app, the backend and the tests are open source, with a deliberately short list of dependencies.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modes -->
+      <section class="section" id="teams">
+        <div class="container">
+          <p class="eyebrow reveal" data-i18n="modes.eyebrow">Two ways to use it</p>
+          <h2 class="reveal" data-i18n="modes.title">Just you, or your whole team.</h2>
+          <div class="modes">
+            <article class="mode reveal">
+              <span class="mode__tag" data-i18n="m1.tag">Personal</span>
+              <h3 data-i18n="m1.title">Everything stays on your device</h3>
+              <p data-i18n="m1.text">Open the app and start. No account, no server, no internet required. Your vault lives in your browser, encrypted.</p>
+              <ul>
+                <li data-i18n="m1.a">Ready in ten seconds</li>
+                <li data-i18n="m1.b">Works completely offline</li>
+                <li data-i18n="m1.c">Backups you control</li>
+              </ul>
+              <a class="btn btn--primary" href="https://cloud.passager.app" data-i18n="m1.cta">Open my vault</a>
+            </article>
+            <article class="mode mode--accent reveal">
+              <span class="mode__tag" data-i18n="m2.tag">Organization</span>
+              <h3 data-i18n="m2.title">Your server, your rules</h3>
+              <p data-i18n="m2.text">Run the Passager backend on your own infrastructure. People sign in with a code sent to their e-mail and share folders with each other, end-to-end encrypted.</p>
+              <ul>
+                <li data-i18n="m2.a">Share folders with teammates</li>
+                <li data-i18n="m2.b">Access from every device</li>
+                <li data-i18n="m2.c">Limit access to your company's e-mail domains</li>
+              </ul>
+              <div class="terminal" role="img" aria-label="docker run command">
+                <div class="terminal__bar"><i></i><i></i><i></i></div>
+                <pre><code><span class="t-muted">$</span> docker run -d --env-file .env \
+    -p 3001-3002:3001-3002 \
+    oriolegea/passager-backend:latest</code></pre>
+              </div>
+              <a class="btn btn--ghost" href="https://github.com/oegea/passager-password-manager/tree/main/backend" target="_blank" rel="noreferrer" data-i18n="m2.cta">Read the setup guide</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Story -->
+      <section class="section section--alt" id="story">
+        <div class="container story">
+          <div class="story__intro">
+            <p class="eyebrow reveal" data-i18n="story.eyebrow">The story</p>
+            <h2 class="reveal" data-i18n="story.title">Built because nothing else fit.</h2>
+            <p class="reveal" data-i18n="story.p1">
+              The world didn't need another password manager. But I needed one that was open source, simple to use, and easy to install and maintain for a team — and I never found it.
+            </p>
+            <p class="reveal" data-i18n="story.p2">
+              So I built Passager around three ideas that still guide every decision: simple for users and for whoever runs it, secure by design, and usable by teams without weakening that security.
+            </p>
+            <p class="story__sign reveal">— Oriol Egea, <span data-i18n="story.sign">creator of Passager</span></p>
+          </div>
+          <ol class="timeline">
+            <li class="reveal">
+              <span class="timeline__when" data-i18n="t1.when">2022 · The beginning</span>
+              <h3 data-i18n="t1.title">An open source vault</h3>
+              <p data-i18n="t1.text">Passager is released under the AGPL, with all the encryption done in the browser from day one.</p>
+            </li>
+            <li class="reveal">
+              <span class="timeline__when" data-i18n="t2.when">Independence</span>
+              <h3 data-i18n="t2.title">A backend anyone can host</h3>
+              <p data-i18n="t2.text">The first versions leaned on a third-party cloud. It was replaced with a small backend of our own, so every organization keeps its data on its own infrastructure.</p>
+            </li>
+            <li class="reveal">
+              <span class="timeline__when" data-i18n="t3.when">Everywhere</span>
+              <h3 data-i18n="t3.title">On phones too</h3>
+              <p data-i18n="t3.text">Passager reaches iOS and Android, with biometric unlock, so the vault is always in your pocket.</p>
+            </li>
+            <li class="reveal">
+              <span class="timeline__when" data-i18n="t4.when">Today · Passager 2</span>
+              <h3 data-i18n="t4.title">Lighter, stronger, for everything</h3>
+              <p data-i18n="t4.text">One installable web app instead of separate native apps. Stronger key derivation, a backend with just two dependencies, new kinds of items, large files and a completely new design.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="container container--narrow">
+          <p class="eyebrow reveal" data-i18n="faq.eyebrow">Good questions</p>
+          <h2 class="reveal" data-i18n="faq.title">Before you trust it with your secrets.</h2>
+          <div class="faq">
+            <details class="reveal">
+              <summary data-i18n="q1.q">Is it really free?</summary>
+              <p data-i18n="q1.a">Yes. Passager is open source under the AGPL-3.0 license. There are no paid plans, no ads and no tracking.</p>
+            </details>
+            <details class="reveal">
+              <summary data-i18n="q2.q">What happens if I forget my master password?</summary>
+              <p data-i18n="q2.a">Nobody can recover it, because nobody else ever has it. That is what keeps your data private. Choose one you will remember and keep a backup of your vault.</p>
+            </details>
+            <details class="reveal">
+              <summary data-i18n="q3.q">Where is my data stored?</summary>
+              <p data-i18n="q3.a">In personal mode, only in the browser of your device. In organization mode, encrypted, on the server your organization runs. We do not operate a central service that holds your vault.</p>
+            </details>
+            <details class="reveal">
+              <summary data-i18n="q4.q">Is there an app for my phone?</summary>
+              <p data-i18n="q4.a">Passager is a web app you can install. Open it in your browser and choose "Install" or "Add to Home Screen": it gets its own icon, opens full screen, works offline and unlocks with Face ID or your fingerprint.</p>
+            </details>
+            <details class="reveal">
+              <summary data-i18n="q5.q">Can I move my passwords out later?</summary>
+              <p data-i18n="q5.a">Always. You can download a complete backup of your vault at any time. Your data is yours.</p>
+            </details>
+            <details class="reveal">
+              <summary data-i18n="q6.q">Has it been audited?</summary>
+              <p data-i18n="q6.a">Not by an external firm yet, and we would rather tell you than imply otherwise. What we can offer is full transparency: standard, well-known algorithms, the browser's native cryptography, and every line of code open for review.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="final">
+        <div class="container final__inner reveal">
+          <img src="/website/img/logo.png" alt="" width="64" height="64" />
+          <h2 data-i18n="final.title">Take your secrets back.</h2>
+          <p data-i18n="final.text">It takes ten seconds and no account. Your first vault is one click away.</p>
+          <div class="hero__cta">
+            <a class="btn btn--light btn--lg" href="https://cloud.passager.app" data-i18n="final.cta1">Open Passager</a>
+            <a class="btn btn--outline btn--lg" href="https://github.com/oegea/passager-password-manager" target="_blank" rel="noreferrer" data-i18n="final.cta2">Star it on GitHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="brand">
+          <img src="/website/img/logo.png" alt="" width="26" height="26" />
+          <span>Passager</span>
+        </div>
+        <p>
+          <span data-i18n="footer.made">Made with care in Barcelona.</span>
+          <a href="https://github.com/oegea/passager-password-manager/blob/main/LICENSE.md" target="_blank" rel="noreferrer" data-i18n="footer.license">Released under AGPL-3.0</a>
+        </p>
+        <nav aria-label="Footer">
+          <a href="https://cloud.passager.app" data-i18n="footer.app">Web app</a>
+          <a href="https://github.com/oegea/passager-password-manager" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://github.com/oegea/passager-password-manager/tree/main/backend" target="_blank" rel="noreferrer" data-i18n="footer.backend">Self-hosting</a>
+          <a href="https://github.com/oegea/passager-password-manager/issues" target="_blank" rel="noreferrer" data-i18n="footer.issues">Report an issue</a>
+        </nav>
+        <p class="footer__small" data-i18n="footer.disclaimer">
+          Passager is a personal open source project, provided as is and without warranty. Keep it updated and keep backups.
+        </p>
+      </div>
+    </footer>
+
+    <script src="/website/script.js" defer></script>
+  </body>
+</html>
