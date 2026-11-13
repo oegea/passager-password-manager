@@ -143,7 +143,10 @@ const Footer = styled.div`
  * The accounts kept in this browser: switch to one, add another, or remove
  * one for good.
  */
-const OrganismProfileSwitcher = ({ onSelectActive = () => null }) => {
+const OrganismProfileSwitcher = ({
+    onSelectActive = () => null,
+    canAdd = true,
+}) => {
     const { t } = useTranslation();
     const { profiles, refresh } = useProfiles();
     const [profileToRemove, setProfileToRemove] = useState(null);
@@ -208,15 +211,17 @@ const OrganismProfileSwitcher = ({ onSelectActive = () => null }) => {
                     </Row>
                 ))}
             </List>
-            <Footer>
-                <Button
-                    label={t('profiles.Add account')}
-                    icon={mdiPlus}
-                    variant="ghost"
-                    testId="profile-add"
-                    onClick={() => addProfile()}
-                />
-            </Footer>
+            {canAdd && (
+                <Footer>
+                    <Button
+                        label={t('profiles.Add account')}
+                        icon={mdiPlus}
+                        variant="ghost"
+                        testId="profile-add"
+                        onClick={() => addProfile()}
+                    />
+                </Footer>
+            )}
 
             {profileToRemove !== null && (
                 <ConfirmationDialog
@@ -240,6 +245,8 @@ const OrganismProfileSwitcher = ({ onSelectActive = () => null }) => {
 OrganismProfileSwitcher.displayName = 'OrganismProfileSwitcher';
 OrganismProfileSwitcher.propTypes = {
     onSelectActive: PropTypes.func,
+    /** False where the page already offers how to add an account */
+    canAdd: PropTypes.bool,
 };
 
 export default OrganismProfileSwitcher;

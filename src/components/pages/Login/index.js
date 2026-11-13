@@ -105,7 +105,7 @@ const PageLogin = () => {
                         <AccountsLabel>
                             {t('profiles.Your accounts')}
                         </AccountsLabel>
-                        <ProfileSwitcher />
+                        <ProfileSwitcher canAdd={false} />
                     </Accounts>
                 )}
 
