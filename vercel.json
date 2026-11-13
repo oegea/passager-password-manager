@@ -18,7 +18,15 @@
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": "no-cache"
+                    "value": "no-store, max-age=0"
+                },
+                {
+                    "key": "CDN-Cache-Control",
+                    "value": "no-store"
+                },
+                {
+                    "key": "Cloudflare-CDN-Cache-Control",
+                    "value": "no-store"
                 },
                 {
                     "key": "Service-Worker-Allowed",
