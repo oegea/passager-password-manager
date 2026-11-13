@@ -141,17 +141,38 @@ const localDriver = {
 const toHex = (bytes) =>
     Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
 
-/** Every piece stored in this device, to include it in a backup. */
-export const exportLocalFiles = async () => {
+/** The pieces stored in this device for some folders, for a backup. */
+export const exportLocalFiles = async (folderIds) => {
     if (!isLocalStorageAvailable()) return [];
-    return (await withLocalStore('readonly', (store) => store.getAll())) || [];
+    const chunks =
+        (await withLocalStore('readonly', (store) => store.getAll())) || [];
+    return chunks.filter((chunk) => folderIds.includes(chunk.folder));
 };
 
-/** Replaces the pieces stored in this device with the ones of a backup. */
+/** Removes the pieces stored in this device for some folders. */
+export const removeLocalFolderFiles = async (folderIds) => {
+    if (!isLocalStorageAvailable() || folderIds.length === 0) return;
+    await withLocalStore('readwrite', (store) => {
+        for (const folder of folderIds) {
+            const cursor = store
+                .index('folder')
+                .openKeyCursor(IDBKeyRange.only(folder));
+            cursor.onsuccess = () => {
+                if (!cursor.result) return;
+                store.delete(cursor.result.primaryKey);
+                cursor.result.continue();
+            };
+        }
+    });
+};
+
+/**
+ * Stores the pieces of a backup. Files of other accounts kept in this
+ * device are not touched.
+ */
 export const importLocalFiles = async (chunks) => {
     if (!isLocalStorageAvailable()) return;
     await withLocalStore('readwrite', (store) => {
-        store.clear();
         for (const chunk of Array.isArray(chunks) ? chunks : []) {
             if (
                 chunk &&

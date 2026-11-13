@@ -20,6 +20,7 @@
 
 // Third party dependencies
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 // Atoms
@@ -85,7 +86,9 @@ const AtomDialog = ({ children, onClose }) => {
         }, 220);
     };
 
-    return (
+    // Rendered in the body: an ancestor with a filter or a transform would
+    // otherwise confine a fixed overlay to its own box
+    return ReactDOM.createPortal(
         <>
             <OverlayBackground
                 data-testid="dialog-background"
@@ -99,7 +102,8 @@ const AtomDialog = ({ children, onClose }) => {
             >
                 <Dialog $isClosing={isClosing}>{children}</Dialog>
             </OverlayBackground>
-        </>
+        </>,
+        document.body
     );
 };
 

@@ -437,12 +437,22 @@ const decodeJwt = (jwtToken) => {
     return jwtTokenDecoded;
 };
 
+/**
+ * A session that has expired only needs signing in again: the account, and
+ * everything it keeps in this device, stays where it is.
+ */
+const expireSession = () => {
+    localStorage.removeItem('jwtToken');
+    if (!window.location.pathname.startsWith('/login-backend'))
+        window.location.href = '/login-backend';
+};
+
 const isJwtTokenExpired = (jwtToken) => {
     const jwtTokenDecoded = decodeJwt(jwtToken);
     const expirationDate = new Date(jwtTokenDecoded.exp * 1000);
     const currentDate = new Date();
     if (currentDate > expirationDate) {
-        logout();
+        expireSession();
         return true;
     }
 

@@ -22,7 +22,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { mdiAccount, mdiLogout } from '@mdi/js';
+import { mdiLogout } from '@mdi/js';
 // Atoms
 import Toolbar from '../../atoms/Toolbar/index.js';
 import ToolbarGroup from '../../atoms/ToolbarGroup/index.js';
@@ -32,6 +32,7 @@ import AtomToolbarButton from '../../atoms/ToolbarButton/index';
 import AppBarMenuIcon from '../../atoms/AppBarMenuIcon/index.js';
 // Molecules
 import SearchBar from '../../molecules/SearchBar/index.js';
+import ProfileMenu from '../../molecules/ProfileMenu/index.js';
 // Organisms
 import DialogFolderList from '../DialogFolderList/index.js';
 // Hooks
@@ -101,10 +102,8 @@ const OrganismAppBar = ({ signOut, marginBottom }) => {
                 <HideOnSearchFocus $isSearchFocused={isSearchFocused}>
                     <ToolbarGroup>
                         <ThemeToggle />
-                        <AtomToolbarButton
-                            label={t('common.My profile')}
-                            icon={mdiAccount}
-                            onClick={() => navigate('/profile/backups')}
+                        <ProfileMenu
+                            onOpenSettings={() => navigate('/profile/backups')}
                         />
                         <AtomToolbarButton
                             label={t('common.Logout')}

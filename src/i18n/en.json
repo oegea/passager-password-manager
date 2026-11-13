@@ -379,5 +379,19 @@
         "Select or create a folder": "Choose a folder on the left, or create a new one to start saving things.",
         "Shared with me": "Shared with me",
         "The file could not be downloaded": "The file could not be downloaded. Check your connection and try again."
+    },
+    "profiles": {
+        "Accounts": "Accounts",
+        "Your accounts": "Your accounts",
+        "Account settings": "Account settings",
+        "Add account": "Add another account",
+        "Remove account": "Remove account",
+        "Switch account": "Switch account",
+        "Local vault": "Local vault",
+        "Stored in this device": "Stored in this device",
+        "Organization account": "Organization account",
+        "Signed out": "Signed out",
+        "removeLocalDescription": "\"{{name}}\" and everything in it will be deleted from this device. This can not be undone: download a backup first if you may need it.",
+        "removeOrganizationDescription": "\"{{name}}\" will be removed from this device. Your data stays safe in your organization and you can add the account again at any time."
     }
 }

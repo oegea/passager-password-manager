@@ -166,6 +166,17 @@ Folder keys, passwords and shared folders do not depend on the master password: 
 
 WebAuthn with the PRF extension is used. The platform authenticator (Face ID, Touch ID, fingerprint, Windows Hello) releases a secret only after verifying the user; a key derived from it (HKDF-SHA256) wraps the private key with AES-256-GCM. Only that wrapped copy is stored in the device. The master password is never stored, nothing is sent to any server, and the master password is still required in any other device.
 
+### Several accounts in one device
+
+Passager can keep several accounts in the same browser, like browser profiles: any mix of local vaults and organization accounts. The profile menu lists them, opens another one or adds a new one.
+
+- Only the account in use is unlocked. Opening another one always asks for its master password or its biometric unlock.
+- Each account has its own biometric unlock, with its own passkey, enabled separately.
+- An account stays in the list when its session expires or after signing out: opening it just asks to sign in again. It only leaves the list when it is removed on purpose, after a confirmation.
+- A backup only contains the account in use.
+
+The data of the account in use keeps the same local storage layout as always; the other accounts are kept aside under `profile:<id>` (`src/libs/profiles.js`).
+
 ## Compatibility
 
 Passager is designed so that different versions can coexist:

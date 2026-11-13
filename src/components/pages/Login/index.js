@@ -32,6 +32,15 @@ import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
 import { enableLocalMode } from '../../../libs/localStorageDatabase/index.js';
 import { enableBackendMode } from '../../../libs/backend.js';
+import {
+    PROFILE_TYPE_BACKEND,
+    PROFILE_TYPE_LOCAL,
+    startNewProfile,
+} from '../../../libs/profiles.js';
+// Organisms
+import ProfileSwitcher from '../../organisms/ProfileSwitcher/index.js';
+// Hooks
+import useProfiles from '../../../hooks/useProfiles/index.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
 
 const Options = styled.div`
@@ -39,6 +48,19 @@ const Options = styled.div`
     flex-direction: column;
     gap: 12px;
     margin-top: 24px;
+`;
+
+const Accounts = styled.div`
+    margin-top: 24px;
+`;
+
+const AccountsLabel = styled.div`
+    color: var(--color-text-faint);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
 `;
 
 const PageLogin = () => {
@@ -49,6 +71,19 @@ const PageLogin = () => {
         // min and max included
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+    const { profiles, active } = useProfiles();
+
+    // An account that is only closed is opened again; anything else starts
+    // a new account next to the ones already kept in this browser
+    const onUseLocally = () => {
+        if (active && active.type !== PROFILE_TYPE_LOCAL) startNewProfile();
+        enableLocalMode();
+    };
+    const onUseInOrganization = () => {
+        if (active && active.type !== PROFILE_TYPE_BACKEND) startNewProfile();
+        enableBackendMode();
+    };
 
     const RANDOM_SENTENCES = [t('login.A safe place to store your passwords')];
     return (
@@ -65,17 +100,26 @@ const PageLogin = () => {
                     }
                 </Title>
 
+                {profiles.length > 0 && (
+                    <Accounts>
+                        <AccountsLabel>
+                            {t('profiles.Your accounts')}
+                        </AccountsLabel>
+                        <ProfileSwitcher />
+                    </Accounts>
+                )}
+
                 <Options>
                     <Button
                         label={t('login.Use Passager locally for personal purposes')}
-                        onClick={enableLocalMode}
+                        onClick={onUseLocally}
                         variant="primary"
                         icon={mdiLaptop}
                         fullWidth
                     />
                     <Button
                         label={t('login.Use Passager in my organization')}
-                        onClick={enableBackendMode}
+                        onClick={onUseInOrganization}
                         icon={mdiDomain}
                         fullWidth
                     />

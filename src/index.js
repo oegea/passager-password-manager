@@ -32,6 +32,7 @@ import UserProvider from './providers/UserProvider.js';
 import FoldersProvider from './providers/FoldersProvider.js';
 // Own libs
 import { registerServiceWorker } from './libs/pwa.js';
+import { initProfiles } from './libs/profiles.js';
 import { initTheme } from './libs/theme.js';
 // Styles
 import GlobalStyle from './styles/GlobalStyle.js';
@@ -44,6 +45,9 @@ i18n.use(initReactI18next).init(i18nConfig);
 // Only standard HTML attributes reach the DOM (styled-components 5 behaviour)
 const shouldForwardProp = (propName, target) =>
     typeof target !== 'string' || isPropValid(propName);
+
+// Accounts stored in this browser. Before anything reads the storage
+initProfiles();
 
 // Light / dark theme, before anything is painted
 initTheme();

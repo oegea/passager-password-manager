@@ -128,7 +128,9 @@ export default class LocalUsersRepository extends UsersRepository {
 
     async subscribeToAuthStateChange({ userSubscriptionRequest }) {
         // Initialize user data if it is not initialized
-        this._initializeAuthDocument();
+        const isReloading = this._initializeAuthDocument();
+        // Nothing is shown until the page comes back
+        if (isReloading) return () => null;
 
         // Retrieve callback function
         const onAuthStateChangedCallback =
@@ -143,20 +145,30 @@ export default class LocalUsersRepository extends UsersRepository {
         return unsubscribe;
     }
 
+    /**
+     * Creates the local user the first time.
+     * @returns {boolean} True when the page is being reloaded
+     */
     _initializeAuthDocument() {
         const auth = this._LocalStorageDatabase.getItem('auth');
-        if (auth === null) {
-            const user = this._userDocumentEntity({
-                displayName: 'Local user',
-            });
-            const userDocument = {
-                ...user.toJSON(),
-                uid: this._LocalStorageDatabase.getRandomId()
-            };
-            // Directly using localStorage to avoid altering the current login status
-            localStorage.setItem('auth', JSON.stringify(userDocument));
-            localStorage.setItem('storeMode', 'NONE');
-            window.document.reload();
-        }
+        if (auth !== null) return false;
+
+        const user = this._userDocumentEntity({
+            displayName: 'Local user',
+        });
+        const userDocument = {
+            ...user.toJSON(),
+            uid: this._LocalStorageDatabase.getRandomId(),
+        };
+        // Directly using localStorage to avoid altering the current login status
+        localStorage.setItem('auth', JSON.stringify(userDocument));
+
+        // Local mode has already been chosen: there is nothing else to ask
+        if (localStorage.getItem('storeMode') === 'LOCAL') return false;
+
+        // First visit: nothing has been chosen yet, show the start page
+        localStorage.setItem('storeMode', 'NONE');
+        window.location.reload();
+        return true;
     }
 }

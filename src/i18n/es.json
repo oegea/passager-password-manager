@@ -379,5 +379,19 @@
         "Select or create a folder": "Elija una carpeta a la izquierda, o cree una nueva para empezar a guardar cosas.",
         "Shared with me": "Compartidas conmigo",
         "The file could not be downloaded": "No se ha podido descargar el fichero. Revise su conexión e inténtelo de nuevo."
+    },
+    "profiles": {
+        "Accounts": "Cuentas",
+        "Your accounts": "Sus cuentas",
+        "Account settings": "Ajustes de la cuenta",
+        "Add account": "Añadir otra cuenta",
+        "Remove account": "Eliminar cuenta",
+        "Switch account": "Cambiar de cuenta",
+        "Local vault": "Caja fuerte local",
+        "Stored in this device": "Guardada en este dispositivo",
+        "Organization account": "Cuenta de organización",
+        "Signed out": "Sesión cerrada",
+        "removeLocalDescription": "«{{name}}» y todo su contenido se borrarán de este dispositivo. No se puede deshacer: descargue antes una copia de seguridad si puede necesitarla.",
+        "removeOrganizationDescription": "«{{name}}» se quitará de este dispositivo. Sus datos siguen a salvo en su organización y puede volver a añadir la cuenta cuando quiera."
     }
 }

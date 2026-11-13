@@ -36,6 +36,9 @@ import {
 } from '../../../libs/crypto/index.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
+import Dialog from '../../atoms/Dialog/Dialog.js';
+// Organisms
+import ProfileSwitcher from '../../organisms/ProfileSwitcher/index.js';
 import Button from '../../atoms/Button/index.js';
 import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
@@ -64,6 +67,7 @@ const PageUserMasterPasswordValidation = ({ user }) => {
     const [biometricError, setBiometricError] = useState('');
 
     const [displaySpinner, setDisplaySpinner] = useState(false);
+    const [showProfiles, setShowProfiles] = useState(false);
 
     // The account was protected by a newer version of Passager than this one
     const requiresNewerVersion =
@@ -234,7 +238,20 @@ const PageUserMasterPasswordValidation = ({ user }) => {
                 <AtomButtonLink onClick={logout}>
                     {t('common.Logout')}
                 </AtomButtonLink>
+                <AtomButtonLink onClick={() => setShowProfiles(true)}>
+                    {t('profiles.Switch account')}
+                </AtomButtonLink>
                 <LanguageSelector />
+                {showProfiles && (
+                    <Dialog onClose={() => setShowProfiles(false)}>
+                        <Title marginBottom="16px">
+                            {t('profiles.Accounts')}
+                        </Title>
+                        <ProfileSwitcher
+                            onSelectActive={() => setShowProfiles(false)}
+                        />
+                    </Dialog>
+                )}
             </NotLogged>
         </>
     );
