@@ -1,0 +1,23 @@
+# GitHub Pages (https://www.passager.app) publishes README.md as the
+# information site. The files below belong to the web application, not to
+# that site. `index.html` in particular must be excluded: it is the entry
+# point Vite needs in the repository root, and it would replace the README.
+exclude:
+  - index.html
+  - src
+  - public
+  - bin
+  - backend
+  - build
+  - node_modules
+  - package.json
+  - pnpm-lock.yaml
+  - pnpm-workspace.yaml
+  - vite.config.js
+  - eslint.config.js
+  - vercel.json
+  - nginx.conf
+  - Dockerfile
+  - Dockerfile.dev
+  - CLAUDE.md
+  - remoteconfig.template.json
