@@ -28,8 +28,8 @@ Passager is an open-source password manager built with React and designed to wor
 
 - Two services under `backend/`: `authentication-service` (port 3001, e-mail code login issuing a 30-day HS256 JWT) and `documents-service` (port 3002, documents/subdocuments CRUD on MongoDB with permission rules in `src/{users,folders,userSharingSettings}`)
 - `backend/shared`: HTTP/CORS/JWT helpers using only Node built-ins
-- The only dependencies are `mongodb` and `nodemailer`. It no longer uses docky or Express, but keeps the same HTTP API, token format, env vars and database layout, so any frontend version works with any backend version
-- Tests need no database: they replay recorded requests against `test/golden.json`, captured from the original docky services. Do not edit goldens by hand
+- The only dependencies are `mongodb` and `nodemailer`. Everything else is Node built-ins. It keeps the same HTTP API as every earlier release, token format, env vars and database layout, so any frontend version works with any backend version
+- Tests need no database: they replay recorded requests against `test/golden.json`, captured from the original services. Do not edit goldens by hand
 
 ### PWA
 

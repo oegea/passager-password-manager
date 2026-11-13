@@ -7,6 +7,8 @@
 
 Passager Password Manager is an open-source and easy-to-use password manager.
 
+More information at [www.passager.app](https://www.passager.app).
+
 ---
 
 ## Nice features
@@ -16,6 +18,7 @@ Passager Password Manager is an open-source and easy-to-use password manager.
 - Screen lock after ten minutes of inactivity.
 - Besides passwords, folders can hold payment cards, key pairs, files and secure notes. They are stored inside the same encrypted fields a password uses, so they work with every backend version.
 - Files up to 50 MB, encrypted in the device and stored in pieces (in local mode, and with backends that support it; older backends are limited to 48 KB per file).
+- Several accounts in the same device, like browser profiles: any mix of local vaults and organization accounts, each with its own biometric unlock.
 - Light and dark themes.
 - Installable Progressive Web App: add it to the home screen of your phone or to your desktop, and use it offline.
 - Unlock with Face ID, Touch ID, fingerprint or Windows Hello (WebAuthn), without storing the master password.

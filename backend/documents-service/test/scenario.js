@@ -3,7 +3,7 @@
  * way every version of the Passager frontend uses it, plus the relevant failure
  * and abuse cases.
  *
- * `golden.json` holds the responses that the original (docky based) service
+ * `golden.json` holds the responses that the original service
  * gave to this exact sequence. The service must keep answering the same.
  */
 

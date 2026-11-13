@@ -38,7 +38,7 @@ The services are intentionally small and only depend on:
 
 Everything else (HTTP server and routing, CORS, JSON parsing, JWT signing and verification, tests) relies on Node.js itself.
 
-Previous versions were built on top of [`docky`](https://github.com/oegea/docky) and Express. The current implementation keeps exactly the same HTTP API, token format, environment variables and database layout, so it is a drop-in replacement: any version of the Passager frontend works with any version of the backend, and existing data and sessions remain valid after upgrading (or downgrading). The test suites replay the requests of the frontend and compare every answer with the ones recorded from the original services (`test/golden.json`).
+The HTTP API, token format, environment variables and database layout are stable: any version of the Passager web application works with any version of the backend, and existing data and sessions remain valid after upgrading (or downgrading). The test suites replay the requests of the web application and compare every answer with the ones recorded from earlier releases (`test/golden.json`), so do not edit that file by hand.
 
 ## Security notes
 
@@ -48,15 +48,11 @@ Previous versions were built on top of [`docky`](https://github.com/oegea/docky)
 
 # Reasons to build this
 
-This project's unique mission is to replace firebase as the default backend for Passager Password Manager.
+Passager can store everything in the browser, which is enough for personal use. Teams need more: the same passwords on every device and folders shared between people.
 
-Before developing this project, Passager was able both to store passwords locally using localStorage, and in the cloud by using firebase as the main backend.
+This set of small web services offers that, and each organization serves them with its own database and infrastructure. Nobody depends on a centralized service, and the maintainers of Passager can focus on its Open Source development instead of running a high-availability service and handling other people's data.
 
-Unfortunatelly, Firebase was not the ideal solution when compiling Passager as a mobile app using Capacitor, as the Firebase web SDK is not 100% compatible and the login process doesn't work without requiring third party plugins that are complex to configure.
-
-This set of basic web services offer a way to use Passager remotely, even when it is compiled as a mobile app.
-
-Additionally, with this new approach each organization is able to serve these services and maintain their own database and infrastructure, so maintainers of Passager does not need to maintain and be responsible for a set of centralized systems, which allow the maintainers to focus their efforts in Passager's Open Source development, instead of focusing them on offering a high-available service and comply with data processing laws and regulations.
+The services never see anything readable: passwords, the content of every other item, files and folder keys are encrypted by the web application before being sent.
 
 # File storage
 

@@ -2,7 +2,7 @@
  * Sequence of HTTP requests that exercises the authentication service under
  * several configurations.
  *
- * `golden.json` holds what the original (docky based) service answered and
+ * `golden.json` holds what the original service answered and
  * e-mailed for this exact sequence. The service must keep behaving the same.
  */
 
