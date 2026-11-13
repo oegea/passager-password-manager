@@ -18,7 +18,7 @@ test('renders a side dialog with children', () => {
 // Cierre normal con animación (ASYNC)
 // ----------------------------
 test('side dialog should close when the background is clicked', async () => {
-  const handleClose = jest.fn();
+  const handleClose = vi.fn();
 
   render(
     <AtomSideDialog onClose={handleClose}>
@@ -40,7 +40,7 @@ test('side dialog should close when the background is clicked', async () => {
 // NO cerrar si hay texto seleccionado
 // ----------------------------
 test('side dialog should NOT close when the background is clicked with text selected', async () => {
-  const handleClose = jest.fn();
+  const handleClose = vi.fn();
 
   render(
     <AtomSideDialog onClose={handleClose}>
@@ -55,7 +55,7 @@ test('side dialog should NOT close when the background is clicked with text sele
     toString: () => 'selected text',
   };
 
-  jest
+  vi
     .spyOn(window, 'getSelection')
     // por si TS se queja
     .mockReturnValue(mockSelection);
@@ -72,7 +72,7 @@ test('side dialog should NOT close when the background is clicked with text sele
 // NO cerrar si hay un input enfocado
 // ----------------------------
 test('side dialog should NOT close when the background is clicked with an input focused', async () => {
-  const handleClose = jest.fn();
+  const handleClose = vi.fn();
 
   render(
     <AtomSideDialog onClose={handleClose}>

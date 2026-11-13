@@ -29,8 +29,6 @@ import AppBar from '../../organisms/AppBar/index.js';
 const ContentWrapper = styled.div`
     display: flex;
     width: 100%;
-    margin: 0 auto;
-    max-width: 100%;
 `;
 
 const TemplateLoggedWithLeftPanel = ({

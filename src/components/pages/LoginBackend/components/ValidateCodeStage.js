@@ -21,7 +21,7 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import {useState} from 'react';
-import { enableLocalMode } from '@useful-tools/localstorage';
+import { enableLocalMode } from '../../../../libs/localStorageDatabase/index.js';
 // Atoms
 import Input from '../../../atoms/Input/index.js';
 import InputWrapper from '../../../atoms/Dialog/DialogInputWrapper.js';
@@ -34,6 +34,7 @@ import GlobalSpinner from '../../../molecules/GlobalSpinner/index.js';
 import useDialogConfirmation from '../../../../hooks/useDialogConfirmation/index.js';
 // Own libs
 import { finishLoginProcess } from '../../../../libs/backend.js';
+import FieldError from '../../../atoms/FieldError/index.js';
 
 const ValidateCodeStage = ({
     email,
@@ -97,7 +98,7 @@ const ValidateCodeStage = ({
                     }
                 />
                 {code.error.length > 0 && (
-                    <span style={{ color: 'red' }}>{t(code.error)}</span>
+                    <FieldError>{t(code.error)}</FieldError>
                 )}
             </InputWrapper>
 
@@ -105,6 +106,8 @@ const ValidateCodeStage = ({
                 <Button
                     label={t('common.Access')}
                     onClick={onAccess}
+                    variant="primary"
+                    fullWidth
                 />
             </ButtonWrapper>
         </>

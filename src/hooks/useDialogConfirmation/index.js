@@ -29,8 +29,15 @@ const useDialogConfirmation = (
     useEffect(() => {
         const onKeyPress = (e) => {
             const keyCode = e.code || e.key;
+            const tagName = e.target && e.target.tagName;
+            // Enter writes a new line in a text area, and activates a button
+            // by itself: neither must confirm the dialog as well
+            const isEnter =
+                (keyCode === 'Enter' || keyCode === 'NumpadEnter') &&
+                tagName !== 'TEXTAREA' &&
+                tagName !== 'BUTTON';
             if (
-                (keyCode === 'Enter' && enterHandler(name)) ||
+                (isEnter && enterHandler(name)) ||
                 keyCode === 'Escape'
             ) {
                 closeHandler();

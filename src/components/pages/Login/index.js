@@ -20,18 +20,26 @@
 
 // Third party dependencies
 import React from 'react';
+import styled from 'styled-components';
+import { mdiDomain, mdiLaptop } from '@mdi/js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
-import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 import LicenseNotice from '../../atoms/LicenseNotice/index.js';
 // Templates
 import NotLogged from '../../templates/NotLogged/index.js';
 // Own libs
-import { enableLocalMode } from '@useful-tools/localstorage';
+import { enableLocalMode } from '../../../libs/localStorageDatabase/index.js';
 import { enableBackendMode } from '../../../libs/backend.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
+
+const Options = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+`;
 
 const PageLogin = () => {
     
@@ -46,8 +54,7 @@ const PageLogin = () => {
     return (
         <>
             <NotLogged>
-                <Title>Passager</Title>
-                <p>
+                <Title>
                     {
                         RANDOM_SENTENCES[
                             randomIntFromInterval(
@@ -56,21 +63,23 @@ const PageLogin = () => {
                             )
                         ]
                     }
-                </p>
+                </Title>
 
-                <ButtonWrapper justifyContent="center">
+                <Options>
                     <Button
                         label={t('login.Use Passager locally for personal purposes')}
                         onClick={enableLocalMode}
+                        variant="primary"
+                        icon={mdiLaptop}
+                        fullWidth
                     />
-                </ButtonWrapper>
-
-                <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('login.Use Passager in my organization')}
                         onClick={enableBackendMode}
+                        icon={mdiDomain}
+                        fullWidth
                     />
-                </ButtonWrapper>
+                </Options>
                 <LanguageSelector />
             </NotLogged>
             <LicenseNotice/>

@@ -21,28 +21,80 @@
 // Third party dependencies
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+// Atoms
+import ThemeToggle from '../../atoms/ThemeToggle/index.js';
 
 const Wrapper = styled.div`
     align-items: center;
+    background: var(--color-bg-gradient), var(--color-bg);
     display: flex;
-    min-height: 100vh;
+    flex-direction: column;
     justify-content: center;
-    background: grey;
+    min-height: 100dvh;
+    padding: 72px 16px 96px;
+`;
+
+const Corner = styled.div`
+    position: fixed;
+    right: 16px;
+    top: 14px;
+`;
+
+const Brand = styled.div`
+    align-items: center;
+    animation: passager-fade-up var(--duration-slow) var(--ease-out) both;
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+    gap: 10px;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+
+    & img {
+        height: 34px;
+        width: 34px;
+    }
 `;
 
 const Content = styled.div`
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
+    animation: passager-fade-up var(--duration-slow) var(--ease-out) 60ms both;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    max-width: 560px;
+    padding: 32px;
+    width: 100%;
+
+    & > div:first-child {
+        margin-bottom: 12px;
+    }
+
+    & p {
+        color: var(--color-text-muted);
+    }
+
+    & > button {
+        margin-top: 14px;
+    }
+
+    @media (max-width: 768px) {
+        padding: 24px 20px;
+    }
 `;
 
 const TemplateNotLogged = ({ children }) => {
     return (
-        <>
-            <Wrapper>
-                <Content>{children}</Content>
-            </Wrapper>
-        </>
+        <Wrapper>
+            <Corner>
+                <ThemeToggle />
+            </Corner>
+            <Brand aria-hidden="true">
+                <img src="/logo192.png" alt="" />
+                Passager
+            </Brand>
+            <Content>{children}</Content>
+        </Wrapper>
     );
 };
 

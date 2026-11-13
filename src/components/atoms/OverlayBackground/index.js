@@ -22,32 +22,26 @@
 import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 `;
 
 const fadeOut = keyframes`
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+    from { opacity: 1; }
+    to { opacity: 0; }
 `;
 
 export default styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    background: rgba(1, 1, 1, 0.28);
-    animation: ${props => props.$isClosing ? fadeOut : fadeIn} 0.25s ease-out forwards;
+    animation: ${(props) => (props.$isClosing ? fadeOut : fadeIn)}
+        var(--duration-base) ease-out forwards;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-overlay);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    padding: 20px;
+    position: fixed;
+    z-index: 1000;
 `;

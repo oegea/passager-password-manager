@@ -1,28 +1,53 @@
-export const createFragment = ({content, ownerIdentifier, totalFragments, fragmentNumber}) => {
+export const createFragment = ({
+    content,
+    ownerIdentifier,
+    totalFragments,
+    fragmentNumber,
+}) => {
     // Calculate length of each fragment
     const fragmentLength = Math.ceil(content.length / totalFragments);
     // Calculate the latest fragment finish
     const lastFragmentFinish = (fragmentNumber - 1) * fragmentLength;
     // Get the desired fragment
-    const fragmentContent = content.slice(lastFragmentFinish, lastFragmentFinish + fragmentLength);
+    const fragmentContent = content.slice(
+        lastFragmentFinish,
+        lastFragmentFinish + fragmentLength
+    );
     // Create the fragment
     return {
         ownerIdentifier,
         totalFragments,
         fragmentNumber,
-        fragmentContent
+        fragmentContent,
     };
 };
 
-export const createExportableFragment = ({content, ownerIdentifier, totalFragments, fragmentNumber}) => {
-    return JSON.stringify(createFragment({content, ownerIdentifier, totalFragments, fragmentNumber}));
+export const createExportableFragment = ({
+    content,
+    ownerIdentifier,
+    totalFragments,
+    fragmentNumber,
+}) => {
+    return JSON.stringify(
+        createFragment({
+            content,
+            ownerIdentifier,
+            totalFragments,
+            fragmentNumber,
+        })
+    );
 };
 
 export const readPrivateKeyFromLocalStorage = (currentUser) => {
     try {
-        const storedUserKey = JSON.parse(localStorage.getItem('privateUserKey'));
+        const storedUserKey = JSON.parse(
+            localStorage.getItem('privateUserKey')
+        );
 
-        if (storedUserKey === null || storedUserKey.owner !== currentUser.email) {
+        if (
+            storedUserKey === null ||
+            storedUserKey.owner !== currentUser.email
+        ) {
             return null;
         } else {
             return storedUserKey.privateKey;
@@ -34,20 +59,37 @@ export const readPrivateKeyFromLocalStorage = (currentUser) => {
 };
 
 export const storePrivateKey = (privateKey, userEmail) => {
-
-    try{
+    try {
         const privateKeyObject = {
             owner: userEmail,
-            privateKey
+            privateKey,
         };
 
-        localStorage.setItem('privateUserKey', JSON.stringify(privateKeyObject));
+        localStorage.setItem(
+            'privateUserKey',
+            JSON.stringify(privateKeyObject)
+        );
 
         document.location.reload();
         return true;
-
+    } catch (error) {
+        console.error(error);
+        return false;
     }
-    catch(error){
+};
+
+/**
+ * Replaces the private key stored in this device without reloading the app.
+ * Used when the key is wrapped again with a stronger encryption version.
+ */
+export const updateStoredPrivateKey = (privateKey, userEmail) => {
+    try {
+        localStorage.setItem(
+            'privateUserKey',
+            JSON.stringify({ owner: userEmail, privateKey })
+        );
+        return true;
+    } catch (error) {
         console.error(error);
         return false;
     }
@@ -56,7 +98,7 @@ export const storePrivateKey = (privateKey, userEmail) => {
 export const getPrivateKeyFragment = (fragment) => {
     try {
         return JSON.parse(fragment);
-    } catch( error ) {
+    } catch (error) {
         console.error(error);
         return null;
     }

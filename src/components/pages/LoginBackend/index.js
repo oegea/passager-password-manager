@@ -48,12 +48,11 @@ const PageLoginBackend = () => {
     return (
         <>
             <NotLogged>
-                <Title>Passager</Title>
-                <p>
+                <Title marginBottom="20px">
                     {t(
                         'loginBackend.Please introduce your e-mail address'
                     )}.
-                </p>
+                </Title>
 
                 {
                     stage === 'INTRODUCE_EMAIL' &&

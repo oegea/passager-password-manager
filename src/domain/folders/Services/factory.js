@@ -24,7 +24,7 @@ import {
     RSADecrypt,
     RSAEncrypt,
     generateExportableAESKey,
-} from '@useful-tools/crypto';
+} from '../../../libs/crypto/index.js';
 // Services
 import { CreateFolderService } from './CreateFolderService.js';
 import { DeleteFolderService } from './DeleteFolderService.js';

@@ -23,8 +23,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ToolbarGroup = styled.div`
+    align-items: center;
     display: flex;
-    gap: 10px;
+    gap: 6px;
 `;
 
 const AtomToolbarGroup = ({ children }) => {

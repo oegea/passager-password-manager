@@ -44,7 +44,7 @@ class PasswordsProvider extends Component {
         if (this.unsubscribe !== null) {
             this.unsubscribe();
             this.unsubscribe = null;
-        } 
+        }
     };
 
     subscribe = async () => {

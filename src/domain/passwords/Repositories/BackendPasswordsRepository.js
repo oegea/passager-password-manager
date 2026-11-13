@@ -87,8 +87,10 @@ export class BackendPasswordsRepository extends PasswordsRepository {
             username,
         };
 
-        await updateSubdocument('folders', folderId, 'passwords', passwordId, document);
+        const result = await updateSubdocument('folders', folderId, 'passwords', passwordId, document);
         BackendPasswordsRepository.passwordsSubscription();
+
+        return result;
     }
 
     /**

@@ -1,5 +1,2 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-pnpm test --watchAll=false
+pnpm test
 pnpm exec lint-staged

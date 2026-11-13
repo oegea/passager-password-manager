@@ -24,18 +24,16 @@ import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 // Atoms
 import OverlayBackground from '../OverlayBackground/index.js';
-// Constants
-import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
 
-const DEFAULT_PADDING = 20;
+const DEFAULT_PADDING = 24;
 
 const scaleIn = keyframes`
     from {
-        transform: scale(0.95);
+        transform: translateY(12px) scale(0.96);
         opacity: 0;
     }
     to {
-        transform: scale(1);
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
 `;
@@ -52,25 +50,21 @@ const scaleOut = keyframes`
 `;
 
 const Dialog = styled.div`
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(30px) saturate(120%);
-    -webkit-backdrop-filter: blur(30px) saturate(120%);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12),
-                0 0 1px rgba(0, 0, 0, 0.05);
-    min-width: 20%;
+    animation: ${(props) => (props.$isClosing ? scaleOut : scaleIn)}
+        var(--duration-base) var(--ease-out) forwards;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-text);
+    max-height: calc(100dvh - 40px);
     max-width: 100%;
-    min-height: 150px;
-    max-height: 100vh;
-    border-radius: 16px;
+    min-width: min(420px, 100%);
+    overflow-y: auto;
     padding: ${DEFAULT_PADDING}px;
-    animation: ${props => props.$isClosing ? scaleOut : scaleIn} 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 
     @media (max-width: 768px) {
-        width: calc(100% - 40px);
-        max-width: calc(100% - 40px);
-        height: calc(100vh - 40px);
-        padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
+        width: 100%;
     }
 `;
 
@@ -88,7 +82,7 @@ const AtomDialog = ({ children, onClose }) => {
         setIsClosing(true);
         setTimeout(() => {
             onClose();
-        }, 300);
+        }, 220);
     };
 
     return (

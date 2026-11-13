@@ -152,7 +152,8 @@
         "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "If you lose your password, you won't be able to access your account. And nobody would be able to recover it.",
         "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances.",
         "Master password": "Master password",
-        "Type here your password": "Type here your password"
+        "Type here your password": "Type here your password",
+        "Your account is protected with a newer version of Passager. Please update the application to access it": "Your account is protected with a newer version of Passager. Please update the application to access it"
     },
     "profile": {
         "Profile options": "Profile options",
@@ -222,8 +223,156 @@
         "Contact your organization to clarify the legal basis of the data processing, the retention period, and other details regarding the privacy policy.": "Contact your organization to clarify the legal basis of the data processing, the retention period, and other details regarding the privacy policy.",
         "Keep in mind that depending on the applicable legislation in your jurisdiction, you may have data protection rights.": "Keep in mind that depending on the applicable legislation in your jurisdiction, you may have data protection rights.",
         "The creators of Passager do not receive any type of personal data from you when you use Passager. Please contact your organization if you have any questions about the privacy policy.": "The creators of Passager do not receive any type of personal data from you when you use Passager. Please contact your organization if you have any questions about the privacy policy.",
-
         "I understand and accept this privacy notice": "I understand and accept this privacy notice",
         "I reject this privacy notice": "I reject this privacy notice"
+    },
+    "biometric": {
+        "Unlock with": "Unlock with {{method}}",
+        "Biometric unlock": "Unlock with {{method}}",
+        "Unlock faster next time": "Unlock faster next time with {{method}}",
+        "offerDescription": "Use {{method}} on this device instead of typing your master password. Your master password is never stored, and you can turn this off at any time from your profile.",
+        "enabledDescription": "{{method}} is enabled on this device. Your master password is never stored and is still required on other devices.",
+        "disabledDescription": "Open Passager on this device with {{method}} instead of typing your master password. Your master password is never stored and is still required on other devices.",
+        "Not now": "Not now",
+        "Do not ask again": "Do not ask again",
+        "Disable": "Disable",
+        "Enabled": "Biometric unlock enabled",
+        "Disabled": "Biometric unlock disabled",
+        "It was not possible to enable it": "It was not possible to enable the biometric unlock. Please try again.",
+        "Type your master password to enable it": "Type your master password to enable the biometric unlock",
+        "The master password is not valid": "The biometric unlock could not be enabled. Check your master password and try again.",
+        "The request was cancelled": "The request was cancelled",
+        "This device does not support it": "This device or browser does not support the biometric unlock",
+        "It is no longer valid, please use your master password": "The biometric unlock is no longer valid on this device. Please use your master password.",
+        "It did not work, please use your master password": "The biometric unlock did not work. Please use your master password.",
+        "On": "On",
+        "Confirm with your master password": "Type your master password to confirm. It is not stored: it is only used now to protect your key with this device."
+    },
+    "pwa": {
+        "A new version of Passager is available": "A new version of Passager is available",
+        "Update now to get the latest security improvements": "Update now to get the latest improvements and security fixes.",
+        "Update": "Update",
+        "Later": "Later",
+        "Install Passager": "Install Passager",
+        "Install": "Install",
+        "installDescription": "Install Passager on this device to open it like any other app, even without connection.",
+        "iosInstallInstructions": "On iPhone and iPad: open the share menu of your browser and choose \"Add to Home Screen\"."
+    },
+    "theme": {
+        "Switch to light mode": "Switch to light mode",
+        "Switch to dark mode": "Switch to dark mode"
+    },
+    "items": {
+        "Type": "Type of item",
+        "Name": "Name",
+        "optional": "(optional)",
+        "types": {
+            "password": "Password",
+            "card": "Card",
+            "keypair": "Key pair",
+            "file": "File",
+            "note": "Note"
+        },
+        "newTitle": {
+            "card": "New card",
+            "keypair": "New key pair",
+            "file": "New file",
+            "note": "New note"
+        },
+        "editTitle": {
+            "card": "Edit card",
+            "keypair": "Edit key pair",
+            "file": "Edit file",
+            "note": "Edit note"
+        },
+        "namePlaceholder": {
+            "card": "My credit card",
+            "keypair": "Server SSH key",
+            "file": "Recovery codes",
+            "note": "API token"
+        },
+        "fields": {
+            "card": {
+                "cardholder": {
+                    "label": "Cardholder name",
+                    "placeholder": "Name as it appears on the card"
+                },
+                "number": {
+                    "label": "Card number",
+                    "placeholder": "0000 0000 0000 0000"
+                },
+                "expiry": {
+                    "label": "Expiry date",
+                    "placeholder": "MM/YY"
+                },
+                "cvv": {
+                    "label": "Security code (CVV)",
+                    "placeholder": "123"
+                },
+                "pin": {
+                    "label": "PIN",
+                    "placeholder": "Card PIN"
+                },
+                "notes": {
+                    "label": "Notes",
+                    "placeholder": "Anything else worth remembering"
+                }
+            },
+            "keypair": {
+                "publicKey": {
+                    "label": "Public key",
+                    "placeholder": "Paste here the public key"
+                },
+                "privateKey": {
+                    "label": "Private key",
+                    "placeholder": "Paste here the private key"
+                },
+                "passphrase": {
+                    "label": "Passphrase",
+                    "placeholder": "Passphrase of the private key"
+                }
+            },
+            "file": {
+                "file": {
+                    "label": "File",
+                    "placeholder": ""
+                }
+            },
+            "note": {
+                "text": {
+                    "label": "Content",
+                    "placeholder": "Write here the text to keep encrypted"
+                }
+            },
+            "password": {
+                "url": {
+                    "label": "Website URL",
+                    "placeholder": "Type here the website URL"
+                },
+                "username": {
+                    "label": "Username",
+                    "placeholder": "Type here your username"
+                },
+                "password": {
+                    "label": "Password",
+                    "placeholder": "Your secret password"
+                }
+            }
+        },
+        "Drop a file here or choose one": "Drop a file here or choose one (up to {{max}})",
+        "Choose file": "Choose file",
+        "Replace file": "Replace file",
+        "Download": "Download",
+        "The file is too large": "The file is too large. Files can be up to {{max}}.",
+        "The file could not be read": "The file could not be read.",
+        "The content is too large": "The content is too large. It can be up to {{max}}.",
+        "It was not possible to save it": "It was not possible to save it. Nothing has been lost: check your connection and try again.",
+        "This field must be at most characters": "This field must be at most {{max}} characters",
+        "This folder is empty": "This folder is empty",
+        "emptyFolderDescription": "Keep passwords, cards, key pairs, small files and secure notes here. Everything is encrypted before leaving this device.",
+        "Add the first item": "Add the first item",
+        "Select or create a folder": "Choose a folder on the left, or create a new one to start saving things.",
+        "Shared with me": "Shared with me",
+        "The file could not be downloaded": "The file could not be downloaded. Check your connection and try again."
     }
 }

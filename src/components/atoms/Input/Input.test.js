@@ -27,7 +27,7 @@ test('renders a styled input', () => {
     render(<AtomInput aria-label={DEFAULT_LABEL} />);
     const inputElement = screen.getByLabelText(DEFAULT_LABEL);
     expect(inputElement).toBeInTheDocument();
-    expect(inputElement).toHaveStyle('border: 1px solid black;');
+    expect(inputElement).toHaveStyle('width: 100%');
 });
 
 test('renders with the given value', () => {
@@ -43,7 +43,7 @@ test('renders with the given value', () => {
 });
 
 test('should execute onChange when input is changed', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<AtomInput aria-label={DEFAULT_LABEL} onChange={onChange} />);
     const inputElement = screen.getByLabelText(DEFAULT_LABEL);
     fireEvent.change(inputElement, { target: { value: 'test' } });

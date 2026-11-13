@@ -88,3 +88,18 @@ export const editPassword = async (
         userPrivateKey,
     });
 };
+
+/**
+ * Runs a save operation and tells whether it worked. Backends answer with
+ * nothing when they reject a document, and a full local storage throws:
+ * both mean the item was NOT saved.
+ */
+export const wasSaved = async (operation) => {
+    try {
+        const result = await operation();
+        return result !== null && result !== undefined && result !== false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};

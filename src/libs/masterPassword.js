@@ -20,8 +20,6 @@
 
 // Domain
 import domain from '../domain/index.js';
-// Own libs
-import { setCredentials } from './biometric.js';
 
 export const checkPassword = (password) => {
     let strengthValue = {
@@ -71,7 +69,6 @@ export const setUserMasterPassword = async (
         uid,
     });
 
-    setCredentials(password);
     if (reloadAuthDetails) {
         await reloadAuthDetails();
     }

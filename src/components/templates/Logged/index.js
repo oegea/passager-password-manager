@@ -25,9 +25,11 @@ import PropTypes from 'prop-types';
 import AppBar from '../../organisms/AppBar/index.js';
 
 const ContentWrapper = styled.div`
-    width: 70%;
+    animation: passager-fade-in var(--duration-base) ease-out;
     margin: 0 auto;
-    max-width: 70%;
+    max-width: 1040px;
+    padding: 0 clamp(16px, 4vw, 48px) 48px;
+    width: 100%;
 `;
 
 const TemplateLogged = ({ signOut, children, appBarMarginBottom = '35px' }) => {

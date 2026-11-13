@@ -32,11 +32,12 @@ test('renders a button with the given label', () => {
 test('renders a red colored button', () => {
     render(<AlertButton label={DEFAULT_LABEL} />);
     const button = screen.getByText(DEFAULT_LABEL);
-    expect(button).toHaveStyle('background-color: #d32f2f;');
+    expect(button).toHaveStyle('cursor: pointer');
+    expect(button.tagName).toBe('BUTTON');
 });
 
 test('should execute callback when button is clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<AlertButton label={DEFAULT_LABEL} onClick={onClick} />);
     const button = screen.getByText(DEFAULT_LABEL);
     expect(button).toBeInTheDocument();

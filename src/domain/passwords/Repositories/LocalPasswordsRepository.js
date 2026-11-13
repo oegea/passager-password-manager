@@ -72,7 +72,7 @@ export class LocalPasswordsRepository extends PasswordsRepository {
             url,
             username,
         };
-        this._LocalStorageDatabase.updateDocument(
+        return this._LocalStorageDatabase.updateDocument(
             `folders.${folderId}.passwords`,
             document,
             'id',

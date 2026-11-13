@@ -22,8 +22,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
-// Constants
-import { TOOLBAR_TOP_PADDING } from '../Toolbar/index.js';
 
 const fadeIn = keyframes`
     from {
@@ -66,41 +64,40 @@ const slideOut = keyframes`
 `;
 
 const DialogBackground = styled.div`
-    width: 100%;
-    background: rgba(1,1,1,0.28);
-    height: 100%;
+    animation: ${(props) => (props.$isClosing ? fadeOut : fadeIn)}
+        var(--duration-base) ease-out forwards;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: var(--color-overlay);
+    inset: 0;
     position: fixed;
-    top: 0;
-    left: 0;
-    animation: ${props => props.$isClosing ? fadeOut : fadeIn} 0.25s ease-out forwards;
+    z-index: 900;
 `;
 
-const DEFAULT_PADDING = 25;
+const DEFAULT_PADDING = 28;
 
 const SideDialog = styled.div`
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(30px) saturate(120%);
-    -webkit-backdrop-filter: blur(30px) saturate(120%);
-    border-radius: 16px 0 0 16px;
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08),
-                0 0 1px rgba(0, 0, 0, 0.05);
-    max-height: 100vh;
-    max-width: 400px;
-    min-height: 100vh;
-    overflow: hidden;
+    animation: ${(props) => (props.$isClosing ? slideOut : slideIn)}
+        var(--duration-slow) var(--ease-out) forwards;
+    background: var(--color-surface-raised);
+    border-left: 1px solid var(--color-border);
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-text);
+    height: 100dvh;
+    max-width: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: ${DEFAULT_PADDING}px;
     position: fixed;
-    top: 0;
     right: 0;
-    width: 400px;
-    animation: ${props => props.$isClosing ? slideOut : slideIn} 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    top: 0;
+    width: 460px;
 
     @media (max-width: 768px) {
-        width: calc(100% - 50px);
-        max-width: calc(100% - 50px);
-        padding-top: ${DEFAULT_PADDING + TOOLBAR_TOP_PADDING}px;
-        border-radius: 16px 0 0 0;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        padding: 22px 18px 28px;
+        width: 100%;
     }
 `;
 
@@ -145,7 +142,7 @@ const AtomSideDialog = ({ children, onClose }) => {
         setIsClosing(true);
         setTimeout(() => {
             onClose();
-        }, 350);
+        }, 300);
     }, [onClose]);
 
     return (
@@ -173,4 +170,3 @@ AtomSideDialog.propTypes = {
 };
 
 export default AtomSideDialog;
-('');

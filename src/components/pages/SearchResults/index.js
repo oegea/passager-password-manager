@@ -22,13 +22,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Icon from '@mdi/react';
-import { mdiFolder } from '@mdi/js';
+import Icon from '../../atoms/Icon/index.js';
+import { mdiFolder, mdiMagnifyClose } from '@mdi/js';
 // Atoms
 import LinearProgress from '../../atoms/LinearProgress/index.js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
+import EmptyState from '../../molecules/EmptyState/index.js';
+import { getItemRows } from '../../molecules/ItemName/index.js';
 // Organisms
 import Table from '../../organisms/Table/index.js';
 import PasswordFormDialog from '../../organisms/PasswordFormDialog/index.js';
@@ -42,10 +44,12 @@ import {
     decryptPassword,
     deletePassword,
     editPassword,
+    wasSaved,
 } from '../../../libs/passwords.js';
-import { isMobileDevice } from '../../../libs/mobile.js';
+import { fromStoredFields, ITEM_TYPE_FILE } from '../../../libs/items.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import useFileStore from '../../../hooks/useFileStore/index.js';
 // Context
 import withUser from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
@@ -57,14 +61,14 @@ const ResultsContainer = styled.div`
 `;
 
 const SearchHeader = styled.div`
-    margin-bottom: 30px;
+    margin-bottom: 24px;
 `;
 
 const SearchQuery = styled.h1`
+    color: var(--color-text);
     font-size: 24px;
-    color: #1a1a1a;
-    margin: 0 0 8px 0;
-    font-weight: 600;
+    font-weight: 700;
+    margin: 0 0 6px 0;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -72,75 +76,61 @@ const SearchQuery = styled.h1`
 `;
 
 const SearchMeta = styled.div`
+    color: var(--color-text-muted);
     font-size: 14px;
-    color: #666;
 `;
 
 const FolderSection = styled.div`
-    margin-bottom: 24px;
-    background: #fff;
-    border-radius: 12px;
+    animation: passager-fade-up var(--duration-base) var(--ease-out) both;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
     overflow: hidden;
-    border: 1px solid #e8e8e8;
-    transition: box-shadow 0.2s ease;
-
-    &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
 `;
 
 const FolderHeader = styled.div`
-    padding: 16px 20px;
-    background: linear-gradient(to right, #f8f9fa, #ffffff);
-    border-bottom: 1px solid #e8e8e8;
+    align-items: center;
+    background: var(--color-surface-sunken);
+    border-bottom: 1px solid var(--color-border);
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        padding: 14px 16px;
-    }
+    padding: 14px 16px;
 `;
 
 const FolderTitleWrapper = styled.div`
-    display: flex;
     align-items: center;
-    gap: 8px;
+    color: var(--color-accent);
+    display: flex;
     flex: 1;
+    gap: 8px;
 `;
 
 const FolderTitle = styled.h2`
-    font-size: 16px;
-    margin: 0;
-    color: #2c3e50;
-    font-weight: 600;
+    color: var(--color-text);
     cursor: pointer;
-    transition: color 0.2s ease;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    transition: color var(--duration-fast) ease;
 
     &:hover {
-        color: #1a1a1a;
+        color: var(--color-accent);
     }
 `;
 
 const ResultCount = styled.span`
-    font-size: 13px;
-    color: #666;
-    background: #f0f0f0;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-weight: 500;
-`;
-
-const NoResults = styled.div`
-    text-align: center;
-    padding: 80px 20px;
-    color: #999;
-    font-size: 16px;
+    background: var(--color-accent-soft);
+    border-radius: var(--radius-full);
+    color: var(--color-accent);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
 `;
 
 const TableWrapper = styled.div`
     padding: 0;
-    background: #fff;
 `;
 
 const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
@@ -156,6 +146,11 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
     const [showSpinner, setShowSpinner] = useState(false);
 
     const searchUseCaseRef = useRef(null);
+    const fileStore = useFileStore({
+        folderId: editState.folderId,
+        folderKey: editState.folderKey,
+        user,
+    });
 
     useEffect(() => {
         if (!query || !user) return;
@@ -232,14 +227,17 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
 
     const onSaveEditPassword = async (password, passwordId) => {
         setShowSpinner(true);
-        await editPassword(
-            editState.folderId,
-            passwordId,
-            password,
-            editState.folderKey,
-            user.privateKey
+        const saved = await wasSaved(() =>
+            editPassword(
+                editState.folderId,
+                passwordId,
+                password,
+                editState.folderKey,
+                user.privateKey
+            )
         );
         setShowSpinner(false);
+        if (!saved) return false;
         setEditState({ showDialog: false, password: {}, folderId: null, folderKey: null });
 
         // Refrescar resultados de búsqueda
@@ -254,6 +252,9 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
     };
 
     const onConfirmDelete = async () => {
+        const item = fromStoredFields(editState.password);
+        if (item.type === ITEM_TYPE_FILE && item.values.file?.remote)
+            fileStore.remove(item.values.file.remote);
         await deletePassword(editState.folderId, deleteState.password);
         setDeleteState({ showDialog: false, password: null });
         setEditState({ showDialog: false, password: {}, folderId: null, folderKey: null });
@@ -282,32 +283,27 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
                 {isSearching && <LinearProgress />}
 
                 {!isSearching && results.length === 0 && (
-                    <NoResults>
-                        {t('searchResults.No results found')} &quot;{query}&quot;
-                    </NoResults>
+                    <EmptyState
+                        icon={mdiMagnifyClose}
+                        title={`${t('searchResults.No results found')} "${query}"`}
+                    />
                 )}
 
                 {results.map(({ folder, passwords }) => {
                     const folderData = allFolders.find((f) => f.id === folder.id);
 
-                    // Preparar las columnas según si es mobile o no
-                    let tableColumns = [t('documentsListRightPanel.Title')];
-                    if (!isMobileDevice()) {
-                        tableColumns.push(t('documentsListRightPanel.Website'));
-                    }
+                    const tableColumns = [
+                        t('documentsListRightPanel.Title'),
+                        t('documentsListRightPanel.Website'),
+                    ];
 
-                    // Preparar las filas para la tabla
-                    const passwordsRows = passwords.map((password) =>
-                        !isMobileDevice()
-                            ? [password.name || '', password.url || '']
-                            : [password.name || '']
-                    );
+                    const passwordsRows = getItemRows(passwords, t);
 
                     return (
                         <FolderSection key={folder.id}>
                             <FolderHeader>
                                 <FolderTitleWrapper>
-                                    <Icon path={mdiFolder} size={0.8} color="#2c3e50" />
+                                    <Icon path={mdiFolder} size={0.8} />
                                     <FolderTitle onClick={() => navigate(`/${folder.id}`)}>
                                         {folderData?.name || t('searchResults.Folder')}
                                     </FolderTitle>
@@ -330,6 +326,7 @@ const PageSearchResults = ({ user, folders = [], sharedFolders = [] }) => {
 
             {editState.showDialog && (
                 <PasswordFormDialog
+                    fileStore={fileStore}
                     key={editState.password.id}
                     defaultValues={editState.password}
                     onClose={() => setEditState({ showDialog: false, password: {}, folderId: null, folderKey: null })}

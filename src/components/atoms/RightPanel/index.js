@@ -22,26 +22,28 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // Constants
-import {
-    DEFAULT_TOOLBAR_HEIGHT,
-    TOOLBAR_TOP_PADDING,
-} from '../Toolbar/index.js';
+import { DEFAULT_TOOLBAR_HEIGHT } from '../Toolbar/index.js';
 
-// 110px = 60px from header + 25px*2 (top and bottom) from padding
 const RightPanel = styled.div`
-    background: white;
-    height: calc(
-        100vh - ${50 + DEFAULT_TOOLBAR_HEIGHT + TOOLBAR_TOP_PADDING}px
-    );
-    padding: 25px;
+    animation: passager-fade-in var(--duration-base) ease-out;
+    flex: 1;
+    height: calc(100dvh - ${DEFAULT_TOOLBAR_HEIGHT}px);
+    min-width: 0;
+    overflow-x: hidden;
     overflow-y: auto;
-    overflow-x: visible;
-    width: calc(100% - 25px);
+    padding: 32px clamp(16px, 4vw, 48px) 48px;
+`;
+
+const Content = styled.div`
+    margin: 0 auto;
+    max-width: 1040px;
 `;
 
 const AtomRightPanel = ({ children }) => {
     return (
-        <RightPanel data-testid="right-panel-element">{children}</RightPanel>
+        <RightPanel data-testid="right-panel-element">
+            <Content>{children}</Content>
+        </RightPanel>
     );
 };
 

@@ -22,21 +22,20 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import PasswordActionsDropdown from './index.js';
 
-// Mock mobile lib
-jest.mock('../../../libs/mobile.js', () => ({
-    writeClipboard: jest.fn(),
-    isMobileDevice: jest.fn(() => false),
+// Mock clipboard lib
+vi.mock('../../../libs/clipboard.js', () => ({
+    writeClipboard: vi.fn(),
 }));
 
 // Mock translations
-jest.mock('../../../hooks/useTranslation/index.js', () => {
-    return () => ({
+vi.mock('../../../hooks/useTranslation/index.js', () => ({
+    default: () => ({
         t: (key) => key,
-    });
-});
+    }),
+}));
 
 describe('PasswordActionsDropdown', () => {
-    const mockOnGenerate = jest.fn();
+    const mockOnGenerate = vi.fn();
 
     beforeEach(() => {
         mockOnGenerate.mockClear();
@@ -50,7 +49,7 @@ describe('PasswordActionsDropdown', () => {
     test('opens dropdown when clicked', () => {
         render(<PasswordActionsDropdown value="test" onGenerate={mockOnGenerate} />);
         
-        const triggerButton = screen.getByTestId('password-actions-dropdown').querySelector('div');
+        const triggerButton = screen.getByTestId('password-actions-dropdown').querySelector('button');
         fireEvent.click(triggerButton);
         
         expect(screen.getByText('common.Copy')).toBeInTheDocument();
@@ -61,7 +60,7 @@ describe('PasswordActionsDropdown', () => {
         render(<PasswordActionsDropdown value="test" onGenerate={mockOnGenerate} />);
         
         // Open dropdown
-        const triggerButton = screen.getByTestId('password-actions-dropdown').querySelector('div');
+        const triggerButton = screen.getByTestId('password-actions-dropdown').querySelector('button');
         fireEvent.click(triggerButton);
         
         // Click generate

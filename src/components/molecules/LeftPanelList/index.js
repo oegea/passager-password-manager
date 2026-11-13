@@ -22,44 +22,89 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { mdiFolder, mdiFolderOutline } from '@mdi/js';
+// Atoms
+import Icon from '../../atoms/Icon/index.js';
 
 const LeftPanelListItem = styled.div`
-    align-items: center;
-    display: flex;
-    margin-bottom: 20px;
-
-    &:hover,
-    &[data-isactive='true'] {
-        cursor: pointer;
-        font-weight: bold;
-        span {
-            display: inline-block;
-        }
-    }
+    animation: passager-fade-up var(--duration-base) var(--ease-out) both;
+    margin-bottom: 2px;
 
     & a {
+        align-items: center;
+        border-radius: var(--radius-md);
+        color: var(--color-text-muted);
+        display: flex;
+        font-weight: 500;
+        gap: 10px;
+        padding: 9px 12px;
         text-decoration: none;
-        color: inherit;
+        transition: background-color var(--duration-fast) ease,
+            color var(--duration-fast) ease,
+            transform var(--duration-fast) var(--ease-out);
     }
+
+    & a:hover {
+        background: var(--color-surface-hover);
+        color: var(--color-text);
+    }
+
+    & a:active {
+        transform: scale(0.98);
+    }
+
+    &[data-isactive='true'] a {
+        background: var(--color-accent-soft);
+        color: var(--color-accent);
+        font-weight: 600;
+    }
+
+    & svg {
+        flex-shrink: 0;
+    }
+`;
+
+const Name = styled.span`
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 const MoleculeLeftPanelList = ({
     onChange = () => null,
     items,
     selectedItem = '',
+    icon,
+    activeIcon,
 }) => {
     return (
         <>
-            {items.map((item, index) => (
-                <LeftPanelListItem
-                    key={`item-${index}`}
-                    data-isactive={selectedItem === item.id}
-                >
-                    <Link to={`/${item.id}`} onClick={onChange}>
-                        {item.name}
-                    </Link>
-                </LeftPanelListItem>
-            ))}
+            {items.map((item, index) => {
+                const isActive = selectedItem === item.id;
+                return (
+                    <LeftPanelListItem
+                        key={`item-${index}`}
+                        data-isactive={isActive}
+                        style={{ animationDelay: `${Math.min(index, 12) * 25}ms` }}
+                    >
+                        <Link to={`/${item.id}`} onClick={onChange}>
+                            <Icon
+                                path={
+                                    isActive
+                                        ? item.activeIcon ||
+                                          item.icon ||
+                                          activeIcon ||
+                                          icon ||
+                                          mdiFolder
+                                        : item.icon || icon || mdiFolderOutline
+                                }
+                                size={0.75}
+                            />
+                            <Name>{item.name}</Name>
+                        </Link>
+                    </LeftPanelListItem>
+                );
+            })}
         </>
     );
 };
@@ -67,8 +112,10 @@ const MoleculeLeftPanelList = ({
 MoleculeLeftPanelList.displayName = 'MoleculeLeftPanelList';
 MoleculeLeftPanelList.propTypes = {
     onChange: PropTypes.func,
-    folders: PropTypes.array,
+    items: PropTypes.array,
     selectedItem: PropTypes.string,
+    icon: PropTypes.string,
+    activeIcon: PropTypes.string,
 };
 
 export default MoleculeLeftPanelList;

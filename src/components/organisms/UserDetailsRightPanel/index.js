@@ -20,6 +20,8 @@
 
 // Third party dependencies
 import React from 'react';
+// Organisms
+import BiometricSettings from '../BiometricSettings/index.js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 // Hooks
@@ -47,6 +49,8 @@ const UserDetailsRightPanel = ({ user }) => {
                 <strong>{t('profile.Email')}: </strong>
                 {user.email || '-'}
             </p>
+
+            <BiometricSettings />
 
 
             {isBackendMode() && user.isPrivateKeyStoredLocally === false && 

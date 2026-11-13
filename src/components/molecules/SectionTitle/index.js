@@ -24,46 +24,44 @@ import PropTypes from 'prop-types';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
-import AlertButton from '../../atoms/AlertButton/index.js';
 
 const SectionTitle = styled.div`
-    align-items: auto;
+    align-items: center;
     display: flex;
-    margin-bottom: 30px;
-    gap: 25px;
-
-    @media (max-width: 768px) {
-        display: block;
-        text-align: center;
-    }
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    min-height: 38px;
 `;
 
 const ButtonWrapper = styled.div`
     display: flex;
-    gap: 25px;
-    @media (max-width: 768px) {
-        margin-top: 20px;
-        justify-content: center;
-    }
+    flex-wrap: wrap;
+    gap: 8px;
 `;
 
 const MoleculeSectionTitle = ({ title, buttons = [] }) => {
     return (
         <SectionTitle>
             <Title>{title}</Title>
-            <ButtonWrapper>
-                {buttons.map((button) => {
-                    const ButtonComponent =
-                        button.type === 'alert' ? AlertButton : Button;
-                    return (
-                        <ButtonComponent
+            {buttons.length > 0 && (
+                <ButtonWrapper>
+                    {buttons.map((button) => (
+                        <Button
                             key={button.label}
                             label={button.label}
                             onClick={button.onClick}
+                            icon={button.icon}
+                            variant={
+                                button.type === 'alert'
+                                    ? 'danger'
+                                    : button.variant
+                            }
                         />
-                    );
-                })}
-            </ButtonWrapper>
+                    ))}
+                </ButtonWrapper>
+            )}
         </SectionTitle>
     );
 };
@@ -75,6 +73,9 @@ MoleculeSectionTitle.propTypes = {
         PropTypes.shape({
             label: PropTypes.string,
             onClick: PropTypes.func,
+            icon: PropTypes.string,
+            type: PropTypes.string,
+            variant: PropTypes.string,
         })
     ),
 };

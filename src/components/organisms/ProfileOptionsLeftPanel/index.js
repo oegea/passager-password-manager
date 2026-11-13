@@ -21,6 +21,11 @@
 // Third party dependencies
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    mdiAccount,
+    mdiAccountOutline,
+    mdiDatabaseArrowDownOutline,
+} from '@mdi/js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import LeftPanelList from '../../molecules/LeftPanelList/index.js';
@@ -40,10 +45,13 @@ const ProfileOptionsLeftPanel = ({ selectedItem = 'profile' }) => {
                     {
                         name: t('profile.User details'),
                         id: 'profile',
+                        icon: mdiAccountOutline,
+                        activeIcon: mdiAccount,
                     },
                     {
                         name: t('profile.Backups'),
                         id: 'profile/backups',
+                        icon: mdiDatabaseArrowDownOutline,
                     },
                 ]}
                 selectedItem={selectedItem}

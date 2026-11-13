@@ -21,30 +21,39 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Icon from '@mdi/react';
+import Icon from '../Icon/index.js';
 
-const Button = styled.div`
-    background-color: transparent;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    padding: 7px;
-    font-weight: 600;
-    display: flex;
+const Button = styled.button`
     align-items: center;
-    gap: 6px;
+    appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    gap: 8px;
+    height: 38px;
+    padding: 0 12px;
+    transition: background-color var(--duration-fast) ease,
+        color var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out);
+    white-space: nowrap;
 
     &:hover {
-        border: 2px solid white;
-        padding: 5px;
+        background: var(--color-surface-hover);
+        color: var(--color-text);
+    }
+
+    &:active {
+        transform: scale(0.96);
     }
 
     @media (max-width: 768px) {
-        padding: 5px;
-
-        &:hover {
-            padding: 3px;
-        }
+        padding: 0 9px;
     }
 `;
 
@@ -54,16 +63,10 @@ const ButtonLabel = styled.span`
     }
 `;
 
-const ButtonIcon = styled(Icon)`
-    @media (min-width: 769px) {
-        display: none;
-    }
-`;
-
 const AtomToolbarButton = ({ label, onClick, icon }) => {
     return (
-        <Button onClick={onClick}>
-            {icon && <ButtonIcon path={icon} size={0.9} />}
+        <Button type="button" onClick={onClick} title={label}>
+            {icon && <Icon path={icon} size={0.8} />}
             <ButtonLabel>{label}</ButtonLabel>
         </Button>
     );

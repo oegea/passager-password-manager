@@ -20,14 +20,18 @@
 
 // Domain
 import domain from '../domain/index.js';
+// Own libs
+import { clearBiometricData } from './biometric.js';
 
-export const isUserLoggedIn = () => localStorage.getItem('storeMode') !== 'NONE';
+export const isUserLoggedIn = () =>
+    localStorage.getItem('storeMode') !== 'NONE';
 
 export const logout = () => {
     localStorage.setItem('storeMode', 'NONE');
 
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('privateUserKey');
+    clearBiometricData();
     window.location.href = '/';
 };
 

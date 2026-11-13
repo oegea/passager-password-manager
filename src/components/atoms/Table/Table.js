@@ -22,6 +22,7 @@
 import styled from 'styled-components';
 
 const Table = styled.table`
+    border-collapse: separate;
     border-spacing: 0;
     width: 100%;
 `;

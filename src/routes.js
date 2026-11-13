@@ -33,11 +33,14 @@ import UserMasterPasswordValidation from './components/pages/UserMasterPasswordV
 import UserSignup from './components/pages/UserSignup/index.js';
 import UserPrivateKeyValidation from './components/pages/UserPrivateKeyValidation/index.js';
 import Privacy from './components/pages/Privacy/index.js';
+// Organisms
+import AppNotices from './components/organisms/AppNotices/index.js';
 // Context
 import withUser from './providers/WithUser.js';
 const RoutesConfiguration = ({ user }) => {
     return (
         <BrowserRouter>
+            <AppNotices />
             {user !== null &&
                 user.initialized === true &&
                 user.decryptedPrivateKey === false && 

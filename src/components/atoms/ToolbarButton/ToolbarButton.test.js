@@ -30,7 +30,7 @@ test('renders a basic toolbar button', () => {
 });
 
 test('should execute callback when toolbar button is clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<AtomToolbarButton label={DEFAULT_LABEL} onClick={onClick} />);
     const linkElement = screen.getByText(DEFAULT_LABEL);
     expect(linkElement).toBeInTheDocument();

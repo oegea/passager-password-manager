@@ -45,14 +45,12 @@ const ConfirmationDialog = ({ onAccept, closeDialog, description = '' }) => {
                 <Button
                     label={t('common.Cancel')}
                     onClick={() => closeDialog()}
-                    color="black"
-                    backgroundColor="white"
+                    variant="ghost"
                 />
                 <Button
                     label={t('common.Continue')}
                     onClick={() => onAccept()}
-                    color="black"
-                    backgroundColor="white"
+                    variant="danger"
                 />
             </ButtonWrapper>
         </Dialog>

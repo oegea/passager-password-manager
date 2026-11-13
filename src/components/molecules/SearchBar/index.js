@@ -23,7 +23,7 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
-import Icon from '@mdi/react';
+import Icon from '../../atoms/Icon/index.js';
 import { mdiMagnify } from '@mdi/js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
@@ -45,60 +45,50 @@ const SearchContainer = styled.div`
 `;
 
 const SearchInput = styled.input`
-    border: none;
-    border-radius: 20px;
+    appearance: none;
+    background: var(--color-surface-sunken);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-text);
+    font-family: inherit;
     font-size: 14px;
-    height: 35px;
-    padding: 0 15px 0 40px;
-    width: 300px;
+    height: 40px;
     max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #fff;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0 16px 0 42px;
+    transition: width var(--duration-base) var(--ease-out),
+        background-color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease,
+        box-shadow var(--duration-fast) ease;
+    width: 320px;
 
     &:focus {
+        background: var(--color-surface);
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 4px var(--color-accent-ring);
         outline: none;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        transform: translateY(-1px);
-        color: #333;
+        width: 380px;
     }
 
     &::placeholder {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    &:focus::placeholder {
-        color: #888;
+        color: var(--color-text-faint);
     }
 
     @media (max-width: 768px) {
-        width: 40px;
-        padding: 0;
-        padding-left: 40px;
-        background-color: transparent;
+        background: transparent;
+        border-color: transparent;
         color: transparent;
-        border: none;
-        backdrop-filter: none;
+        padding: 0 0 0 40px;
+        width: 40px;
 
         &::placeholder {
             opacity: 0;
         }
 
         &:focus {
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding-right: 16px;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            padding-right: 15px;
-            color: #333;
-            border: 1px solid rgba(255, 255, 255, 0.18);
 
             &::placeholder {
                 opacity: 1;
@@ -108,16 +98,16 @@ const SearchInput = styled.input`
 `;
 
 const SearchIconWrapper = styled.div`
-    position: absolute;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
     border-radius: 50%;
-    transition: background-color 0.2s ease;
+    color: var(--color-text-faint);
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    width: 42px;
 
     @media (min-width: 769px) {
         cursor: default;
@@ -125,26 +115,15 @@ const SearchIconWrapper = styled.div`
     }
 
     @media (max-width: 768px) {
+        color: var(--color-text-muted);
+
         &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        &:active {
-            background-color: rgba(255, 255, 255, 0.2);
+            background: var(--color-surface-hover);
         }
     }
 `;
 
-const SearchIcon = styled(Icon)`
-    color: ${props => props.$isFocused ? '#666' : '#fff'};
-    filter: ${props => props.$isFocused ? 'none' : 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))'};
-    transition: color 0.3s ease, filter 0.3s ease;
-
-    @media (min-width: 769px) {
-        color: #666;
-        filter: none;
-    }
-`;
+const SearchIcon = styled(Icon)``;
 
 const MoleculeSearchBar = ({ onFocusChange }) => {
     const [searchParams] = useSearchParams();

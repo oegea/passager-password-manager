@@ -32,7 +32,11 @@ const OrganismDialogFolderList = ({ onClose = () => null }) => {
         <Dialog onClose={() => onClose()}>
             <FoldersListLeftPanel onChange={() => onClose()} />
             <DialogButtonWrapper>
-                <Button label="Close" onClick={() => onClose()} />
+                <Button
+                    label="Close"
+                    onClick={() => onClose()}
+                    variant="ghost"
+                />
             </DialogButtonWrapper>
         </Dialog>
     );

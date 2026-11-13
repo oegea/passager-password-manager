@@ -27,7 +27,7 @@ import { mdiAccount, mdiLogout } from '@mdi/js';
 import Toolbar from '../../atoms/Toolbar/index.js';
 import ToolbarGroup from '../../atoms/ToolbarGroup/index.js';
 // import ToolbarInput from '../../atoms/ToolbarInput/index.js';
-import Title from '../../atoms/Title/index.js';
+import ThemeToggle from '../../atoms/ThemeToggle/index.js';
 import AtomToolbarButton from '../../atoms/ToolbarButton/index';
 import AppBarMenuIcon from '../../atoms/AppBarMenuIcon/index.js';
 // Molecules
@@ -37,6 +37,33 @@ import DialogFolderList from '../DialogFolderList/index.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
 import { useNavigate } from 'react-router-dom';
+
+const Brand = styled.button`
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    gap: 10px;
+    letter-spacing: -0.02em;
+    padding: 6px 8px;
+    transition: transform var(--duration-fast) var(--ease-out);
+
+    &:active {
+        transform: scale(0.97);
+    }
+
+    & img {
+        height: 28px;
+        width: 28px;
+    }
+`;
 
 const HideOnSearchFocus = styled.div`
     @media (max-width: 768px) {
@@ -62,7 +89,10 @@ const OrganismAppBar = ({ signOut, marginBottom }) => {
                         <AppBarMenuIcon
                             onClick={() => setShowFolders(!showFolders)}
                         />
-                        <Title onClick={() => navigate('/')}>Passager</Title>
+                        <Brand type="button" onClick={() => navigate('/')}>
+                            <img src="/logo192.png" alt="" />
+                            Passager
+                        </Brand>
                     </ToolbarGroup>
                 </HideOnSearchFocus>
                 <ToolbarGroup>
@@ -70,6 +100,7 @@ const OrganismAppBar = ({ signOut, marginBottom }) => {
                 </ToolbarGroup>
                 <HideOnSearchFocus $isSearchFocused={isSearchFocused}>
                     <ToolbarGroup>
+                        <ThemeToggle />
                         <AtomToolbarButton
                             label={t('common.My profile')}
                             icon={mdiAccount}

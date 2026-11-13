@@ -76,17 +76,19 @@ export default class LocalUsersRepository extends UsersRepository {
         // Retrieve data
         const uid = userOperationRequest.getUid();
         const privateKey = userOperationRequest.getPrivateKey();
-        const email = userOperationRequest.getEmail();
 
-        const document = {
-            uid,
-            privateKey,
-            email,
-        };
+        // The private key belongs to the user document. Only that field is
+        // touched, the rest of the document is preserved.
+        const searchResult = this._LocalStorageDatabase.searchDocument(
+            'users',
+            'uid',
+            uid
+        );
+        if (searchResult.length === 0) return;
 
-        this._LocalStorageDatabase.setDocument(
-            'userSharingSettings',
-            document,
+        this._LocalStorageDatabase.updateDocument(
+            'users',
+            { privateKey },
             'uid',
             uid
         );

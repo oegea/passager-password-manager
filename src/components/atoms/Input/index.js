@@ -22,15 +22,37 @@
 import styled from 'styled-components';
 
 const Input = styled.input`
-    border: 1px solid black;
-    border-radius: 5px;
-    font-size: 16px;
-    height: 25px;
-    padding: 5px;
+    appearance: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 15px;
+    height: 42px;
+    padding: 0 12px;
+    transition: border-color var(--duration-fast) ease,
+        box-shadow var(--duration-fast) ease,
+        background-color var(--duration-fast) ease;
     width: 100%;
 
     &::placeholder {
-        font-size: 16px;
+        color: var(--color-text-faint);
+    }
+
+    &:hover {
+        border-color: var(--color-text-faint);
+    }
+
+    &:focus {
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 4px var(--color-accent-ring);
+        outline: none;
+    }
+
+    &[data-monospace='true'] {
+        font-family: var(--font-mono);
+        font-size: 13px;
     }
 `;
 const AtomInput = (props) => {

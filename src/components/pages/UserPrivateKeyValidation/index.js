@@ -40,6 +40,7 @@ import withUser from '../../../providers/WithUser.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
+import FieldError from '../../atoms/FieldError/index.js';
 
 const PageUserPrivateKeyValidation = ({ user }) => {
     const { t } = useTranslation();
@@ -115,13 +116,15 @@ const PageUserPrivateKeyValidation = ({ user }) => {
                     value={privateKey.value}
                 />
                 {privateKey.error.length > 0 && (
-                    <span style={{ color: 'red' }}>{privateKey.error}</span>
+                    <FieldError>{privateKey.error}</FieldError>
                 )}
             </InputWrapper>
             <ButtonWrapper justifyContent="center">
                 <Button
                     label={t('common.Access')}
                     onClick={() => onLogin()}
+                    variant="primary"
+                    fullWidth
                 />
             </ButtonWrapper>
         </>
@@ -151,13 +154,15 @@ const PageUserPrivateKeyValidation = ({ user }) => {
                     value={currentQRContent.value}
                 />
                 {currentQRContent.error.length > 0 && (
-                    <span style={{ color: 'red' }}>{currentQRContent.error}</span>
+                    <FieldError>{currentQRContent.error}</FieldError>
                 )}
             </InputWrapper>
             <ButtonWrapper justifyContent="center">
                 <Button
                     label={t('common.Access')}
                     onClick={() => onQRInput()}
+                    variant="primary"
+                    fullWidth
                 />
             </ButtonWrapper>
         </>

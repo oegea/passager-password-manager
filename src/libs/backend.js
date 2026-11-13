@@ -1,4 +1,4 @@
-import {logout} from './auth.js';
+import { logout } from './auth.js';
 
 export const enableBackendMode = () => {
     localStorage.setItem('storeMode', 'BACKEND');
@@ -9,10 +9,10 @@ export const isBackendMode = () => {
     return localStorage.getItem('storeMode') === 'BACKEND';
 };
 
-export const areBackendUrlsConfigured = () =>{
+export const areBackendUrlsConfigured = () => {
     const documentsUrl = localStorage.getItem('documentsUrl');
     const authenticationUrl = localStorage.getItem('authenticationUrl');
-    
+
     if (!documentsUrl || !authenticationUrl) {
         return false;
     }
@@ -35,24 +35,47 @@ export const isBackendFullyLogged = () => {
 };
 
 export const getServiceUrls = (baseUrl) => {
-
-    const withHttpBaseUrl = (baseUrl.includes('http://') || baseUrl.includes('https://')) ? baseUrl : 'https://' + baseUrl;
+    const withHttpBaseUrl =
+        baseUrl.includes('http://') || baseUrl.includes('https://')
+            ? baseUrl
+            : 'https://' + baseUrl;
     // Perform a get request to the baseUrl and make a console log of the response
     return fetch(withHttpBaseUrl + '/services-url')
         .then((response) => response.json())
         .then((data) => {
-
             if (data?.authenticationUrl && data?.documentsUrl) {
                 return data;
             }
 
             return null;
-            
         })
         .catch(() => null);
 };
 
-export const setServiceUrls = ({authenticationUrl, documentsUrl}) => {
+let capabilitiesPromise = null;
+
+/**
+ * What the configured backend supports beyond the original API. Older
+ * backends do not have this endpoint: for them the answer is `{}`.
+ */
+export const getBackendCapabilities = () => {
+    if (capabilitiesPromise !== null) return capabilitiesPromise;
+
+    const documentsUrl = localStorage.getItem('documentsUrl');
+    if (!isBackendMode() || !documentsUrl) return Promise.resolve({});
+
+    capabilitiesPromise = fetch(documentsUrl + 'capabilities')
+        .then((response) => (response.ok ? response.json() : {}))
+        .then((data) => (data && typeof data === 'object' ? data : {}))
+        .catch(() => {
+            // Not remembered: it may just be a network failure
+            capabilitiesPromise = null;
+            return {};
+        });
+    return capabilitiesPromise;
+};
+
+export const setServiceUrls = ({ authenticationUrl, documentsUrl }) => {
     localStorage.setItem('authenticationUrl', authenticationUrl);
     localStorage.setItem('documentsUrl', documentsUrl);
     window.location.reload();
@@ -73,7 +96,6 @@ export const startLoginProcess = (authenticationUrl, email) => {
             }
 
             return false;
-            
         })
         .catch(() => false);
 };
@@ -88,7 +110,6 @@ export const finishLoginProcess = (authenticationUrl, email, token) => {
             }
 
             return false;
-            
         })
         .catch(() => false);
 };
@@ -99,7 +120,6 @@ export const setJwtToken = (jwtToken) => {
 };
 
 // Common methods
-
 
 export const setDocument = async (collection, document, findCriteria) => {
     // First check if document exists
@@ -112,7 +132,7 @@ export const setDocument = async (collection, document, findCriteria) => {
         const updatedDocument = {
             ...existingDocument,
             ...document,
-            id: undefined
+            id: undefined,
         };
 
         const result = await updateDocument(
@@ -130,16 +150,27 @@ export const setDocument = async (collection, document, findCriteria) => {
     return result;
 };
 
-export const setSubdocument = async (collection, parentId, subcollection, subdocument, findCriteria) => {
+export const setSubdocument = async (
+    collection,
+    parentId,
+    subcollection,
+    subdocument,
+    findCriteria
+) => {
     // First check if document exists
-    const searchResult = await findSubdocument(collection, parentId, subcollection, findCriteria);
+    const searchResult = await findSubdocument(
+        collection,
+        parentId,
+        subcollection,
+        findCriteria
+    );
 
     // If document exists, update it
     if (searchResult !== null && searchResult.length > 0) {
         const existingDocument = searchResult[0];
 
         const updatedDocument = {
-            ...subdocument
+            ...subdocument,
         };
 
         const result = await updateSubdocument(
@@ -154,15 +185,17 @@ export const setSubdocument = async (collection, parentId, subcollection, subdoc
     }
 
     // If document doesn't exist, create it
-    const result = await createSubdocument(collection, parentId, subcollection, subdocument);
+    const result = await createSubdocument(
+        collection,
+        parentId,
+        subcollection,
+        subdocument
+    );
 
     return result;
 };
 
-      
-
 export const createDocument = async (collection, document) => {
-    
     const serviceData = retrieveServiceData();
 
     if (serviceData === null) {
@@ -174,7 +207,7 @@ export const createDocument = async (collection, document) => {
     const url = `${documentsUrl}documents/${collection}`;
     const method = 'POST';
     const body = {
-        ...document
+        ...document,
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);
@@ -182,8 +215,12 @@ export const createDocument = async (collection, document) => {
     return documents;
 };
 
-export const createSubdocument = async (collection, parentId, subcollection, subdocument) => {
-
+export const createSubdocument = async (
+    collection,
+    parentId,
+    subcollection,
+    subdocument
+) => {
     const serviceData = retrieveServiceData();
 
     if (serviceData === null) {
@@ -195,7 +232,7 @@ export const createSubdocument = async (collection, parentId, subcollection, sub
     const url = `${documentsUrl}documents/${collection}/${parentId}/${subcollection}`;
     const method = 'POST';
     const body = {
-        ...subdocument
+        ...subdocument,
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);
@@ -215,7 +252,7 @@ export const updateDocument = async (collection, id, document) => {
     const url = `${documentsUrl}documents/${collection}/${id}`;
     const method = 'PATCH';
     const body = {
-        ...document
+        ...document,
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);
@@ -223,7 +260,13 @@ export const updateDocument = async (collection, id, document) => {
     return documents;
 };
 
-export const updateSubdocument = async (collection, parentId, subcollection, id, subdocument) => {
+export const updateSubdocument = async (
+    collection,
+    parentId,
+    subcollection,
+    id,
+    subdocument
+) => {
     const serviceData = retrieveServiceData();
 
     if (serviceData === null) {
@@ -235,7 +278,7 @@ export const updateSubdocument = async (collection, parentId, subcollection, id,
     const url = `${documentsUrl}documents/${collection}/${parentId}/${subcollection}/${id}`;
     const method = 'PATCH';
     const body = {
-        ...subdocument
+        ...subdocument,
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);
@@ -277,7 +320,12 @@ export const deleteDocument = async (collection, id) => {
     return document;
 };
 
-export const deleteSubdocument = async (collection, parentId, subcollection, id) => {
+export const deleteSubdocument = async (
+    collection,
+    parentId,
+    subcollection,
+    id
+) => {
     const serviceData = retrieveServiceData();
 
     if (serviceData === null) {
@@ -290,12 +338,11 @@ export const deleteSubdocument = async (collection, parentId, subcollection, id)
     const method = 'DELETE';
 
     const document = await queryDocumentsService(url, method, jwtToken);
-    
+
     return document;
 };
 
 export const findDocument = async (collection, criteria) => {
-
     const serviceData = retrieveServiceData();
 
     if (serviceData === null) {
@@ -307,7 +354,7 @@ export const findDocument = async (collection, criteria) => {
     const url = `${documentsUrl}documents/${collection}/find`;
     const method = 'POST';
     const body = {
-        ...criteria
+        ...criteria,
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);
@@ -315,8 +362,12 @@ export const findDocument = async (collection, criteria) => {
     return documents;
 };
 
-export const findSubdocument = async (collection, parentId, subcollection, criteria) => {
-
+export const findSubdocument = async (
+    collection,
+    parentId,
+    subcollection,
+    criteria
+) => {
     const serviceData = retrieveServiceData();
 
     if (serviceData === null) {
@@ -328,7 +379,7 @@ export const findSubdocument = async (collection, parentId, subcollection, crite
     const url = `${documentsUrl}documents/${collection}/${parentId}/${subcollection}/find`;
     const method = 'POST';
     const body = {
-        ...criteria
+        ...criteria,
     };
 
     const documents = await queryDocumentsService(url, method, jwtToken, body);
@@ -375,7 +426,7 @@ export const retrieveServiceData = () => {
     return {
         documentsUrl,
         jwtToken,
-        decodedJwtToken
+        decodedJwtToken,
     };
 };
 

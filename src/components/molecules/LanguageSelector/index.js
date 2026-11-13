@@ -26,10 +26,14 @@ import useTranslationHook from '../../../hooks/useTranslation/index.js';
 import AtomButtonLink from '../../atoms/ButtonLink/index.js';
 
 const LanguageSelector = styled.div`
-    margin-top: ${props => props.marginTop};
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-faint);
+    font-size: 14px;
+    margin-top: ${(props) => props.$marginTop};
+    padding-top: 16px;
 `;
 
-const MoleculeLanguageSelector = ({marginTop = '40px'}) => {
+const MoleculeLanguageSelector = ({ marginTop = '28px' }) => {
     const { t } = useTranslationHook();
 
     const changeLanguage = (e, lng) => {
@@ -39,7 +43,10 @@ const MoleculeLanguageSelector = ({marginTop = '40px'}) => {
     };
 
     return (
-        <LanguageSelector marginTop={marginTop} data-testid="language-selector-element">
+        <LanguageSelector
+            $marginTop={marginTop}
+            data-testid="language-selector-element"
+        >
             {t('login.Change to')}
             <AtomButtonLink onClick={(e) => changeLanguage(e, 'en')}>
                 English

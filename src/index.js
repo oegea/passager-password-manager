@@ -18,12 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Default CSS
-import './index.css';
 // Third party dependencies
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
+import { StyleSheetManager } from 'styled-components';
+import isPropValid from '@emotion/is-prop-valid';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 // Routes
@@ -32,34 +31,37 @@ import Routes from './routes.js';
 import UserProvider from './providers/UserProvider.js';
 import FoldersProvider from './providers/FoldersProvider.js';
 // Own libs
-import { initMobileSettings } from './libs/mobile.js';
+import { registerServiceWorker } from './libs/pwa.js';
+import { initTheme } from './libs/theme.js';
+// Styles
+import GlobalStyle from './styles/GlobalStyle.js';
 // Config
 import { i18nConfig } from './config/i18n.js';
 
 //i18n initialization
 i18n.use(initReactI18next).init(i18nConfig);
 
-// Init things if we're running on mobile...
-initMobileSettings().then((hasUpdatedMobileApp) => {
-    
-    if (!hasUpdatedMobileApp) {
-        const container = document.getElementById('root');
-        const root = createRoot(container);
-        root.render(
-            <React.StrictMode>
-                <UserProvider>
-                    <FoldersProvider>
-                        <Routes />
-                    </FoldersProvider>
-                </UserProvider>
-            </React.StrictMode>
-        );
-    }
-    
-});
+// Only standard HTML attributes reach the DOM (styled-components 5 behaviour)
+const shouldForwardProp = (propName, target) =>
+    typeof target !== 'string' || isPropValid(propName);
 
+// Light / dark theme, before anything is painted
+initTheme();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Progressive Web App: offline support, updates and installation
+registerServiceWorker();
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
+    <React.StrictMode>
+        <StyleSheetManager shouldForwardProp={shouldForwardProp}>
+            <GlobalStyle />
+            <UserProvider>
+                <FoldersProvider>
+                    <Routes />
+                </FoldersProvider>
+            </UserProvider>
+        </StyleSheetManager>
+    </React.StrictMode>
+);

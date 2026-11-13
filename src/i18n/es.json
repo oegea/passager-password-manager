@@ -152,7 +152,8 @@
         "If you lose your password, you won't be able to access your account. And nobody would be able to recover it": "Si pierde su contraseña, no podrá acceder a su cuenta, y nadie podrá recuperarla.",
         "We will never ask you for your master password by e-mail or other external methods. Do not share it with anyone, under any circumstances": "Nunca le pediremos su contraseña maestra por correo electrónico o cualquier otro medio externo. No comparta su contraseña con nadie, bajo ningún concepto.",
         "Master password": "Contraseña maestra",
-        "Type here your password": "Escriba aquí su contraseña"
+        "Type here your password": "Escriba aquí su contraseña",
+        "Your account is protected with a newer version of Passager. Please update the application to access it": "Su cuenta está protegida con una versión más reciente de Passager. Por favor, actualice la aplicación para acceder."
     },
     "profile": {
         "Profile options": "Opciones de perfil",
@@ -222,8 +223,156 @@
         "Contact your organization to clarify the legal basis of the data processing, the retention period, and other details regarding the privacy policy.": "Contacta con tu organización para que te clarifique la base legal del tratamiento de los datos, el periodo de conservación, y otros detalles respecto a la política de privacidad.",
         "Keep in mind that depending on the applicable legislation in your jurisdiction, you may have data protection rights.": "Ten en cuenta que dependiendo de la legislación aplicable en tu jurisdicción, pueden asistirte derechos en materia de protección de datos.",
         "The creators of Passager do not receive any type of personal data from you when you use Passager. Please contact your organization if you have any questions about the privacy policy.": "Los creadores de Passager no reciben ningún tipo de datos personales de tu persona cuando usas Passager. Por favor contacta a tu organización en caso de tener dudas sobre la política de privacidad.",
-
         "I understand and accept this privacy notice": "Entiendo y acepto este aviso de privacidad",
         "I reject this privacy notice": "Rechazo este aviso de privacidad"
+    },
+    "biometric": {
+        "Unlock with": "Desbloquear con {{method}}",
+        "Biometric unlock": "Desbloqueo con {{method}}",
+        "Unlock faster next time": "Desbloquee más rápido la próxima vez con {{method}}",
+        "offerDescription": "Use {{method}} en este dispositivo en lugar de escribir su contraseña maestra. Su contraseña maestra nunca se guarda, y puede desactivarlo en cualquier momento desde su perfil.",
+        "enabledDescription": "{{method}} está activado en este dispositivo. Su contraseña maestra nunca se guarda y seguirá siendo necesaria en otros dispositivos.",
+        "disabledDescription": "Abra Passager en este dispositivo con {{method}} en lugar de escribir su contraseña maestra. Su contraseña maestra nunca se guarda y seguirá siendo necesaria en otros dispositivos.",
+        "Not now": "Ahora no",
+        "Do not ask again": "No volver a preguntar",
+        "Disable": "Desactivar",
+        "Enabled": "Desbloqueo biométrico activado",
+        "Disabled": "Desbloqueo biométrico desactivado",
+        "It was not possible to enable it": "No ha sido posible activar el desbloqueo biométrico. Por favor, inténtelo de nuevo.",
+        "Type your master password to enable it": "Escriba su contraseña maestra para activar el desbloqueo biométrico",
+        "The master password is not valid": "No se ha podido activar el desbloqueo biométrico. Revise su contraseña maestra e inténtelo de nuevo.",
+        "The request was cancelled": "La solicitud ha sido cancelada",
+        "This device does not support it": "Este dispositivo o navegador no admite el desbloqueo biométrico",
+        "It is no longer valid, please use your master password": "El desbloqueo biométrico ya no es válido en este dispositivo. Por favor, use su contraseña maestra.",
+        "It did not work, please use your master password": "El desbloqueo biométrico no ha funcionado. Por favor, use su contraseña maestra.",
+        "On": "Activado",
+        "Confirm with your master password": "Escriba su contraseña maestra para confirmar. No se guarda: solo se usa ahora para proteger su clave con este dispositivo."
+    },
+    "pwa": {
+        "A new version of Passager is available": "Hay una nueva versión de Passager disponible",
+        "Update now to get the latest security improvements": "Actualice ahora para obtener las últimas mejoras y correcciones de seguridad.",
+        "Update": "Actualizar",
+        "Later": "Más tarde",
+        "Install Passager": "Instalar Passager",
+        "Install": "Instalar",
+        "installDescription": "Instale Passager en este dispositivo para abrirlo como cualquier otra aplicación, incluso sin conexión.",
+        "iosInstallInstructions": "En iPhone y iPad: abra el menú de compartir de su navegador y elija «Añadir a pantalla de inicio»."
+    },
+    "theme": {
+        "Switch to light mode": "Cambiar a modo claro",
+        "Switch to dark mode": "Cambiar a modo oscuro"
+    },
+    "items": {
+        "Type": "Tipo de elemento",
+        "Name": "Nombre",
+        "optional": "(opcional)",
+        "types": {
+            "password": "Contraseña",
+            "card": "Tarjeta",
+            "keypair": "Par de claves",
+            "file": "Fichero",
+            "note": "Nota"
+        },
+        "newTitle": {
+            "card": "Nueva tarjeta",
+            "keypair": "Nuevo par de claves",
+            "file": "Nuevo fichero",
+            "note": "Nueva nota"
+        },
+        "editTitle": {
+            "card": "Editar tarjeta",
+            "keypair": "Editar par de claves",
+            "file": "Editar fichero",
+            "note": "Editar nota"
+        },
+        "namePlaceholder": {
+            "card": "Mi tarjeta de crédito",
+            "keypair": "Clave SSH del servidor",
+            "file": "Códigos de recuperación",
+            "note": "Token de API"
+        },
+        "fields": {
+            "card": {
+                "cardholder": {
+                    "label": "Titular",
+                    "placeholder": "Nombre tal como aparece en la tarjeta"
+                },
+                "number": {
+                    "label": "Número de tarjeta",
+                    "placeholder": "0000 0000 0000 0000"
+                },
+                "expiry": {
+                    "label": "Fecha de caducidad",
+                    "placeholder": "MM/AA"
+                },
+                "cvv": {
+                    "label": "Código de seguridad (CVV)",
+                    "placeholder": "123"
+                },
+                "pin": {
+                    "label": "PIN",
+                    "placeholder": "PIN de la tarjeta"
+                },
+                "notes": {
+                    "label": "Notas",
+                    "placeholder": "Cualquier otra cosa que convenga recordar"
+                }
+            },
+            "keypair": {
+                "publicKey": {
+                    "label": "Clave pública",
+                    "placeholder": "Pegue aquí la clave pública"
+                },
+                "privateKey": {
+                    "label": "Clave privada",
+                    "placeholder": "Pegue aquí la clave privada"
+                },
+                "passphrase": {
+                    "label": "Frase de contraseña",
+                    "placeholder": "Frase de contraseña de la clave privada"
+                }
+            },
+            "file": {
+                "file": {
+                    "label": "Fichero",
+                    "placeholder": ""
+                }
+            },
+            "note": {
+                "text": {
+                    "label": "Contenido",
+                    "placeholder": "Escriba aquí el texto que quiere guardar cifrado"
+                }
+            },
+            "password": {
+                "url": {
+                    "label": "Sitio web",
+                    "placeholder": "Escribe aquí la URL del sitio web"
+                },
+                "username": {
+                    "label": "Nombre de usuario",
+                    "placeholder": "Escribe aquí tu nombre de usuario"
+                },
+                "password": {
+                    "label": "Contraseña",
+                    "placeholder": "Tu contraseña secreta"
+                }
+            }
+        },
+        "Drop a file here or choose one": "Arrastre aquí un fichero o elija uno (hasta {{max}})",
+        "Choose file": "Elegir fichero",
+        "Replace file": "Sustituir fichero",
+        "Download": "Descargar",
+        "The file is too large": "El fichero es demasiado grande. Los ficheros pueden ocupar hasta {{max}}.",
+        "The file could not be read": "No se ha podido leer el fichero.",
+        "The content is too large": "El contenido es demasiado grande. Puede ocupar hasta {{max}}.",
+        "It was not possible to save it": "No se ha podido guardar. No se ha perdido nada: revise su conexión e inténtelo de nuevo.",
+        "This field must be at most characters": "Este campo puede tener como máximo {{max}} caracteres",
+        "This folder is empty": "Esta carpeta está vacía",
+        "emptyFolderDescription": "Guarde aquí contraseñas, tarjetas, pares de claves, ficheros pequeños y notas seguras. Todo se cifra antes de salir de este dispositivo.",
+        "Add the first item": "Añadir el primer elemento",
+        "Select or create a folder": "Elija una carpeta a la izquierda, o cree una nueva para empezar a guardar cosas.",
+        "Shared with me": "Compartidas conmigo",
+        "The file could not be downloaded": "No se ha podido descargar el fichero. Revise su conexión e inténtelo de nuevo."
     }
 }

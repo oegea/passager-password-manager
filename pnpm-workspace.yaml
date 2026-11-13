@@ -1,12 +1,6 @@
 packages:
   - '.'
 
-strictDepBuilds: false
-
-ignoredBuiltDependencies:
-  - core-js
-  - core-js-pure
-
-allowBuilds:
-  core-js: set this to true or false
-  core-js-pure: set this to true or false
+# Development tooling only (eslint): GHSA-g3hv-75wg-m249
+overrides:
+  minimatch: '^11.0.1'

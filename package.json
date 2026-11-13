@@ -1,86 +1,66 @@
 {
     "name": "passager-password-manager",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "private": true,
     "license": "AGPL-3.0",
+    "type": "module",
     "packageManager": "pnpm@11.1.2",
     "engines": {
         "node": "22.x",
         "pnpm": ">=11"
     },
     "dependencies": {
-        "@capacitor-community/http": "^1.4.1",
-        "@capacitor/android": "^3.6.0",
-        "@capacitor/cli": "^3.6.0",
-        "@capacitor/core": "^3.6.0",
-        "@capacitor/filesystem": "^1.1.0",
-        "@capacitor/ios": "^3.6.0",
-        "@capacitor/share": "^1.1.2",
-        "@capacitor/status-bar": "^1.0.8",
-        "@mdi/js": "^6.7.96",
-        "@mdi/react": "^1.6.0",
-        "@testing-library/jest-dom": "^5.16.4",
-        "@testing-library/react": "^13.3.0",
-        "@testing-library/user-event": "^14.2.1",
-        "@useful-tools/crypto": "^1.1.0",
-        "@useful-tools/localstorage": "^1.2.0",
-        "capacitor-native-biometric": "^3.1.1",
-        "i18next": "^21.8.10",
+        "@emotion/is-prop-valid": "^1.4.0",
+        "@mdi/js": "^7.4.47",
+        "i18next": "^27.1.1",
         "prop-types": "^15.8.1",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-i18next": "^11.17.2",
-        "react-qr-code": "^2.0.11",
-        "react-router-dom": "^6.3.0",
-        "react-scripts": "5.0.1",
-        "styled-components": "^5.3.5",
-        "web-vitals": "^2.1.4"
+        "react": "^19.3.1",
+        "react-dom": "^19.3.1",
+        "react-i18next": "^18.0.1",
+        "react-qr-code": "^2.2.0",
+        "react-router-dom": "^7.18.5",
+        "styled-components": "^6.6.0"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "vite",
         "start:docker": "docker run -p 8000:80 passager-frontend",
         "start:docker:dev": "docker run -p 3000:3000 --mount src=`pwd`/src,target=/usr/src/app/src,type=bind passager-frontend-dev",
-        "build": "react-scripts build&&pnpm run build:manifest&&pnpm exec cap sync",
-        "build:web": "react-scripts build",
+        "build": "vite build && node bin/postbuild.js",
+        "build:web": "pnpm run build",
         "build:docker": "docker build . -t 'passager-frontend'",
         "build:docker:dev": "docker build . -t 'passager-frontend-dev' -f Dockerfile.dev",
-        "build:manifest": "node bin/createVersionManifest.js",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "prepare": "husky install",
-        "start:android": "pnpm run build&&pnpm exec cap run android",
-        "start:ios": "pnpm run build&&pnpm exec cap run ios",
-        "build:icons": "cordova-res ios --skip-config --copy&&cordova-res android --skip-config --copy",
+        "preview": "vite preview",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "prepare": "husky",
         "lint": "eslint . --fix --max-warnings=0",
         "format": "prettier . --write"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
     },
     "browserslist": {
         "production": [
             ">0.2%",
             "not dead",
             "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
         ]
     },
     "devDependencies": {
-        "eslint": "^8.24.0",
-        "eslint-config-prettier": "^8.5.0",
-        "husky": "^8.0.1",
-        "lint-staged": "^13.0.3",
-        "prettier": "^2.7.1"
+        "@eslint/js": "^10.0.1",
+        "@testing-library/jest-dom": "^7.0.1",
+        "@testing-library/react": "^16.3.3",
+        "@testing-library/user-event": "^14.6.10",
+        "@vitejs/plugin-react": "^6.3.0",
+        "eslint": "^10.14.0",
+        "eslint-config-prettier": "^10.1.8",
+        "globals": "^17.14.0",
+        "husky": "^9.1.7",
+        "jsdom": "^31.0.1",
+        "lint-staged": "^17.6.0",
+        "prettier": "^3.10.1",
+        "vite": "^8.3.8",
+        "vitest": "^5.1.0"
     },
     "lint-staged": {
-        "*.js,jsx": "eslint --fix ",
+        "*.{js,jsx}": "eslint --fix",
         "*.{css,md,json}": "prettier --cache --write"
     }
 }

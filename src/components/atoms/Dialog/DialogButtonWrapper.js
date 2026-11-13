@@ -24,14 +24,15 @@ import styled from 'styled-components';
 
 const ButtonWrapper = styled.div`
     display: flex;
-    margin-top: 25px;
-    justify-content: ${(props) => props.justifyContent};
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: ${(props) => props.$justifyContent};
+    margin-top: 24px;
     width: 100%;
-    gap: 15px;
 `;
 const AtomDialogButtonWrapper = ({ children, justifyContent = 'flex-end' }) => {
     return (
-        <ButtonWrapper justifyContent={justifyContent}>
+        <ButtonWrapper $justifyContent={justifyContent}>
             {children}
         </ButtonWrapper>
     );

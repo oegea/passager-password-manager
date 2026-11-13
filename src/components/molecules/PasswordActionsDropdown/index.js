@@ -23,69 +23,67 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { mdiDotsVertical, mdiContentCopy, mdiCog } from '@mdi/js';
-import Icon from '@mdi/react';
+import Icon from '../../atoms/Icon/index.js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
-import {writeClipboard, isMobileDevice} from '../../../libs/mobile.js';
+import { writeClipboard } from '../../../libs/clipboard.js';
 import PasswordGeneratorDialog from '../../organisms/PasswordGeneratorDialog/index.js';
 import Toast from '../Toast/index.js';
 import useToast from '../../../hooks/useToast/index.js';
 
 const DropdownContainer = styled.div`
+    margin-left: 8px;
     position: relative;
-    padding-left: 0.7rem;
 `;
 
-const TriggerButton = styled.div`
-    cursor: pointer;
-    padding: 5px 8px;
-    border-radius: 10px;
-    background-color: #f7f7f7;
-    color: #383838;
-    font-weight: 600;
-    display: flex;
+const TriggerButton = styled.button`
     align-items: center;
+    appearance: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    display: flex;
+    height: 42px;
     justify-content: center;
-    
+    padding: 0;
+    transition: background-color var(--duration-fast) ease,
+        color var(--duration-fast) ease;
+    width: 42px;
+
     &:hover {
-        background: #e5e5e5;
+        background: var(--color-surface-hover);
+        color: var(--color-accent);
     }
 `;
 
 const DropdownMenu = styled.div`
+    animation: passager-fade-up var(--duration-fast) var(--ease-out);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    min-width: 170px;
+    padding: 6px;
     position: absolute;
     right: 0;
-    top: calc(100% + 4px);
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    top: calc(100% + 6px);
     z-index: 1000;
-    min-width: 140px;
 `;
 
 const MenuItem = styled.div`
-    padding: 10px 12px;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
     cursor: pointer;
     display: flex;
-    align-items: center;
-    gap: 8px;
     font-size: 14px;
-    color: #333;
-    
+    font-weight: 500;
+    gap: 10px;
+    padding: 9px 10px;
+
     &:hover {
-        background: #f5f5f5;
-    }
-    
-    &:first-child {
-        border-radius: 8px 8px 0 0;
-    }
-    
-    &:last-child {
-        border-radius: 0 0 8px 8px;
-    }
-    
-    &:only-child {
-        border-radius: 8px;
+        background: var(--color-surface-hover);
     }
 `;
 
@@ -112,11 +110,7 @@ const PasswordActionsDropdown = ({ value, onGenerate, currentPassword = '' }) =>
     const handleCopy = () => {
         writeClipboard(value);
         setIsOpen(false);
-        
-        // Show toast only on desktop
-        if (!isMobileDevice()) {
-            showToast(t('common.Copied to clipboard'));
-        }
+        showToast(t('common.Copied to clipboard'));
     };
 
     const handleGenerate = () => {
@@ -132,7 +126,7 @@ const PasswordActionsDropdown = ({ value, onGenerate, currentPassword = '' }) =>
     return (
         <>
             <DropdownContainer ref={dropdownRef} data-testid="password-actions-dropdown">
-                <TriggerButton onClick={() => setIsOpen(!isOpen)}>
+                <TriggerButton type="button" onClick={() => setIsOpen(!isOpen)}>
                     <Icon path={mdiDotsVertical} size={0.8} />
                 </TriggerButton>
                 
@@ -164,6 +158,7 @@ const PasswordActionsDropdown = ({ value, onGenerate, currentPassword = '' }) =>
                     key={toast.id}
                     message={toast.message}
                     duration={toast.duration}
+                    kind={toast.kind}
                     onClose={() => removeToast(toast.id)}
                 />
             ))}

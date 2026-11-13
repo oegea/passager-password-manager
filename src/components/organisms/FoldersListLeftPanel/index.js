@@ -22,6 +22,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import {
+    mdiFolderAccount,
+    mdiFolderAccountOutline,
+    mdiPlus,
+} from '@mdi/js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import LeftPanelList from '../../molecules/LeftPanelList/index.js';
@@ -34,6 +40,15 @@ import { createFolder } from '../../../libs/folders.js';
 // Context
 import withUsers from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
+
+const GroupLabel = styled.div`
+    color: var(--color-text-faint);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin: 20px 12px 8px;
+    text-transform: uppercase;
+`;
 
 const FoldersListLeftPanel = ({
     user,
@@ -61,6 +76,7 @@ const FoldersListLeftPanel = ({
                 buttons={[
                     {
                         label: t('common.Create'),
+                        icon: mdiPlus,
                         onClick: () => setShowNewFolderDialog(true),
                     },
                 ]}
@@ -77,10 +93,15 @@ const FoldersListLeftPanel = ({
                 selectedItem={folderId}
             />
 
+            {sharedFolders.length > 0 && (
+                <GroupLabel>{t('items.Shared with me')}</GroupLabel>
+            )}
             <LeftPanelList
                 onChange={onChange}
                 items={sharedFolders}
                 selectedItem={folderId}
+                icon={mdiFolderAccountOutline}
+                activeIcon={mdiFolderAccount}
             />
         </>
     );

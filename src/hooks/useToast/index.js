@@ -23,9 +23,9 @@ import { useState } from 'react';
 const useToast = () => {
     const [toasts, setToasts] = useState([]);
 
-    const showToast = (message, duration = 3000) => {
-        const id = Date.now();
-        const toast = { id, message, duration };
+    const showToast = (message, duration = 3000, kind = 'success') => {
+        const id = Date.now() + Math.random();
+        const toast = { id, message, duration, kind };
         
         setToasts(prev => [...prev, toast]);
     };

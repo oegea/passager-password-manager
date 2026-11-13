@@ -21,14 +21,19 @@
 // Third party dependencies
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { mdiFingerprint } from '@mdi/js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 // Own libs
 import { logout } from '../../../libs/auth.js';
 import {
-    loginWithCredentialsIfAvailable,
-    setCredentials,
+    BiometricCancelledError,
+    BiometricStaleError,
+    getBiometricMethodName,
 } from '../../../libs/biometric.js';
-import { isMobileDevice } from '../../../libs/mobile.js';
+import {
+    CURRENT_ENCRYPTION_VERSION,
+    getEncryptionVersion,
+} from '../../../libs/crypto/index.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -46,6 +51,7 @@ import withUser from '../../../providers/WithUser.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
+import FieldError from '../../atoms/FieldError/index.js';
 
 const PageUserMasterPasswordValidation = ({ user }) => {
     const { t } = useTranslation();
@@ -54,8 +60,40 @@ const PageUserMasterPasswordValidation = ({ user }) => {
         error: '',
     });
     const biometricAuthTried = useRef(false);
+    const biometricAttempt = useRef(null);
+    const [biometricError, setBiometricError] = useState('');
 
     const [displaySpinner, setDisplaySpinner] = useState(false);
+
+    // The account was protected by a newer version of Passager than this one
+    const requiresNewerVersion =
+        getEncryptionVersion(user.privateKey) > CURRENT_ENCRYPTION_VERSION;
+    const biometricMethod = getBiometricMethodName();
+
+    const onBiometricLogin = useCallback(async () => {
+        if (biometricAttempt.current !== null) return;
+        const controller = new AbortController();
+        biometricAttempt.current = controller;
+        setBiometricError('');
+        try {
+            await user.unlockWithBiometric(controller.signal);
+        } catch (e) {
+            if (e instanceof BiometricStaleError) {
+                setBiometricError(
+                    t(
+                        'biometric.It is no longer valid, please use your master password'
+                    )
+                );
+            } else if (!(e instanceof BiometricCancelledError)) {
+                setBiometricError(
+                    t('biometric.It did not work, please use your master password')
+                );
+            }
+        } finally {
+            if (biometricAttempt.current === controller)
+                biometricAttempt.current = null;
+        }
+    }, [t, user]);
 
     const onLogin = useCallback(
         async (overridedPassword) => {
@@ -64,6 +102,10 @@ const PageUserMasterPasswordValidation = ({ user }) => {
             if (displaySpinner) {
                 return;
             }
+            // A pending biometric request would compete with the password
+            if (biometricAttempt.current !== null)
+                biometricAttempt.current.abort();
+
             setDisplaySpinner(true);
             const decryptResult = await user.decryptPrivateKey(password.value);
             let error = '';
@@ -73,8 +115,6 @@ const PageUserMasterPasswordValidation = ({ user }) => {
                     'userMasterPasswordValidation.The entered password is not valid'
                 );
             }
-
-            setCredentials(password.value);
 
             setDisplaySpinner(false);
             setPassword({
@@ -86,13 +126,22 @@ const PageUserMasterPasswordValidation = ({ user }) => {
     );
 
     useEffect(() => {
-        if (!biometricAuthTried.current) {
-            loginWithCredentialsIfAvailable().then(
-                (password) => password !== null && onLogin(password)
-            );
-            biometricAuthTried.current = true;
+        if (biometricAuthTried.current) return;
+        biometricAuthTried.current = true;
+
+        // Ask for the verification right away, without waiting for a click.
+        // Browsers that require a click simply ignore it and the button stays
+        if (user.biometricEnrolled && document.visibilityState === 'visible') {
+            onBiometricLogin();
         }
     });
+
+    useEffect(() => {
+        return () => {
+            if (biometricAttempt.current !== null)
+                biometricAttempt.current.abort();
+        };
+    }, []);
 
     useDialogConfirmation(() => null, onLogin);
 
@@ -128,6 +177,32 @@ const PageUserMasterPasswordValidation = ({ user }) => {
                         )}
                     </li>
                 </ul>
+                {requiresNewerVersion && (
+                    <FieldError>
+                        {t(
+                            'userMasterPasswordValidation.Your account is protected with a newer version of Passager. Please update the application to access it'
+                        )}
+                    </FieldError>
+                )}
+                {user.biometricEnrolled && (
+                    <>
+                        <ButtonWrapper justifyContent="center">
+                            <Button
+                                label={t('biometric.Unlock with', {
+                                    method: biometricMethod,
+                                })}
+                                onClick={() => onBiometricLogin()}
+                                icon={mdiFingerprint}
+                                fullWidth
+                            />
+                        </ButtonWrapper>
+                        {biometricError.length > 0 && (
+                            <FieldError>
+                                {biometricError}
+                            </FieldError>
+                        )}
+                    </>
+                )}
                 <InputWrapper marginBottom="25px">
                     <InputLabel htmlFor="password">
                         {t('userMasterPasswordValidation.Master password')}
@@ -144,22 +219,21 @@ const PageUserMasterPasswordValidation = ({ user }) => {
                         }
                     />
                     {password.error.length > 0 && (
-                        <span style={{ color: 'red' }}>{password.error}</span>
+                        <FieldError>{password.error}</FieldError>
                     )}
                 </InputWrapper>
                 <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('common.Access')}
                         onClick={() => onLogin()}
+                        variant="primary"
+                        fullWidth
                     />
                 </ButtonWrapper>
 
-                {
-                    !isMobileDevice() && 
-                    <AtomButtonLink onClick={logout}>
-                        {t('common.Logout')}
-                    </AtomButtonLink>
-                }
+                <AtomButtonLink onClick={logout}>
+                    {t('common.Logout')}
+                </AtomButtonLink>
                 <LanguageSelector />
             </NotLogged>
         </>

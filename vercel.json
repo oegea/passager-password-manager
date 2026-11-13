@@ -1,4 +1,39 @@
 {
     "installCommand": "npx -y pnpm@11.1.2 install --frozen-lockfile",
-    "buildCommand": "npx -y pnpm@11.1.2 run build:web"
+    "buildCommand": "npx -y pnpm@11.1.2 run build:web",
+    "outputDirectory": "build",
+    "rewrites": [
+        {
+            "source": "/version.manifest.json",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/((?!.*\\.).*)",
+            "destination": "/index.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/service-worker.js",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "no-cache"
+                },
+                {
+                    "key": "Service-Worker-Allowed",
+                    "value": "/"
+                }
+            ]
+        },
+        {
+            "source": "/assets/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        }
+    ]
 }

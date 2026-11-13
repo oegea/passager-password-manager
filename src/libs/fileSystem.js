@@ -18,23 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Mobile
-import { isMobileDevice, writeFile } from './mobile.js';
-
 export const saveFile = (filename, text) => {
-    if (!isMobileDevice()) {
-        _webSaveFile(filename, text);
-    } else {
-        writeFile(filename, text);
-    }
+    _webSaveFile(filename, text);
 };
 
 const _webSaveFile = (filename, text) => {
-    var element = document.createElement('a');
-    element.setAttribute(
-        'href',
-        'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
+    // A Blob, not a data: URL: those are limited to a couple of megabytes
+    const url = URL.createObjectURL(
+        new Blob([text], { type: 'application/json' })
     );
+    const element = document.createElement('a');
+    element.setAttribute('href', url);
     element.setAttribute('download', filename);
 
     element.style.display = 'none';
@@ -43,4 +37,5 @@ const _webSaveFile = (filename, text) => {
     element.click();
 
     document.body.removeChild(element);
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
 };

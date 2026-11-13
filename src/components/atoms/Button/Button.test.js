@@ -30,7 +30,7 @@ test('renders a basic button', () => {
 });
 
 test('should execute callback when button is clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<AtomButton label={DEFAULT_LABEL} onClick={onClick} />);
     const linkElement = screen.getByText(DEFAULT_LABEL);
     expect(linkElement).toBeInTheDocument();

@@ -22,54 +22,65 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
-import { mdiCheck } from '@mdi/js';
-import Icon from '@mdi/react';
+import { mdiAlertCircleOutline, mdiCheck } from '@mdi/js';
+import Icon from '../../atoms/Icon/index.js';
 
 const slideIn = keyframes`
     from {
-        transform: translateY(-100px);
+        transform: translate(-50%, -24px);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: translate(-50%, 0);
         opacity: 1;
     }
 `;
 
 const slideOut = keyframes`
     from {
-        transform: translateY(0);
+        transform: translate(-50%, 0);
         opacity: 1;
     }
     to {
-        transform: translateY(-100px);
+        transform: translate(-50%, -24px);
         opacity: 0;
     }
 `;
 
 const ToastContainer = styled.div`
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: rgba(76, 175, 80, 0.9);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: white;
-    padding: 12px 16px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    display: flex;
     align-items: center;
-    gap: 8px;
-    z-index: 10000;
-    animation: ${props => props.isVisible ? slideIn : slideOut} 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: ${(props) => (props.$isVisible ? slideIn : slideOut)}
+        var(--duration-base) var(--ease-out) forwards;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-text);
+    display: flex;
     font-size: 14px;
-    font-weight: 500;
-    max-width: 300px;
+    font-weight: 600;
+    gap: 8px;
+    left: 50%;
+    max-width: calc(100vw - 32px);
+    padding: 10px 18px 10px 12px;
+    position: fixed;
+    top: 16px;
+    z-index: 10000;
+
+    & svg {
+        background: var(--color-success-soft);
+        border-radius: 50%;
+        color: var(--color-success);
+        padding: 3px;
+    }
+
+    &[data-kind='error'] svg {
+        background: var(--color-danger-soft);
+        color: var(--color-danger);
+    }
 `;
 
-const Toast = ({ message, duration = 3000, onClose }) => {
+const Toast = ({ message, duration = 3000, onClose, kind = 'success' }) => {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
@@ -84,8 +95,11 @@ const Toast = ({ message, duration = 3000, onClose }) => {
     }, [duration, onClose]);
 
     return ReactDOM.createPortal(
-        <ToastContainer isVisible={isVisible}>
-            <Icon path={mdiCheck} size={0.8} />
+        <ToastContainer $isVisible={isVisible} data-kind={kind} role="status">
+            <Icon
+                path={kind === 'error' ? mdiAlertCircleOutline : mdiCheck}
+                size={0.8}
+            />
             {message}
         </ToastContainer>,
         document.body
@@ -96,6 +110,7 @@ Toast.displayName = 'Toast';
 Toast.propTypes = {
     message: PropTypes.string.isRequired,
     duration: PropTypes.number,
+    kind: PropTypes.oneOf(['success', 'error']),
     onClose: PropTypes.func.isRequired,
 };
 

@@ -25,22 +25,44 @@ import styled from 'styled-components';
 const ButtonLink = styled.button`
     background: transparent;
     border: none;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
     cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
-    font-size: 16px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
     margin: 0 2px;
+    padding: 4px 6px;
     text-decoration: underline;
-    ${(props) => props.noPaddingLeft ?  'padding-left: 0;': ''}
-    margin-top: ${(props) => props.marginTop};
+    text-decoration-color: var(--color-border-strong);
+    text-underline-offset: 3px;
+    transition: color var(--duration-fast) ease,
+        text-decoration-color var(--duration-fast) ease;
+    ${(props) => (props.$noPaddingLeft ? 'padding-left: 0;' : '')}
+    margin-top: ${(props) => props.$marginTop};
+
     &:hover {
-        font-weight: bold;
+        color: var(--color-accent);
+        text-decoration-color: var(--color-accent);
     }
 `;
 
-const AtomButtonLink = ({ children, onClick, noPaddingLeft = false, marginTop = '0' }) => {
-    return <ButtonLink onClick={onClick} noPaddingLeft={noPaddingLeft} marginTop={marginTop}>{children}</ButtonLink>;
+const AtomButtonLink = ({
+    children,
+    onClick,
+    noPaddingLeft = false,
+    marginTop = '0',
+}) => {
+    return (
+        <ButtonLink
+            type="button"
+            onClick={onClick}
+            $noPaddingLeft={noPaddingLeft}
+            $marginTop={marginTop}
+        >
+            {children}
+        </ButtonLink>
+    );
 };
 
 AtomButtonLink.displayName = 'AtomButtonLink';

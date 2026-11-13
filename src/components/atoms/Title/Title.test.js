@@ -30,7 +30,7 @@ test('renders a title', () => {
 });
 
 test('should execute callback when title is clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<AtomTitle onClick={onClick}>{DEFAULT_TITLE}</AtomTitle>);
     const titleElement = screen.getByText(DEFAULT_TITLE);
     expect(titleElement).toBeInTheDocument();

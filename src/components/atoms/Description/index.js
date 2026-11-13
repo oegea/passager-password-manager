@@ -23,9 +23,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Description = styled.div`
-    margin-bottom: ${(props) => props.marginBottom};
-    margin-top: ${(props) => props.marginTop};
-    ${(props) => (props.onClick ? 'cursor: pointer' : '')}
+    color: var(--color-text-muted);
+    margin-bottom: ${(props) => props.$marginBottom};
+    margin-top: ${(props) => props.$marginTop};
+    ${(props) => (props.onClick ? 'cursor: pointer;' : '')}
 `;
 
 const AtomDescription = ({
@@ -36,8 +37,8 @@ const AtomDescription = ({
 }) => {
     return (
         <Description
-            marginBottom={marginBottom}
-            marginTop={marginTop}
+            $marginBottom={marginBottom}
+            $marginTop={marginTop}
             onClick={onClick}
         >
             {children}

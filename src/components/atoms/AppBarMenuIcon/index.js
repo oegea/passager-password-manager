@@ -21,15 +21,26 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Icon from '@mdi/react';
+import Icon from '../Icon/index.js';
 import { mdiMenu } from '@mdi/js';
 
 const MenuIcon = styled.div`
+    align-items: center;
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
     cursor: pointer;
     display: none;
+    height: 38px;
+    justify-content: center;
+    width: 38px;
+
+    &:hover {
+        background: var(--color-surface-hover);
+        color: var(--color-text);
+    }
 
     @media (max-width: 768px) {
-        display: block;
+        display: flex;
     }
 `;
 
@@ -39,7 +50,7 @@ const AtomAppBarMenuIcon = ({ onClick }) => {
             <Icon
                 data-testid="menu-icon-svg"
                 onClick={() => onClick()}
-                size="30px"
+                size="24px"
                 path={mdiMenu}
             />
         </MenuIcon>

@@ -12,7 +12,7 @@ test('renders a dialog with children', () => {
 });
 
 test('dialog should close when the background is clicked (with animation delay)', async () => {
-  const handleClose = jest.fn();
+  const handleClose = vi.fn();
 
   render(
     <AtomDialog onClose={handleClose}>

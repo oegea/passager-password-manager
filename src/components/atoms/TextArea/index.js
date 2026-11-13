@@ -22,15 +22,39 @@
 import styled from 'styled-components';
 
 const TextArea = styled.textarea`
-    border: 1px solid black;
-    border-radius: 5px;
-    font-size: 16px;
-    height: 100px;
-    padding: 5px;
+    appearance: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 110px;
+    resize: vertical;
+    padding: 10px 12px;
+    transition: border-color var(--duration-fast) ease,
+        box-shadow var(--duration-fast) ease,
+        background-color var(--duration-fast) ease;
     width: 100%;
 
     &::placeholder {
-        font-size: 16px;
+        color: var(--color-text-faint);
+    }
+
+    &:hover {
+        border-color: var(--color-text-faint);
+    }
+
+    &:focus {
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 4px var(--color-accent-ring);
+        outline: none;
+    }
+
+    &[data-monospace='true'] {
+        font-family: var(--font-mono);
+        font-size: 13px;
     }
 `;
 const AtomTextArea = (props) => {

@@ -28,7 +28,7 @@ test('renders a AppbarMenuIcon', () => {
 });
 
 test('should execute callback when icon is clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<AppbarMenuIcon onClick={onClick} />);
     const menuIconSvgElement = screen.getByTestId('menu-icon-svg');
     expect(menuIconSvgElement).toBeInTheDocument();

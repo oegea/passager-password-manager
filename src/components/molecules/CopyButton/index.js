@@ -24,28 +24,37 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { mdiContentCopy } from '@mdi/js';
-import Icon from '@mdi/react';
+import Icon from '../../atoms/Icon/index.js';
 import Toast from '../Toast/index.js';
 import useToast from '../../../hooks/useToast/index.js';
 // Own libs
-import {writeClipboard, isMobileDevice} from '../../../libs/mobile.js';
-const CopyIconButton = styled.div`
-    margin-left: 0.7rem;
+import { writeClipboard } from '../../../libs/clipboard.js';
+const CopyIconButton = styled.button`
+    align-items: center;
+    appearance: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
     cursor: pointer;
     display: flex;
-    align-items: center;
+    flex-shrink: 0;
+    height: 42px;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-    
+    margin-left: 8px;
+    padding: 0;
+    transition: background-color var(--duration-fast) ease,
+        color var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out);
+    width: 42px;
+
     &:hover {
-        background-color: #f5f5f5;
+        background: var(--color-surface-hover);
+        color: var(--color-accent);
     }
-    
+
     &:active {
-        background-color: #e0e0e0;
+        transform: scale(0.92);
     }
 `;
 
@@ -55,16 +64,13 @@ const MoleculesButtonCopy = ({ value }) => {
 
     const copyHandler = () => {
         writeClipboard(value);
-        
-        // Show toast only on desktop
-        if (!isMobileDevice()) {
-            showToast(t('common.Copied to clipboard'));
-        }
+        showToast(t('common.Copied to clipboard'));
     };
 
     return (
         <>
-            <CopyIconButton 
+            <CopyIconButton
+                type="button"
                 data-testid="button-copy-element"
                 onClick={copyHandler}
                 title={t('common.Copy')}
@@ -77,6 +83,7 @@ const MoleculesButtonCopy = ({ value }) => {
                     key={toast.id}
                     message={toast.message}
                     duration={toast.duration}
+                    kind={toast.kind}
                     onClose={() => removeToast(toast.id)}
                 />
             ))}

@@ -22,9 +22,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import {
+    mdiFolderOpenOutline,
+    mdiPlus,
+    mdiShieldLockOutline,
+} from '@mdi/js';
 // Molecules
 import SectionTitle from '../../molecules/SectionTitle/index.js';
 import GlobalSpinner from '../../molecules/GlobalSpinner/index.js';
+import EmptyState from '../../molecules/EmptyState/index.js';
+import { getItemRows } from '../../molecules/ItemName/index.js';
 // Organisms
 import Table from '../Table/index.js';
 import ConfirmationDialog from '../ConfirmationDialog/index.js';
@@ -38,16 +46,27 @@ import {
     decryptPassword,
     deletePassword,
     editPassword,
+    wasSaved,
 } from '../../../libs/passwords.js';
-import { isMobileDevice } from '../../../libs/mobile.js';
+import { removeFolderFiles } from '../../../libs/fileStorage.js';
+import { fromStoredFields, ITEM_TYPE_FILE } from '../../../libs/items.js';
 // Hooks
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import useFileStore from '../../../hooks/useFileStore/index.js';
 // Context
 import withUser from '../../../providers/WithUser.js';
 import withFolders from '../../../providers/WithFolders.js';
 import PasswordsProvider, {
     PasswordsContext,
 } from '../../../providers/PasswordsProvider.js';
+
+const Card = styled.div`
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+`;
 
 const DocumentsListRightPanel = ({
     user,
@@ -75,9 +94,11 @@ const DocumentsListRightPanel = ({
     const { folderId } = useParams();
     const selectedFolder = folderId;
 
-    const onDelete = () => {
-        deleteFolder(selectedFolder);
+    const onDelete = async () => {
         setShowConfirmationDialog(false);
+        // Files stored apart can only be removed while the folder exists
+        await removeFolderFiles(selectedFolder);
+        deleteFolder(selectedFolder);
     };
 
     const onEditFolder = async (folder) => {
@@ -87,15 +108,19 @@ const DocumentsListRightPanel = ({
 
     const onCreateNewPassword = async (password) => {
         setShowSpinner(true);
-        await createPassword(
-            user,
-            selectedFolder,
-            password,
-            selectedFolderKey,
-            user.privateKey
+        const saved = await wasSaved(() =>
+            createPassword(
+                user,
+                selectedFolder,
+                password,
+                selectedFolderKey,
+                user.privateKey
+            )
         );
         setShowSpinner(false);
-        setShowNewPasswordDialog(false);
+        // The dialog stays open with its content if it could not be saved
+        if (saved) setShowNewPasswordDialog(false);
+        return saved;
     };
 
     const onClickEditPassword = async (passwords, rowIndex) => {
@@ -110,18 +135,24 @@ const DocumentsListRightPanel = ({
 
     const onEditPassword = async (password, passwordId) => {
         setShowSpinner(true);
-        await editPassword(
-            selectedFolder,
-            passwordId,
-            password,
-            selectedFolderKey,
-            user.privateKey
+        const saved = await wasSaved(() =>
+            editPassword(
+                selectedFolder,
+                passwordId,
+                password,
+                selectedFolderKey,
+                user.privateKey
+            )
         );
         setShowSpinner(false);
-        setEditState({ showDialog: false, password: {} });
+        if (saved) setEditState({ showDialog: false, password: {} });
+        return saved;
     };
 
     const onDeletePassword = () => {
+        const item = fromStoredFields(editState.password);
+        if (item.type === ITEM_TYPE_FILE && item.values.file?.remote)
+            fileStore.remove(item.values.file.remote);
         deletePassword(selectedFolder, editState.password.id);
         setDeleteState({ showDialog: false, password: null });
         setEditState({ showDialog: false, password: {} });
@@ -139,16 +170,33 @@ const DocumentsListRightPanel = ({
     folders.forEach((folder) => _checkSelectedFolder(false, folder));
     sharedFolders.forEach((folder) => _checkSelectedFolder(true, folder));
 
+    const fileStore = useFileStore({
+        folderId: selectedFolder,
+        folderKey: selectedFolderKey,
+        user,
+    });
+
     if (selectedFolderName === null)
         return (
-            <h1>
-                {t('documentsListRightPanel.Please, select a folder to start')}
-            </h1>
+            <EmptyState
+                icon={mdiShieldLockOutline}
+                title={t(
+                    'documentsListRightPanel.Please, select a folder to start'
+                )}
+                description={t('items.Select or create a folder')}
+            />
         );
+
+    const onClickCreate = () => {
+        setEditState(EDIT_INITIAL_STATE);
+        setShowNewPasswordDialog(true);
+    };
 
     let sectionButtons = [
         {
             label: t('common.Create'),
+            variant: 'primary',
+            icon: mdiPlus,
             onClick: () => {
                 setEditState(EDIT_INITIAL_STATE);
                 setShowNewPasswordDialog(true);
@@ -196,24 +244,35 @@ const DocumentsListRightPanel = ({
 
             <PasswordsContext.Consumer>
                 {(passwords) => {
-                    let tableColumns = [t('documentsListRightPanel.Title')];
-                    if (!isMobileDevice()) {
-                        tableColumns.push(t('documentsListRightPanel.Website'));
-                    }
+                    const tableColumns = [
+                        t('documentsListRightPanel.Title'),
+                        t('documentsListRightPanel.Website'),
+                    ];
 
-                    const passwordsRows = passwords.map((password) =>
-                        !isMobileDevice()
-                            ? [password.name, password.url]
-                            : [password.name]
-                    );
+                    if (passwords.length === 0)
+                        return (
+                            <EmptyState
+                                icon={mdiFolderOpenOutline}
+                                title={t('items.This folder is empty')}
+                                description={t('items.emptyFolderDescription')}
+                                action={{
+                                    label: t('items.Add the first item'),
+                                    icon: mdiPlus,
+                                    onClick: onClickCreate,
+                                }}
+                            />
+                        );
+
                     return (
-                        <Table
-                            onClick={(rowIndex) => {
-                                onClickEditPassword(passwords, rowIndex);
-                            }}
-                            columns={tableColumns}
-                            rows={passwordsRows}
-                        />
+                        <Card>
+                            <Table
+                                onClick={(rowIndex) => {
+                                    onClickEditPassword(passwords, rowIndex);
+                                }}
+                                columns={tableColumns}
+                                rows={getItemRows(passwords, t)}
+                            />
+                        </Card>
                     );
                 }}
             </PasswordsContext.Consumer>
@@ -248,6 +307,7 @@ const DocumentsListRightPanel = ({
                 <PasswordFormDialog
                     onClose={() => setShowNewPasswordDialog(false)}
                     onSave={(password) => onCreateNewPassword(password)}
+                    fileStore={fileStore}
                 />
             )}
             {editState.showDialog && (
@@ -267,6 +327,7 @@ const DocumentsListRightPanel = ({
                         onEditPassword(password, passwordId)
                     }
                     editMode
+                    fileStore={fileStore}
                 />
             )}
             {deleteState.showDialog && (

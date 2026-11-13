@@ -39,6 +39,7 @@ import useTranslation from '../../../hooks/useTranslation/index.js';
 import { shareFolder, removeEmail } from '../../../libs/folders.js';
 // Context
 import withUser from '../../../providers/WithUser.js';
+import FieldError from '../../atoms/FieldError/index.js';
 
 const FolderShareDialog = ({
     closeDialog,
@@ -125,7 +126,7 @@ const FolderShareDialog = ({
                     onChange={onChangeHandler}
                 />
                 {state.error.length > 0 && (
-                    <span style={{ color: 'red' }}>{state.error}</span>
+                    <FieldError>{state.error}</FieldError>
                 )}
             </InputWrapper>
 
@@ -165,15 +166,13 @@ const FolderShareDialog = ({
                 <Button
                     label={t('common.Close')}
                     onClick={() => closeDialog()}
-                    color="black"
-                    backgroundColor="white"
+                    variant="ghost"
                 />
                 {state.email.length > 0 && state.error.length === 0 && (
                     <Button
                         label={t('common.Share')}
                         onClick={() => shareWith(state.email)}
-                        color="black"
-                        backgroundColor="white"
+                        variant="primary"
                     />
                 )}
             </ButtonWrapper>

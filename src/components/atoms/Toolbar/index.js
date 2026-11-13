@@ -21,28 +21,35 @@
 // Third party dependencies
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// Own libs
-import { isMobileDevice } from '../../../libs/mobile.js';
 
-export const DEFAULT_TOOLBAR_HEIGHT = 60;
-export const TOOLBAR_TOP_PADDING = isMobileDevice() ? 25 : 0;
+export const DEFAULT_TOOLBAR_HEIGHT = 64;
 
 const Toolbar = styled.div`
     align-items: center;
-    background: #24292f;
-    color: white;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    background: var(--color-glass);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
     display: flex;
+    gap: 16px;
     height: ${DEFAULT_TOOLBAR_HEIGHT}px;
     justify-content: space-between;
-    margin-bottom: ${(props) => props.marginBottom};
-    padding-left: 15%;
-    padding-right: 15%;
-    width: 70%;
-    padding-top: ${TOOLBAR_TOP_PADDING}px;
+    margin-bottom: ${(props) => props.$marginBottom};
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+        padding: 0 12px;
+    }
 `;
 
 const AtomToolbar = ({ children, marginBottom = '35px' }) => {
-    return <Toolbar marginBottom={marginBottom}>{children}</Toolbar>;
+    return <Toolbar $marginBottom={marginBottom}>{children}</Toolbar>;
 };
 
 AtomToolbar.displayName = 'AtomToolbar';

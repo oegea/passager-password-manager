@@ -23,6 +23,18 @@ import styled from 'styled-components';
 
 const AtomTableRow = styled.tr`
     cursor: pointer;
+
+    tbody & {
+        animation: passager-fade-up var(--duration-base) var(--ease-out) both;
+    }
+
+    tbody &:hover td {
+        background: var(--color-surface-hover);
+    }
+
+    tbody &:last-child td {
+        border-bottom: none;
+    }
 `;
 AtomTableRow.displayName = 'AtomTableRow';
 

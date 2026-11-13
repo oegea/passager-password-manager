@@ -22,9 +22,19 @@
 import styled from 'styled-components';
 
 const TableData = styled.td`
-    border-bottom: 1px solid rgb(199, 199, 199);
-    padding-bottom: 15px;
-    padding-top: 15px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    max-width: 0;
+    overflow: hidden;
+    padding: 14px 16px;
+    text-overflow: ellipsis;
+    transition: background-color var(--duration-fast) ease;
+    white-space: nowrap;
+
+    &:first-child {
+        color: var(--color-text);
+        font-weight: 600;
+    }
 `;
 const AtomTableData = (props) => {
     return <TableData {...props} />;

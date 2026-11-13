@@ -2,7 +2,7 @@
  * This file is part of Passager Password Manager.
  * https://github.com/oegea/passager-password-manager
  *
- * Copyright (C) 2022-2025 Oriol Egea Carvajal
+ * Copyright (C) 2022 Oriol Egea Carvajal
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,19 +22,19 @@
 import styled from 'styled-components';
 
 const LicenseNoticeDiv = styled.div`
-    left: 10px;
-    background: white !important;
-    width: calc(100% - 60px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+    bottom: 14px;
+    color: var(--color-text-faint);
+    font-size: 12px;
+    left: 0;
+    line-height: 1.7;
+    padding: 0 16px;
     position: fixed;
-    bottom: 10px;
-    flex-direction: column;
-    padding: 20px;
-    font-weight: 500;
-    font-size: x-small;
+    text-align: center;
+    width: 100%;
+
+    & a {
+        color: var(--color-text-muted);
+    }
 `;
 
 const LicenseNotice = () => {

@@ -37,8 +37,8 @@ const FileSelector = styled.input`
 `;
 
 const ErrorMessage = styled.p`
-    color: red;
-    font-weight: bold;
+    color: var(--color-danger);
+    font-weight: 600;
     margin-bottom: 30px;
 `;
 
@@ -143,6 +143,7 @@ const UserDetailsRightPanel = () => {
                     key={toast.id}
                     message={toast.message}
                     duration={toast.duration}
+                    kind={toast.kind}
                     onClose={() => removeToast(toast.id)}
                 />
             ))}

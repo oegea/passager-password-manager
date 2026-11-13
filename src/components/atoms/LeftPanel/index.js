@@ -22,18 +22,16 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // Constants
-import {
-    DEFAULT_TOOLBAR_HEIGHT,
-    TOOLBAR_TOP_PADDING,
-} from '../Toolbar/index.js';
+import { DEFAULT_TOOLBAR_HEIGHT } from '../Toolbar/index.js';
 
 const LeftPanel = styled.div`
-    background: #edecec;
-    height: calc(
-        100vh - ${50 + DEFAULT_TOOLBAR_HEIGHT + TOOLBAR_TOP_PADDING}px
-    );
-    padding: 25px;
-    width: 20%;
+    background: var(--color-surface-sunken);
+    border-right: 1px solid var(--color-border);
+    flex-shrink: 0;
+    height: calc(100dvh - ${DEFAULT_TOOLBAR_HEIGHT}px);
+    overflow-y: auto;
+    padding: 24px 16px;
+    width: 280px;
 
     @media (max-width: 768px) {
         display: none;

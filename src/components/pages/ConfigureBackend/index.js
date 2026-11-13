@@ -40,6 +40,7 @@ import {getServiceUrls, setServiceUrls} from '../../../libs/backend.js';
 // Hooks
 import { useCheckBackendConfigAndRedirectEffect } from './useCheckBackendConfigAndRedirectEffect.js';
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
+import FieldError from '../../atoms/FieldError/index.js';
 
 const PageConfigureBackend = () => {
     const { t } = useTranslation();
@@ -80,12 +81,11 @@ const PageConfigureBackend = () => {
         <>
             {displaySpinner && <GlobalSpinner />}
             <NotLogged>
-                <Title>Passager</Title>
-                <p>
+                <Title marginBottom="20px">
                     {t(
                         'configureBackend.Please introduce your organization\'s URL'
                     )}
-                </p>
+                </Title>
 
                 <InputWrapper marginBottom="25px">
                     <InputLabel htmlFor="url">
@@ -103,13 +103,15 @@ const PageConfigureBackend = () => {
                         }
                     />
                     {serviceUrl.error.length > 0 && (
-                        <span style={{ color: 'red' }}>{t(serviceUrl.error)}</span>
+                        <FieldError>{t(serviceUrl.error)}</FieldError>
                     )}
                 </InputWrapper>
                 <ButtonWrapper justifyContent="center">
                     <Button
                         label={t('common.Continue')}
                         onClick={onSubmitUrl}
+                        variant="primary"
+                        fullWidth
                     />
                 </ButtonWrapper>
 

@@ -34,7 +34,7 @@ test('renders a basic button link', () => {
 });
 
 test('should execute callback when button link is clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
         <AtomButtonLink onClick={onClick}>
             <span>{DEFAULT_CHILDREN}</span>

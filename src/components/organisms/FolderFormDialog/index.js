@@ -31,6 +31,7 @@ import ButtonWrapper from '../../atoms/Dialog/DialogButtonWrapper.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
+import FieldError from '../../atoms/FieldError/index.js';
 
 const FolderFormDialog = ({ defaultName = '', onSave, closeDialog }) => {
     const { t } = useTranslation();
@@ -78,7 +79,7 @@ const FolderFormDialog = ({ defaultName = '', onSave, closeDialog }) => {
                     onChange={onChangeHandler}
                 />
                 {state.error.length > 0 && (
-                    <span style={{ color: 'red' }}>{state.error}</span>
+                    <FieldError>{state.error}</FieldError>
                 )}
             </InputWrapper>
 
@@ -86,16 +87,14 @@ const FolderFormDialog = ({ defaultName = '', onSave, closeDialog }) => {
                 <Button
                     label={t('common.Cancel')}
                     onClick={() => closeDialog()}
-                    color="black"
-                    backgroundColor="white"
+                    variant="ghost"
                 />
                 <Button
                     label={t('common.Save')}
                     onClick={() => {
                         if (onSaveHandler(state.name)) closeDialog();
                     }}
-                    color="black"
-                    backgroundColor="white"
+                    variant="primary"
                 />
             </ButtonWrapper>
         </Dialog>

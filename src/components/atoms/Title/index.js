@@ -24,10 +24,12 @@ import styled from 'styled-components';
 
 const Title = styled.div`
     font-size: 22px;
-    font-weight: bold;
-    margin-bottom: ${(props) => props.marginBottom};
-    margin-top: ${(props) => props.marginTop};
-    ${(props) => (props.onClick ? 'cursor: pointer' : '')}
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: ${(props) => props.$marginBottom};
+    margin-top: ${(props) => props.$marginTop};
+    ${(props) => (props.onClick ? 'cursor: pointer;' : '')}
 `;
 
 const AtomTitle = ({
@@ -38,8 +40,8 @@ const AtomTitle = ({
 }) => {
     return (
         <Title
-            marginBottom={marginBottom}
-            marginTop={marginTop}
+            $marginBottom={marginBottom}
+            $marginTop={marginTop}
             onClick={onClick}
         >
             {children}

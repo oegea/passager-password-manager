@@ -20,23 +20,11 @@
 
 // Third party dependencies
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-const Button = styled.div`
-    background-color: #d32f2f;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    padding: 5px;
-    font-weight: 600;
-
-    &:hover {
-        background: #ba2929;
-    }
-`;
+// Atoms
+import Button from '../Button/index.js';
 
 const AtomAlertButton = ({ label, onClick }) => {
-    return <Button onClick={onClick}>{label}</Button>;
+    return <Button label={label} onClick={onClick} variant="danger" />;
 };
 
 AtomAlertButton.displayName = 'AtomAlertButton';

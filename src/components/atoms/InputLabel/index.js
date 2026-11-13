@@ -22,7 +22,13 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const InputLabel = styled.label``;
+const InputLabel = styled.label`
+    color: var(--color-text-muted);
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+`;
 
 const AtomInputLabel = ({ htmlFor, children }) => {
     return <InputLabel htmlFor={htmlFor}>{children}</InputLabel>;

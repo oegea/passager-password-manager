@@ -18,6 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Molecules
+import ProfileTabs from '../../molecules/ProfileTabs/index.js';
 // Organisms
 import ProfileOptionsLeftPanel from '../../organisms/ProfileOptionsLeftPanel/index.js';
 import BackupsRightPanel from '../../organisms/BackupsRightPanel/index.js';
@@ -32,6 +34,7 @@ const PageProfileBackups = () => {
     );
     return (
         <LoggedWithLeftPanel signOut={logout} leftPanelContent={leftPanel}>
+            <ProfileTabs selectedItem="profile/backups" />
             <BackupsRightPanel />
         </LoggedWithLeftPanel>
     );

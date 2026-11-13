@@ -33,9 +33,8 @@ export const importBackup = async ({ backupData }) => {
 };
 
 export const downloadBackup = async () => {
-    const backupData = await domain.useCases.backups[
-        'get_backup_use_case'
-    ].execute();
+    const backupData =
+        await domain.useCases.backups['get_backup_use_case'].execute();
     saveFile(_getBackupFileName(), backupData);
 };
 

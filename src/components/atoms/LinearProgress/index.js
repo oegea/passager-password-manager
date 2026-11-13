@@ -37,7 +37,7 @@ const ProgressContainer = styled.div`
     left: 0;
     right: 0;
     height: 3px;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--color-accent-soft);
     z-index: 1000;
     overflow: hidden;
 `;
@@ -45,12 +45,8 @@ const ProgressContainer = styled.div`
 const ProgressBar = styled.div`
     height: 100%;
     width: 25%;
-    background: linear-gradient(90deg,
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0.8),
-        rgba(255, 255, 255, 0.3)
-    );
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    background: var(--color-accent);
+    border-radius: var(--radius-full);
     animation: ${indeterminateAnimation} 1.5s ease-in-out infinite;
     transform-origin: left;
 `;

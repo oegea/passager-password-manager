@@ -32,6 +32,7 @@ import GlobalSpinner from '../../../molecules/GlobalSpinner/index.js';
 import useDialogConfirmation from '../../../../hooks/useDialogConfirmation/index.js';
 // Own libs
 import { startLoginProcess } from '../../../../libs/backend.js';
+import FieldError from '../../../atoms/FieldError/index.js';
 
 const IntroduceEmailStage = ({
     email,
@@ -86,7 +87,7 @@ const IntroduceEmailStage = ({
                     }
                 />
                 {email.error.length > 0 && (
-                    <span style={{ color: 'red' }}>{t(email.error)}</span>
+                    <FieldError>{t(email.error)}</FieldError>
                 )}
             </InputWrapper>
 
@@ -94,6 +95,8 @@ const IntroduceEmailStage = ({
                 <Button
                     label={t('common.Continue')}
                     onClick={submitEmail}
+                    variant="primary"
+                    fullWidth
                 />
             </ButtonWrapper>
         </>

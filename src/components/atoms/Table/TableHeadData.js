@@ -22,8 +22,17 @@
 import styled from 'styled-components';
 
 const TableHeadData = styled.th`
-    border-bottom: 1px solid rgb(199, 199, 199);
-    padding-bottom: 15px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-faint);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 12px 16px;
+    text-transform: uppercase;
+
+    &:first-child {
+        width: 60%;
+    }
 `;
 
 const AtomTableHeadData = (props) => {

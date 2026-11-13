@@ -28,7 +28,6 @@ import {
     checkPassword,
     setUserMasterPassword,
 } from '../../../libs/masterPassword.js';
-import { isMobileDevice } from '../../../libs/mobile.js';
 // Atoms
 import Title from '../../atoms/Title/index.js';
 import Button from '../../atoms/Button/index.js';
@@ -46,6 +45,7 @@ import withUser from '../../../providers/WithUser.js';
 // Hooks
 import useDialogConfirmation from '../../../hooks/useDialogConfirmation/index.js';
 import LanguageSelector from '../../molecules/LanguageSelector/index.js';
+import FieldError from '../../atoms/FieldError/index.js';
 
 const PageUserSignup = ({ user }) => {
     const { t } = useTranslation();
@@ -173,6 +173,8 @@ const PageUserSignup = ({ user }) => {
                             <Button
                                 label={t('common.Continue')}
                                 onClick={() => setStep(2)}
+                                variant="primary"
+                                fullWidth
                             />
                         </ButtonWrapper>
                     </>
@@ -218,9 +220,9 @@ const PageUserSignup = ({ user }) => {
                                 }
                             />
                             {password.error.length > 0 && (
-                                <span style={{ color: 'red' }}>
+                                <FieldError>
                                     {password.error}
-                                </span>
+                                </FieldError>
                             )}
                         </InputWrapper>
                         <InputWrapper marginBottom="25px">
@@ -242,19 +244,21 @@ const PageUserSignup = ({ user }) => {
                                 }
                             />
                             {passwordConfirm.error.length > 0 && (
-                                <span style={{ color: 'red' }}>
+                                <FieldError>
                                     {passwordConfirm.error}
-                                </span>
+                                </FieldError>
                             )}
                         </InputWrapper>
                         <ButtonWrapper justifyContent="center">
                             <Button
                                 label={t('common.Go back')}
                                 onClick={() => setStep(1)}
+                                variant="ghost"
                             />
                             <Button
                                 label={t('common.Finish')}
                                 onClick={() => onFinish()}
+                                variant="primary"
                             />
                         </ButtonWrapper>
                     </>

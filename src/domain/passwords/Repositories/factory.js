@@ -19,7 +19,7 @@
  */
 
 // Third party dependencies
-import LocalStorageDatabase from '@useful-tools/localstorage';
+import LocalStorageDatabase from '../../../libs/localStorageDatabase/index.js';
 // Repositories
 import { LocalPasswordsRepository } from './LocalPasswordsRepository.js';
 import { BackendPasswordsRepository } from './BackendPasswordsRepository.js';

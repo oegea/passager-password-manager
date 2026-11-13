@@ -22,7 +22,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { mdiRefresh } from '@mdi/js';
-import Icon from '@mdi/react';
+import Icon from '../../atoms/Icon/index.js';
 import useTranslation from '../../../hooks/useTranslation/index.js';
 import Dialog from '../../atoms/Dialog/Dialog.js';
 import Button from '../../atoms/Button/index.js';
@@ -33,81 +33,100 @@ import Title from '../../atoms/Title/index.js';
 import Description from '../../atoms/Description/index.js';
 
 const OptionRow = styled.div`
-    display: flex;
     align-items: center;
-    margin-bottom: 12px;
-    gap: 8px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    & label {
+        color: var(--color-text);
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+    }
 `;
 
 const Checkbox = styled.input`
-    margin-right: 8px;
+    accent-color: var(--color-accent);
+    height: 18px;
+    width: 18px;
 `;
 
 const SliderContainer = styled.div`
-    display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
 `;
 
 const Slider = styled.input`
+    accent-color: var(--color-accent);
     flex: 1;
 `;
 
 const LengthDisplay = styled.span`
-    font-weight: 600;
-    min-width: 30px;
+    background: var(--color-accent-soft);
+    border-radius: var(--radius-sm);
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    min-width: 40px;
+    padding: 4px 8px;
     text-align: center;
 `;
 
 const PasswordContainer = styled.div`
+    align-items: stretch;
     display: flex;
-    align-items: center;
     gap: 8px;
     margin-bottom: 16px;
-    min-width: 500px;
-    
-    @media (max-width: 768px) {
-        min-width: 300px;
-    }
+    width: min(500px, calc(100vw - 90px));
 `;
 
 const PasswordPreview = styled.div`
+    background: var(--color-surface-sunken);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
     flex: 1;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    min-height: 46px;
+    overflow-wrap: anywhere;
     padding: 12px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 14px;
-    word-break: break-all;
-    min-height: 20px;
-    overflow-wrap: break-word;
 `;
 
 const RefreshButton = styled.div`
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-    display: flex;
     align-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    display: flex;
     justify-content: center;
-    background: #f0f0f0;
-    border: 1px solid #ddd;
-    
+    padding: 0 12px;
+    transition: background-color var(--duration-fast) ease,
+        color var(--duration-fast) ease, transform var(--duration-base) var(--ease-out);
+
     &:hover {
-        background: #e5e5e5;
+        background: var(--color-surface-hover);
+        color: var(--color-accent);
+    }
+
+    &:active {
+        transform: rotate(180deg);
     }
 `;
 
 const WarningMessage = styled.div`
-    background: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 16px;
-    color: #856404;
+    background: var(--color-danger-soft);
+    border-radius: var(--radius-md);
+    color: var(--color-danger);
     font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    padding: 12px;
 `;
 
 const generatePassword = (options) => {
@@ -277,14 +296,12 @@ const PasswordGeneratorDialog = ({ onGenerate, onClose, currentPassword = '' }) 
                     <Button
                         label={showConfirmation ? t('common.Go back') : t('common.Cancel')}
                         onClick={handleCancel}
-                        color="black"
-                        backgroundColor="white"
+                        variant="ghost"
                     />
                     <Button
                         label={showConfirmation ? t('common.Continue') : t('passwordGenerator.Use this password')}
                         onClick={handleUsePassword}
-                        color="black"
-                        backgroundColor="white"
+                        variant="primary"
                     />
                 </ButtonWrapper>
             </Dialog>

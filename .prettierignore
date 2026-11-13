@@ -1,4 +1,5 @@
 node_modules
 build
-ios
-android
+pnpm-lock.yaml
+backend
+src/libs/crypto/__fixtures__
